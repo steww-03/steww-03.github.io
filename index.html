@@ -245,6 +245,15 @@ a{color:inherit}
 .pq-facts b{font-variant-numeric:tabular-nums;white-space:nowrap}
 .pq-facts .pos{color:var(--done)} .pq-facts .neg{color:var(--hot)}
 .pq-disc{font-size:11.5px;color:var(--ink-3);line-height:1.5}
+.pq-addr{position:relative}
+.pq-sugg{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:50;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 28px rgba(10,20,40,.2);overflow:hidden;max-height:320px;overflow-y:auto}
+.pq-sugg[hidden]{display:none}
+.pq-sugg button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;padding:10px 12px;border:0;border-bottom:1px solid var(--line-2);background:transparent;min-height:48px}
+.pq-sugg button:last-of-type{border-bottom:0}
+.pq-sugg button[aria-selected="true"],.pq-sugg button:hover{background:var(--accent-soft)}
+.pq-sugg b{font-size:14px;color:var(--ink)}
+.pq-sugg small{font-size:12px;color:var(--ink-3)}
+.pq-sugg .foot{font-size:10.5px;color:var(--ink-3);padding:6px 12px;text-align:right;background:var(--surface-2)}
 .pq-actions{display:flex;flex-direction:column;gap:10px;margin-top:4px}
 .pq-save{min-height:52px;font-size:15px}
 .pq-share{display:flex;gap:8px;flex-wrap:wrap}
@@ -2349,7 +2358,7 @@ const PQ_SCHEMA = [
     { k: "nome", l: "Nome e cognome", t: "text", req: true, full: true, ac: "name" },
     { k: "telefono", l: "Numero di telefono", t: "tel", req: true, ac: "tel" } ] },
   { title: "Indirizzo", fields: [ { k: "indirizzo", l: "Indirizzo", t: "area", req: true, full: true } ] },
-  { title: "Tipologia", checks: "tipologia", opts: ["Appartamento in villetta","Casa indipendente","Attico","Mansarda","Loft","Villa","Villetta a schiera","Rustico / Casale","Palazzo"] },
+  { title: "Tipologia", checks: "tipologia", opts: ["Appartamento","Appartamento in villetta","Casa indipendente","Attico","Mansarda","Loft","Villa","Villetta a schiera","Rustico / Casale","Palazzo","Commerciale"] },
   { title: "Dati immobile", fields: [
     { k: "superficie", l: "Superficie", t: "num", unit: "m²" },
     { k: "piano", l: "Piano", t: "text" },
@@ -2540,10 +2549,10 @@ function pqValuate(rec){
   let k = 1;
   const mul = (label, f) => { if (Math.abs(f - 1) < 0.001) return; k *= f; facts.push([label, (f > 1 ? "+" : "−") + Math.abs(Math.round((f - 1) * 100)) + "%", f > 1 ? "pos" : "neg"]); };
   // tipologia
-  const TIPO = { "Appartamento in villetta": 1, "Casa indipendente": 1.05, "Attico": 1.12, "Mansarda": 0.9, "Loft": 1.03, "Villa": 1.15, "Villetta a schiera": 1.05, "Rustico / Casale": 0.92, "Palazzo": 0.95 };
+  const TIPO = { "Appartamento": 1, "Commerciale": 0.85, "Appartamento in villetta": 1, "Casa indipendente": 1.05, "Attico": 1.12, "Mansarda": 0.9, "Loft": 1.03, "Villa": 1.15, "Villetta a schiera": 1.05, "Rustico / Casale": 0.92, "Palazzo": 0.95 };
   const tipi = pick("tipologia");
   if (tipi.length) mul("Tipologia: " + tipi.join(", "), tipi.reduce((s, t) => s + (TIPO[t] || 1), 0) / tipi.length); else missing++;
-  const isApt = !tipi.length || tipi.some(t => ["Appartamento in villetta", "Attico", "Mansarda", "Loft"].includes(t));
+  const isApt = !tipi.length || tipi.some(t => ["Appartamento", "Appartamento in villetta", "Attico", "Mansarda", "Loft"].includes(t));
   // stato
   const STATO = { "Nuovo": 1.15, "Abitabile": 1, "Da ristrutturare": 0.72 };
   const stati = pick("stato");
@@ -2631,6 +2640,90 @@ $("pq-val-on").addEventListener("change", e => {
 });
 $("pq_comune").addEventListener("input", pqValHint);
 document.addEventListener("change", e => { if (e.target.id !== "pq_indirizzo") return; if ($("pq-val-on").checked && !$("pq_comune").value) { const g = pqFindComune(e.target.value); if (g) { $("pq_comune").value = g; pqValHint(); } } });
+
+
+/* ===================== SUGGERIMENTI INDIRIZZO ===================== */
+const PHOTON = "https://photon.komoot.io/api/";
+let addrTimer = null, addrAbort = null, addrItems = [], addrSel = -1, addrBox = null, addrLastQ = "";
+function addrEnsureBox(){
+  const ta = $("pq_indirizzo"); if (!ta) return null;
+  if (addrBox && addrBox.isConnected) return addrBox;
+  const wrap = ta.parentElement; wrap.classList.add("pq-addr");
+  addrBox = document.createElement("div"); addrBox.className = "pq-sugg"; addrBox.id = "pq-sugg"; addrBox.hidden = true; addrBox.setAttribute("role", "listbox");
+  wrap.appendChild(addrBox);
+  ta.setAttribute("aria-autocomplete", "list"); ta.setAttribute("aria-controls", "pq-sugg");
+  return addrBox;
+}
+function addrClose(){ if (addrBox) addrBox.hidden = true; addrItems = []; addrSel = -1; }
+function addrFormat(p, typedNum){
+  const prov = p.county === "Bergamo" ? "BG" : p.county === "Brescia" ? "BS" : "";
+  const street = p.street || (p.type === "street" || p.osm_key === "highway" ? p.name : "") || "";
+  const num = p.housenumber || (street ? typedNum : "");
+  const place = p.city || p.town || p.village || p.name || "";
+  const line1 = street ? `${street}${num ? " " + num : ""}` : (p.name || place);
+  const line2 = [p.postcode, place, prov && `(${prov})`].filter(Boolean).join(" ");
+  const full = street ? `${line1}, ${line2}` : line2 || line1;
+  return { line1, line2, full, comune: place };
+}
+async function addrSearch(q){
+  const box = addrEnsureBox(); if (!box) return;
+  if (addrAbort) addrAbort.abort();
+  addrAbort = new AbortController();
+  const typedNum = (q.match(/\b\d+\s*[a-zA-Z]?(?:\/\w+)?\b/) || [""])[0].replace(/\s+/g, "");
+  try {
+    const r = await fetch(PHOTON + "?" + new URLSearchParams({ q, limit: "8", bbox: "9.25,45.1,10.95,46.45", lat: "45.62", lon: "9.95" }), { signal: addrAbort.signal });
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    const seen = new Set();
+    addrItems = (j.features || []).map(f => f.properties || {})
+      .filter(p => p.countrycode === "IT" && (p.county === "Bergamo" || p.county === "Brescia"))
+      .map(p => addrFormat(p, typedNum)).filter(x => { if (seen.has(x.full)) return false; seen.add(x.full); return true; }).slice(0, 6);
+  } catch (e) {
+    if (e.name === "AbortError") return;
+    const n = pqNorm(q);
+    addrItems = PQ_COMUNI.filter(c => pqNorm(c).startsWith(n.split(",").pop().trim())).slice(0, 5).map(c => ({ line1: c, line2: "Comune (" + PQ_PREZZI[c][0] + ")", full: q.replace(/[^,]*$/, "").trim() + (q.includes(",") ? " " : "") + c, comune: c }));
+  }
+  addrSel = -1;
+  if (!addrItems.length || $("pq_indirizzo") !== document.activeElement) { addrClose(); return; }
+  box.innerHTML = addrItems.map((it, i) => `<button type="button" role="option" data-addr="${i}" aria-selected="false"><b>${esc(it.line1)}</b>${it.line2 ? `<small>${esc(it.line2)}</small>` : ""}</button>`).join("") +
+    `<div class="foot">Suggerimenti © OpenStreetMap · puoi anche scrivere liberamente</div>`;
+  box.hidden = false;
+}
+function addrPick(i){
+  const it = addrItems[i], ta = $("pq_indirizzo"); if (!it || !ta) return;
+  ta.value = it.full;
+  const c = PQ_BYNORM[pqNorm(it.comune)] || pqFindComune(it.full);
+  if (c && $("pq_comune")) $("pq_comune").value = c;
+  addrClose();
+  addrLastQ = it.full;
+  ta.dispatchEvent(new Event("input", { bubbles: true }));
+  ta.dispatchEvent(new Event("change", { bubbles: true }));
+  if (typeof pqValHint === "function") pqValHint();
+  addrLastQ = it.full;
+}
+document.addEventListener("input", e => {
+  if (e.target.id !== "pq_indirizzo" || !e.isTrusted && e.target.value === addrLastQ) return;
+  const q = e.target.value.trim();
+  clearTimeout(addrTimer);
+  if (q.length < 3 || q === addrLastQ) { addrClose(); return; }
+  addrTimer = setTimeout(() => addrSearch(q), 280);
+});
+document.addEventListener("keydown", e => {
+  if (e.target.id !== "pq_indirizzo" || !addrBox || addrBox.hidden || !addrItems.length) return;
+  const btns = [...addrBox.querySelectorAll("[data-addr]")];
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+    e.preventDefault();
+    addrSel = e.key === "ArrowDown" ? (addrSel + 1) % btns.length : (addrSel - 1 + btns.length) % btns.length;
+    btns.forEach((b, i) => b.setAttribute("aria-selected", i === addrSel));
+  } else if (e.key === "Enter" && addrSel >= 0) { e.preventDefault(); addrPick(addrSel); }
+  else if (e.key === "Escape") { e.stopPropagation(); addrClose(); }
+});
+document.addEventListener("mousedown", e => { if (e.target.closest(".pq-sugg")) e.preventDefault(); });
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-addr]"); if (b) { addrPick(+b.dataset.addr); return; }
+  if (addrBox && !addrBox.hidden && !e.target.closest(".pq-addr")) addrClose();
+});
+document.addEventListener("focusout", e => { if (e.target.id === "pq_indirizzo") setTimeout(() => { if (document.activeElement !== $("pq_indirizzo")) addrClose(); }, 150); });
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["zona","messaggi","foto","preq"] : ["zona"];
