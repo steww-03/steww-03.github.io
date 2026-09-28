@@ -274,6 +274,269 @@ a{color:inherit}
   #pq-print-area td{padding:1.2mm 2mm;border-bottom:1px dotted #999;vertical-align:top}
   #pq-print-area td:first-child{width:38%;font-weight:bold}
 }
+/* ---------- SUITE: stili comuni ---------- */
+#dd.dd{overflow-y:auto;overscroll-behavior:contain}
+.dd-g{display:flex;flex-direction:column}
+.dd-g+.dd-g{border-top:1px solid var(--line-2);margin-top:4px;padding-top:2px}
+#dd .dd-item{min-height:52px;padding:8px 10px}
+@media (min-width:1024px) and (min-height:560px){
+  #dd.dd{width:min(660px,calc(100vw - 24px))}
+  .dd-list{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
+  .dd-g+.dd-g{border-top:0;margin-top:0;padding-top:0}
+  .dd-g:nth-child(n+3){border-top:1px solid var(--line-2);margin-top:4px;padding-top:2px}
+}
+.x-main{width:100%;max-width:1280px;margin:0 auto;padding:16px var(--gut) 48px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.x-wide{max-width:none}
+@media (min-width:1900px){ .x-main{max-width:1760px} .x-main.x-wide{max-width:none} }
+@media (min-width:2400px){ .x-main{max-width:2300px} }
+.x-card{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.x-card h2{margin:0;font-family:var(--display);font-size:17px}
+.x-card h3{margin:0;font-family:var(--display);font-size:14px;letter-spacing:.02em}
+.x-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}
+.x-grow{flex:1;min-width:0}
+.x-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.x-f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.x-f>span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.x-f>span em{color:var(--hot);font-style:normal}
+.x-full{grid-column:1/-1}
+.x-unit{display:flex;gap:6px;align-items:center}
+.x-unit .inp{flex:1;min-width:0}
+.x-unit small{font-size:13px;color:var(--ink-2);font-weight:600;white-space:nowrap}
+.x-pills{display:flex;gap:6px;flex-wrap:wrap}
+.x-pill{min-height:36px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.x-pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.x-pill .n{font-variant-numeric:tabular-nums;font-size:11px;background:var(--surface-2);color:var(--ink-2);border-radius:999px;padding:1px 7px}
+.x-pill[aria-pressed="true"] .n{background:rgba(255,255,255,.25);color:inherit}
+.x-empty{padding:28px 12px;text-align:center;color:var(--ink-3);font-size:14px}
+.x-acts{display:flex;gap:6px;flex-wrap:wrap}
+.x-act{min-height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:700;color:var(--ink);display:inline-flex;align-items:center;gap:6px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.x-act.call{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.x-act.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.x-act.danger{color:var(--hot)}
+.x-act.armed{background:var(--hot);border-color:var(--hot);color:#fff}
+.x-act[disabled]{opacity:.5;cursor:default}
+.x-tabs{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:12px;padding:4px}
+.x-tabs button{flex:1;min-height:40px;border:0;border-radius:9px;background:transparent;font-weight:700;font-size:13px;color:var(--ink-2)}
+.x-tabs button[aria-selected="true"]{background:var(--surface);color:var(--accent);box-shadow:var(--shadow)}
+.x-back{display:none}
+.x-note{font-size:12px;color:var(--ink-3);line-height:1.45}
+.x-bar{height:8px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.x-bar i{display:block;height:100%;border-radius:inherit;background:var(--accent)}
+.x-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.x-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0}
+.x-kv{display:grid;grid-template-columns:1fr auto;gap:6px 14px;font-size:14px}
+.x-kv .k{color:var(--ink-2)} .x-kv .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.x-kv .tot{font-weight:800;font-size:16px;border-top:1px solid var(--line);padding-top:8px}
+.x-kv .sub{font-size:12px;color:var(--ink-3)}
+.inp.bad{border-color:var(--hot);box-shadow:0 0 0 3px var(--hot-soft)}
+/* ---------- CLIENTI ---------- */
+.cl-main{padding-bottom:24px}
+.cl-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;min-width:0}
+.cl-side{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cl-sidehead{display:none}
+.cl-pipe,#cl-ruoli{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut)}
+.cl-pipe::-webkit-scrollbar,#cl-ruoli::-webkit-scrollbar{display:none}
+.cl-pipe .x-pill,#cl-ruoli .x-pill{flex-shrink:0}
+.cl-listcol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.cl-listmeta{font-size:12px;color:var(--ink-3)}
+.cl-list{display:flex;flex-direction:column;gap:8px}
+.cl-item{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface);text-align:left;width:100%;cursor:pointer;min-width:0}
+.cl-item[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.cl-av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff;flex-shrink:0}
+.cl-it{flex:1;min-width:0}
+.cl-it b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl-it small{display:block;font-size:12px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl-due{font-size:11px;font-weight:800;color:var(--hot);white-space:nowrap}
+.cl-due.ok{color:var(--ink-3);font-weight:600}
+.cl-detail{display:none;min-width:0}
+.cl-detail.open{display:flex;flex-direction:column;gap:12px;position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;padding:0 var(--gut) 40px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.cl-dhead{position:sticky;top:0;z-index:2;background:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 10px) 0 10px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line-2)}
+.cl-dtitle{display:flex;gap:12px;align-items:center;min-width:0}
+.cl-dtitle h2{margin:0;font-family:var(--display);font-size:20px;overflow-wrap:anywhere;flex:1;min-width:0}
+.cl-detail .x-back{display:inline-flex}
+.cl-dgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
+.cl-dcol{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cl-stati{display:flex;gap:6px;flex-wrap:wrap}
+.cl-stati button{min-height:38px;padding:6px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.cl-stati button[aria-pressed="true"]{color:#fff;border-color:transparent}
+.cl-quick{display:flex;gap:6px;flex-wrap:wrap}
+.cl-tl{display:flex;flex-direction:column}
+.cl-ev{display:grid;grid-template-columns:28px 1fr auto;gap:10px;padding:10px 0;border-top:1px solid var(--line-2);align-items:start;font-size:13px}
+.cl-ev:first-child{border-top:0}
+.cl-ev .ic{font-size:18px;line-height:1.2;text-align:center}
+.cl-ev b{display:block;font-size:13.5px}
+.cl-ev small{color:var(--ink-3);font-size:12px}
+.cl-ev a,.cl-ev button.lnk{color:var(--accent);font-weight:700;text-decoration:none;background:none;border:0;padding:0;font-size:12.5px;white-space:nowrap;cursor:pointer}
+.cl-checks{display:flex;flex-wrap:wrap;gap:6px}
+.cl-checks label{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:4px 10px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);font-size:12.5px;font-weight:600;cursor:pointer}
+.cl-checks label:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.cl-checks input{accent-color:var(--accent);margin:0}
+.cl-placeholder{display:none}
+@media (min-width:900px){
+  .cl-wrap{grid-template-columns:minmax(300px,380px) minmax(0,1fr);align-items:start}
+  .cl-side{grid-column:1}
+  .cl-listcol{grid-column:1}
+  .cl-detail,.cl-detail.open{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;gap:12px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);max-height:calc(100dvh - 92px);overflow-y:auto;inset:auto;z-index:auto;background:transparent;padding:0 4px 24px;scrollbar-width:thin}
+  .cl-dhead{padding-top:0}
+  .cl-detail .x-back{display:none}
+  .cl-pipe,#cl-ruoli{flex-wrap:wrap;overflow:visible;margin-inline:0;padding-inline:0}
+  .cl-placeholder{display:grid;place-items:center;min-height:320px;border:2px dashed var(--line);border-radius:14px;color:var(--ink-3);text-align:center;padding:24px}
+}
+@media (min-width:1500px){ .cl-dgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)} }
+@media (min-width:1900px){
+  .cl-wrap{grid-template-columns:220px minmax(320px,420px) minmax(0,1fr)}
+  .cl-side{grid-column:1;grid-row:1;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+  .cl-sidehead{display:block}.cl-sidehead h2{margin:0;font-family:var(--display);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .cl-pipe,#cl-ruoli{flex-direction:column;align-items:stretch}
+  .cl-pipe .x-pill,#cl-ruoli .x-pill{justify-content:space-between;border-radius:10px}
+  .cl-listcol{grid-column:2;grid-row:1}
+  .cl-detail,.cl-detail.open{grid-column:3;grid-row:1}
+}
+@media (min-width:2400px){ .cl-wrap{grid-template-columns:240px 440px minmax(0,1fr)} .cl-dgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.9fr)} }
+/* ---------- CALCOLATORI ---------- */
+.calc-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.calc-card.off{display:none}
+.calc-out{background:var(--surface-2);border-radius:12px;padding:14px}
+.calc-big{font-family:var(--display);font-size:32px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.calc-big small{font-size:14px;color:var(--ink-3);font-weight:600}
+.calc-chk{flex-direction:row!important;align-items:center;gap:8px!important;font-size:13.5px;font-weight:600;flex-wrap:wrap;min-height:40px}
+.calc-chk input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent);margin:0}
+.calc-plus[hidden]{display:none}
+@media (min-width:1100px){
+  .calc-tabs{display:none}
+  .calc-card.off{display:flex}
+  .calc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .calc-main{max-width:1500px}
+}
+@media (min-width:1700px){ .calc-grid{grid-template-columns:repeat(3,minmax(0,1fr))} .calc-main{max-width:2200px} }
+/* ---------- INCROCIO ---------- */
+.mt-top{display:flex;flex-direction:column;gap:10px}
+.mt-sum{font-size:13px;color:var(--ink-2)}
+.mt-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.mt-col{min-width:0;display:flex;flex-direction:column;gap:8px}
+.mt-srclist{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:calc(var(--gut) * -1);padding:2px var(--gut) 6px;scroll-snap-type:x proximity}
+.mt-srclist::-webkit-scrollbar{display:none}
+.mt-item{flex:0 0 min(260px,78vw);scroll-snap-align:start;text-align:left;border:1px solid var(--line-2);background:var(--surface);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:3px;cursor:pointer;min-width:0}
+.mt-item[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.mt-item b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mt-item small{font-size:12px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mt-item .mt-n{align-self:flex-start;margin-top:4px}
+.mt-n.has{background:var(--done-soft);color:var(--done)}
+.mt-head{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.mt-head h2{margin:0;font-family:var(--display);font-size:18px;overflow-wrap:anywhere}
+.mt-head p{margin:0;font-size:13px;color:var(--ink-2)}
+.mt-card{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 14px;align-items:center}
+.mt-score{grid-row:span 2;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:17px;color:#fff}
+.mt-card b{font-size:15px;overflow-wrap:anywhere}
+.mt-why{display:flex;flex-wrap:wrap;gap:4px}
+.mt-why span{font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--done-soft);color:var(--done);font-weight:600}
+.mt-why span.ko{background:var(--hot-soft);color:var(--hot)}
+.mt-card .x-acts{grid-column:1 / -1;margin-top:6px}
+.mt-tpl{display:none}
+.mt-tpl.show{display:flex}
+@media (min-width:900px){
+  .mt-wrap{grid-template-columns:minmax(280px,360px) minmax(0,1fr)}
+  .mt-srclist{flex-direction:column;overflow:visible;margin:0;padding:0;max-height:calc(100dvh - 190px);overflow-y:auto;scrollbar-width:thin}
+  .mt-item{flex:0 0 auto}
+  .mt-src{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+  .mt-tpl.show{grid-column:2}
+}
+@media (min-width:1900px){
+  .mt-wrap{grid-template-columns:360px minmax(0,1fr) 380px}
+  .mt-tpl{display:flex;position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px);grid-column:3!important;grid-row:1}
+  #mt-tplbtn{display:none}
+  .mt-res .mt-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:10px}
+}
+.mt-list{display:flex;flex-direction:column;gap:10px}
+/* ---------- GIRO DELLA GIORNATA ---------- */
+.gr-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.gr-set,.gr-plan,.gr-mapcol{display:flex;flex-direction:column;gap:12px;min-width:0}
+.gr-day{display:flex;gap:6px;align-items:center}
+.gr-day .inp{flex:1;min-width:0}
+.gr-opts summary,.gr-extra summary{cursor:pointer;display:flex;flex-direction:column;gap:2px;list-style:none}
+.gr-opts summary::-webkit-details-marker,.gr-extra summary::-webkit-details-marker{display:none}
+.gr-opts summary b::after,.gr-extra summary b::after{content:" ▾";color:var(--ink-3)}
+.gr-opts[open] summary b::after,.gr-extra[open] summary b::after{content:" ▴"}
+.gr-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gr-kpi{background:var(--surface);border:1px solid var(--line-2);border-radius:12px;padding:10px 8px;text-align:center;min-width:0}
+.gr-kpi b{display:block;font-family:var(--display);font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gr-kpi span{font-size:11px;color:var(--ink-3)}
+.gr-live{background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.gr-live.late{background:var(--hot)}
+.gr-live.done{background:var(--done)}
+.gr-live .big{font-family:var(--display);font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.gr-live .txt{flex:1;min-width:160px;font-size:13.5px;line-height:1.35}
+.gr-live a{background:rgba(255,255,255,.18);color:inherit;border-radius:10px;padding:10px 14px;font-weight:800;text-decoration:none;white-space:nowrap}
+.gr-tl{display:flex;flex-direction:column}
+.gr-step{display:grid;grid-template-columns:58px 30px minmax(0,1fr);gap:0 10px;align-items:stretch}
+.gr-time{font-family:var(--mono);font-size:13px;font-weight:600;text-align:right;padding-top:12px;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.gr-rail{display:flex;flex-direction:column;align-items:center}
+.gr-rail::before,.gr-rail::after{content:"";width:2px;background:var(--line);flex:1}
+.gr-rail::before{flex:0 0 8px}
+.gr-step:first-child .gr-rail::before{background:transparent}
+.gr-step:last-child .gr-rail::after{background:transparent}
+.gr-ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;flex-shrink:0;background:var(--surface-2);border:2px solid var(--line)}
+.gr-body{padding:8px 0 12px;min-width:0}
+.gr-body b{display:block;font-size:14.5px;overflow-wrap:anywhere}
+.gr-body small{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.4}
+.gr-body .x-acts{margin-top:6px}
+.gr-step.appt .gr-ic{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:800;font-family:var(--display)}
+.gr-step.appt .gr-time{color:var(--ink);font-weight:800}
+.gr-step.drive .gr-body{color:var(--ink-2)}
+.gr-step.pause .gr-ic{background:var(--done-soft);border-color:var(--done-bar)}
+.gr-step.pause b{color:var(--done)}
+.gr-step.lunch .gr-ic{background:var(--todo-soft);border-color:var(--todo-bar)}
+.gr-step.warn .gr-ic{background:var(--hot-soft);border-color:var(--hot)}
+.gr-step.warn b{color:var(--hot)}
+.gr-step.go .gr-time{color:var(--accent);font-weight:800}
+.gr-step.go b{color:var(--accent)}
+.gr-step.past{opacity:.55}
+.gr-step.now .gr-body{background:var(--accent-soft);border-radius:10px;padding:8px 10px;margin:4px 0}
+.gr-miss{display:flex;gap:6px;margin-top:6px}
+.gr-miss .inp{flex:1;min-width:0}
+.gr-map{height:320px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2);isolation:isolate;z-index:0}
+.gr-pin{background:var(--accent);color:#fff;border:2px solid #fff;border-radius:50%;width:28px!important;height:28px!important;display:grid;place-items:center;font:800 13px var(--display);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.gr-pin.home{background:#111827}
+.gr-pr[hidden]{display:none}
+@media (max-width:420px){ .gr-kpis{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (min-width:900px){
+  .gr-wrap{grid-template-columns:minmax(360px,1fr) minmax(0,1.1fr)}
+  .gr-set{grid-column:1}
+  .gr-plan{grid-column:1}
+  .gr-mapcol{grid-column:2;grid-row:1 / span 2;position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+  .gr-map{height:calc(100dvh - 130px);min-height:420px}
+}
+@media (min-width:1900px){
+  .gr-wrap{grid-template-columns:340px minmax(460px,600px) minmax(0,1fr)}
+  .gr-set{grid-column:1;grid-row:1;position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+  .gr-plan{grid-column:2;grid-row:1}
+  .gr-mapcol{grid-column:3;grid-row:1}
+  .gr-opts{pointer-events:auto}
+}
+/* ---------- OBIETTIVI ---------- */
+.ob-nav{display:flex;align-items:center;gap:10px}
+.ob-nav h2{flex:1;text-align:center;text-transform:capitalize;margin:0;font-family:var(--display);font-size:19px}
+.ob-days{text-align:center;font-size:13px;color:var(--ink-2)}
+.ob-monthbar i{background:var(--ink-3)}
+.ob-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:12px}
+.ob-card{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0;position:relative}
+.ob-card.hit{border-color:var(--done-bar);box-shadow:0 0 0 2px var(--done-soft)}
+.ob-top{display:flex;align-items:center;gap:8px}
+.ob-top .ic{font-size:22px}
+.ob-top b{font-size:14px;flex:1;min-width:0}
+.ob-num{display:flex;align-items:baseline;gap:6px;font-variant-numeric:tabular-nums}
+.ob-num strong{font-family:var(--display);font-size:34px;font-weight:800;line-height:1}
+.ob-num button{border:0;background:none;padding:2px 4px;border-radius:6px;font-size:16px;color:var(--ink-3);font-weight:700;cursor:pointer;text-decoration:underline dotted}
+.ob-num input{width:70px;font-size:15px;padding:4px 6px}
+.ob-proj{font-size:12.5px;color:var(--ink-2);line-height:1.4}
+.ob-src{font-size:11px;color:var(--ink-3)}
+.ob-bar{position:relative;height:10px;border-radius:999px;background:var(--surface-2);overflow:visible}
+.ob-bar i{position:absolute;inset:0 auto 0 0;border-radius:999px}
+.ob-bar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.45;border-radius:2px}
+@media (min-width:1900px){ .ob-main{max-width:2200px} .ob-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))} }
+.civ-lead{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.civ-lead .btn{flex:1;min-height:46px}
+.btn.lead{background:var(--hot);border-color:var(--hot);color:#fff;font-weight:800}
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
 .list-head span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .list{padding:8px var(--gut) 28px;display:grid;grid-template-columns:1fr;gap:8px;align-content:start}
@@ -797,12 +1060,194 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
   </main>
 </div>
 <div id="pq-print-area" aria-hidden="true"></div>
+<div class="view" id="view-clienti" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>👥 Clienti</h1><p class="sub">Venditori, acquirenti e tutto lo storico</p></div>
+      <span class="sync" id="cl-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide cl-main">
+    <div class="cl-wrap" id="cl-wrap">
+      <aside class="cl-side">
+        <div class="cl-sidehead"><h2>Stato</h2></div>
+        <div class="x-pills cl-pipe" id="cl-pipe" role="group" aria-label="Filtra per stato"></div>
+        <div class="x-pills" id="cl-ruoli" role="group" aria-label="Filtra per ruolo"></div>
+      </aside>
+      <section class="cl-listcol">
+        <div class="x-row">
+          <input class="inp x-grow" id="cl-q" type="search" placeholder="Cerca nome, telefono, indirizzo…" autocomplete="off">
+          <button type="button" class="tool primary" id="cl-new">＋ Nuovo</button>
+        </div>
+        <div class="cl-listmeta" id="cl-meta"></div>
+        <div class="cl-list" id="cl-list"></div>
+      </section>
+      <section class="cl-detail" id="cl-detail" aria-live="polite"></section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-calc" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🧮 Calcolatori</h1><p class="sub">Mutuo, costi di acquisto e netto per il venditore</p></div>
+      <span class="sync" id="calc-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main calc-main">
+    <div class="x-tabs calc-tabs" role="tablist" aria-label="Calcolatore">
+      <button type="button" role="tab" data-calc-tab="mutuo" aria-selected="true">🏦 Mutuo</button>
+      <button type="button" role="tab" data-calc-tab="costi" aria-selected="false">🧾 Costi acquisto</button>
+      <button type="button" role="tab" data-calc-tab="netto" aria-selected="false">💶 Netto venditore</button>
+    </div>
+    <div class="calc-grid" id="calc-grid">
+      <section class="x-card calc-card" data-calc="mutuo" aria-labelledby="calc-h-mutuo">
+        <h2 id="calc-h-mutuo">🏦 Rata del mutuo</h2>
+        <div class="x-grid">
+          <label class="x-f"><span>Prezzo immobile</span><div class="x-unit"><input class="inp" data-c="m_prezzo" inputmode="numeric" value="200.000"><small>€</small></div></label>
+          <label class="x-f"><span>Anticipo</span><div class="x-unit"><input class="inp" data-c="m_anticipo" inputmode="decimal" value="20"><select class="inp" data-c="m_antu" style="flex:0 0 auto;width:auto"><option value="pct">%</option><option value="eur">€</option></select></div></label>
+          <label class="x-f"><span>Tasso annuo (TAN)</span><div class="x-unit"><input class="inp" data-c="m_tasso" inputmode="decimal" value="3"><small>%</small></div></label>
+          <label class="x-f"><span>Durata</span><select class="inp" data-c="m_anni"><option>10</option><option>15</option><option>20</option><option selected>25</option><option>30</option></select></label>
+        </div>
+        <div class="calc-out" id="calc-out-mutuo"></div>
+        <div class="x-note">Metti il tasso della proposta della banca. Il reddito indicato segue la regola comune "rata non oltre un terzo del reddito netto": ogni banca valuta a modo suo.</div>
+        <div class="x-acts"><a class="x-act wa" data-calc-wa="mutuo" href="#" target="_blank" rel="noopener">💬 Invia su WhatsApp</a><button type="button" class="x-act" data-calc-copy="mutuo">📋 Copia</button></div>
+      </section>
+      <section class="x-card calc-card" data-calc="costi" aria-labelledby="calc-h-costi">
+        <h2 id="calc-h-costi">🧾 Costi di acquisto</h2>
+        <div class="x-grid">
+          <label class="x-f"><span>Prezzo</span><div class="x-unit"><input class="inp" data-c="c_prezzo" inputmode="numeric" value="200.000"><small>€</small></div></label>
+          <label class="x-f"><span>Chi vende</span><select class="inp" data-c="c_vend"><option value="privato">Privato</option><option value="impresa">Impresa (con IVA)</option></select></label>
+          <label class="x-f"><span>Tipo di acquisto</span><select class="inp" data-c="c_casa"><option value="prima">Prima casa</option><option value="seconda">Seconda casa</option></select></label>
+          <label class="x-f"><span>Rendita catastale</span><div class="x-unit"><input class="inp" data-c="c_rendita" inputmode="decimal" placeholder="se nota"><small>€</small></div></label>
+          <label class="x-f"><span>Agenzia</span><div class="x-unit"><input class="inp" data-c="c_agpct" inputmode="decimal" value="3"><small>% + IVA</small></div></label>
+          <label class="x-f"><span>Notaio (stima)</span><div class="x-unit"><input class="inp" data-c="c_notaio" inputmode="numeric" placeholder="automatico"><small>€</small></div></label>
+          <label class="x-f x-full calc-chk"><input type="checkbox" data-c="c_mutuo"> Con mutuo di <input class="inp" data-c="c_mimp" inputmode="numeric" value="160.000" style="width:130px"> €</label>
+        </div>
+        <div class="calc-out" id="calc-out-costi"></div>
+        <div class="x-note">Aliquote in vigore nel 2026. Tra privati le imposte si calcolano sul valore catastale (rendita × 1,05 × 110 prima casa o 120 seconda casa) se inserisci la rendita, altrimenti sul prezzo. Il notaio è una stima: conferma sempre col preventivo.</div>
+        <div class="x-acts"><a class="x-act wa" data-calc-wa="costi" href="#" target="_blank" rel="noopener">💬 Invia su WhatsApp</a><button type="button" class="x-act" data-calc-copy="costi">📋 Copia</button></div>
+      </section>
+      <section class="x-card calc-card" data-calc="netto" aria-labelledby="calc-h-netto">
+        <h2 id="calc-h-netto">💶 Quanto resta al venditore</h2>
+        <label class="x-f" id="calc-from-wrap"><span>Prendi i dati da un foglio di prequalifica</span><select class="inp" id="calc-from"></select></label>
+        <div class="x-grid">
+          <label class="x-f"><span>Prezzo di vendita</span><div class="x-unit"><input class="inp" data-c="n_prezzo" inputmode="numeric" value="200.000"><small>€</small></div></label>
+          <label class="x-f"><span>Provvigione agenzia</span><div class="x-unit"><input class="inp" data-c="n_agpct" inputmode="decimal" value="3"><small>% + IVA</small></div></label>
+          <label class="x-f"><span>Mutuo da estinguere</span><div class="x-unit"><input class="inp" data-c="n_residuo" inputmode="numeric" placeholder="0"><small>€</small></div></label>
+          <label class="x-f"><span>Spese tecniche (APE, conformità)</span><div class="x-unit"><input class="inp" data-c="n_spese" inputmode="numeric" value="500"><small>€</small></div></label>
+          <label class="x-f x-full calc-chk"><input type="checkbox" data-c="n_plus"> Venduto entro 5 anni dall'acquisto e non è stata l'abitazione principale</label>
+          <label class="x-f calc-plus"><span>Prezzo pagato all'acquisto</span><div class="x-unit"><input class="inp" data-c="n_acq" inputmode="numeric" placeholder="0"><small>€</small></div></label>
+          <label class="x-f calc-plus"><span>Spese di acquisto e lavori documentati</span><div class="x-unit"><input class="inp" data-c="n_costiacq" inputmode="numeric" placeholder="0"><small>€</small></div></label>
+        </div>
+        <div class="calc-out" id="calc-out-netto"></div>
+        <div class="x-note">La plusvalenza è stimata con l'imposta sostitutiva del 26% applicata dal notaio. Casi particolari (immobili ereditati, lavori col Superbonus) vanno verificati col notaio o il commercialista.</div>
+        <div class="x-acts"><a class="x-act wa" data-calc-wa="netto" href="#" target="_blank" rel="noopener">💬 Invia su WhatsApp</a><button type="button" class="x-act" data-calc-copy="netto">📋 Copia</button></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-match" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🔗 Incrocio domanda-offerta</h1><p class="sub">Immobili dei fogli di prequalifica × richieste degli acquirenti</p></div>
+      <span class="sync" id="mt-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide mt-main">
+    <div class="mt-top">
+      <div class="x-tabs" role="tablist" aria-label="Vista">
+        <button type="button" role="tab" data-mt-mode="imm" aria-selected="true">🏠 Per immobile</button>
+        <button type="button" role="tab" data-mt-mode="buy" aria-selected="false">🔑 Per acquirente</button>
+      </div>
+      <div class="mt-sum" id="mt-sum"></div>
+    </div>
+    <div class="mt-wrap">
+      <section class="mt-col mt-src"><div class="mt-srclist" id="mt-src"></div></section>
+      <section class="mt-col mt-res" id="mt-res"></section>
+      <section class="mt-col mt-tpl x-card">
+        <h3>✏️ Messaggio per l'acquirente</h3>
+        <textarea class="inp" id="mt-tpl" rows="7"></textarea>
+        <div class="x-note">Segnaposto: {nome} {tipologia} {comune} {mq} {prezzo} {firma}. Il messaggio si usa col tasto WhatsApp di ogni abbinamento.</div>
+        <label class="calc-chk" style="font-size:13px"><input type="checkbox" id="mt-near"> Mostra anche gli abbinamenti "quasi" (un criterio non rispettato)</label>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-giro" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🚗 Giro della giornata</h1><p class="sub">Appuntamenti in ordine, tempi di guida, pause e orari di partenza</p></div>
+      <span class="sync" id="gr-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide gr-main">
+    <div class="gr-wrap">
+      <aside class="gr-set">
+        <div class="x-card gr-daycard">
+          <div class="gr-day"><button type="button" class="chip" data-gr-day="-1" aria-label="Giorno precedente">‹</button><input class="inp" id="gr-date" type="date"><button type="button" class="chip" data-gr-day="1" aria-label="Giorno successivo">›</button><button type="button" class="chip" data-gr-day="0">Oggi</button></div>
+          <div id="gr-login"></div>
+        </div>
+        <details class="x-card gr-opts" id="gr-opts">
+          <summary><b>⚙️ Partenza e pause</b><span class="x-note" id="gr-opts-sum"></span></summary>
+          <div class="x-grid" style="margin-top:12px">
+            <label class="x-f x-full"><span>Parti da (casa o ufficio)</span><input class="inp" id="gr-start" data-gr="start" placeholder="Es. Via Roma 1, Seriate" autocomplete="street-address"></label>
+            <label class="x-f calc-chk x-full"><input type="checkbox" data-gr="ritorno"> Rientro al punto di partenza a fine giro</label>
+            <label class="x-f"><span>Margine prima di ogni appuntamento</span><div class="x-unit"><input class="inp" data-gr="margine" type="number" min="0" max="60" inputmode="numeric"><small>min</small></div></label>
+            <label class="x-f"><span>Parcheggio e arrivo a piedi</span><div class="x-unit"><input class="inp" data-gr="parcheggio" type="number" min="0" max="30" inputmode="numeric"><small>min</small></div></label>
+            <label class="x-f"><span>Durata se l'evento non ha fine</span><div class="x-unit"><input class="inp" data-gr="durata" type="number" min="10" max="240" inputmode="numeric"><small>min</small></div></label>
+            <label class="x-f calc-chk x-full"><input type="checkbox" data-gr="traffico"> Considera il traffico delle ore di punta (7:30–9:15 e 17:00–19:15)</label>
+            <label class="x-f calc-chk x-full"><input type="checkbox" data-gr="pranzo"> Tieni una pausa pranzo</label>
+            <label class="x-f gr-pr"><span>Pranzo tra le</span><input class="inp" data-gr="pranzoDa" type="time"></label>
+            <label class="x-f gr-pr"><span>e le</span><input class="inp" data-gr="pranzoA" type="time"></label>
+            <label class="x-f gr-pr"><span>Durata pranzo</span><div class="x-unit"><input class="inp" data-gr="pranzoMin" type="number" min="15" max="120" inputmode="numeric"><small>min</small></div></label>
+          </div>
+        </details>
+        <details class="x-card gr-extra">
+          <summary><b>＋ Aggiungi una tappa</b><span class="x-note">non presente nel calendario</span></summary>
+          <div class="x-grid" style="margin-top:12px">
+            <label class="x-f x-full"><span>Indirizzo</span><input class="inp" id="gr-x-luogo" placeholder="Es. Via Garibaldi 5, Bergamo"></label>
+            <label class="x-f x-full"><span>Cosa</span><input class="inp" id="gr-x-tit" placeholder="Es. Sopralluogo, ritiro chiavi"></label>
+            <label class="x-f"><span>Ora</span><input class="inp" id="gr-x-ora" type="time" value="11:00"></label>
+            <label class="x-f"><span>Durata</span><div class="x-unit"><input class="inp" id="gr-x-dur" type="number" min="5" value="30" inputmode="numeric"><small>min</small></div></label>
+          </div>
+          <button type="button" class="x-act" id="gr-x-add" style="margin-top:10px">＋ Aggiungi al giro</button>
+        </details>
+      </aside>
+      <section class="gr-plan">
+        <div id="gr-live"></div>
+        <div class="gr-kpis" id="gr-kpis"></div>
+        <div class="x-card gr-tlcard"><div class="gr-tl" id="gr-tl"></div></div>
+        <div class="x-acts" id="gr-actions"></div>
+      </section>
+      <section class="gr-mapcol"><div class="gr-map" id="gr-map"></div><div class="x-note" id="gr-mapnote">Percorsi: © OpenStreetMap, OSRM. Tempi stimati.</div></section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-obiettivi" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📊 Obiettivi del mese</h1><p class="sub">Quanto hai fatto e quanto manca, giorno per giorno</p></div>
+      <span class="sync" id="ob-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main ob-main">
+    <div class="ob-head x-card">
+      <div class="ob-nav"><button type="button" class="chip" data-ob-m="-1" aria-label="Mese precedente">‹</button><h2 id="ob-title">Obiettivi</h2><button type="button" class="chip" data-ob-m="1" aria-label="Mese successivo">›</button></div>
+      <div class="ob-days" id="ob-days"></div>
+      <div class="x-bar ob-monthbar"><i id="ob-monthbar"></i></div>
+    </div>
+    <div id="ob-login"></div>
+    <div class="ob-grid" id="ob-grid"></div>
+    <div class="x-note" id="ob-note">Tocca il numero dell'obiettivo per cambiarlo. I conteggi arrivano da Clienti, Prequalifiche, Ricerca Zona, Centro Messaggi e dal tuo calendario Google. Ognuno vede solo i propri numeri.</div>
+  </main>
+</div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
-  <div class="dd-h">Strumenti</div>
-  <button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
-  <button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
-  <button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
-  <button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Scheda dati cliente e immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
+  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Percorso, pause e orari di partenza</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Scheda dati cliente e immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi d'acquisto, netto venditore</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -1104,6 +1549,7 @@ function drawSheet(){
         <select class="inp" id="cy-${i}" data-f="tipoImmobile">${TIPI.map(([v,l]) => `<option value="${v}"${(c.tipoImmobile||"")===v?" selected":""}>${l}</option>`).join("")}</select></div>
       <div class="row wrap"><span class="rich-lbl">🔔 Richiamare il</span><input class="inp" id="cr-${i}" data-f="richiamo" type="date" value="${esc(c.richiamo)}" style="min-width:140px">
         ${c.telefono ? `<a class="wa" href="https://wa.me/${esc(String(c.telefono).replace(/[^0-9]/g,""))}" target="_blank" rel="noopener">WhatsApp</a>` : ""}</div>
+      ${window.leadBtn ? leadBtn(c) : ""}
     </div>`).join("");
   $("overlay").innerHTML = `
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-title">
@@ -2025,7 +2471,7 @@ async function startWeb(){
     webStarted = true;
     await initGas();
     renderAcc();
-    diaryLoadRemote(); diaryFlush(); if (window.fotoRender) fotoRender(); if (window.pqMerge) pqMerge();
+    diaryLoadRemote(); diaryFlush(); if (window.fotoRender) fotoRender(); if (window.pqMerge) pqMerge(); if (window.xMergeAll) xMergeAll();
     mcp = gasMcp(); loadState = "idle"; watchRange(); loadLeads();
   } else { loadState = "idle"; watchRange(); loadLeads(); }
 }
@@ -2476,7 +2922,7 @@ $("pq-form").addEventListener("submit", e => {
   rec.val = rec.valOn ? pqValuate(rec) : null;
   const i = pqList.findIndex(x => x.id === rec.id);
   if (i >= 0) pqList[i] = rec; else pqList.unshift(rec);
-  pqCur = rec; pqPersist();
+  pqCur = rec; pqPersist(); if (window.clOnPreq) clOnPreq(rec);
   try { localStorage.removeItem(PQ_DRAFT); } catch {}
   $("pq-sync").textContent = "Salvato";
   pqMsg(`✅ Foglio di <b>${esc(rec.v.nome)}</b> salvato${store && store.gas ? " nel tuo Google" : " su questo dispositivo (accedi con Google per averlo anche sugli altri)"}.`);
@@ -2725,12 +3171,846 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("focusout", e => { if (e.target.id === "pq_indirizzo") setTimeout(() => { if (document.activeElement !== $("pq_indirizzo")) addrClose(); }, 150); });
 
+
+/* ===================== SUITE: base comune ===================== */
+const XVIEWS = {}; let xCur = null;
+const XCOLLS = [];
+const xId = p => p + "-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const xDigits = s => { let d = String(s || "").replace(/[^\d]/g, ""); if (d.startsWith("0039")) d = d.slice(4); else if (d.length > 10 && d.startsWith("39")) d = d.slice(2); return d; };
+const xTel = s => "tel:" + (xDigits(s) ? "+39" + xDigits(s) : "");
+const xWa = (tel, text) => "https://wa.me/" + (xDigits(tel) ? "39" + xDigits(tel) : "") + (text ? "?text=" + encodeURIComponent(text) : "");
+const xISO = d => { const x = new Date(d); return new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
+const xAddDays = (iso, n) => { const d = new Date(iso + "T12:00:00"); d.setDate(d.getDate() + n); return xISO(d); };
+const xDay = iso => new Date(iso + "T12:00:00").toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short" });
+const xHM = ms => new Date(ms).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+const xDur = min => { min = Math.max(0, Math.round(min)); return min < 60 ? min + " min" : Math.floor(min / 60) + " h" + (min % 60 ? " " + String(min % 60).padStart(2, "0") : ""); };
+const xMoney = v => { const s = String(v == null ? "" : v).replace(/[^\d,]/g, "").replace(",", "."); const x = parseFloat(s); return isFinite(x) ? x : 0; };
+const xPct = v => { const x = parseFloat(String(v == null ? "" : v).replace(",", ".").replace(/[^\d.]/g, "")); return isFinite(x) ? x : 0; };
+const xEuro = n => "€ " + Math.round(n || 0).toLocaleString("it-IT");
+const xNorm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[’`]/g, "'").replace(/\s+/g, " ").trim();
+const xLogged = () => !!(store && store.gas && tok);
+function xSync(id){ const el = $(id); if (!el) return; el.textContent = xLogged() ? "Google" : "Accedi"; el.classList.toggle("clickable", !xLogged()); }
+function xWorkday(iso){ let d = iso; for (let i = 0; i < 7; i++) { const w = new Date(d + "T12:00:00").getDay(); if (w !== 0 && w !== 6) return d; d = xAddDays(d, 1); } return iso; }
+/* Archivio sincronizzato: localStorage + Drive (appDataFolder), unione per id e data di modifica, eliminazioni propagate */
+function xColl(ls, dk){
+  const c = { ls, dk, list: [], merged: false };
+  try { c.list = JSON.parse(localStorage.getItem(ls) || "[]") || []; } catch {}
+  c.all = () => c.list.filter(x => !x.del);
+  c.get = id => c.list.find(x => x.id === id && !x.del) || null;
+  c.save = () => { try { localStorage.setItem(ls, JSON.stringify(c.list)); } catch {} if (store && store.gas) gs("saveData", dk, JSON.stringify(c.list)); };
+  c.put = rec => { rec.updated = Date.now(); if (!rec.created) rec.created = rec.updated; const i = c.list.findIndex(x => x.id === rec.id); if (i >= 0) c.list[i] = rec; else c.list.unshift(rec); c.save(); return rec; };
+  c.remove = (id, keep) => { const i = c.list.findIndex(x => x.id === id); if (i < 0) return; const t = { id, del: true, updated: Date.now() }; for (const k of keep || []) if (c.list[i][k] != null) t[k] = c.list[i][k]; c.list[i] = t; c.save(); };
+  c.merge = () => {
+    if (c.merged || !(store && store.gas)) return false; c.merged = true;
+    let remote = []; try { remote = JSON.parse((typeof driveDoc !== "undefined" && driveDoc[dk]) || "[]") || []; } catch {}
+    let ch = false;
+    for (const r of remote) { const i = c.list.findIndex(x => x.id === r.id); if (i < 0) { c.list.push(r); ch = true; } else if ((r.updated || 0) > (c.list[i].updated || 0)) { c.list[i] = r; ch = true; } }
+    if (ch || remote.length !== c.list.length) c.save();
+    return ch;
+  };
+  XCOLLS.push(c); return c;
+}
+function xDoc(ls, dk, def){
+  const d = { data: Object.assign({}, def), merged: false };
+  try { Object.assign(d.data, JSON.parse(localStorage.getItem(ls) || "{}") || {}); } catch {}
+  d.save = () => { d.data.updated = Date.now(); try { localStorage.setItem(ls, JSON.stringify(d.data)); } catch {} if (store && store.gas) gs("saveData", dk, JSON.stringify(d.data)); };
+  d.merge = () => {
+    if (d.merged || !(store && store.gas)) return false; d.merged = true;
+    let r = null; try { r = JSON.parse((typeof driveDoc !== "undefined" && driveDoc[dk]) || "null"); } catch {}
+    if (r && (r.updated || 0) > (d.data.updated || 0)) { d.data = Object.assign({}, def, r); try { localStorage.setItem(ls, JSON.stringify(d.data)); } catch {} return true; }
+    if (d.data.updated && (!r || (r.updated || 0) < d.data.updated)) d.save();
+    return false;
+  };
+  XCOLLS.push(d); return d;
+}
+window.xMergeAll = function(){ XCOLLS.forEach(c => c.merge()); if (xCur && XVIEWS[xCur]) XVIEWS[xCur](); };
+/* Eventi del calendario Google (serve l'accesso) */
+async function xCalList(fromMs, toMs, q){
+  let items = [], pageToken = "";
+  for (let p = 0; p < 5; p++) {
+    const qs = new URLSearchParams({ timeMin: new Date(fromMs).toISOString(), timeMax: new Date(toMs).toISOString(), singleEvents: "true", orderBy: "startTime", maxResults: "250" });
+    if (q) qs.set("q", q); if (pageToken) qs.set("pageToken", pageToken);
+    const r = await api(CAL + "?" + qs);
+    items = items.concat(r.items || []);
+    if (!r.nextPageToken) break; pageToken = r.nextPageToken;
+  }
+  return items.filter(ev => ev.status !== "cancelled" && !((ev.attendees || []).some(a => a.self && a.responseStatus === "declined")));
+}
+async function xCalUpsert(evId, body){
+  const H = { "Content-Type": "application/json" }, b = JSON.stringify(body);
+  if (evId) { try { return await api(CAL + "/" + encodeURIComponent(evId) + "?sendUpdates=none", { method: "PATCH", headers: H, body: b }); } catch (e) { if (e instanceof AuthErr) throw e; } }
+  return api(CAL + "?sendUpdates=none", { method: "POST", headers: H, body: b });
+}
+function xEventTimes(dateISO, hm, durMin){
+  const s = new Date(dateISO + "T" + (hm || "10:00") + ":00"), e = new Date(s.getTime() + (durMin || 30) * 6e4);
+  return { start: { dateTime: s.toISOString(), timeZone: "Europe/Rome" }, end: { dateTime: e.toISOString(), timeZone: "Europe/Rome" } };
+}
+async function xCopy(text){ try { await navigator.clipboard.writeText(text); toast("Copiato ✓"); } catch { toast("Copia non riuscita"); } }
+
+
+/* ===================== 1 · CLIENTI ===================== */
+const CL_STATI = [["nuovo","Nuovo contatto","#64748b"],["prequalificato","Prequalificato","#0891b2"],["valutazione","Valutazione fatta","#7c3aed"],["incarico","Incarico","#1d4ed8"],["trattativa","Trattativa","#d97706"],["chiuso","Chiuso","#15803d"],["perso","Perso","#9ca3af"]];
+const CL_ST = Object.fromEntries(CL_STATI.map(s => [s[0], s]));
+const CL_RUOLI = [["venditore","🏠 Venditore"],["acquirente","🔑 Acquirente"],["entrambi","🔁 Entrambi"]];
+const CL_FONTI = ["Porta a porta","Prequalifica","Portale / annuncio","Passaparola","Centro Messaggi","Cartello","Social","Altro"];
+const CL_TIPI = ["Appartamento","Appartamento in villetta","Casa indipendente","Attico","Mansarda","Loft","Villa","Villetta a schiera","Rustico / Casale","Palazzo","Commerciale"];
+const clients = xColl("rz_clienti_v1", "clienti");
+const clUi = Object.assign({ q: "", stato: "", ruolo: "", sel: null }, lsGet("rz_clienti_ui_v1") || {});
+let clOpenMobile = false, clDelArm = false, clCalBusy = false;
+const clCalCache = {};
+const clSaveUi = () => lsSet("rz_clienti_ui_v1", { stato: clUi.stato, ruolo: clUi.ruolo, sel: clUi.sel });
+function clName(r){ return (r.nome || "").trim() || (r.indirizzo ? "📍 " + r.indirizzo.split("\n")[0] : (r.tel ? "Tel. " + r.tel : "Senza nome")); }
+function clInitials(r){ const n = (r.nome || "").trim(); if (!n) return "?"; const p = n.split(/\s+/); return ((p[0][0] || "") + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase(); }
+function clEmptyRec(extra){ return Object.assign({ id: xId("cl"), nome: "", tel: "", email: "", ruolo: "venditore", stato: "nuovo", indirizzo: "", comune: "", fonte: "", note: "", prossima: { data: "", ora: "10:00", cosa: "", evId: "" }, rich: { min: "", max: "", zone: "", tipi: [], mq: "", camere: "", note: "" }, pqIds: [], log: [] }, extra || {}); }
+function clIsBuyer(r){ return r.ruolo === "acquirente" || r.ruolo === "entrambi"; }
+function clIsSeller(r){ return r.ruolo === "venditore" || r.ruolo === "entrambi"; }
+function clSetStato(r, s){ if (r.stato === s) return; r.stato = s; (r.log = r.log || []).push({ at: Date.now(), t: "stato", v: s }); }
+function clByPhone(tel){ const d = xDigits(tel); if (d.length < 6) return null; return clients.all().find(c => xDigits(c.tel) === d) || null; }
+function clPqOf(r){ const d = xDigits(r.tel); return pqList.filter(p => (r.pqIds || []).includes(p.id) || p.clId === r.id || (d.length >= 6 && xDigits(p.v.telefono) === d)); }
+/* Ogni foglio di prequalifica salvato diventa (o aggiorna) un cliente venditore */
+function clFromPreq(p, quiet){
+  const known = clients.list.find(c => (c.pqIds || []).includes(p.id));
+  if (known && known.del) return null;
+  let r = known || (p.clId && clients.get(p.clId)) || clByPhone(p.v.telefono);
+  const isNew = !r;
+  if (!r) r = clEmptyRec({ nome: p.v.nome || "", tel: p.v.telefono || "", indirizzo: p.v.indirizzo || "", comune: p.v.comune || pqFindComune(p.v.indirizzo || ""), fonte: "Prequalifica", created: p.created || Date.now() });
+  let ch = isNew;
+  if (!(r.pqIds || []).includes(p.id)) { (r.pqIds = r.pqIds || []).push(p.id); ch = true; }
+  if (!r.nome && p.v.nome) { r.nome = p.v.nome; ch = true; }
+  if (!r.tel && p.v.telefono) { r.tel = p.v.telefono; ch = true; }
+  if (!r.indirizzo && p.v.indirizzo) { r.indirizzo = p.v.indirizzo; ch = true; }
+  if (!r.comune && (p.v.comune || p.v.indirizzo)) { r.comune = p.v.comune || pqFindComune(p.v.indirizzo); ch = !!r.comune || ch; }
+  if (r.ruolo === "acquirente") { r.ruolo = "entrambi"; ch = true; }
+  if (r.stato === "nuovo") { clSetStato(r, "prequalificato"); ch = true; }
+  if (ch) { if (isNew) r.log.push({ at: p.created || Date.now(), t: "nota", txt: "Creato dal foglio di prequalifica" }); clients.put(r); }
+  if (!quiet && isNew) toast("👥 Aggiunto ai Clienti: " + clName(r));
+  return r;
+}
+window.clOnPreq = rec => { clFromPreq(rec, false); if (xCur === "clienti") clRender(); };
+function clSyncPreq(){ for (const p of pqList) if (p.v && (p.v.nome || p.v.telefono)) clFromPreq(p, true); }
+/* Storico unificato: note, cambi di stato, prequalifiche, messaggi inviati, appuntamenti e civici */
+function clHistory(r){
+  const out = [], nm = normName(r.nome), d = xDigits(r.tel);
+  for (const l of r.log || []) {
+    if (l.t === "stato") out.push({ at: l.at, ic: "🏷️", b: "Stato: " + ((CL_ST[l.v] || [])[1] || l.v) });
+    else if (l.t === "cal") out.push({ at: l.at, ic: "🔔", b: "Promemoria nel calendario", s: l.txt || "" });
+    else out.push({ at: l.at, ic: "🗒️", b: l.txt || "Nota" });
+  }
+  for (const p of clPqOf(r)) out.push({ at: p.updated || p.created, ic: "📝", b: "Foglio prequalifica", s: (p.v.indirizzo || "").split("\n")[0] + (p.val && !p.val.error ? " · stima " + xEuro(p.val.med) : ""), act: `<button type="button" class="lnk" data-cl-pq="${esc(p.id)}">Apri</button>` });
+  if (nm) for (const l of crm.log || []) if (normName(l.clientName) === nm) out.push({ at: new Date(l.at).getTime(), ic: "💬", b: "Messaggio: " + (MSG_LBL[l.messageType] || l.messageType || "contatto") });
+  const evs = new Map();
+  for (const a of [...(typeof appts !== "undefined" ? appts : []), ...(typeof overview !== "undefined" ? overview : [])]) if ((nm && normName(a.clientName) === nm) || (d.length >= 6 && a.phone && xDigits(a.phone) === d)) evs.set(a.id, a);
+  for (const ev of clCalCache[r.id] || []) evs.set(ev.id, ev);
+  for (const a of evs.values()) { const k = KIND[a.kind] || KIND.altro; out.push({ at: new Date(a.startISO).getTime(), ic: "📅", b: (k.short || k.label || "Appuntamento") + " · " + new Date(a.startISO).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }), s: a.location || "", act: a.htmlLink ? `<a href="${esc(a.htmlLink)}" target="_blank" rel="noopener">Apri</a>` : "" }); }
+  if (d.length >= 6) for (const [k, a] of Object.entries(ann)) for (const c of a.civici || []) if (xDigits(c.telefono) === d) { const [com, via] = k.split("||"); out.push({ at: a.aggiornato || 0, ic: "🚪", b: `Civico ${via} ${c.numero} (${com})`, s: (INT_LBL[c.interesse] || "") + (c.nota ? " · " + c.nota : "") }); }
+  if (r.civ) { const a = ann[key(r.civ.c, r.civ.v)]; if (a && !out.some(o => o.ic === "🚪")) out.push({ at: r.created, ic: "🚪", b: `Civico ${r.civ.v} ${r.civ.n} (${r.civ.c})`, s: "Da Ricerca Zona" }); }
+  return out.filter(o => o.at).sort((a, b) => b.at - a.at);
+}
+async function clLoadCal(r){
+  if (!xLogged() || !(r.nome || "").trim() || clCalCache[r.id]) return;
+  clCalCache[r.id] = [];
+  try {
+    const items = await xCalList(Date.now() - 365 * 864e5, Date.now() + 90 * 864e5, r.nome.trim());
+    clCalCache[r.id] = items.map(parseEvent).filter(a => a.startISO && !/^📞/.test(a.rawSummary));
+    if (clUi.sel === r.id) clDrawTimeline(r);
+  } catch {}
+}
+function clFiltered(){
+  const q = xNorm(clUi.q);
+  return clients.all().filter(r => (!clUi.stato || (clUi.stato === "__due" ? clDue(r) : r.stato === clUi.stato)) && (!clUi.ruolo || r.ruolo === clUi.ruolo || (r.ruolo === "entrambi" && clUi.ruolo !== "entrambi"))
+    && (!q || xNorm(`${r.nome} ${r.tel} ${r.email} ${r.indirizzo} ${r.comune} ${r.note}`).includes(q) || (xDigits(q).length >= 3 && xDigits(r.tel).includes(xDigits(q)))))
+    .sort((a, b) => { const da = clDue(a), db = clDue(b); if (da !== db) return da ? -1 : 1; return (b.updated || 0) - (a.updated || 0); });
+}
+function clDue(r){ return !!(r.prossima && r.prossima.data && r.prossima.data <= xISO(Date.now()) && !["chiuso","perso"].includes(r.stato)); }
+function clRenderSide(){
+  const all = clients.all(), cnt = s => all.filter(r => r.stato === s).length, due = all.filter(clDue).length;
+  $("cl-pipe").innerHTML = `<button type="button" class="x-pill" data-cl-st="" aria-pressed="${!clUi.stato}">Tutti <span class="n">${all.length}</span></button>` +
+    `<button type="button" class="x-pill" data-cl-st="__due" aria-pressed="${clUi.stato === "__due"}">🔔 Da richiamare <span class="n">${due}</span></button>` +
+    CL_STATI.map(([v, l, col]) => `<button type="button" class="x-pill" data-cl-st="${v}" aria-pressed="${clUi.stato === v}"><span class="x-dot" style="background:${col}"></span>${l} <span class="n">${cnt(v)}</span></button>`).join("");
+  $("cl-ruoli").innerHTML = `<button type="button" class="x-pill" data-cl-ru="" aria-pressed="${!clUi.ruolo}">Tutti i ruoli</button>` + CL_RUOLI.map(([v, l]) => `<button type="button" class="x-pill" data-cl-ru="${v}" aria-pressed="${clUi.ruolo === v}">${l}</button>`).join("");
+}
+function clRenderList(){
+  const list = clFiltered(), all = clients.all().length;
+  $("cl-meta").textContent = all ? `${list.length} di ${all} clienti` : "";
+  $("cl-list").innerHTML = !list.length ? `<div class="x-empty">${all ? "Nessun cliente con questi filtri." : "Nessun cliente ancora.<br>Tocca <b>＋ Nuovo</b>, oppure salva un foglio di prequalifica o crea un cliente da un civico caldo in Ricerca Zona."}</div>` :
+    list.map(r => { const st = CL_ST[r.stato] || CL_STATI[0], due = clDue(r);
+      const sub = [(CL_RUOLI.find(x => x[0] === r.ruolo) || ["", ""])[1], st[1], r.comune || (r.indirizzo || "").split("\n")[0]].filter(Boolean).join(" · ");
+      return `<button type="button" class="cl-item" data-cl-id="${esc(r.id)}" aria-current="${clUi.sel === r.id}"><span class="cl-av" style="background:${st[2]}">${esc(clInitials(r))}</span><span class="cl-it"><b>${esc(clName(r))}</b><small>${esc(sub)}</small></span>${r.prossima && r.prossima.data ? `<span class="cl-due${due ? "" : " ok"}">${due ? "🔔 " : ""}${esc(xDay(r.prossima.data))}</span>` : ""}</button>`; }).join("");
+}
+function clF(k, label, val, opts){
+  opts = opts || {};
+  const id = "clf-" + k.replace(/\./g, "-");
+  const input = opts.area ? `<textarea class="inp" id="${id}" data-cl-f="${k}" rows="${opts.rows || 2}" placeholder="${esc(opts.ph || "")}">${esc(val || "")}</textarea>`
+    : opts.sel ? `<select class="inp" id="${id}" data-cl-f="${k}">${opts.sel.map(o => { const [v, l] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(v)}"${String(val || "") === v ? " selected" : ""}>${esc(l)}</option>`; }).join("")}</select>`
+    : `<input class="inp" id="${id}" data-cl-f="${k}" type="${opts.type || "text"}"${opts.im ? ` inputmode="${opts.im}"` : ""}${opts.list ? ` list="${opts.list}"` : ""} value="${esc(val || "")}" placeholder="${esc(opts.ph || "")}" autocomplete="off">`;
+  return `<label class="x-f${opts.full ? " x-full" : ""}" for="${id}"><span>${esc(label)}${opts.req ? " <em>*</em>" : ""}</span>${opts.unit ? `<div class="x-unit">${input}<small>${opts.unit}</small></div>` : input}</label>`;
+}
+function clRenderDetail(){
+  const box = $("cl-detail"), r = clients.get(clUi.sel);
+  box.classList.toggle("open", !!r && clOpenMobile);
+  if (!r) { box.innerHTML = `<div class="cl-placeholder"><div><div style="font-size:40px">👥</div><p>Scegli un cliente dalla lista<br>o creane uno nuovo.</p></div></div>`; return; }
+  const st = CL_ST[r.stato] || CL_STATI[0], waTxt = `Buongiorno${r.nome ? " " + r.nome.split(" ")[0] : ""}, sono ${crm.signature || DEFAULT_SIG}. `;
+  const p = r.prossima || {}, q = r.rich || {};
+  box.innerHTML = `
+  <div class="cl-dhead">
+    <div class="cl-dtitle"><button type="button" class="x-act x-back" data-cl-back aria-label="Torna alla lista">‹ Lista</button><span class="cl-av" style="background:${st[2]}">${esc(clInitials(r))}</span><h2 id="cl-title">${esc(clName(r))}</h2></div>
+    <div class="x-acts">
+      ${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}">📞 Chiama</a><a class="x-act wa" href="${esc(xWa(r.tel, waTxt))}" target="_blank" rel="noopener">💬 WhatsApp</a>` : `<span class="x-note">Aggiungi il telefono per chiamare o scrivere su WhatsApp.</span>`}
+      ${r.email ? `<a class="x-act" href="mailto:${esc(r.email)}">✉️ Email</a>` : ""}
+      <button type="button" class="x-act danger${clDelArm ? " armed" : ""}" data-cl-del>${clDelArm ? "Conferma eliminazione" : "🗑️"}</button>
+    </div>
+  </div>
+  <div class="cl-dgrid">
+    <div class="cl-dcol">
+      <section class="x-card"><h3>Stato</h3><div class="cl-stati">${CL_STATI.map(([v, l, col]) => `<button type="button" data-cl-stato="${v}" aria-pressed="${r.stato === v}" style="${r.stato === v ? "background:" + col : ""}"><span class="x-dot" style="background:${r.stato === v ? "#fff" : col}"></span>${l}</button>`).join("")}</div></section>
+      <section class="x-card"><h3>Dati</h3><div class="x-grid">
+        ${clF("nome", "Nome e cognome", r.nome, { full: true, req: true, ph: "Es. Mario Rossi" })}
+        ${clF("tel", "Telefono", r.tel, { type: "tel", im: "tel", ph: "Es. 333 123 4567" })}
+        ${clF("email", "Email", r.email, { type: "email", ph: "nome@email.it" })}
+        ${clF("ruolo", "Ruolo", r.ruolo, { sel: CL_RUOLI })}
+        ${clF("fonte", "Da dove arriva", r.fonte, { sel: [["", "—"], ...CL_FONTI] })}
+        ${clF("indirizzo", "Indirizzo immobile", r.indirizzo, { full: true, ph: "Via, civico, comune" })}
+        ${clF("comune", "Comune", r.comune, { list: "cl-comuni", ph: "Es. Seriate" })}
+        ${clF("note", "Note", r.note, { area: true, full: true, rows: 3, ph: "Situazione, tempi, esigenze…" })}
+      </div></section>
+    </div>
+    <div class="cl-dcol">
+      <section class="x-card"><h3>🔔 Prossima azione</h3>
+        <div class="x-grid">${clF("prossima.cosa", "Cosa fare", p.cosa, { full: true, ph: "Es. Richiamare per fissare la valutazione" })}${clF("prossima.data", "Giorno", p.data, { type: "date" })}${clF("prossima.ora", "Ora", p.ora || "10:00", { type: "time" })}</div>
+        <div class="cl-quick"><button type="button" class="chip" data-cl-when="1">Domani</button><button type="button" class="chip" data-cl-when="3">Tra 3 giorni</button><button type="button" class="chip" data-cl-when="7">Tra 1 settimana</button><button type="button" class="chip" data-cl-when="30">Tra 1 mese</button>${p.data ? `<button type="button" class="chip" data-cl-when="done">✓ Fatto</button>` : ""}</div>
+        <button type="button" class="x-act" data-cl-cal ${clCalBusy || !p.data ? "disabled" : ""}>${clCalBusy ? "Salvo nel calendario…" : p.evId ? "📅 Aggiorna promemoria nel calendario" : "📅 Metti il promemoria nel calendario"}</button>
+        ${!xLogged() ? `<div class="x-note">Per il promemoria nel calendario accedi con Google (Menu → Centro Messaggi).</div>` : ""}
+      </section>
+      ${clIsBuyer(r) ? `<section class="x-card"><h3>🔑 Cosa cerca</h3><div class="x-grid">
+        ${clF("rich.min", "Budget da", q.min, { im: "numeric", unit: "€", ph: "150.000" })}${clF("rich.max", "Budget fino a", q.max, { im: "numeric", unit: "€", ph: "220.000" })}
+        ${clF("rich.zone", "Zone / comuni", q.zone, { full: true, ph: "Es. Seriate, Pedrengo, Bergamo" })}
+        ${clF("rich.mq", "Metri quadri minimi", q.mq, { im: "numeric", unit: "m²" })}${clF("rich.camere", "Camere minime", q.camere, { im: "numeric" })}
+        <div class="x-f x-full"><span>Tipologie</span><div class="cl-checks">${CL_TIPI.map(t => `<label><input type="checkbox" data-cl-tipo value="${esc(t)}"${(q.tipi || []).includes(t) ? " checked" : ""}> ${esc(t)}</label>`).join("")}</div></div>
+        ${clF("rich.note", "Altre richieste", q.note, { area: true, full: true, ph: "Es. con box, piano alto, no ultimo piano" })}
+      </div><button type="button" class="x-act" data-cl-match>🔗 Immobili adatti a questo cliente</button></section>` : ""}
+      ${clIsSeller(r) ? `<section class="x-card"><h3>🏠 Immobile e prequalifica</h3><div class="x-acts"><button type="button" class="x-act" data-cl-newpq>📝 ${clPqOf(r).length ? "Nuovo foglio" : "Compila la prequalifica"}</button><button type="button" class="x-act" data-cl-calc>🧮 Netto venditore</button></div></section>` : ""}
+    </div>
+    <div class="cl-dcol">
+      <section class="x-card"><h3>📜 Storico</h3>
+        <div class="x-row"><input class="inp x-grow" id="cl-note-in" placeholder="Aggiungi una nota (es. chiamato, richiamare dopo le 18)"><button type="button" class="tool" data-cl-addnote>＋</button></div>
+        <div class="cl-tl" id="cl-tl"></div>
+      </section>
+    </div>
+  </div>`;
+  clDrawTimeline(r);
+  clLoadCal(r);
+}
+function clDrawTimeline(r){
+  const el = $("cl-tl"); if (!el) return;
+  const h = clHistory(r);
+  el.innerHTML = h.length ? h.map(o => `<div class="cl-ev"><span class="ic">${o.ic}</span><div><b>${esc(o.b)}</b>${o.s ? `<small>${esc(o.s)}</small><br>` : ""}<small>${esc(new Date(o.at).toLocaleString("it-IT", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }))}</small></div>${o.act || ""}</div>`).join("")
+    : `<div class="x-empty" style="padding:14px">Ancora nessuna attività.</div>`;
+}
+function clRender(){
+  if (!$("cl-comuni")) document.body.insertAdjacentHTML("beforeend", `<datalist id="cl-comuni">${PQ_COMUNI.map(c => `<option value="${esc(c)}">`).join("")}</datalist>`);
+  clSyncPreq();
+  xSync("cl-sync");
+  if (clUi.sel && !clients.get(clUi.sel)) clUi.sel = null;
+  if (!clUi.sel && innerWidth >= 900) { const f = clFiltered()[0]; if (f) clUi.sel = f.id; }
+  $("cl-q").value = clUi.q;
+  clRenderSide(); clRenderList(); clRenderDetail();
+}
+XVIEWS.clienti = clRender;
+function clSelect(id, mobile){ clCleanup(id); clUi.sel = id; clDelArm = false; clOpenMobile = !!mobile; clSaveUi(); clRenderList(); clRenderDetail(); if (innerWidth < 900 && id) $("cl-detail").scrollTop = 0; }
+function clCleanup(nextId){ const r = clients.get(clUi.sel); if (r && r.id !== nextId && !r.nome && !r.tel && !r.email && !r.indirizzo && !(r.pqIds || []).length) clients.list = clients.list.filter(x => x.id !== r.id), clients.save(); }
+function clSetField(r, el){
+  const f = el.dataset.clF, [a, b] = f.split(".");
+  if (b) { r[a] = r[a] || {}; r[a][b] = el.value; } else r[a] = el.value;
+  if (f === "nome") { const t = $("cl-title"); if (t) t.textContent = clName(r); delete clCalCache[r.id]; }
+}
+let clTimer = null;
+function clSaveSoon(r){ clearTimeout(clTimer); clTimer = setTimeout(() => { clients.put(r); clRenderSide(); clRenderList(); }, 450); }
+function clOpenPreq(r){
+  const d = pqEmpty(); d.clId = r.id; d.v = { nome: r.nome || "", telefono: r.tel || "", indirizzo: r.indirizzo || "", comune: r.comune || "" };
+  for (const k of Object.keys(d.v)) if (!d.v[k]) delete d.v[k];
+  try { localStorage.setItem(PQ_DRAFT, JSON.stringify(d)); } catch {}
+  if (pqBuilt) pqLoad(d);
+  showView("preq");
+}
+window.clOpenPreq = clOpenPreq;
+$("view-clienti").addEventListener("click", async e => {
+  const t = e.target;
+  const it = t.closest("[data-cl-id]"); if (it) return clSelect(it.dataset.clId, true);
+  const st = t.closest("[data-cl-st]"); if (st) { clUi.stato = st.dataset.clSt; clSaveUi(); clRenderSide(); clRenderList(); return; }
+  const ru = t.closest("[data-cl-ru]"); if (ru) { clUi.ruolo = ru.dataset.clRu; clSaveUi(); clRenderSide(); clRenderList(); return; }
+  if (t.closest("#cl-new")) { const r = clients.put(clEmptyRec({ ruolo: clUi.ruolo || "venditore", log: [{ at: Date.now(), t: "nota", txt: "Cliente creato" }] })); clUi.q = ""; clUi.stato = ""; clSelect(r.id, true); clRenderSide(); setTimeout(() => $("clf-nome") && $("clf-nome").focus(), 30); return; }
+  if (t.closest("[data-cl-back]")) { clOpenMobile = false; clCleanup(null); clRenderDetail(); clRenderList(); return; }
+  const r = clients.get(clUi.sel); if (!r) return;
+  const sb = t.closest("[data-cl-stato]"); if (sb) { clSetStato(r, sb.dataset.clStato); clients.put(r); clRenderSide(); clRenderList(); clRenderDetail(); return; }
+  if (t.closest("[data-cl-del]")) {
+    if (!clDelArm) { clDelArm = true; clRenderDetail(); setTimeout(() => { if (clDelArm) { clDelArm = false; clRenderDetail(); } }, 4000); return; }
+    clDelArm = false; clients.remove(r.id, ["pqIds"]); clUi.sel = null; clOpenMobile = false; clSaveUi(); clRender(); toast("Cliente eliminato"); return;
+  }
+  const w = t.closest("[data-cl-when]");
+  if (w) { r.prossima = r.prossima || {}; if (w.dataset.clWhen === "done") { r.log.push({ at: Date.now(), t: "nota", txt: "Fatto: " + (r.prossima.cosa || "azione") }); r.prossima = { data: "", ora: "10:00", cosa: "", evId: "" }; } else { r.prossima.data = xWorkday(xAddDays(xISO(Date.now()), +w.dataset.clWhen)); if (!r.prossima.cosa) r.prossima.cosa = "Richiamare"; } clients.put(r); clRenderSide(); clRenderList(); clRenderDetail(); return; }
+  if (t.closest("[data-cl-cal]")) {
+    if (!xLogged()) { toast("Accedi con Google per usare il calendario"); return; }
+    const p = r.prossima; if (!p.data) return;
+    clCalBusy = true; clRenderDetail();
+    try {
+      const ev = await xCalUpsert(p.evId, Object.assign({ summary: `📞 ${p.cosa || "Richiamare"} · ${clName(r)}`, description: [r.tel ? "Telefono: " + r.tel : "", r.indirizzo ? "Indirizzo: " + r.indirizzo : "", r.note ? "Note: " + r.note : "", "", "Creato dalla sezione Clienti"].filter((x, i) => x || i > 2).join("\n"), colorId: "6", reminders: { useDefault: false, overrides: [{ method: "popup", minutes: 10 }] } }, xEventTimes(p.data, p.ora, 15)));
+      p.evId = ev.id; r.log.push({ at: Date.now(), t: "cal", txt: `${xDay(p.data)} alle ${p.ora || "10:00"} · ${p.cosa || "Richiamare"}` }); clients.put(r); toast("📅 Promemoria salvato nel calendario");
+    } catch (err) { toast("Calendario: " + ((err && err.message) || err)); }
+    clCalBusy = false; clRenderDetail(); return;
+  }
+  if (t.closest("[data-cl-addnote]")) { const v = $("cl-note-in").value.trim(); if (!v) return; r.log.push({ at: Date.now(), t: "nota", txt: v }); clients.put(r); $("cl-note-in").value = ""; clDrawTimeline(r); return; }
+  const pqb = t.closest("[data-cl-pq]"); if (pqb) { const p = pqList.find(x => x.id === pqb.dataset.clPq); if (p) { if (!pqBuilt) pqRender(); pqLoad(p); showView("preq"); } return; }
+  if (t.closest("[data-cl-newpq]")) return clOpenPreq(r);
+  if (t.closest("[data-cl-match]")) { if (window.mtFocusBuyer) mtFocusBuyer(r.id); return; }
+  if (t.closest("[data-cl-calc]")) { if (window.calcForSeller) calcForSeller(r); return; }
+});
+$("view-clienti").addEventListener("input", e => {
+  if (e.target.id === "cl-q") { clUi.q = e.target.value; clRenderList(); return; }
+  const r = clients.get(clUi.sel); if (!r) return;
+  if (e.target.dataset.clF) { clSetField(r, e.target); clSaveSoon(r); }
+  if (e.target.matches("[data-cl-tipo]")) { r.rich = r.rich || {}; r.rich.tipi = [...document.querySelectorAll("[data-cl-tipo]:checked")].map(x => x.value); clSaveSoon(r); }
+});
+$("view-clienti").addEventListener("change", e => {
+  const r = clients.get(clUi.sel); if (!r) return;
+  if (e.target.dataset.clF) clSetField(r, e.target);
+  if (e.target.dataset.clF === "ruolo" || e.target.dataset.clF === "fonte") { clients.put(r); clRenderDetail(); clRenderList(); }
+  if (e.target.dataset.clF === "nome") clLoadCal(r);
+});
+$("view-clienti").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.id === "cl-note-in") { e.preventDefault(); $("view-clienti").querySelector("[data-cl-addnote]").click(); } });
+window.addEventListener("resize", () => { if (xCur === "clienti" && innerWidth >= 900 && clOpenMobile) { clOpenMobile = false; $("cl-detail").classList.remove("open"); } });
+
+
+/* ===================== 3 · CALCOLATORI ===================== */
+const calcState = Object.assign({ tab: "mutuo", vals: {} }, lsGet("rz_calc_v1") || {});
+const calcTxt = {};
+const cv = k => { const el = document.querySelector(`#view-calc [data-c="${k}"]`); return !el ? "" : el.type === "checkbox" ? el.checked : el.value; };
+function calcNotaio(prezzo, pv){ const base = Math.min(5000, Math.max(1800, 1500 + prezzo * 0.005)); return Math.round((pv ? base * 0.7 : base) / 50) * 50; }
+function calcKV(rows){ return `<div class="x-kv">${rows.map(r => `<span class="k${r[2] ? " " + r[2] : ""}">${esc(r[0])}</span><span class="v${r[2] ? " " + r[2] : ""}">${esc(r[1])}</span>`).join("")}</div>`; }
+function calcMutuo(){
+  const prezzo = xMoney(cv("m_prezzo")), ant = cv("m_antu") === "eur" ? xMoney(cv("m_anticipo")) : prezzo * xPct(cv("m_anticipo")) / 100;
+  const P = Math.max(0, prezzo - ant), tan = xPct(cv("m_tasso")), anni = +cv("m_anni") || 25, n = anni * 12, r = tan / 100 / 12;
+  const rata = !P ? 0 : r ? P * r / (1 - Math.pow(1 + r, -n)) : P / n, tot = rata * n, ltv = prezzo ? P / prezzo * 100 : 0;
+  $("calc-out-mutuo").innerHTML = `<div class="calc-big">${xEuro(rata)} <small>al mese</small></div>` + calcKV([
+    ["Importo del mutuo", xEuro(P)], ["Anticipo", xEuro(ant) + (prezzo ? ` (${Math.round(ant / prezzo * 100)}%)` : "")], ["Mutuo sul prezzo", Math.round(ltv) + "%"],
+    ["Interessi totali in " + anni + " anni", xEuro(tot - P)], ["Totale restituito", xEuro(tot)], ["Reddito netto mensile consigliato", "da " + xEuro(rata * 3)]]) +
+    (ltv > 80 ? `<div class="note-box warn" style="margin-top:10px">Mutuo oltre l'80% del prezzo: servono garanzie aggiuntive (es. Fondo prima casa Consap per i requisiti previsti).</div>` : "");
+  calcTxt.mutuo = `🏦 SIMULAZIONE MUTUO\nPrezzo: ${xEuro(prezzo)}\nAnticipo: ${xEuro(ant)}\nMutuo: ${xEuro(P)} in ${anni} anni al ${String(tan).replace(".", ",")}%\n➡️ Rata: ${xEuro(rata)} al mese\nInteressi totali: ${xEuro(tot - P)}\nReddito netto consigliato: da ${xEuro(rata * 3)} al mese\n(Simulazione indicativa, da confermare con la banca)`;
+}
+function calcCosti(){
+  const prezzo = xMoney(cv("c_prezzo")), impresa = cv("c_vend") === "impresa", prima = cv("c_casa") === "prima", rendita = xMoney(cv("c_rendita"));
+  const rows = []; let imposte = 0, base = prezzo, pv = false;
+  if (!impresa) {
+    if (rendita > 0) { base = rendita * 1.05 * (prima ? 110 : 120); pv = true; }
+    const reg = Math.max(1000, base * (prima ? 0.02 : 0.09));
+    rows.push([`Imposta di registro ${prima ? "2%" : "9%"}${pv ? " sul valore catastale (" + xEuro(base) + ")" : " sul prezzo"}`, xEuro(reg)], ["Imposta ipotecaria", xEuro(50)], ["Imposta catastale", xEuro(50)]);
+    imposte = reg + 100;
+  } else {
+    const iva = prezzo * (prima ? 0.04 : 0.10);
+    rows.push([`IVA ${prima ? "4%" : "10%"}`, xEuro(iva)], ["Registro, ipotecaria e catastale (200 € l'una)", xEuro(600)]);
+    imposte = iva + 600;
+  }
+  const notaio = xMoney(cv("c_notaio")) || calcNotaio(prezzo, pv);
+  const agPct = xPct(cv("c_agpct")), ag = prezzo * agPct / 100 * 1.22;
+  rows.push([`Notaio compravendita${xMoney(cv("c_notaio")) ? "" : " (stima" + (pv ? ", -30% col prezzo-valore" : "") + ")"}`, xEuro(notaio)], [`Agenzia ${String(agPct).replace(".", ",")}% + IVA`, xEuro(ag)]);
+  let mut = 0, mimp = 0;
+  if (cv("c_mutuo")) { mimp = xMoney(cv("c_mimp")); const sost = mimp * (prima ? 0.0025 : 0.02); mut = sost + 1800; rows.push([`Imposta sostitutiva mutuo ${prima ? "0,25%" : "2%"}`, xEuro(sost)], ["Perizia, istruttoria e notaio del mutuo (stima)", xEuro(1800)]); }
+  const tot = imposte + notaio + ag + mut, liq = Math.max(0, prezzo + tot - mimp);
+  $("calc-out-costi").innerHTML = `<div class="calc-big">${xEuro(tot)} <small>di costi (${prezzo ? (tot / prezzo * 100).toFixed(1).replace(".", ",") : 0}% del prezzo)</small></div>` +
+    calcKV([...rows, ["Totale costi", xEuro(tot), "tot"], ["Soldi propri necessari (prezzo + costi" + (mimp ? " − mutuo" : "") + ")", xEuro(liq), "tot"]]);
+  calcTxt.costi = `🧾 COSTI DI ACQUISTO\nPrezzo: ${xEuro(prezzo)} · ${prima ? "prima casa" : "seconda casa"} · venditore ${impresa ? "impresa" : "privato"}\n` + rows.map(r => `• ${r[0]}: ${r[1]}`).join("\n") + `\n➡️ Totale costi: ${xEuro(tot)}\nSoldi propri necessari: ${xEuro(liq)}\n(Stima indicativa, il notaio conferma gli importi)`;
+}
+function calcNetto(){
+  const prezzo = xMoney(cv("n_prezzo")), agPct = xPct(cv("n_agpct")), ag = prezzo * agPct / 100 * 1.22, res = xMoney(cv("n_residuo")), spese = xMoney(cv("n_spese"));
+  const plusOn = cv("n_plus"); document.querySelectorAll("#view-calc .calc-plus").forEach(el => el.hidden = !plusOn);
+  let plusTax = 0, plus = 0;
+  if (plusOn) { plus = Math.max(0, prezzo - xMoney(cv("n_acq")) - xMoney(cv("n_costiacq")) - ag); plusTax = plus * 0.26; }
+  const netto = prezzo - ag - res - spese - plusTax;
+  const rows = [["Prezzo di vendita", xEuro(prezzo)], [`Provvigione ${String(agPct).replace(".", ",")}% + IVA`, "− " + xEuro(ag)]];
+  if (res) rows.push(["Estinzione mutuo", "− " + xEuro(res)]);
+  if (spese) rows.push(["Spese tecniche", "− " + xEuro(spese)]);
+  if (plusOn) rows.push([`Imposta plusvalenza 26% su ${xEuro(plus)}`, "− " + xEuro(plusTax)]);
+  $("calc-out-netto").innerHTML = `<div class="calc-big">${xEuro(netto)} <small>netti in tasca</small></div>` + calcKV([...rows, ["Netto al venditore", xEuro(netto), "tot"]]);
+  calcTxt.netto = `💶 QUANTO LE RESTA DALLA VENDITA\n` + rows.map(r => `• ${r[0]}: ${r[1]}`).join("\n") + `\n➡️ Netto: ${xEuro(netto)}\n(Stima indicativa)`;
+}
+function calcAll(){
+  calcMutuo(); calcCosti(); calcNetto();
+  for (const k of ["mutuo", "costi", "netto"]) { const a = document.querySelector(`[data-calc-wa="${k}"]`); if (a) a.href = xWa("", calcTxt[k]); }
+}
+function calcSave(){ const vals = {}; document.querySelectorAll("#view-calc [data-c]").forEach(el => vals[el.dataset.c] = el.type === "checkbox" ? el.checked : el.value); calcState.vals = vals; lsSet("rz_calc_v1", calcState); }
+function calcTab(tab){ calcState.tab = tab; document.querySelectorAll("[data-calc-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.calcTab === tab)); document.querySelectorAll("#view-calc .calc-card").forEach(c => c.classList.toggle("off", c.dataset.calc !== tab)); lsSet("rz_calc_v1", calcState); }
+let calcInit = false;
+function calcRender(){
+  if (!calcInit) { calcInit = true; for (const [k, v] of Object.entries(calcState.vals || {})) { const el = document.querySelector(`#view-calc [data-c="${k}"]`); if (el) { if (el.type === "checkbox") el.checked = !!v; else el.value = v; } } }
+  $("calc-sync").textContent = "Calcolo"; $("calc-sync").classList.remove("clickable");
+  const opts = pqList.filter(p => xMoney(p.v.prezzo) || (p.val && !p.val.error));
+  $("calc-from-wrap").hidden = !opts.length;
+  $("calc-from").innerHTML = `<option value="">— Scegli un foglio —</option>` + opts.map(p => `<option value="${esc(p.id)}">${esc((p.v.nome || "Senza nome") + " · " + (p.v.indirizzo || "").split("\n")[0])}</option>`).join("");
+  calcTab(calcState.tab || "mutuo"); calcAll();
+}
+XVIEWS.calc = calcRender;
+window.calcForSeller = r => { showView("calc"); calcTab("netto"); const p = clPqOf(r).find(x => xMoney(x.v.prezzo) || (x.val && !x.val.error)); if (p) { $("calc-from").value = p.id; $("calc-from").dispatchEvent(new Event("change", { bubbles: true })); } };
+$("view-calc").addEventListener("input", e => { if (e.target.dataset.c) { calcAll(); calcSave(); } });
+$("view-calc").addEventListener("change", e => {
+  if (e.target.id === "calc-from") { const p = pqList.find(x => x.id === e.target.value); if (p) { const pr = xMoney(p.v.prezzo) || (p.val && p.val.med) || 0; document.querySelector('#view-calc [data-c="n_prezzo"]').value = Math.round(pr).toLocaleString("it-IT"); calcAll(); calcSave(); toast("Prezzo preso da " + (p.v.nome || "foglio")); } return; }
+  if (e.target.dataset.c) { calcAll(); calcSave(); }
+});
+$("view-calc").addEventListener("focusout", e => { const el = e.target; if (!el.dataset || !el.dataset.c || el.getAttribute("inputmode") !== "numeric") return; const v = xMoney(el.value); if (v) el.value = Math.round(v).toLocaleString("it-IT"); });
+$("view-calc").addEventListener("click", e => {
+  const tb = e.target.closest("[data-calc-tab]"); if (tb) return calcTab(tb.dataset.calcTab);
+  const cp = e.target.closest("[data-calc-copy]"); if (cp) return xCopy(calcTxt[cp.dataset.calcCopy] || "");
+});
+
+
+/* ===================== 4 · INCROCIO DOMANDA-OFFERTA ===================== */
+const mtUi = Object.assign({ mode: "imm", sel: null, near: false, tpl: "Buongiorno {nome}, sono {firma}. Ho un immobile che potrebbe interessarle: {tipologia} a {comune}{mq}{prezzo}. Le va se le mando i dettagli o fissiamo una visita?" }, lsGet("rz_match_ui_v1") || {});
+const mtSaveUi = () => lsSet("rz_match_ui_v1", mtUi);
+function mtOffers(){
+  return pqList.map(p => {
+    const cl = clients.all().find(c => (c.pqIds || []).includes(p.id));
+    if (cl && ["chiuso", "perso"].includes(cl.stato)) return null;
+    const comune = p.v.comune || pqFindComune(p.v.indirizzo || ""), prezzo = xMoney(p.v.prezzo) || (p.val && !p.val.error ? p.val.med : 0);
+    return { id: p.id, p, cl, comune, prov: comune && PQ_PREZZI[comune] ? PQ_PREZZI[comune][0] : "", tipi: (p.c.tipologia || []), mq: num(p.v.superficie) || 0, camere: num(p.v.stanze_letto) || 0, prezzo, stimato: !xMoney(p.v.prezzo) && !!prezzo,
+      title: (p.c.tipologia || [])[0] || "Immobile", addr: (p.v.indirizzo || "").split("\n")[0] };
+  }).filter(Boolean);
+}
+function mtBuyers(){ return clients.all().filter(c => clIsBuyer(c) && !["chiuso", "perso"].includes(c.stato) && c.rich && (xMoney(c.rich.max) || xMoney(c.rich.min) || (c.rich.zone || "").trim() || (c.rich.tipi || []).length || xMoney(c.rich.mq))); }
+function mtZoneMatch(zone, comune, prov){
+  const toks = xNorm(zone).split(/[,;/]+|\s+e\s+|\s+o\s+/).map(s => s.trim()).filter(Boolean);
+  if (!toks.length) return null;
+  const c = xNorm(comune);
+  for (const tk of toks) {
+    if (c && (tk === c || c.startsWith(tk + " ") || tk.startsWith(c) && c.length >= 4)) return "in";
+    if (prov && ((prov === "BG" && /provincia di bergamo|bergamasca|^bg$|provincia bg/.test(tk)) || (prov === "BS" && /provincia di brescia|bresciano|^bs$|provincia bs/.test(tk)))) return "prov";
+  }
+  return "out";
+}
+function mtScore(o, b){
+  const q = b.rich || {}, why = [], ko = []; let s = 0, max = 0;
+  const bmax = xMoney(q.max), bmin = xMoney(q.min);
+  if (bmax || bmin) { max += 35;
+    if (!o.prezzo) { s += 15; why.push("prezzo da definire"); }
+    else if (bmax && o.prezzo > bmax * 1.1) ko.push(`sopra budget del ${Math.round((o.prezzo / bmax - 1) * 100)}%`);
+    else if (bmax && o.prezzo > bmax) { s += 24; why.push("poco sopra il budget"); }
+    else if (bmin && o.prezzo < bmin * 0.75) { s += 18; why.push("molto sotto il budget"); }
+    else { s += 35; why.push("nel budget"); } }
+  const z = mtZoneMatch(q.zone, o.comune, o.prov);
+  if (z) { max += 30; if (z === "in") { s += 30; why.push("zona giusta"); } else if (z === "prov") { s += 18; why.push("provincia giusta"); } else ko.push("fuori zona"); }
+  if ((q.tipi || []).length) { max += 20; if (!o.tipi.length) { s += 10; why.push("tipologia da verificare"); } else if (o.tipi.some(t => q.tipi.includes(t))) { s += 20; why.push("tipologia giusta"); } else ko.push("tipologia diversa"); }
+  const mq = xMoney(q.mq);
+  if (mq) { max += 10; if (!o.mq) s += 5; else if (o.mq >= mq) { s += 10; why.push(o.mq + " m²"); } else if (o.mq >= mq * 0.9) { s += 6; why.push("quasi " + mq + " m²"); } else ko.push(`solo ${o.mq} m²`); }
+  const cam = xMoney(q.camere);
+  if (cam) { max += 5; if (!o.camere) s += 2; else if (o.camere >= cam) { s += 5; why.push(o.camere + " camere"); } else ko.push(`${o.camere} camere`); }
+  return { pct: max ? Math.round(s / max * 100) : 0, why, ko };
+}
+function mtPairs(o, b){ const r = mtScore(o, b); const ok = !r.ko.length ? r.pct >= 55 : (mtUi.near && r.ko.length === 1 && r.pct >= 45); return ok ? r : null; }
+function mtMsg(o, b){
+  return mtUi.tpl.replace(/\{nome\}/g, (b.nome || "").split(" ")[0] || "").replace(/\{tipologia\}/g, (o.title || "immobile").toLowerCase()).replace(/\{comune\}/g, o.comune || "zona")
+    .replace(/\{mq\}/g, o.mq ? `, ${o.mq} m²` : "").replace(/\{prezzo\}/g, o.prezzo && !o.stimato ? `, ${xEuro(o.prezzo)}` : "").replace(/\{firma\}/g, crm.signature || DEFAULT_SIG).replace(/\s+,/g, ",").replace(/ {2,}/g, " ");
+}
+const mtCol = p => p >= 85 ? "var(--done-bar)" : p >= 70 ? "#65a30d" : p >= 55 ? "var(--todo-bar)" : "#9ca3af";
+function mtRender(){
+  xSync("mt-sync");
+  const offers = mtOffers(), buyers = mtBuyers();
+  const src = mtUi.mode === "imm" ? offers : buyers;
+  const countFor = x => mtUi.mode === "imm" ? buyers.filter(b => mtPairs(x, b)).length : offers.filter(o => mtPairs(o, x)).length;
+  let totPairs = 0; for (const o of offers) for (const b of buyers) if (mtPairs(o, b)) totPairs++;
+  $("mt-sum").innerHTML = `<b>${offers.length}</b> immobili · <b>${buyers.length}</b> acquirenti con richiesta · <b>${totPairs}</b> abbinamenti`;
+  document.querySelectorAll("[data-mt-mode]").forEach(b => b.setAttribute("aria-selected", b.dataset.mtMode === mtUi.mode));
+  if (!src.some(x => x.id === mtUi.sel)) { const best = [...src].sort((a, b) => countFor(b) - countFor(a))[0]; mtUi.sel = best ? best.id : null; }
+  $("mt-src").innerHTML = !src.length ? `<div class="x-empty">${mtUi.mode === "imm" ? "Nessun immobile: salva un <b>Foglio prequalifica</b> con comune, tipologia, m² e prezzo." : "Nessun acquirente con richiesta: in <b>Clienti</b> imposta il ruolo Acquirente e compila “Cosa cerca”."}</div>` :
+    src.map(x => { const n = countFor(x); return mtUi.mode === "imm"
+      ? `<button type="button" class="mt-item" data-mt-sel="${esc(x.id)}" aria-current="${mtUi.sel === x.id}"><b>${esc(x.title)} · ${esc(x.comune || "comune?")}</b><small>${esc(x.addr || "")}</small><small>${x.mq ? x.mq + " m² · " : ""}${x.prezzo ? (x.stimato ? "stima " : "") + xEuro(x.prezzo) : "prezzo da definire"}</small><span class="x-badge mt-n${n ? " has" : ""}">${n} ${n === 1 ? "acquirente" : "acquirenti"}</span></button>`
+      : `<button type="button" class="mt-item" data-mt-sel="${esc(x.id)}" aria-current="${mtUi.sel === x.id}"><b>${esc(clName(x))}</b><small>${esc([(x.rich.tipi || []).slice(0, 2).join(", "), x.rich.zone].filter(Boolean).join(" · ") || "—")}</small><small>${xMoney(x.rich.max) ? "fino a " + xEuro(xMoney(x.rich.max)) : "budget ?"}${xMoney(x.rich.mq) ? " · da " + xMoney(x.rich.mq) + " m²" : ""}</small><span class="x-badge mt-n${n ? " has" : ""}">${n} ${n === 1 ? "immobile" : "immobili"}</span></button>`; }).join("");
+  const sel = src.find(x => x.id === mtUi.sel);
+  const tplBtn = `<button type="button" class="x-act" id="mt-tplbtn">✏️ Modifica messaggio</button>`;
+  if (!sel) { $("mt-res").innerHTML = src.length ? "" : `<div class="x-card"><h3>Come funziona</h3><p class="x-note" style="font-size:13.5px">Ogni <b>Foglio prequalifica</b> salvato è un immobile in offerta (comune, tipologia, m², prezzo o stima). Ogni cliente <b>Acquirente</b> con “Cosa cerca” compilato è una domanda. Qui vedi subito chi chiamare, con punteggio e messaggio pronto.</p></div>`; return; }
+  let rows;
+  if (mtUi.mode === "imm") rows = buyers.map(b => ({ b, o: sel, r: mtPairs(sel, b) })).filter(x => x.r);
+  else rows = offers.map(o => ({ b: sel, o, r: mtPairs(o, sel) })).filter(x => x.r);
+  rows.sort((a, b) => b.r.pct - a.r.pct);
+  const head = mtUi.mode === "imm"
+    ? `<div class="mt-head"><h2>🏠 ${esc(sel.title)} · ${esc(sel.comune || "")}</h2><p>${esc(sel.addr)}${sel.mq ? " · " + sel.mq + " m²" : ""}${sel.camere ? " · " + sel.camere + " camere" : ""}${sel.prezzo ? " · " + (sel.stimato ? "stima " : "") + xEuro(sel.prezzo) : ""}</p><div class="x-row" style="margin-top:6px">${tplBtn}</div></div>`
+    : `<div class="mt-head"><h2>🔑 ${esc(clName(sel))}</h2><p>${esc([(sel.rich.tipi || []).join(", "), sel.rich.zone, xMoney(sel.rich.max) ? "fino a " + xEuro(xMoney(sel.rich.max)) : ""].filter(Boolean).join(" · "))}</p><div class="x-row" style="margin-top:6px">${sel.tel ? `<a class="x-act call" href="${xTel(sel.tel)}">📞 Chiama</a>` : ""}<button type="button" class="x-act" data-mt-cl="${esc(sel.id)}">👤 Scheda cliente</button>${tplBtn}</div></div>`;
+  $("mt-res").innerHTML = head + (!rows.length ? `<div class="x-empty">Nessun abbinamento${mtUi.near ? "" : ". Prova a includere i “quasi” nel pannello del messaggio"}.</div>` :
+    `<div class="mt-list">` + rows.map(({ b, o, r }) => { const msg = mtMsg(o, b);
+      const title = mtUi.mode === "imm" ? esc(clName(b)) : `${esc(o.title)} · ${esc(o.comune || "")}`;
+      const sub = mtUi.mode === "imm" ? esc([b.rich.zone, xMoney(b.rich.max) ? "fino a " + xEuro(xMoney(b.rich.max)) : ""].filter(Boolean).join(" · ")) : esc(`${o.addr}${o.prezzo ? " · " + (o.stimato ? "stima " : "") + xEuro(o.prezzo) : ""}`);
+      return `<div class="mt-card"><span class="mt-score" style="background:${mtCol(r.pct)}">${r.pct}%</span><b>${title}</b><div><div class="x-note" style="margin-bottom:4px">${sub}</div><div class="mt-why">${r.why.map(w => `<span>✓ ${esc(w)}</span>`).join("")}${r.ko.map(w => `<span class="ko">✕ ${esc(w)}</span>`).join("")}</div></div>
+        <div class="x-acts">${b.tel ? `<a class="x-act call" href="${xTel(b.tel)}">📞 Chiama</a><a class="x-act wa" href="${esc(xWa(b.tel, msg))}" target="_blank" rel="noopener">💬 WhatsApp</a>` : `<span class="x-note">Nessun telefono per ${esc(clName(b))}</span>`}<button type="button" class="x-act" data-mt-log="${esc(b.id)}|${esc(o.id)}">✓ Proposto</button>${mtUi.mode === "imm" ? `<button type="button" class="x-act" data-mt-cl="${esc(b.id)}">👤</button>` : ""}</div></div>`; }).join("") + `</div>`);
+}
+XVIEWS.match = () => { if (!$("mt-tpl").value) $("mt-tpl").value = mtUi.tpl; $("mt-near").checked = !!mtUi.near; mtRender(); };
+window.mtFocusBuyer = id => { mtUi.mode = "buy"; mtUi.sel = id; mtSaveUi(); showView("match"); };
+$("view-match").addEventListener("click", e => {
+  const m = e.target.closest("[data-mt-mode]"); if (m) { mtUi.mode = m.dataset.mtMode; mtUi.sel = null; mtSaveUi(); mtRender(); return; }
+  const s = e.target.closest("[data-mt-sel]"); if (s) { mtUi.sel = s.dataset.mtSel; mtSaveUi(); mtRender(); if (innerWidth < 900) $("mt-res").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  if (e.target.closest("#mt-tplbtn")) { const t = document.querySelector(".mt-tpl"); t.classList.toggle("show"); if (t.classList.contains("show")) { t.scrollIntoView({ behavior: "smooth", block: "nearest" }); $("mt-tpl").focus(); } return; }
+  const c = e.target.closest("[data-mt-cl]"); if (c) { clUi.sel = c.dataset.mtCl; clOpenMobile = true; clSaveUi(); showView("clienti"); return; }
+  const l = e.target.closest("[data-mt-log]");
+  if (l) { const [bid, oid] = l.dataset.mtLog.split("|"), b = clients.get(bid), o = mtOffers().find(x => x.id === oid); if (b && o) { b.log.push({ at: Date.now(), t: "nota", txt: `Proposto: ${o.title} a ${o.comune || ""} (${o.addr})` }); clients.put(b); l.textContent = "✓ Segnato"; l.disabled = true; toast("Annotato nello storico di " + clName(b)); } }
+});
+$("view-match").addEventListener("input", e => { if (e.target.id === "mt-tpl") { mtUi.tpl = e.target.value; mtSaveUi(); clearTimeout(mtUi._t); mtUi._t = setTimeout(mtRender, 400); } });
+$("view-match").addEventListener("change", e => { if (e.target.id === "mt-near") { mtUi.near = e.target.checked; mtSaveUi(); mtRender(); } });
+
+
+/* ===================== 6 · GIRO DELLA GIORNATA ===================== */
+const grPrefs = xDoc("rz_giro_v1", "giro", { start: "", ritorno: true, margine: 10, parcheggio: 5, durata: 45, traffico: true, pranzo: true, pranzoDa: "12:30", pranzoA: "14:30", pranzoMin: 45, extra: {}, locs: {} });
+let grDate = xISO(Date.now()), grEvents = null, grErr = "", grBusy = false, grPlan = null, grMap = null, grLayer = null, grTick = null, grReq = 0;
+const GR_GEO = "rz_geocache_v1";
+let grGeoCache = lsGet(GR_GEO) || {};
+async function grGeocode(q){
+  const k = xNorm(q); if (!k) return null;
+  if (grGeoCache[k] !== undefined) return grGeoCache[k];
+  let res = null;
+  try {
+    const r = await fetch(PHOTON + "?" + new URLSearchParams({ q, limit: "1", lat: "45.62", lon: "9.95", lang: "it" }));
+    if (r.ok) { const j = await r.json(); const f = (j.features || [])[0]; if (f) { const p = f.properties || {}; res = [f.geometry.coordinates[1], f.geometry.coordinates[0], [p.name, p.street && p.housenumber ? p.street + " " + p.housenumber : p.street, p.city || p.town || p.village].filter(Boolean).join(", ")]; } }
+    else return null;
+  } catch { return null; }
+  grGeoCache[k] = res; lsSet(GR_GEO, grGeoCache);
+  return res;
+}
+function grHaversine(a, b){ const R = 6371, dLat = (b[0] - a[0]) * Math.PI / 180, dLon = (b[1] - a[1]) * Math.PI / 180, s = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * Math.PI / 180) * Math.cos(b[0] * Math.PI / 180) * Math.sin(dLon / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(s)); }
+async function grRoute(pts){
+  if (pts.length < 2) return { legs: [], geom: null, osrm: false };
+  try {
+    const r = await fetch("https://router.project-osrm.org/route/v1/driving/" + pts.map(p => p[1].toFixed(5) + "," + p[0].toFixed(5)).join(";") + "?overview=full&geometries=geojson");
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json(); if (j.code !== "Ok" || !j.routes || !j.routes[0]) throw new Error(j.code);
+    return { legs: j.routes[0].legs.map(l => ({ sec: l.duration, m: l.distance })), geom: j.routes[0].geometry.coordinates.map(c => [c[1], c[0]]), osrm: true };
+  } catch {
+    const legs = []; for (let i = 1; i < pts.length; i++) { const km = grHaversine(pts[i - 1], pts[i]) * 1.35; legs.push({ sec: (km / 42 * 3600) + 240, m: km * 1000 }); }
+    return { legs, geom: pts.map(p => [p[0], p[1]]), osrm: false };
+  }
+}
+function grTraffic(ms){ if (!grPrefs.data.traffico) return 1.05; const d = new Date(ms), m = d.getHours() * 60 + d.getMinutes(), wd = d.getDay(); if (wd === 0 || wd === 6) return 1.05; return (m >= 450 && m <= 555) || (m >= 1020 && m <= 1155) ? 1.3 : 1.12; }
+const grAt = (iso, hm) => new Date(iso + "T" + (hm || "00:00") + ":00").getTime();
+function grStops(){
+  const P = grPrefs.data, list = [];
+  for (const ev of grEvents || []) {
+    if (!ev.start || !ev.start.dateTime) continue;
+    const a = parseEvent(ev), s = new Date(ev.start.dateTime).getTime();
+    let e = ev.end && ev.end.dateTime ? new Date(ev.end.dateTime).getTime() : s + P.durata * 6e4; if (e <= s) e = s + P.durata * 6e4;
+    const loc = (P.locs[ev.id] || ev.location || field(ev.description || "", ["Indirizzo", "Luogo"]) || "").trim();
+    list.push({ id: ev.id, title: a.kind !== "altro" && a.clientName && a.clientName !== "Cliente" ? `${KIND[a.kind].short} · ${a.clientName}` : (ev.summary || "Appuntamento"), raw: ev.summary || "", s, e, loc, phone: a.phone, link: ev.htmlLink, own: false });
+  }
+  for (const x of (P.extra[grDate] || [])) { const s = grAt(grDate, x.ora); list.push({ id: x.id, title: x.titolo || "Tappa", raw: x.titolo || "", s, e: s + (x.dur || 30) * 6e4, loc: x.luogo, own: true }); }
+  return list.sort((a, b) => a.s - b.s);
+}
+async function grCompute(){
+  const P = grPrefs.data, req = ++grReq, stops = grStops();
+  for (const st of stops) st.ll = st.loc ? await grGeocode(st.loc) : null;
+  const home = P.start ? await grGeocode(P.start) : null;
+  if (req !== grReq) return null;
+  const located = stops.filter(s => s.ll), pts = [];
+  if (home) pts.push(home);
+  located.forEach(s => pts.push(s.ll));
+  if (home && P.ritorno && located.length) pts.push(home);
+  const route = await grRoute(pts);
+  if (req !== grReq) return null;
+  let li = 0; const leg = () => route.legs[li++] || null;
+  const items = []; let prev = null, prevLoc = home ? "partenza" : null, km = 0, drive = 0, pause = 0, lunchDone = !P.pranzo, firstGo = null, warnings = 0;
+  const lunchA = grAt(grDate, P.pranzoDa), lunchB = grAt(grDate, P.pranzoA), lunchMin = +P.pranzoMin || 45;
+  const pushPause = (from, to) => {
+    let a = from, b = to; if (b - a < 60000) return;
+    if (!lunchDone) { const ls = Math.max(a, lunchA), le = Math.min(b, lunchB); if (le - ls >= lunchMin * 6e4) { if (ls - a >= 5 * 6e4) items.push({ k: "pause", t: a, t2: ls }); items.push({ k: "lunch", t: ls, t2: ls + lunchMin * 6e4 }); pause += lunchMin; lunchDone = true; a = ls + lunchMin * 6e4; } }
+    if (b - a >= 60000) { items.push({ k: "pause", t: a, t2: b }); pause += (b - a) / 6e4; }
+  };
+  let idx = 0;
+  for (const st of stops) {
+    idx++;
+    if (!st.ll) { items.push({ k: "appt", st, n: idx, noLoc: true }); prev = prev ? Math.max(prev, st.e) : st.e; continue; }
+    const l = (home || located.indexOf(st) > 0) ? leg() : null;
+    if (l) {
+      const base = l.sec / 60;
+      let travel = Math.ceil(base * grTraffic(st.s - base * 6e4));
+      const buffer = (+P.parcheggio || 0) + (+P.margine || 0);
+      const leaveBy = st.s - (travel + buffer) * 6e4;
+      km += l.m / 1000; drive += travel;
+      if (prev == null) { items.push({ k: "go", t: leaveBy, st, travel, km: l.m / 1000, from: "partenza" }); firstGo = leaveBy; }
+      else if (leaveBy >= prev) { pushPause(prev, leaveBy); items.push({ k: "go", t: leaveBy, st, travel, km: l.m / 1000, from: prevLoc }); }
+      else {
+        const arrive = prev + (travel + (+P.parcheggio || 0)) * 6e4, late = Math.round((arrive - st.s) / 6e4);
+        items.push({ k: "go", t: prev, st, travel, km: l.m / 1000, from: prevLoc, rush: true });
+        if (late > 0) { items.push({ k: "warn", t: arrive, st, late }); warnings++; st.effE = arrive + (st.e - st.s); }
+        else items.push({ k: "tight", t: arrive, st, margin: -late });
+      }
+    } else if (prev == null) { /* primo appuntamento senza punto di partenza */ }
+    else if (st.s > prev) pushPause(prev, st.s);
+    items.push({ k: "appt", st, n: idx });
+    const effE = st.effE || st.e;
+    prev = prev ? Math.max(prev, effE) : effE; prevLoc = st.loc;
+  }
+  let back = null;
+  if (home && P.ritorno && located.length) { const l = leg(); if (l) { const travel = Math.ceil(l.sec / 60 * grTraffic(prev)); km += l.m / 1000; drive += travel; back = { t: prev, arrive: prev + travel * 6e4, travel, km: l.m / 1000 }; items.push({ k: "back", ...back }); } }
+  const lastEnd = back ? back.arrive : prev;
+  const noLunch = P.pranzo && !lunchDone && stops.length && stops[0].s < lunchB && (lastEnd || 0) > lunchA;
+  return { stops, items, home, km, drive, pause: Math.round(pause), firstGo, lastEnd, warnings, noLunch, route, pts, osrm: route.osrm, located };
+}
+function grStepHtml(it, now, isToday, nextGo){
+  const st = it.st, endT = it.k === "go" ? it.t + it.travel * 6e4 : it.k === "appt" ? st.e : it.k === "back" ? it.arrive : it.k === "warn" || it.k === "tight" ? st.s : (it.t2 || it.t), past = isToday && endT < now;
+  const cls = (k, extra) => `gr-step ${k}${past ? " past" : ""}${extra || ""}`;
+  const nav = st && st.loc ? `<a class="x-act" href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(st.loc)}&travelmode=driving" target="_blank" rel="noopener">🧭 Naviga</a>` : "";
+  switch (it.k) {
+    case "go": return `<div class="${cls("go", it === nextGo ? " now" : "")}"><div class="gr-time">${xHM(it.t)}</div><div class="gr-rail"><span class="gr-ic">🚗</span></div><div class="gr-body"><b>${it.rush ? "Riparti subito" : it.from === "partenza" ? "Parti" : "Riparti"} alle ${xHM(it.t)}</b><small>${xDur(it.travel)} di guida · ${it.km.toFixed(1).replace(".", ",")} km${it.from === "partenza" ? " dal punto di partenza" : ""}${it.rush ? "" : ` · arrivi alle ${xHM(it.t + it.travel * 6e4)}, con ${grPrefs.data.margine} min di margine`}</small>${nav ? `<div class="x-acts">${nav}</div>` : ""}</div></div>`;
+    case "pause": return `<div class="${cls("pause")}"><div class="gr-time">${xHM(it.t)}</div><div class="gr-rail"><span class="gr-ic">☕</span></div><div class="gr-body"><b>Pausa di ${xDur((it.t2 - it.t) / 6e4)}</b><small>Libero dalle ${xHM(it.t)} alle ${xHM(it.t2)}</small></div></div>`;
+    case "lunch": return `<div class="${cls("lunch")}"><div class="gr-time">${xHM(it.t)}</div><div class="gr-rail"><span class="gr-ic">🍝</span></div><div class="gr-body"><b>Pausa pranzo</b><small>Dalle ${xHM(it.t)} alle ${xHM(it.t2)}</small></div></div>`;
+    case "warn": { const txt = `Buongiorno, sono ${crm.signature || DEFAULT_SIG}. Arriverò con circa ${it.late} minuti di ritardo al nostro appuntamento delle ${xHM(st.s)}. Mi scuso per l'attesa.`;
+      return `<div class="${cls("warn")}"><div class="gr-time">${xHM(it.t)}</div><div class="gr-rail"><span class="gr-ic">⚠️</span></div><div class="gr-body"><b>Arrivi ${it.late} min in ritardo</b><small>L'appuntamento prima finisce troppo tardi per arrivare alle ${xHM(st.s)}. Anticipa l'uscita o avvisa il cliente: se lo sposti, il resto della giornata slitta di conseguenza (qui finiresti verso le ${xHM(st.effE || st.e)}).</small>${st.phone ? `<div class="x-acts"><a class="x-act wa" href="${esc(xWa(st.phone, txt))}" target="_blank" rel="noopener">💬 Avvisa del ritardo</a></div>` : ""}</div></div>`; }
+    case "tight": return `<div class="${cls("warn")}"><div class="gr-time">${xHM(it.t)}</div><div class="gr-rail"><span class="gr-ic">⏱️</span></div><div class="gr-body"><b>Arrivi giusto in tempo</b><small>Margine di solo ${it.margin} min: esci appena finisce l'appuntamento precedente.</small></div></div>`;
+    case "back": return `<div class="${cls("drive")}"><div class="gr-time">${xHM(it.t)}</div><div class="gr-rail"><span class="gr-ic gr-home">🏁</span></div><div class="gr-body"><b>Rientro alle ${xHM(it.arrive)}</b><small>${xDur(it.travel)} di guida · ${it.km.toFixed(1).replace(".", ",")} km</small></div></div>`;
+    case "appt": { const nowIn = isToday && st.s <= now && st.e > now;
+      return `<div class="${cls("appt", nowIn ? " now" : "")}"><div class="gr-time">${xHM(st.s)}</div><div class="gr-rail"><span class="gr-ic">${it.n}</span></div><div class="gr-body"><b>${esc(st.title)}</b><small>${xHM(st.s)}–${xHM(st.e)} · ${esc(st.loc || "senza indirizzo")}${st.own ? " · tappa aggiunta" : ""}</small>
+        ${it.noLoc ? `<div class="gr-miss"><input class="inp" data-gr-loc="${esc(st.id)}" placeholder="Scrivi l'indirizzo per calcolare il percorso"><button type="button" class="tool" data-gr-locsave="${esc(st.id)}">OK</button></div>` : ""}
+        <div class="x-acts">${st.phone ? `<a class="x-act" href="${xTel(st.phone)}">📞</a>` : ""}${st.link ? `<a class="x-act" href="${esc(st.link)}" target="_blank" rel="noopener">📅 Evento</a>` : ""}${st.own ? `<button type="button" class="x-act danger" data-gr-xdel="${esc(st.id)}">Rimuovi</button>` : ""}${st.loc && !it.noLoc && st.id in grPrefs.data.locs ? `<button type="button" class="x-act" data-gr-locdel="${esc(st.id)}">✏️ Indirizzo</button>` : ""}</div></div></div>`; }
+  }
+  return "";
+}
+function grLive(plan){
+  const el = $("gr-live"), isToday = grDate === xISO(Date.now());
+  if (!plan || !isToday || !plan.stops.length) { el.innerHTML = ""; return null; }
+  const now = Date.now(), next = plan.items.find(it => it.k === "go" && it.t + 60000 >= now);
+  const cur = plan.stops.find(s => s.s <= now && s.e > now);
+  if (next) { const mins = Math.round((next.t - now) / 6e4), late = mins < 0;
+    el.innerHTML = `<div class="gr-live${late || mins <= 5 ? " late" : ""}"><div><div class="big">${xHM(next.t)}</div><small>${mins <= 0 ? "parti adesso" : "tra " + xDur(mins)}</small></div><div class="txt"><b>Prossima partenza</b><br>${cur ? `Dopo “${esc(cur.title)}”, ` : ""}verso ${esc(next.st.title)} · ${esc(next.st.loc)}<br>${xDur(next.travel)} di guida, appuntamento alle ${xHM(next.st.s)}</div><a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(next.st.loc)}&travelmode=driving" target="_blank" rel="noopener">🧭 Naviga</a></div>`;
+    return next; }
+  const lastEnd = plan.lastEnd || 0;
+  el.innerHTML = lastEnd && now < lastEnd ? (cur ? `<div class="gr-live"><div class="txt"><b>In corso:</b> ${esc(cur.title)} fino alle ${xHM(cur.e)}</div></div>` : "") : `<div class="gr-live done"><div class="txt"><b>✅ Giro di oggi completato.</b></div></div>`;
+  return null;
+}
+function grDraw(){
+  const plan = grPlan, P = grPrefs.data, isToday = grDate === xISO(Date.now()), now = Date.now();
+  if (!plan) return;
+  const next = grLive(plan);
+  $("gr-kpis").innerHTML = plan.stops.length ? [
+    [plan.firstGo ? xHM(plan.firstGo) : "—", "Prima partenza"], [xDur(plan.drive), "Alla guida"], [Math.round(plan.km) + " km", "Percorso"], [xDur(plan.pause), "Pause libere"]
+  ].map(k => `<div class="gr-kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("") : "";
+  const warn = [];
+  if (!P.start) warn.push(`<div class="note-box info">Imposta da dove parti in <b>⚙️ Partenza e pause</b> per sapere a che ora uscire la mattina.</div>`);
+  if (plan.noLunch) warn.push(`<div class="note-box warn">Nessuno spazio per ${P.pranzoMin} min di pranzo tra le ${P.pranzoDa} e le ${P.pranzoA}.</div>`);
+  if (!plan.osrm && plan.pts.length > 1) warn.push(`<div class="note-box warn">Servizio percorsi non raggiungibile: tempi stimati in linea d'aria.</div>`);
+  $("gr-tl").innerHTML = !plan.stops.length ? `<div class="x-empty">Nessun appuntamento con orario per ${esc(xDay(grDate))}.<br>Aggiungi una tappa a mano qui sopra${xLogged() ? "" : " o accedi con Google per leggere il calendario"}.</div>`
+    : warn.join("") + plan.items.map(it => grStepHtml(it, now, isToday, next)).join("");
+  const addrs = plan.located.map(s => s.loc);
+  const origin = P.start || addrs[0], dest = P.ritorno && P.start ? P.start : addrs[addrs.length - 1];
+  const wps = addrs.filter((a, i) => !(a === origin && i === 0 && !P.start) && !(a === dest && i === addrs.length - 1 && !(P.ritorno && P.start)));
+  const gmaps = addrs.length ? "https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=" + encodeURIComponent(origin) + "&destination=" + encodeURIComponent(dest) + (wps.length ? "&waypoints=" + encodeURIComponent(wps.slice(0, 9).join("|")) : "") : "";
+  $("gr-actions").innerHTML = addrs.length ? `<a class="x-act call" href="${esc(gmaps)}" target="_blank" rel="noopener">🗺️ Tutto il giro su Google Maps</a><button type="button" class="x-act" id="gr-share">📋 Copia il programma</button><a class="x-act wa" id="gr-wa" href="${esc(xWa("", grText(plan)))}" target="_blank" rel="noopener">💬 Invia il programma</a>` : "";
+  grMapDraw(plan);
+}
+function grText(plan){
+  const out = [`🚗 GIRO DI ${xDay(grDate).toUpperCase()}`, ""];
+  for (const it of plan.items) {
+    if (it.k === "go") out.push(`${xHM(it.t)} 🚗 ${it.from === "partenza" ? "Parti" : "Riparti"} (${xDur(it.travel)}, ${it.km.toFixed(0)} km)`);
+    else if (it.k === "appt") out.push(`${xHM(it.st.s)} 📍 ${it.st.title}${it.st.loc ? " · " + it.st.loc : ""}`);
+    else if (it.k === "pause") out.push(`${xHM(it.t)} ☕ Pausa fino alle ${xHM(it.t2)}`);
+    else if (it.k === "lunch") out.push(`${xHM(it.t)} 🍝 Pranzo fino alle ${xHM(it.t2)}`);
+    else if (it.k === "warn") out.push(`⚠️ Ritardo previsto di ${it.late} min`);
+    else if (it.k === "back") out.push(`${xHM(it.arrive)} 🏁 Rientro`);
+  }
+  out.push("", `Guida: ${xDur(plan.drive)} · ${Math.round(plan.km)} km · Pause: ${xDur(plan.pause)}`);
+  return out.join("\n");
+}
+function grMapDraw(plan){
+  if (typeof L === "undefined") { $("gr-map").innerHTML = `<div class="x-empty">Mappa non disponibile.</div>`; return; }
+  if (!grMap) { grMap = L.map("gr-map", { preferCanvas: true, zoomControl: true }); L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(grMap); grLayer = L.layerGroup().addTo(grMap); }
+  grLayer.clearLayers();
+  const b = [];
+  if (plan.route.geom && plan.route.geom.length > 1) { L.polyline(plan.route.geom, { color: "#1d4ed8", weight: 5, opacity: .8 }).addTo(grLayer); }
+  if (plan.home) { L.marker([plan.home[0], plan.home[1]], { icon: L.divIcon({ className: "gr-pin home", html: "⌂", iconSize: [28, 28] }) }).bindPopup("Partenza: " + esc(grPrefs.data.start)).addTo(grLayer); b.push([plan.home[0], plan.home[1]]); }
+  plan.stops.forEach((s, i) => { if (!s.ll) return; L.marker([s.ll[0], s.ll[1]], { icon: L.divIcon({ className: "gr-pin", html: String(i + 1), iconSize: [28, 28] }) }).bindPopup(`<b>${xHM(s.s)} · ${esc(s.title)}</b><br>${esc(s.loc)}`).addTo(grLayer); b.push([s.ll[0], s.ll[1]]); });
+  setTimeout(() => { grMap.invalidateSize(); if (b.length > 1) grMap.fitBounds(b, { padding: [30, 30] }); else if (b.length) grMap.setView(b[0], 14); else grMap.setView([45.65, 9.95], 9); }, 30);
+}
+async function grLoad(){
+  const req = ++grReq;
+  grEvents = [];
+  if (xLogged()) {
+    grBusy = true; $("gr-tl").innerHTML = `<div class="x-empty">Leggo gli appuntamenti dal calendario…</div>`;
+    try { const s = grAt(grDate, "00:00"); grEvents = (await xCalList(s, s + 864e5)).filter(ev => !/^(📍 Ripasso zona|📞)/.test(ev.summary || "") && ev.transparency !== "transparent" || /^📸/.test(ev.summary || "")); grErr = ""; }
+    catch (e) { grErr = (e && e.message) || String(e); }
+    grBusy = false;
+  }
+  if (req !== grReq) return;
+  $("gr-tl").innerHTML = `<div class="x-empty">Calcolo percorso e orari…</div>`;
+  const plan = await grCompute();
+  if (!plan) return;
+  grPlan = plan; grDraw();
+  if (grErr) $("gr-tl").insertAdjacentHTML("afterbegin", `<div class="note-box err">Calendario: ${esc(grErr)}</div>`);
+}
+function grOptsSummary(){ const P = grPrefs.data; $("gr-opts-sum").textContent = `${P.start ? "Da " + P.start : "Partenza non impostata"} · margine ${P.margine} min${P.pranzo ? " · pranzo " + P.pranzoMin + " min" : ""}`; document.querySelectorAll(".gr-pr").forEach(el => el.hidden = !P.pranzo); }
+let grInit = false;
+function grRender(){
+  xSync("gr-sync");
+  const P = grPrefs.data;
+  if (!grInit) { grInit = true; if (new Date().getHours() >= 20) grDate = xAddDays(xISO(Date.now()), 1); if (!P.start) $("gr-opts").open = true; }
+  document.querySelectorAll("#view-giro [data-gr]").forEach(el => { const v = P[el.dataset.gr]; if (el.type === "checkbox") el.checked = !!v; else if (document.activeElement !== el) el.value = v == null ? "" : v; });
+  $("gr-date").value = grDate;
+  $("gr-login").innerHTML = xLogged() ? "" : `<div style="margin-top:10px">${loginCardHtml()}</div>`;
+  grOptsSummary();
+  grLoad();
+  clearInterval(grTick); grTick = setInterval(() => { if (xCur !== "giro") return clearInterval(grTick); if (grPlan) grDraw(); }, 30000);
+}
+XVIEWS.giro = grRender;
+let grOptTimer = null;
+$("view-giro").addEventListener("input", e => {
+  const k = e.target.dataset.gr; if (!k) return;
+  grPrefs.data[k] = e.target.type === "checkbox" ? e.target.checked : e.target.type === "number" ? Math.max(0, +e.target.value || 0) : e.target.value;
+  grPrefs.save(); grOptsSummary();
+  clearTimeout(grOptTimer); grOptTimer = setTimeout(async () => { const p = await grCompute(); if (p) { grPlan = p; grDraw(); } }, k === "start" ? 900 : 300);
+});
+$("view-giro").addEventListener("change", e => {
+  if (e.target.id === "gr-date" && e.target.value) { grDate = e.target.value; grLoad(); }
+});
+$("view-giro").addEventListener("click", async e => {
+  const d = e.target.closest("[data-gr-day]"); if (d) { grDate = +d.dataset.grDay === 0 ? xISO(Date.now()) : xAddDays(grDate, +d.dataset.grDay); $("gr-date").value = grDate; grLoad(); return; }
+  if (e.target.closest("#gr-x-add")) {
+    const luogo = $("gr-x-luogo").value.trim(), ora = $("gr-x-ora").value || "11:00";
+    if (!luogo) { $("gr-x-luogo").classList.add("bad"); $("gr-x-luogo").focus(); return; }
+    $("gr-x-luogo").classList.remove("bad");
+    const P = grPrefs.data; (P.extra[grDate] = P.extra[grDate] || []).push({ id: xId("gx"), luogo, titolo: $("gr-x-tit").value.trim(), ora, dur: Math.max(5, +$("gr-x-dur").value || 30) });
+    for (const k of Object.keys(P.extra)) if (k < xAddDays(xISO(Date.now()), -14)) delete P.extra[k];
+    grPrefs.save(); $("gr-x-luogo").value = ""; $("gr-x-tit").value = ""; toast("Tappa aggiunta");
+    const p = await grCompute(); if (p) { grPlan = p; grDraw(); } return;
+  }
+  const xd = e.target.closest("[data-gr-xdel]"); if (xd) { const P = grPrefs.data; P.extra[grDate] = (P.extra[grDate] || []).filter(x => x.id !== xd.dataset.grXdel); grPrefs.save(); const p = await grCompute(); if (p) { grPlan = p; grDraw(); } return; }
+  const ls = e.target.closest("[data-gr-locsave]"); if (ls) { const inp = [...document.querySelectorAll("[data-gr-loc]")].find(x => x.dataset.grLoc === ls.dataset.grLocsave); const v = inp && inp.value.trim(); if (!v) return; grPrefs.data.locs[ls.dataset.grLocsave] = v; grPrefs.save(); const p = await grCompute(); if (p) { grPlan = p; grDraw(); } return; }
+  const ld = e.target.closest("[data-gr-locdel]"); if (ld) { delete grPrefs.data.locs[ld.dataset.grLocdel]; grPrefs.save(); const p = await grCompute(); if (p) { grPlan = p; grDraw(); } return; }
+  if (e.target.closest("#gr-share") && grPlan) return xCopy(grText(grPlan));
+});
+$("view-giro").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.dataset.grLoc) { e.preventDefault(); e.target.nextElementSibling.click(); } });
+
+
+/* ===================== 7 · OBIETTIVI DEL MESE ===================== */
+const OB_DEF = [
+  ["contatti", "👥", "Nuovi contatti", 30, "Clienti creati"],
+  ["vie", "🚪", "Vie lavorate", 40, "Ricerca Zona"],
+  ["prequal", "📝", "Prequalifiche", 12, "Fogli salvati"],
+  ["valut", "📐", "Valutazioni", 8, "Calendario + stato Clienti"],
+  ["incarichi", "✍️", "Incarichi", 3, "Stato Clienti"],
+  ["visite", "🏠", "Visite", 15, "Calendario"],
+  ["foto", "📸", "Servizi fotografici", 4, "Calendario"],
+  ["messaggi", "💬", "Messaggi inviati", 60, "Centro Messaggi"],
+  ["chiusi", "🤝", "Vendite chiuse", 1, "Stato Clienti"]
+];
+const obDoc = xDoc("rz_obiettivi_v1", "obiettivi", { targets: Object.fromEntries(OB_DEF.map(d => [d[0], d[3]])) });
+let obOff = 0, obEdit = null; const obCal = {};
+function obEaster(y){ const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1; return new Date(y, mo - 1, da); }
+function obHoliday(d){ const md = String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); if (["01-01","01-06","04-25","05-01","06-02","08-15","11-01","12-08","12-25","12-26"].includes(md)) return true; const em = obEaster(d.getFullYear()); em.setDate(em.getDate() + 1); return d.getMonth() === em.getMonth() && d.getDate() === em.getDate(); }
+function obWorkdays(s, e){ let n = 0; const d = new Date(s); while (d < e) { const w = d.getDay(); if (w !== 0 && w !== 6 && !obHoliday(d)) n++; d.setDate(d.getDate() + 1); } return n; }
+function obRange(off){ const s = new Date(); s.setDate(1); s.setHours(0, 0, 0, 0); s.setMonth(s.getMonth() + off); const e = new Date(s); e.setMonth(e.getMonth() + 1); return [s.getTime(), e.getTime()]; }
+function obLocal(s, e){
+  const inM = t => t >= s && t < e, cls = clients.all();
+  const stChange = v => cls.filter(c => (c.log || []).some(l => l.t === "stato" && l.v === v && inM(l.at))).length;
+  const vie = new Set(); for (const [d, day] of Object.entries(typeof diary !== "undefined" ? diary : {})) { const t = new Date(d + "T12:00:00").getTime(); if (inM(t)) for (const k of Object.keys(day.items || {})) vie.add(k); }
+  return {
+    contatti: cls.filter(c => inM(c.created || 0)).length, vie: vie.size,
+    prequal: pqList.filter(p => inM(p.created || 0)).length,
+    valutStato: stChange("valutazione"), incarichi: stChange("incarico"), chiusi: stChange("chiuso"),
+    messaggi: (crm.log || []).filter(l => inM(new Date(l.at).getTime())).length
+  };
+}
+async function obLoadCal(s, e, force){
+  const k = String(s);
+  if (!xLogged() || (obCal[k] && !force)) return;
+  obCal[k] = { loading: true };
+  try {
+    const items = await xCalList(s, Math.min(e, Date.now() + 31 * 864e5));
+    let visite = 0, valut = 0, foto = 0;
+    for (const ev of items) { const sm = ev.summary || "", k2 = kindOf(sm, ev.description || ""); if (/servizio fotografico/i.test(sm)) foto++; else if (k2 === "visita" || /\bvisit/i.test(sm)) visite++; else if (k2 === "valutazione") valut++; }
+    obCal[k] = { visite, valut, foto };
+  } catch (err) { obCal[k] = { err: (err && err.message) || String(err) }; }
+  if (xCur === "obiettivi") obRender(true);
+}
+function obRender(noFetch){
+  xSync("ob-sync");
+  const [s, e] = obRange(obOff), now = Date.now(), cur = obOff === 0, past = e <= now;
+  $("ob-title").textContent = "📊 " + new Date(s).toLocaleDateString("it-IT", { month: "long", year: "numeric" });
+  const wdTot = obWorkdays(s, e), today0 = new Date(); today0.setHours(0, 0, 0, 0);
+  const wdDone = cur ? obWorkdays(s, today0.getTime() + 864e5) : past ? wdTot : 0, wdLeft = Math.max(0, wdTot - wdDone);
+  const frac = wdTot ? wdDone / wdTot : 0;
+  $("ob-days").textContent = cur ? `Giorno lavorativo ${wdDone} di ${wdTot} · ne restano ${wdLeft}` : past ? `${wdTot} giorni lavorativi · mese concluso` : `${wdTot} giorni lavorativi`;
+  $("ob-monthbar").style.width = Math.round(frac * 100) + "%";
+  $("ob-login").innerHTML = xLogged() ? "" : `<div class="x-card"><p class="x-note" style="font-size:13px;margin:0">Accedi con Google per contare anche visite, valutazioni e servizi fotografici dal calendario.</p>${loginCardHtml()}</div>`;
+  if (!noFetch) obLoadCal(s, e);
+  const loc = obLocal(s, e), cal = obCal[String(s)] || {};
+  const val = { ...loc, valut: Math.max(loc.valutStato, cal.valut || 0), visite: cal.visite, foto: cal.foto };
+  const T = obDoc.data.targets;
+  $("ob-grid").innerHTML = OB_DEF.map(([k, ic, lbl, def, src]) => {
+    const v = val[k], tgt = +T[k] || 0, needCal = ["visite", "foto"].includes(k);
+    const unknown = v == null, n = v || 0, pct = tgt ? Math.min(100, n / tgt * 100) : 0, hit = tgt && n >= tgt;
+    const expected = tgt * frac, pace = expected ? n / expected : 1;
+    const col = hit ? "var(--done-bar)" : !cur ? (pct >= 70 ? "var(--todo-bar)" : "var(--hot)") : pace >= 1 ? "var(--done-bar)" : pace >= 0.7 ? "var(--todo-bar)" : "var(--hot)";
+    let proj = "";
+    if (unknown) proj = needCal ? (xLogged() ? (cal.err ? "Calendario non leggibile" : "Conto dal calendario…") : "Serve l'accesso a Google") : "";
+    else if (hit) proj = cur ? `🎉 Obiettivo raggiunto${n > tgt ? ` (+${n - tgt})` : ""}` : "🎉 Obiettivo raggiunto";
+    else if (cur && tgt) { const fc = wdDone ? Math.round(n / wdDone * wdTot) : 0, left = tgt - n; proj = `${wdDone ? `Di questo passo: ~${fc} a fine mese. ` : ""}Mancano ${left}: ${wdLeft ? `${(left / wdLeft).toFixed(left / wdLeft < 1 ? 1 : 0).replace(".", ",")} al giorno` : "ultimo giorno"}.`; }
+    else if (past && tgt) proj = `Mancati di ${tgt - n}`;
+    return `<div class="ob-card${hit ? " hit" : ""}"><div class="ob-top"><span class="ic">${ic}</span><b>${lbl}</b></div>
+      <div class="ob-num"><strong>${unknown ? "—" : n}</strong><span>/</span>${obEdit === k ? `<input class="inp" type="number" min="0" inputmode="numeric" data-ob-in="${k}" value="${tgt}">` : `<button type="button" data-ob-edit="${k}" title="Cambia obiettivo">${tgt}</button>`}</div>
+      <div class="ob-bar"><i style="width:${pct}%;background:${col}"></i>${cur && tgt ? `<u style="left:${Math.min(100, frac * 100)}%" title="Dove dovresti essere oggi"></u>` : ""}</div>
+      <div class="ob-proj">${esc(proj)}</div><div class="ob-src">${src}</div></div>`;
+  }).join("");
+  if (obEdit) { const i = document.querySelector(`[data-ob-in="${obEdit}"]`); if (i) { i.focus(); i.select(); } }
+}
+XVIEWS.obiettivi = () => obRender(false);
+function obCommit(k, v){ const n = Math.max(0, Math.round(+v || 0)); obDoc.data.targets = Object.assign({}, obDoc.data.targets, { [k]: n }); obDoc.save(); obEdit = null; obRender(true); }
+$("view-obiettivi").addEventListener("click", e => {
+  const m = e.target.closest("[data-ob-m]"); if (m) { obOff = Math.min(0, obOff + +m.dataset.obM); obEdit = null; obRender(false); return; }
+  const ed = e.target.closest("[data-ob-edit]"); if (ed) { obEdit = ed.dataset.obEdit; obRender(true); }
+});
+$("view-obiettivi").addEventListener("keydown", e => { if (e.target.dataset.obIn && e.key === "Enter") { e.preventDefault(); obCommit(e.target.dataset.obIn, e.target.value); } if (e.target.dataset.obIn && e.key === "Escape") { obEdit = null; obRender(true); } });
+$("view-obiettivi").addEventListener("focusout", e => { if (e.target.dataset && e.target.dataset.obIn) obCommit(e.target.dataset.obIn, e.target.value); });
+
+
+/* ===================== 9 · DALLA VIA AL CLIENTE ===================== */
+window.leadBtn = c => {
+  const cl = c.clId && clients.get(c.clId);
+  if (cl) return `<div class="civ-lead"><button class="btn muted" data-act="lead-open">👤 Apri cliente</button><button class="btn muted" data-act="lead-pq">📝 Prequalifica</button></div>`;
+  if (c.interesse !== "caldo") return "";
+  return `<div class="civ-lead"><button class="btn lead" data-act="lead">⚡ Crea cliente, prequalifica e promemoria</button></div>`;
+};
+async function leadFromCivico(i){
+  const S = sheet, c = S.civici[i], comune = S.comune || ui.comune, addr = `${S.via} ${c.numero}, ${comune}`;
+  const day = c.richiamo && c.richiamo >= xISO(Date.now()) ? c.richiamo : xWorkday(xAddDays(xISO(Date.now()), 1));
+  const r = clEmptyRec({ tel: c.telefono || "", indirizzo: addr, comune, fonte: "Porta a porta", note: c.nota || "", civ: { c: comune, v: S.via, n: c.numero },
+    prossima: { data: day, ora: "10:00", cosa: "Richiamare", evId: "" }, log: [{ at: Date.now(), t: "nota", txt: `Creato da Ricerca Zona: civico caldo ${S.via} ${c.numero}` }] });
+  clients.put(r);
+  c.clId = r.id; sheetCommit();
+  const d = pqEmpty(); d.clId = r.id; d.v = { indirizzo: addr, comune }; if (c.telefono) d.v.telefono = c.telefono; if (c.nota) d.v.note = c.nota;
+  try { localStorage.setItem(PQ_DRAFT, JSON.stringify(d)); } catch {}
+  if (pqBuilt) pqLoad(d);
+  let calMsg = "";
+  if (xLogged()) {
+    try {
+      const ev = await xCalUpsert(null, Object.assign({ summary: `📞 Richiamare · ${S.via} ${c.numero} (${comune})`, location: addr + ", Italia",
+        description: [c.telefono ? "Telefono: " + c.telefono : "Telefono: da trovare", c.nota ? "Nota: " + c.nota : "", "Interesse: caldo", "", "Creato da Ricerca Zona"].filter((x, k) => x || k > 2).join("\n"),
+        colorId: "11", reminders: { useDefault: false, overrides: [{ method: "popup", minutes: 10 }] } }, xEventTimes(day, "10:00", 15)));
+      r.prossima.evId = ev.id; r.log.push({ at: Date.now(), t: "cal", txt: `${xDay(day)} alle 10:00 · Richiamare` }); clients.put(r);
+      calMsg = ` · promemoria ${xDay(day)} alle 10:00`;
+    } catch (e) { calMsg = " · promemoria non creato (" + ((e && e.message) || e) + ")"; }
+  } else calMsg = " · accedi con Google per il promemoria";
+  closeSheet();
+  showView("preq");
+  toast("⚡ Cliente creato" + calMsg);
+}
+$("overlay").addEventListener("click", e => {
+  const b = e.target.closest('[data-act="lead"],[data-act="lead-open"],[data-act="lead-pq"]');
+  if (!b || !sheet || modalHandlers) return;
+  e.stopImmediatePropagation();
+  const civEl = b.closest("[data-i]"), i = civEl ? +civEl.dataset.i : -1, c = sheet.civici[i]; if (!c) return;
+  if (typeof readTexts === "function") readTexts();
+  if (b.dataset.act === "lead") { b.disabled = true; b.textContent = "Creo…"; leadFromCivico(i); return; }
+  const cl = clients.get(c.clId); if (!cl) return;
+  closeSheet();
+  if (b.dataset.act === "lead-open") { clUi.sel = cl.id; clOpenMobile = true; clSaveUi(); showView("clienti"); }
+  else { const own = pqList.find(p => p.clId === cl.id || (cl.pqIds || []).includes(p.id)); if (own) { if (!pqBuilt) pqRender(); pqLoad(own); showView("preq"); } else clOpenPreq(cl); }
+}, true);
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["zona","messaggi","foto","preq"] : ["zona"];
+const APPS = RZ_CLOUD ? ["zona", "giro", "clienti", "messaggi", "match", "preq", "calc", "foto", "obiettivi"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "zona";
-  $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) pqRender();
+  $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) pqRender(); xCur = v; for (const n of Object.keys(XVIEWS)) $("view-" + n).hidden = v !== n; if (XVIEWS[v]) XVIEWS[v]();
   document.querySelectorAll(".dd-item").forEach(b => b.setAttribute("aria-checked", b.dataset.view === v));
   lsSet("app_view", v);
   try { history.replaceState(null, "", "#" + v); } catch {}
@@ -2740,7 +4020,7 @@ function showView(v){
 function openDd(btn){
   const r = btn.getBoundingClientRect(), dd = $("dd");
   dd.style.top = (r.bottom + 8) + "px"; dd.style.left = Math.max(12, r.left) + "px";
-  dd.hidden = false; btn.setAttribute("aria-expanded", "true"); ddFrom = btn;
+  dd.hidden = false; dd.style.left = Math.max(12, Math.min(r.left, innerWidth - dd.offsetWidth - 12)) + "px"; dd.style.maxHeight = (innerHeight - r.bottom - 20) + "px"; btn.setAttribute("aria-expanded", "true"); ddFrom = btn;
   (dd.querySelector('[aria-checked="true"]') || dd.querySelector(".dd-item")).focus();
 }
 function closeDd(focusBack){
@@ -2753,7 +4033,7 @@ document.querySelectorAll("[data-menu]").forEach(b => { if (APPS.length < 2) b.h
 if (APPS.length > 1) document.querySelectorAll("[data-menu]").forEach(b => {
   b.addEventListener("click", e => { e.stopPropagation(); $("dd").hidden ? openDd(b) : closeDd(); });
 });
-$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); if ((b.dataset.view === "messaggi" || b.dataset.view === "foto") && !tok && knownEmail()) doLogin(false); } });
+$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); if (["messaggi","foto","clienti","giro","obiettivi"].includes(b.dataset.view) && !tok && knownEmail()) doLogin(false); } });
 $("dd").addEventListener("keydown", e => {
   const items = [...document.querySelectorAll(".dd-item")], i = items.indexOf(document.activeElement);
   if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
