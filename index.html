@@ -1608,11 +1608,18 @@ async function initGas(){
 const CLIENT_ID = "940180007208-v8e085pua5f93ucfcstrnleqrgfg6dbj.apps.googleusercontent.com";
 const SCOPES = "openid email https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/drive.appdata";
 const DATA_FILE = "ricerca-zona-dati.json";
-let tok = null, tokenClient = null, loginWait = null, webStarted = false;
-try { const s = JSON.parse(sessionStorage.getItem("rz_tok") || "null"); if (s && s.exp > Date.now() + 60000) tok = s; } catch {}
+let tok = null, tokenClient = null, loginWait = null, webStarted = false, loggingIn = false;
+try { const s = JSON.parse(localStorage.getItem("rz_tok") || "null"); if (s && s.exp > Date.now() + 60000) tok = s; } catch {}
+const knownEmail = () => { try { return (JSON.parse(localStorage.getItem("rz_acct") || "null") || {}).email || ""; } catch { return ""; } };
+const saveTok = () => { try { localStorage.setItem("rz_tok", JSON.stringify(tok)); if (tok && tok.email) localStorage.setItem("rz_acct", JSON.stringify({ email: tok.email })); } catch {} };
 class AuthErr extends Error {}
 const G_ICON = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.2l7.9 6.2C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.6 28.6A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.6l-7.9-6.2A24 24 0 0 0 0 24c0 3.9.9 7.5 2.7 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.2-8.5 2.2-6.2 0-11.5-4.1-13.4-9.9l-7.9 6.2C6.6 42.6 14.6 48 24 48z"/></svg>';
 function loginCardHtml(){
+  const em = knownEmail();
+  if (em) return `<div class="login-card"><h3>Riprendi la sessione</h3>
+    <p>Per sicurezza Google chiude l'accesso dopo un'ora. Tocca il pulsante per continuare con lo stesso account: non dovrai scegliere di nuovo account e permessi.</p>
+    <button class="gbtn" data-login>${G_ICON} Continua come ${esc(em)}</button>
+    <button class="chip" data-login-select>Usa un altro account</button></div>`;
   return `<div class="login-card"><h3>Accedi con Google</h3>
     <p>Il Centro Messaggi legge <strong>il tuo</strong> Google Calendar e le email non lette della <strong>tua</strong> Gmail, per preparare i messaggi WhatsApp. Se hai più account, potrai scegliere quale usare.</p>
     <p style="font-size:12px;color:var(--ink-3)">Nessun dato passa da server esterni: tutto resta tra il tuo browser e il tuo account Google. Le note si salvano in una cartella nascosta del tuo Google Drive.</p>
@@ -1626,8 +1633,8 @@ function ensureClient(){
     callback: r => {
       if (r.error) { loginWait && loginWait.rej(new Error(r.error_description || r.error)); return; }
       if (!google.accounts.oauth2.hasGrantedAllScopes(r, "https://www.googleapis.com/auth/calendar.events")) { loginWait && loginWait.rej(new Error("Serve il permesso al calendario: riprova e spunta tutte le caselle.")); return; }
-      tok = { access_token: r.access_token, exp: Date.now() + (Number(r.expires_in || 3600) - 90) * 1000, email: tok && tok.email };
-      try { sessionStorage.setItem("rz_tok", JSON.stringify(tok)); } catch {}
+      tok = { access_token: r.access_token, exp: Date.now() + (Number(r.expires_in || 3600) - 90) * 1000, email: (tok && tok.email) || (loginWait && loginWait.select ? "" : knownEmail()) };
+      saveTok();
       loginWait && loginWait.res(tok);
     },
     error_callback: e => loginWait && loginWait.rej(new Error(e && e.type === "popup_closed" ? "Accesso annullato" : "Accesso non riuscito: consenti i popup e riprova"))
@@ -1638,14 +1645,26 @@ function login(select){
   return new Promise((res, rej) => {
     if (CLIENT_ID.startsWith("__")) return rej(new Error("App non ancora configurata (manca l'ID client)"));
     if (!ensureClient()) return rej(new Error("Google si sta ancora caricando, riprova tra un attimo"));
-    loginWait = { res, rej };
-    tokenClient.requestAccessToken({ prompt: select ? "select_account" : "" });
+    const em = knownEmail();
+    loginWait = { res, rej, select: !!select || !em };
+    const opts = { prompt: (select || !em) ? "select_account" : "" };
+    if (!select && em) opts.hint = em;
+    tokenClient.requestAccessToken(opts);
   });
 }
 async function doLogin(select){
+  if (loggingIn) return; loggingIn = true;
   try { await login(select); toast("Accesso effettuato ✓"); startWeb(); }
   catch (e) { toast((e && e.message) || "Accesso non riuscito"); }
+  loggingIn = false;
 }
+// Sessione scaduta ma account noto: il primo tocco nel Centro Messaggi la riprende da solo.
+document.addEventListener("click", e => {
+  if (tok || loggingIn || !knownEmail() || CLIENT_ID.startsWith("__")) return;
+  if ($("view-msg").hidden) return;
+  if (e.target.closest("[data-login],[data-login-select],[data-logout],[data-menu],#dd")) return;
+  doLogin(false);
+}, true);
 function authExpired(){
   setSync("Accedi con Google"); $("sync").classList.add("clickable"); $("m-sync").textContent = "Accedi"; $("m-sync").classList.add("clickable");
   renderAcc();
@@ -1657,7 +1676,7 @@ function renderAcc(){
 }
 function logout(){
   try { if (tok && window.google && google.accounts) google.accounts.oauth2.revoke(tok.access_token, () => {}); } catch {}
-  tok = null; try { sessionStorage.removeItem("rz_tok"); } catch {}
+  tok = null; try { localStorage.removeItem("rz_tok"); localStorage.removeItem("rz_acct"); } catch {}
   setTimeout(() => location.reload(), 300);
 }
 document.addEventListener("click", e => {
@@ -1711,7 +1730,7 @@ window.addEventListener("pagehide", () => { if (driveTimer) { clearTimeout(drive
 const WEBAPI = {
   async loadAll(){
     const who = await api("https://www.googleapis.com/oauth2/v3/userinfo").catch(() => ({}));
-    if (who.email) { tok.email = who.email; try { sessionStorage.setItem("rz_tok", JSON.stringify(tok)); } catch {} }
+    if (who.email) { tok.email = who.email; saveTok(); }
     const l = await api(DRV + "?" + new URLSearchParams({ spaces: "appDataFolder", q: `name='${DATA_FILE}'`, fields: "files(id)" }));
     driveFileId = l.files && l.files[0] ? l.files[0].id : null;
     driveDoc = {};
@@ -1804,7 +1823,7 @@ document.querySelectorAll("[data-menu]").forEach(b => { if (APPS.length < 2) b.h
 if (APPS.length > 1) document.querySelectorAll("[data-menu]").forEach(b => {
   b.addEventListener("click", e => { e.stopPropagation(); $("dd").hidden ? openDd(b) : closeDd(); });
 });
-$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); } });
+$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); if (b.dataset.view === "messaggi" && !tok && knownEmail()) doLogin(false); } });
 $("dd").addEventListener("keydown", e => {
   const items = [...document.querySelectorAll(".dd-item")], i = items.indexOf(document.activeElement);
   if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
