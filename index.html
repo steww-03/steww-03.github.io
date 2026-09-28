@@ -7,6 +7,8 @@
 <meta name="description" content="Strumenti per agenti immobiliari: vie e civici di Bergamo e Brescia, appuntamenti e messaggi WhatsApp.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%A1%3C/text%3E%3C/svg%3E">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -158,6 +160,92 @@ a{color:inherit}
 /* list */
 .list-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:10px var(--gut) 0}
 .list-head h2{margin:0;font-family:var(--display);font-size:16px;font-weight:700}
+.list-head{align-items:center}
+.list-head .zview{display:flex;gap:6px;flex-shrink:0}
+.list-head #l-count{display:block}
+#zmap-wrap{position:relative;isolation:isolate;z-index:0;margin:8px var(--gut) 28px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+#zmap{height:min(72dvh,760px);min-height:380px;background:var(--surface-2)}
+.zmap-msg{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:1000;background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.18);font-size:13px;font-weight:600;max-width:calc(100% - 24px);text-align:center}
+.zmap-legend{position:absolute;left:10px;bottom:22px;z-index:1000;background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 10px;box-shadow:0 4px 14px rgba(0,0,0,.18);font-size:12px;display:flex;flex-direction:column;gap:4px;font-variant-numeric:tabular-nums}
+.zmap-legend i{display:inline-block;width:18px;height:5px;border-radius:3px;margin-right:6px;vertical-align:middle}
+@media (min-width:768px){
+  .zview{display:none!important}
+  .zsplit{display:grid;grid-template-columns:minmax(280px,1fr) minmax(0,1.3fr);gap:14px;align-items:start;padding-right:var(--gut)}
+  .zsplit #list{grid-template-columns:1fr;padding-right:0}
+  .zsplit #zmap-wrap{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--ztop,120px));margin:8px 0 24px}
+  .zsplit #zmap{height:calc(100dvh - var(--ztop,120px) - 36px);min-height:420px}
+}
+@media (min-width:1700px){ .zsplit #list{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.f-main{max-width:760px;margin:0 auto;padding:16px var(--gut) 40px;display:flex;flex-direction:column;gap:14px}
+.f-call{display:grid;grid-template-columns:1fr auto;grid-template-areas:"lbl btn" "num btn";align-items:center;gap:2px 14px;background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:14px 16px}
+.f-call-lbl{grid-area:lbl;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.f-num{grid-area:num;font-family:var(--mono);font-size:24px;font-weight:600;letter-spacing:.02em;user-select:all;font-variant-numeric:tabular-nums}
+.f-call-btn{grid-area:btn;min-height:52px;padding:0 20px;font-size:15px}
+.f-card{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.f-card h2{margin:0;font-family:var(--display);font-size:17px}
+.f-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.f-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f-field>span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.f-full{grid-column:1/-1}
+.f-keys button[aria-pressed="true"][data-k="si"]{background:var(--done-soft);color:var(--done);border-color:var(--done-bar);font-weight:700}
+.f-keys button[aria-pressed="true"][data-k="no"]{background:var(--hot-soft);color:var(--hot);border-color:var(--hot);font-weight:700}
+.f-stats{border:2px solid var(--done-bar)}
+.f-stats-h{display:flex;align-items:center;gap:10px}
+.f-stats-h h2{flex:1;text-align:center;text-transform:capitalize}
+.f-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.f-kpi{background:var(--surface-2);border-radius:10px;padding:10px 6px;text-align:center}
+.f-kpi b{display:block;font-family:var(--display);font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.f-kpi span{font-size:11px;color:var(--ink-3)}
+.f-kpi.tot b{color:var(--accent)} .f-kpi.done b{color:var(--done)} .f-kpi.next b{color:var(--doing)}
+.f-slist{display:flex;flex-direction:column}
+.f-slist .f-rec{font-size:12.5px}
+.f-invite{font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:10px 12px;margin-top:12px}
+.f-submit{width:100%;min-height:52px;font-size:15px;margin-top:12px}
+.f-field .inp.bad{border-color:var(--hot);box-shadow:0 0 0 3px var(--hot-soft)}
+.f-rec{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line-2);font-size:13px}
+.f-rec:first-child{border-top:0}
+.f-rec b{display:block;font-size:14px}
+.f-rec a{color:var(--accent);font-weight:700;text-decoration:none;white-space:nowrap}
+@media (max-width:520px){ .f-grid{grid-template-columns:1fr} .f-call{grid-template-columns:1fr;grid-template-areas:"lbl" "num" "btn"} .f-call-btn{width:100%} }
+.pq-main{max-width:860px;margin:0 auto;padding:16px var(--gut) 48px;display:flex;flex-direction:column;gap:14px}
+.pq-bar{display:flex;gap:8px;flex-wrap:wrap}
+#pq-fields{display:flex;flex-direction:column;gap:12px}
+.pq-sec{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;margin:0}
+.pq-sec legend{font-family:var(--display);font-size:15px;font-weight:700;padding:0 6px;margin-left:-6px}
+.pq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.pq-f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.pq-f>span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.pq-f>span em{color:var(--hot);font-style:normal}
+.pq-full{grid-column:1/-1}
+.pq-unit{display:flex;gap:6px;align-items:center}
+.pq-unit .inp{flex:1}
+.pq-unit small{font-size:13px;color:var(--ink-2);font-weight:600;white-space:nowrap}
+.pq-checks{display:flex;flex-wrap:wrap;gap:8px}
+.pq-check{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-size:13px;font-weight:600;cursor:pointer;user-select:none}
+.pq-check input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
+.pq-check:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.pq-check:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.pq-actions{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.pq-save{min-height:52px;font-size:15px}
+.pq-share{display:flex;gap:8px;flex-wrap:wrap}
+.pq-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line-2)}
+.pq-item:first-child{border-top:0}
+.pq-item .who{min-width:0}
+.pq-item b{display:block;font-size:14px;overflow-wrap:anywhere}
+.pq-item small{font-size:12px;color:var(--ink-3)}
+.pq-item .acts{display:flex;gap:6px;flex-shrink:0}
+.pq-item.current{background:var(--accent-soft);border-radius:10px;padding:10px}
+#pq-print-area{display:none}
+@media print{
+  body>*:not(#pq-print-area){display:none!important}
+  #pq-print-area{display:block!important;color:#000;background:#fff;font:12pt/1.45 Arial,sans-serif;padding:0 8mm}
+  #pq-print-area h1{font-size:18pt;margin:0 0 4mm}
+  #pq-print-area h2{font-size:12pt;margin:5mm 0 2mm;border-bottom:1px solid #000;padding-bottom:1mm;text-transform:uppercase;letter-spacing:.04em}
+  #pq-print-area table{width:100%;border-collapse:collapse}
+  #pq-print-area td{padding:1.2mm 2mm;border-bottom:1px dotted #999;vertical-align:top}
+  #pq-print-area td:first-child{width:38%;font-weight:bold}
+}
+.diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
 .list-head span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .list{padding:8px var(--gut) 28px;display:grid;grid-template-columns:1fr;gap:8px;align-content:start}
 .via{display:grid;grid-template-columns:1fr auto;grid-template-areas:"main chev" "badges chev";align-items:center;column-gap:10px;row-gap:6px;
@@ -512,6 +600,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     </section>
 
     <button class="banner" id="banner" hidden></button>
+    <div class="diary-note" id="diary-note" hidden></div>
 
     <section class="tools hscroll">
       <a class="tool map" id="t-map" target="_blank" rel="noopener">🗺️ Mappa</a>
@@ -532,8 +621,10 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
   </aside>
 
   <div class="list-wrap" id="listwrap">
-    <div class="list-head"><h2 id="l-title">Vie</h2><span id="l-count"></span></div>
-    <main class="list" id="list"></main>
+    <div class="list-head"><div style="min-width:0"><h2 id="l-title">Vie</h2><span id="l-count"></span></div>
+      <div class="zview" role="group" aria-label="Vista"><button class="chip" data-zv="lista">📋 Lista</button><button class="chip" data-zv="mappa">🗺️ Mappa</button></div></div>
+    <div class="zsplit" id="zsplit"><main class="list" id="list"></main>
+    <div id="zmap-wrap" hidden><div id="zmap" aria-label="Mappa delle vie"></div><div class="zmap-msg" id="zmap-msg" hidden></div><div class="zmap-legend" id="zmap-legend"></div></div></div>
   </div>
 
   <p class="foot" id="foot">Vie: © OpenStreetMap contributors (ODbL). I civici sono quelli che inserisci tu sul campo.</p>
@@ -585,10 +676,92 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     <p class="foot" style="padding:0">💡 “Apri su WhatsApp” apre la chat con il messaggio già scritto: ti basta premere invio.</p>
   </main>
 </div>
+<div class="view" id="view-foto" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📸 Fotografo</h1><p class="sub">Crea il servizio nel calendario con invito automatico</p></div>
+      <span class="sync" id="f-sync">Google</span>
+    </div>
+  </header>
+  <main class="f-main">
+    <section class="f-call" aria-labelledby="f-call-lbl">
+      <span class="f-call-lbl" id="f-call-lbl">Chiama</span>
+      <span class="f-num">391 300 9425</span>
+      <a class="act call f-call-btn" href="tel:+393913009425">📞 Chiama</a>
+    </section>
+
+    <section class="f-card f-stats" id="f-stats" hidden aria-labelledby="f-stats-t">
+      <div class="f-stats-h"><button type="button" class="chip" data-fm="-1" aria-label="Mese precedente">‹</button><h2 id="f-stats-t">📊 Servizi del mese</h2><button type="button" class="chip" data-fm="1" aria-label="Mese successivo">›</button></div>
+      <div id="f-stats-body"></div>
+    </section>
+
+    <section class="f-card" aria-labelledby="f-form-t">
+      <h2 id="f-form-t">Nuovo servizio fotografico</h2>
+      <form id="f-form" novalidate>
+        <div class="f-grid">
+          <label class="f-field f-full"><span>Indirizzo immobile</span><input class="inp" id="f-ind" autocomplete="street-address" placeholder="Es. Via Roma 12, Seriate" required></label>
+          <div class="f-field"><span>Consegna chiavi</span><div class="seg f-keys" role="group" aria-label="Consegna chiavi"><button type="button" data-k="si" aria-pressed="false">✅ Sì</button><button type="button" data-k="no" aria-pressed="false">❌ No</button></div></div>
+          <label class="f-field"><span>Metratura (m²)</span><input class="inp" id="f-mq" type="number" inputmode="numeric" min="1" max="100000" placeholder="Es. 85"></label>
+          <label class="f-field"><span>Tipologia immobile</span><select class="inp" id="f-tipo">
+            <option value="">Scegli…</option><option>Appartamento</option><option>Attico</option><option>Villa</option><option>Villetta a schiera</option><option>Rustico / Cascina</option><option>Loft</option><option>Box / Garage</option><option>Negozio</option><option>Ufficio</option><option>Capannone</option><option>Terreno</option><option>Altro</option>
+          </select></label>
+          <label class="f-field"><span>Data</span><input class="inp" id="f-data" type="date" required></label>
+          <label class="f-field"><span>Ora</span><input class="inp" id="f-ora" type="time" step="900" value="10:00" required></label>
+          <label class="f-field"><span>Durata</span><select class="inp" id="f-dur"><option value="30">30 minuti</option><option value="60" selected>1 ora</option><option value="90">1 ora e 30</option><option value="120">2 ore</option></select></label>
+          <label class="f-field f-full"><span>Note (facoltative)</span><textarea class="inp" id="f-note" rows="2" placeholder="Es. citofono Bianchi, parcheggio nel cortile"></textarea></label>
+        </div>
+        <div class="f-invite">📨 Invito automatico a <b>stefano.piccioli@dove.it</b></div>
+        <div id="f-actions"></div>
+        <div id="f-msg" role="status"></div>
+      </form>
+    </section>
+
+    <section class="f-card" id="f-recent-card" hidden>
+      <h2>Ultimi servizi creati</h2>
+      <div id="f-recent"></div>
+    </section>
+  </main>
+</div>
+<div class="view" id="view-preq" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📝 Foglio prequalifica</h1><p class="sub">Dati del cliente e dell'immobile</p></div>
+      <span class="sync" id="pq-sync">Bozza</span>
+    </div>
+  </header>
+  <main class="pq-main">
+    <div class="pq-bar">
+      <button type="button" class="tool" id="pq-new">＋ Nuovo foglio</button>
+      <button type="button" class="tool" id="pq-list-btn">📂 Fogli salvati <span class="cnt" id="pq-count">0</span></button>
+    </div>
+    <section class="f-card pq-saved" id="pq-saved" hidden>
+      <h2>Fogli salvati</h2>
+      <input class="inp" id="pq-search" type="search" placeholder="Cerca per nome, indirizzo o telefono…">
+      <div id="pq-list"></div>
+    </section>
+    <form id="pq-form" novalidate>
+      <div id="pq-fields"></div>
+      <div class="pq-actions">
+        <button type="submit" class="btn pq-save">💾 Salva foglio</button>
+        <div class="pq-share">
+          <button type="button" class="tool" id="pq-copy">📋 Copia testo</button>
+          <a class="tool" id="pq-wa" href="#" target="_blank" rel="noopener">📱 Invia su WhatsApp</a>
+          <button type="button" class="tool" id="pq-print">🖨️ Stampa / PDF</button>
+        </div>
+        <div id="pq-msg" role="status"></div>
+      </div>
+    </form>
+  </main>
+</div>
+<div id="pq-print-area" aria-hidden="true"></div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
   <div class="dd-h">Strumenti</div>
   <button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
   <button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
+  <button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
+  <button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Scheda dati cliente e immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -774,6 +947,7 @@ function buildControls(){
 /* ---------- render ---------- */
 function baseList(){ const all = STREETS[ui.comune] || []; return ui.soloVie ? all.filter(s => MAIN_TYPES.includes(s.t)) : all; }
 function render(){
+  if (window.zmapAfterRender) setTimeout(zmapAfterRender, 0);
   const c = ui.comune;
   document.querySelectorAll("#comuni [data-c]").forEach(b => b.setAttribute("aria-pressed", b.dataset.c === c));
   document.querySelectorAll("#f-stato [data-s]").forEach(b => b.setAttribute("aria-pressed", b.dataset.s === ui.stato));
@@ -860,6 +1034,7 @@ let sheet = null;
 function mapUrl(via, num){ return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent([num ? `${via} ${num}` : via, ui.comune, "Italia"].join(", ")); }
 function osmUrl(via){ return "https://www.openstreetmap.org/search?query=" + encodeURIComponent([via, ui.comune, "Italia"].join(", ")); }
 function openSheet(via){
+  if (window.zmapFocus) setTimeout(() => zmapFocus(via), 0);
   const s = (STREETS[ui.comune] || []).find(x => x.n === via); if (!s) return;
   const a = getAnn(ui.comune, via);
   sheet = { via, tipo: s.t, stato: a.stato, nota: a.nota || "", ultimoPassaggio: a.ultimoPassaggio || "", attivitaMercato: a.attivitaMercato || "", notaMercato: a.notaMercato || "", civici: (a.civici || []).map(x => ({ ...x })) };
@@ -955,12 +1130,14 @@ document.addEventListener("keydown", e => { if (e.key !== "Escape") return; if (
 function saveSheet(){
   readTexts();
   const S = sheet;
+  const prevA = ann[key(ui.comune, S.via)] || null;
   ann[key(ui.comune, S.via)] = {
     stato: S.stato, nota: S.nota.trim() || undefined, civici: S.civici, aggiornato: Date.now(),
     ultimoPassaggio: S.ultimoPassaggio || undefined, attivitaMercato: S.attivitaMercato || undefined, notaMercato: S.notaMercato.trim() || undefined
   };
   ann = JSON.parse(JSON.stringify(ann));
   persist([ui.comune]);
+  if (window.diaryRecord) diaryRecord(ui.comune, S.via, ann[key(ui.comune, S.via)], prevA);
   closeSheet(); render();
 }
 
@@ -1661,7 +1838,7 @@ async function doLogin(select){
 // Sessione scaduta ma account noto: il primo tocco nel Centro Messaggi la riprende da solo.
 document.addEventListener("click", e => {
   if (tok || loggingIn || !knownEmail() || CLIENT_ID.startsWith("__")) return;
-  if ($("view-msg").hidden) return;
+  if ($("view-msg").hidden && $("view-foto").hidden) return;
   if (e.target.closest("[data-login],[data-login-select],[data-logout],[data-menu],#dd")) return;
   doLogin(false);
 }, true);
@@ -1787,20 +1964,503 @@ async function mInit(){
 async function startWeb(){
   $("sync").classList.remove("clickable"); $("m-sync").classList.remove("clickable"); $("m-sync").textContent = "Google";
   renderAcc();
+  if (window.fotoRender) setTimeout(fotoRender, 0);
   if (!webStarted) {
     webStarted = true;
     await initGas();
     renderAcc();
+    diaryLoadRemote(); diaryFlush(); if (window.fotoRender) fotoRender(); if (window.pqMerge) pqMerge();
     mcp = gasMcp(); loadState = "idle"; watchRange(); loadLeads();
   } else { loadState = "idle"; watchRange(); loadLeads(); }
 }
 
+
+/* ===================== MAPPA VIE ===================== */
+let zmap = null, zlayer = null, zmapComune = null, zmapLoading = null;
+const zgeo = {};
+const PROV_ISO = { BG: "IT-BG", BS: "IT-BS" };
+const OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"];
+const ZCOL = { fatta: ["#16a34a","Fatta"], in_corso: ["#2563eb","In corso"], da_fare: ["#f59e0b","Da fare (segnata)"], nuova: ["#94a3b8","Non ancora toccata"] };
+function idbOpen(){ return new Promise((res, rej) => { const r = indexedDB.open("rz_geo", 1); r.onupgradeneeded = () => r.result.createObjectStore("g"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+async function idbGet(k){ try { const db = await idbOpen(); return await new Promise(res => { const q = db.transaction("g").objectStore("g").get(k); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); }); } catch { return null; } }
+async function idbSet(k, v){ try { const db = await idbOpen(); db.transaction("g", "readwrite").objectStore("g").put(v, k); } catch {} }
+async function loadGeo(c){
+  if (zgeo[c]) return zgeo[c];
+  const cached = await idbGet("v1:" + c);
+  if (cached) return (zgeo[c] = cached);
+  const iso = PROV_ISO[(PROV_OF[c] || {}).sigla] || "IT-BG";
+  const q = `[out:json][timeout:120];area["ISO3166-2"="${iso}"]->.p;rel(area.p)["boundary"="administrative"]["admin_level"="8"]["name"="${c.replace(/"/g, '\\"')}"];map_to_area->.a;way(area.a)["highway"]["name"];out tags geom;`;
+  let lastErr = null;
+  for (const url of OVERPASS) {
+    try {
+      const r = await fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } });
+      if (!r.ok) throw new Error("server mappe occupato (" + r.status + ")");
+      const j = await r.json(), by = {};
+      for (const el of j.elements || []) {
+        if (!el.geometry || !el.tags || !el.tags.name) continue;
+        (by[el.tags.name] = by[el.tags.name] || []).push(el.geometry.map(p => [Math.round(p.lat * 1e5) / 1e5, Math.round(p.lon * 1e5) / 1e5]));
+      }
+      if (!Object.keys(by).length) throw new Error("nessuna strada trovata per " + c);
+      zgeo[c] = by; idbSet("v1:" + c, by);
+      return by;
+    } catch (e) { lastErr = e; }
+  }
+  throw lastErr || new Error("errore sconosciuto");
+}
+function zstate(c, name){
+  const a = ann[key(c, name)];
+  if (!a || !a.aggiornato) return "nuova";
+  return a.stato === "fatta" ? "fatta" : a.stato === "in_corso" ? "in_corso" : "da_fare";
+}
+function zstyle(st){ return { color: ZCOL[st][0], weight: st === "nuova" ? 3 : 6, opacity: st === "nuova" ? .55 : .95, lineCap: "round" }; }
+function zmapLegend(){
+  const c = zmapComune, geo = zgeo[c]; if (!geo) return;
+  const cnt = { fatta: 0, in_corso: 0, da_fare: 0, nuova: 0 };
+  for (const s of STREETS[c] || []) if (geo[s.n]) cnt[zstate(c, s.n)]++;
+  $("zmap-legend").innerHTML = Object.keys(ZCOL).map(k => `<span><i style="background:${ZCOL[k][0]}"></i>${ZCOL[k][1]} · <b>${cnt[k]}</b></span>`).join("") +
+    `<span style="color:var(--ink-3)">Tocca una via per aprirla</span>`;
+}
+function zmapRestyle(){ if (!zlayer) return; zlayer.eachLayer(pl => pl.setStyle(zstyle(zstate(zmapComune, pl._rzName)))); zmapLegend(); }
+async function zmapShow(){
+  const c = ui.comune, msg = $("zmap-msg");
+  if (!window.L) { msg.hidden = false; msg.textContent = "Mappa non disponibile: controlla la connessione e ricarica."; return; }
+  if (!zmap) {
+    zmap = L.map("zmap", { preferCanvas: true, tap: true });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap contributors" }).addTo(zmap);
+    zmap.setView([45.62, 9.9], 10);
+  }
+  setTimeout(() => zmap.invalidateSize(), 60);
+  if (zmapComune === c && zlayer) { zmapRestyle(); return; }
+  if (zmapLoading === c) return;
+  zmapComune = c; zmapLoading = c;
+  if (zlayer) { zlayer.remove(); zlayer = null; }
+  $("zmap-legend").innerHTML = "";
+  msg.hidden = false; msg.textContent = `Scarico le strade di ${c}… (solo la prima volta)`;
+  try {
+    const geo = await loadGeo(c);
+    if (zmapComune !== c) return;
+    const names = new Set((STREETS[c] || []).map(s => s.n));
+    const bounds = L.latLngBounds([]);
+    zlayer = L.layerGroup();
+    for (const [name, lines] of Object.entries(geo)) {
+      if (!names.has(name)) continue;
+      const pl = L.polyline(lines, zstyle(zstate(c, name)));
+      pl._rzName = name;
+      pl.bindTooltip(name, { sticky: true });
+      pl.on("click", () => openSheet(name));
+      pl.addTo(zlayer);
+      lines.forEach(l => l.forEach(p => bounds.extend(p)));
+    }
+    zlayer.addTo(zmap);
+    if (bounds.isValid()) zmap.fitBounds(bounds, { padding: [16, 16] });
+    msg.hidden = true; zmapLegend();
+  } catch (e) {
+    zmapComune = null;
+    msg.hidden = false; msg.textContent = `Non riesco a scaricare la mappa (${(e && e.message) || e}). Riprova tra un minuto.`;
+  }
+  zmapLoading = null;
+}
+const zwide = () => !!(window.matchMedia && window.matchMedia("(min-width:768px)").matches);
+function zsetTop(){ const h = document.querySelector("#view-zona .top"); if (h) document.documentElement.style.setProperty("--ztop", (h.offsetHeight + 12) + "px"); }
+window.zmapAfterRender = function(){
+  const mode = ui.zview === "mappa" ? "mappa" : "lista", wide = zwide();
+  document.querySelectorAll("[data-zv]").forEach(b => b.setAttribute("aria-pressed", b.dataset.zv === mode));
+  zsetTop();
+  $("zmap-wrap").hidden = !wide && mode !== "mappa";
+  $("list").hidden = !wide && mode === "mappa";
+  if (!$("view-zona").hidden && (wide || mode === "mappa")) zmapShow();
+  diaryNote();
+};
+let zfocusLayer = null;
+window.zmapFocus = function(name){
+  if (!zmap || !zlayer || $("zmap-wrap").hidden) return;
+  zmapRestyle();
+  let found = null; zlayer.eachLayer(pl => { if (pl._rzName === name) found = pl; });
+  if (!found) return;
+  found.setStyle({ weight: 11, opacity: 1 }); if (found.bringToFront) found.bringToFront();
+  try { zmap.fitBounds(found.getBounds(), { maxZoom: 17, padding: [40, 40] }); } catch {}
+};
+window.addEventListener("resize", () => { clearTimeout(window.__zr); window.__zr = setTimeout(() => { zsetTop(); if (zmap) zmap.invalidateSize(); if (window.zmapAfterRender) zmapAfterRender(); }, 150); });
+document.addEventListener("click", e => {
+  const a = e.target.closest("#t-map"); if (!a) return;
+  e.preventDefault();
+  if (zwide()) { if (zmap && zlayer) { const b = L.latLngBounds([]); zlayer.eachLayer(pl => b.extend(pl.getBounds())); if (b.isValid()) zmap.fitBounds(b, { padding: [16, 16] }); } $("zmap-wrap").scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+  else { ui.zview = "mappa"; saveUi(); render(); setTimeout(() => $("zmap-wrap").scrollIntoView({ behavior: "smooth", block: "start" }), 80); }
+}, true);
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-zv]"); if (!b) return;
+  ui.zview = b.dataset.zv; saveUi(); render();
+});
+
+/* ===================== PROMEMORIA GIORNALIERO (Google Calendar) ===================== */
+const DIARY_KEY = "rz_diario_v1";
+let diary = (() => { try { return JSON.parse(localStorage.getItem(DIARY_KEY) || "{}") || {}; } catch { return {}; } })();
+let diaryTimer = null;
+const strip = a => { if (!a) return null; const x = Object.assign({}, a); delete x.aggiornato; return JSON.stringify(x); };
+function saveDiary(){
+  const cutoff = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
+  for (const d of Object.keys(diary)) if (d < cutoff) delete diary[d];
+  try { localStorage.setItem(DIARY_KEY, JSON.stringify(diary)); } catch {}
+  if (store && store.gas) gs("saveData", "diario", JSON.stringify(diary));
+}
+window.diaryRecord = function(comune, via, a, prev){
+  if (!a || strip(a) === strip(prev)) return;
+  const d = today(), day = diary[d] || (diary[d] = { first: Date.now(), items: {} });
+  day.items[comune + "||" + via] = {
+    comune, via, stato: a.stato, nota: a.nota || "", ultimoPassaggio: a.ultimoPassaggio || "",
+    attivitaMercato: a.attivitaMercato || "", notaMercato: a.notaMercato || "", at: Date.now(),
+    civici: (a.civici || []).map(c => ({ numero: c.numero, interesse: c.interesse || "", nota: c.nota || "", telefono: c.telefono || "", tipoImmobile: c.tipoImmobile || "", richiamo: c.richiamo || "" }))
+  };
+  day.dirty = true; saveDiary(); diaryNote();
+  clearTimeout(diaryTimer); diaryTimer = setTimeout(() => diaryPush(d), 4000);
+};
+function diaryWhen(day){ return new Date(day.first + 864e5); }
+function diaryBody(d, day){
+  const items = Object.values(day.items).sort((x, y) => x.at - y.at);
+  const comuni = [...new Set(items.map(i => i.comune))];
+  const names = items.map(i => i.via);
+  const tipi = Object.fromEntries(TIPI);
+  const lines = [`Vie segnate ${new Date(d + "T12:00:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" })} (${items.length}):`, ""];
+  for (const i of items) {
+    lines.push(`▸ ${i.via} (${i.comune}) — ${STATO_LBL[i.stato] || i.stato}`);
+    if (i.nota) lines.push(`   Nota: ${i.nota}`);
+    if (i.attivitaMercato || i.notaMercato) lines.push(`   Mercato: ${MKT_LBL[i.attivitaMercato] || "—"}${i.notaMercato ? " · " + i.notaMercato : ""}`);
+    for (const c of i.civici) lines.push(`   • Civico ${c.numero}${c.interesse && c.interesse !== "no" ? " · " + (INT_LBL[c.interesse] || c.interesse) : ""}${c.tipoImmobile ? " · " + (tipi[c.tipoImmobile] || c.tipoImmobile) : ""}${c.nota ? " · " + c.nota : ""}${c.telefono ? " · tel. " + c.telefono : ""}${c.richiamo ? " · richiamare il " + c.richiamo : ""}`);
+    lines.push("");
+  }
+  lines.push("Promemoria creato da Ricerca Zona.");
+  const start = diaryWhen(day), end = new Date(start.getTime() + 30 * 6e4);
+  const body = {
+    summary: `📍 Ripasso zona: ${names.slice(0, 3).join(", ")}${names.length > 3 ? ` +${names.length - 3}` : ""} · ${comuni.join(", ")}`,
+    description: lines.join("\n"), status: "confirmed", colorId: "5",
+    start: { dateTime: start.toISOString() }, end: { dateTime: end.toISOString() },
+    reminders: { useDefault: false, overrides: [{ method: "popup", minutes: 0 }] }
+  };
+  if (comuni.length === 1) body.location = comuni[0] + ", Italia";
+  return body;
+}
+async function diaryPush(d){
+  const day = diary[d];
+  if (!day || !day.dirty || !tok || !Object.keys(day.items).length) { diaryNote(); return; }
+  const body = JSON.stringify(diaryBody(d, day)), H = { "Content-Type": "application/json" };
+  try {
+    if (day.eventId) {
+      try { await api(CAL + "/" + encodeURIComponent(day.eventId) + "?sendUpdates=none", { method: "PATCH", headers: H, body }); }
+      catch (e) { if (e instanceof AuthErr) throw e; day.eventId = null; }
+    }
+    if (!day.eventId) { const r = await api(CAL + "?sendUpdates=none", { method: "POST", headers: H, body }); day.eventId = r.id; }
+    day.dirty = false; saveDiary();
+  } catch (e) {}
+  diaryNote();
+}
+function diaryFlush(){ for (const d of Object.keys(diary).sort()) if (diary[d].dirty) diaryPush(d); }
+function diaryLoadRemote(){
+  let remote = {};
+  try { remote = JSON.parse((typeof driveDoc !== "undefined" && driveDoc.diario) || "{}") || {}; } catch {}
+  for (const [d, r] of Object.entries(remote)) {
+    const l = diary[d];
+    if (!l) { diary[d] = r; continue; }
+    if (!l.eventId && r.eventId) l.eventId = r.eventId;
+    l.first = Math.min(l.first || Infinity, r.first || Infinity);
+    for (const [k, it] of Object.entries(r.items || {})) if (!l.items[k] || (it.at || 0) > (l.items[k].at || 0)) { l.items[k] = it; l.dirty = true; }
+  }
+  saveDiary(); diaryNote();
+}
+function diaryNote(){
+  const el = $("diary-note"); if (!el) return;
+  const day = diary[today()], n = day ? Object.keys(day.items).length : 0;
+  if (!n) { el.hidden = true; return; }
+  const when = diaryWhen(day).toLocaleString("it-IT", { weekday: "long", hour: "2-digit", minute: "2-digit" });
+  el.hidden = false;
+  el.innerHTML = `📅 Oggi hai segnato <strong>${n} ${n === 1 ? "via" : "vie"}</strong>. ` + (!tok
+    ? `Accedi con Google (Menu → Centro Messaggi) per creare il promemoria nel calendario.`
+    : day.dirty ? `Aggiorno il promemoria nel calendario…` : `Promemoria nel calendario per <strong>${esc(when)}</strong>, con vie e note.`);
+}
+
+
+/* ===================== FOTOGRAFO ===================== */
+const FOTO_INVITE = "stefano.piccioli@dove.it";
+const FOTO_TEL = "3913009425";
+const FOTO_KEY = "rz_foto_v1";
+let fotoKeys = "", fotoBusy = false, fotoInit = false, fotoMerged = false;
+let fotoList = (() => { try { return JSON.parse(localStorage.getItem(FOTO_KEY) || "[]") || []; } catch { return []; } })();
+function fotoSave(){
+  fotoList = fotoList.slice(0, 30);
+  try { localStorage.setItem(FOTO_KEY, JSON.stringify(fotoList)); } catch {}
+  if (store && store.gas) gs("saveData", "foto", JSON.stringify(fotoList));
+}
+let fotoMonth = 0; const fotoStatsCache = {}; let fotoStatsLoading = null;
+const isStefano = () => !!(tok && (tok.email || "").toLowerCase() === FOTO_INVITE);
+function fotoMonthRange(off){ const s = new Date(); s.setDate(1); s.setHours(0, 0, 0, 0); s.setMonth(s.getMonth() + off); const e = new Date(s); e.setMonth(e.getMonth() + 1); return [s, e]; }
+async function fotoStats(force){
+  const card = $("f-stats");
+  if (!isStefano()) { card.hidden = true; $("f-stats-body").innerHTML = ""; return; }
+  card.hidden = false;
+  const [s, e] = fotoMonthRange(fotoMonth), k = s.toISOString();
+  $("f-stats-t").textContent = "📊 Servizi di " + s.toLocaleDateString("it-IT", { month: "long", year: "numeric" });
+  if (!fotoStatsCache[k] || force) {
+    if (fotoStatsLoading === k) return;
+    fotoStatsLoading = k; $("f-stats-body").innerHTML = `<div class="hint">Conto i servizi nel calendario…</div>`;
+    try {
+      const r = await api(CAL + "?" + new URLSearchParams({ timeMin: s.toISOString(), timeMax: e.toISOString(), singleEvents: "true", orderBy: "startTime", maxResults: "250", q: "Servizio fotografico" }));
+      fotoStatsCache[k] = (r.items || []).filter(ev => ev.status !== "cancelled" && /servizio fotografico/i.test(ev.summary || "")
+        && !((ev.attendees || []).some(a => a.self && a.responseStatus === "declined")));
+    } catch (err) { fotoStatsLoading = null; $("f-stats-body").innerHTML = `<div class="note-box err">Non riesco a leggere il calendario: ${esc((err && err.message) || String(err))}</div>`; return; }
+    fotoStatsLoading = null;
+    if (k !== fotoMonthRange(fotoMonth)[0].toISOString()) return;
+  }
+  const list = fotoStatsCache[k], now = Date.now();
+  const endOf = ev => new Date((ev.end && (ev.end.dateTime || ev.end.date)) || (ev.start && (ev.start.dateTime || ev.start.date))).getTime();
+  const done = list.filter(ev => endOf(ev) <= now).length;
+  $("f-stats-body").innerHTML = `<div class="f-kpis"><div class="f-kpi tot"><b>${list.length}</b><span>Servizi totali</span></div><div class="f-kpi done"><b>${done}</b><span>Già fatti</span></div><div class="f-kpi next"><b>${list.length - done}</b><span>In programma</span></div></div>` +
+    (list.length ? `<div class="f-slist">${list.map(ev => { const st = new Date((ev.start && (ev.start.dateTime || ev.start.date)) || 0); const past = endOf(ev) <= now;
+      return `<div class="f-rec"><div><b>${past ? "✅ " : "🗓️ "}${esc(ev.location || (ev.summary || "").replace(/^📸\s*Servizio fotografico\s*·\s*/i, ""))}</b>${esc(st.toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}${ev.organizer && ev.organizer.email && !ev.organizer.self ? " · da " + esc(ev.organizer.email) : ""}</div>${ev.htmlLink ? `<a href="${esc(ev.htmlLink)}" target="_blank" rel="noopener">Apri</a>` : ""}</div>`; }).join("")}</div>`
+      : `<div class="hint">Nessun servizio fotografico in questo mese.</div>`);
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-fm]"); if (!b) return; fotoMonth += Number(b.dataset.fm); fotoStats(); });
+function fotoTomorrow(){ const d = new Date(); d.setDate(d.getDate() + 1); return new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); }
+function fotoRender(){
+  if (!fotoInit) {
+    fotoInit = true;
+    $("f-data").value = fotoTomorrow();
+  }
+  if (!fotoMerged && store && store.gas) {
+    fotoMerged = true;
+    try { const remote = JSON.parse(driveDoc.foto || "[]"); for (const r of remote) if (!fotoList.some(x => x.id === r.id)) fotoList.push(r); fotoList.sort((a, b) => (b.created || 0) - (a.created || 0)); } catch {}
+  }
+  document.querySelectorAll(".f-keys [data-k]").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === fotoKeys));
+  $("f-sync").textContent = tok ? "Google" : "Accedi";
+  $("f-sync").classList.toggle("clickable", !tok);
+  $("f-actions").innerHTML = tok
+    ? `<button type="submit" class="btn f-submit" ${fotoBusy ? "disabled" : ""}>${fotoBusy ? "Creo l'evento…" : "📅 Crea evento e invia invito"}</button>`
+    : `<div style="margin-top:12px">${loginCardHtml()}</div>`;
+  $("f-recent-card").hidden = !fotoList.length;
+  if (tok) fotoStats(); else $("f-stats").hidden = true;
+  $("f-recent").innerHTML = fotoList.slice(0, 10).map(f => `<div class="f-rec"><div><b>${esc(f.indirizzo)}</b>${esc(new Date(f.start).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))} · ${esc(f.tipologia || "—")}${f.mq ? " · " + esc(f.mq) + " m²" : ""} · chiavi: ${f.chiavi === "si" ? "sì" : f.chiavi === "no" ? "no" : "—"}</div>${f.link ? `<a href="${esc(f.link)}" target="_blank" rel="noopener">Apri evento</a>` : ""}</div>`).join("");
+}
+window.fotoRender = fotoRender;
+function fotoMsg(html, kind){ $("f-msg").innerHTML = html ? `<div class="note-box ${kind || "info"}" style="margin-top:10px">${html}</div>` : ""; }
+document.addEventListener("click", e => {
+  const k = e.target.closest(".f-keys [data-k]");
+  if (k) { fotoKeys = fotoKeys === k.dataset.k ? "" : k.dataset.k; fotoRender(); }
+});
+document.addEventListener("input", e => { if (e.target.closest("#f-form")) e.target.classList.remove("bad"); });
+$("f-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (fotoBusy) return;
+  if (!tok) { doLogin(!knownEmail()); return; }
+  const ind = $("f-ind").value.trim(), data = $("f-data").value, ora = $("f-ora").value, dur = Number($("f-dur").value || 60);
+  const mq = $("f-mq").value.trim(), tipo = $("f-tipo").value, note = $("f-note").value.trim();
+  const missing = [];
+  if (!ind) { missing.push("indirizzo"); $("f-ind").classList.add("bad"); }
+  if (!data) { missing.push("data"); $("f-data").classList.add("bad"); }
+  if (!ora) { missing.push("ora"); $("f-ora").classList.add("bad"); }
+  if (missing.length) { fotoMsg(`Completa: <b>${missing.join(", ")}</b>.`, "err"); return; }
+  const [H, M] = ora.split(":").map(Number);
+  const endMin = H * 60 + M + dur;
+  const pad = n => String(n).padStart(2, "0");
+  let endDate = data;
+  if (endMin >= 1440) { const d = new Date(data + "T12:00:00"); d.setDate(d.getDate() + 1); endDate = new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); }
+  const startLocal = `${data}T${pad(H)}:${pad(M)}:00`, endLocal = `${endDate}T${pad(Math.floor(endMin % 1440 / 60))}:${pad(endMin % 60)}:00`;
+  const chiavi = fotoKeys === "si" ? "Sì" : fotoKeys === "no" ? "No" : "Non indicato";
+  const desc = [
+    "📸 Servizio fotografico", "",
+    `Indirizzo: ${ind}`,
+    `Tipologia: ${tipo || "Non indicata"}`,
+    `Metratura: ${mq ? mq + " m²" : "Non indicata"}`,
+    `Consegna chiavi: ${chiavi}`,
+    note ? `Note: ${note}` : null, "",
+    "Chiama:", "391 300 9425 (tel. +39 " + FOTO_TEL + ")", "",
+    `Mappa: https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ind)}`, "",
+    "Creato da Ricerca Zona."
+  ].filter(x => x !== null).join("\n");
+  const attendees = (tok.email || "").toLowerCase() === FOTO_INVITE ? [] : [{ email: FOTO_INVITE }];
+  const body = {
+    summary: `📸 Servizio fotografico · ${tipo ? tipo + " · " : ""}${ind}`,
+    location: ind, description: desc,
+    start: { dateTime: startLocal, timeZone: "Europe/Rome" }, end: { dateTime: endLocal, timeZone: "Europe/Rome" },
+    attendees, reminders: { useDefault: true }
+  };
+  fotoBusy = true; fotoMsg(""); fotoRender();
+  try {
+    const r = await api(CAL + "?sendUpdates=all", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    fotoList.unshift({ id: r.id, link: r.htmlLink || "", indirizzo: ind, tipologia: tipo, mq, chiavi: fotoKeys, start: new Date(startLocal).toISOString(), created: Date.now() });
+    fotoSave();
+    for (const k of Object.keys(fotoStatsCache)) delete fotoStatsCache[k];
+    fotoMsg(`✅ Evento creato${attendees.length ? " e invito inviato a <b>" + FOTO_INVITE + "</b>" : ""}.${r.htmlLink ? ` <a href="${esc(r.htmlLink)}" target="_blank" rel="noopener" style="color:inherit;font-weight:700">Apri nel calendario</a>` : ""}`, "info");
+    $("f-ind").value = ""; $("f-mq").value = ""; $("f-tipo").value = ""; $("f-note").value = ""; fotoKeys = "";
+  } catch (err) {
+    fotoMsg(`⚠️ Evento non creato: ${esc((err && err.message) || String(err))}`, "err");
+  }
+  fotoBusy = false; fotoRender();
+});
+
+
+/* ===================== FOGLIO PREQUALIFICA ===================== */
+const PQ_SCHEMA = [
+  { title: "Cliente", fields: [
+    { k: "nome", l: "Nome e cognome", t: "text", req: true, full: true, ac: "name" },
+    { k: "telefono", l: "Numero di telefono", t: "tel", req: true, ac: "tel" } ] },
+  { title: "Indirizzo", fields: [ { k: "indirizzo", l: "Indirizzo", t: "area", req: true, full: true } ] },
+  { title: "Tipologia", checks: "tipologia", opts: ["Appartamento in villetta","Casa indipendente","Attico","Mansarda","Loft","Villa","Villetta a schiera","Rustico / Casale","Palazzo"] },
+  { title: "Dati immobile", fields: [
+    { k: "superficie", l: "Superficie", t: "num", unit: "m²" },
+    { k: "piano", l: "Piano", t: "text" },
+    { k: "piani_totali", l: "Di (piani totali)", t: "num" },
+    { k: "categoria_catastale", l: "Categoria catastale", t: "text", ph: "Es. A/2" },
+    { k: "classe_energetica", l: "Classe energetica", t: "text", ph: "Es. B" },
+    { k: "valore_energetico", l: "Valore energetico", t: "text", ph: "Es. 75 kWh/m²a" },
+    { k: "anno_costruzione", l: "Anno di costruzione", t: "num", ph: "Es. 1985" } ] },
+  { title: "Stato", checks: "stato", opts: ["Nuovo","Abitabile","Da ristrutturare"] },
+  { title: "Caratteristiche", checks: "caratteristiche", opts: ["Camino","Aria condizionata","Allarme","Videocitofono","Giardino condominiale","Domotica","Portiere","Ascensore","Edificio storico","Pannelli solari","Piscina","Porta blindata"] },
+  { title: "Riscaldamento", checks: "riscaldamento", opts: ["Autonomo","Condominiale"] },
+  { title: "Impianto TV", checks: "impianto_tv", opts: ["Autonomo","Condominiale"] },
+  { title: "Giardino privato", fields: [ { k: "giardino_privato", l: "Giardino privato", t: "num", unit: "m²" } ] },
+  { title: "Arredamento", checks: "arredamento", opts: ["Completo","Parziale","Non arredato","Trattabile"] },
+  { title: "Stanze", fields: [
+    { k: "stanze_letto", l: "Stanze da letto N.", t: "num" }, { k: "bagni", l: "Bagni N.", t: "num" },
+    { k: "soggiorni", l: "Soggiorni N.", t: "num" }, { k: "cucine", l: "Cucine N.", t: "num" },
+    { k: "ripostigli", l: "Ripostigli N.", t: "num" }, { k: "altro_stanze", l: "Altro N.", t: "num" } ] },
+  { title: "Pertinenze", fields: [
+    { k: "balconi", l: "Balconi N.", t: "num" }, { k: "terrazzi", l: "Terrazzi N.", t: "num" },
+    { k: "cantine", l: "Cantine N.", t: "num" }, { k: "box", l: "Box N.", t: "num" } ] },
+  { title: "Costi", fields: [
+    { k: "spese_condominiali", l: "Spese condominiali", t: "num", unit: "€", per: true },
+    { k: "prezzo", l: "Prezzo", t: "num", unit: "€" } ] },
+  { title: "Note", fields: [ { k: "note", l: "Note", t: "area", full: true } ] }
+];
+const PQ_KEY = "rz_preq_v1", PQ_DRAFT = "rz_preq_draft_v1";
+let pqList = (() => { try { return JSON.parse(localStorage.getItem(PQ_KEY) || "[]") || []; } catch { return []; } })();
+let pqCur = null, pqBuilt = false, pqMerged = false, pqDelArm = null;
+const pqEmpty = () => ({ id: "pq-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7), created: 0, updated: 0, v: {}, c: {} });
+function pqField(f){
+  const req = f.req ? " <em>*</em>" : "", id = "pq_" + f.k;
+  let input;
+  if (f.t === "area") input = `<textarea class="inp" id="${id}" data-pq="${f.k}" rows="2"></textarea>`;
+  else {
+    const type = f.t === "num" ? "number" : f.t === "tel" ? "tel" : "text";
+    const extra = f.t === "num" ? ` inputmode="decimal" min="0"` : "";
+    input = `<input class="inp" id="${id}" data-pq="${f.k}" type="${type}"${extra}${f.ac ? ` autocomplete="${f.ac}"` : ""}${f.ph ? ` placeholder="${esc(f.ph)}"` : ""}>`;
+  }
+  if (f.unit || f.per) input = `<div class="pq-unit">${input}${f.unit ? `<small>${f.unit}</small>` : ""}${f.per ? `<select class="inp" id="pq_${f.k}_per" data-pq="${f.k}_per" style="flex:0 0 auto;width:auto"><option value="mese">al mese</option><option value="anno">all'anno</option></select>` : ""}</div>`;
+  return `<label class="pq-f${f.full ? " pq-full" : ""}" for="${id}"><span>${esc(f.l)}${req}</span>${input}</label>`;
+}
+function pqBuild(){
+  $("pq-fields").innerHTML = PQ_SCHEMA.map(s => `<fieldset class="pq-sec"><legend>${esc(s.title)}</legend>` +
+    (s.fields ? `<div class="pq-grid">${s.fields.map(pqField).join("")}</div>` :
+      `<div class="pq-checks">${s.opts.map((o, i) => `<label class="pq-check"><input type="checkbox" id="pq_${s.checks}_${i}" data-pqc="${s.checks}" value="${esc(o)}"> ${esc(o)}</label>`).join("")}</div>`) +
+    `</fieldset>`).join("");
+  pqBuilt = true;
+}
+function pqRead(){
+  const r = { v: {}, c: {} };
+  document.querySelectorAll("#pq-fields [data-pq]").forEach(el => { const val = el.value.trim(); if (val && !(el.tagName === "SELECT" && !r.v[el.dataset.pq.replace(/_per$/, "")] && el.dataset.pq.endsWith("_per"))) r.v[el.dataset.pq] = val; });
+  document.querySelectorAll("#pq-fields [data-pqc]").forEach(el => { if (el.checked) (r.c[el.dataset.pqc] = r.c[el.dataset.pqc] || []).push(el.value); });
+  if (!r.v.spese_condominiali) delete r.v.spese_condominiali_per;
+  return r;
+}
+function pqFill(rec){
+  document.querySelectorAll("#pq-fields [data-pq]").forEach(el => { el.value = rec.v[el.dataset.pq] || (el.tagName === "SELECT" ? el.options[0].value : ""); el.classList.remove("bad"); });
+  document.querySelectorAll("#pq-fields [data-pqc]").forEach(el => { el.checked = !!(rec.c[el.dataset.pqc] || []).includes(el.value); });
+}
+function pqDraftSave(){ if (!pqCur) return; const r = pqRead(); try { localStorage.setItem(PQ_DRAFT, JSON.stringify(Object.assign({}, pqCur, r))); } catch {} $("pq-sync").textContent = pqCur.created ? "Modifiche non salvate" : "Bozza"; }
+function pqPersist(){
+  pqList.sort((a, b) => (b.updated || 0) - (a.updated || 0));
+  try { localStorage.setItem(PQ_KEY, JSON.stringify(pqList)); } catch {}
+  if (store && store.gas) gs("saveData", "preq", JSON.stringify(pqList));
+}
+window.pqMerge = function(){
+  if (pqMerged) return; pqMerged = true;
+  let remote = []; try { remote = JSON.parse((typeof driveDoc !== "undefined" && driveDoc.preq) || "[]") || []; } catch {}
+  let changed = false;
+  for (const r of remote) { const l = pqList.find(x => x.id === r.id); if (!l) { pqList.push(r); changed = true; } else if ((r.updated || 0) > (l.updated || 0)) { Object.assign(l, r); changed = true; } }
+  if (pqList.length && (changed || remote.length !== pqList.length)) pqPersist();
+  if (!$("view-preq").hidden) pqRenderList();
+};
+function pqText(rec){
+  const out = ["📝 FOGLIO PREQUALIFICA", ""];
+  for (const s of PQ_SCHEMA) {
+    const lines = [];
+    if (s.fields) for (const f of s.fields) { const val = rec.v[f.k]; if (!val) continue; lines.push(`${f.l}: ${val}${f.unit ? " " + f.unit : ""}${f.per && rec.v[f.k + "_per"] ? (rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese") : ""}`); }
+    else if ((rec.c[s.checks] || []).length) lines.push(rec.c[s.checks].join(", "));
+    if (lines.length) { out.push(s.title.toUpperCase()); out.push(...lines); out.push(""); }
+  }
+  return out.join("\n").trim();
+}
+function pqRenderList(){
+  $("pq-count").textContent = pqList.length;
+  const q = ($("pq-search").value || "").trim().toLowerCase();
+  const list = pqList.filter(r => !q || `${r.v.nome || ""} ${r.v.indirizzo || ""} ${r.v.telefono || ""}`.toLowerCase().includes(q));
+  $("pq-list").innerHTML = !list.length ? `<div class="hint">${pqList.length ? "Nessun foglio corrisponde alla ricerca." : "Nessun foglio salvato."}</div>` :
+    list.map(r => `<div class="pq-item${pqCur && pqCur.id === r.id ? " current" : ""}"><div class="who"><b>${esc(r.v.nome || "Senza nome")}</b><small>${esc((r.v.indirizzo || "").split("\n")[0])}${r.v.telefono ? " · " + esc(r.v.telefono) : ""} · ${esc(new Date(r.updated).toLocaleDateString("it-IT", { day: "2-digit", month: "short", year: "numeric" }))}</small></div>
+      <div class="acts">${r.v.telefono ? `<a class="chip" href="tel:${esc(r.v.telefono.replace(/[^\d+]/g, ""))}">📞</a>` : ""}<button type="button" class="chip" data-pq-open="${esc(r.id)}">Apri</button><button type="button" class="chip" data-pq-del="${esc(r.id)}" style="${pqDelArm === r.id ? "background:var(--hot);color:#fff;border-color:var(--hot)" : ""}">${pqDelArm === r.id ? "Conferma" : "🗑️"}</button></div></div>`).join("");
+}
+function pqMsg(html, kind){ $("pq-msg").innerHTML = html ? `<div class="note-box ${kind || "info"}">${html}</div>` : ""; }
+function pqLoad(rec){ pqCur = JSON.parse(JSON.stringify(rec)); pqFill(pqCur); $("pq-sync").textContent = pqCur.created ? "Salvato" : "Bozza"; pqMsg(""); pqRenderList(); pqShareLinks(); }
+function pqShareLinks(){ const t = pqText(Object.assign({}, pqCur || {}, pqRead())); $("pq-wa").href = "https://wa.me/?text=" + encodeURIComponent(t); }
+function pqRender(){
+  if (!pqBuilt) {
+    pqBuild();
+    let draft = null; try { draft = JSON.parse(localStorage.getItem(PQ_DRAFT) || "null"); } catch {}
+    pqLoad(draft && draft.id ? draft : pqEmpty());
+  }
+  if (store && store.gas) pqMerge();
+  pqRenderList();
+}
+window.pqRender = pqRender;
+$("pq-fields") && $("pq-form").addEventListener("input", e => { e.target.classList.remove("bad"); pqDraftSave(); pqShareLinks(); });
+$("pq-form").addEventListener("change", () => { pqDraftSave(); pqShareLinks(); });
+$("pq-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const r = pqRead(), missing = [];
+  for (const [k, l] of [["nome","nome e cognome"],["telefono","telefono"],["indirizzo","indirizzo"]]) if (!r.v[k]) { missing.push(l); $("pq_" + k).classList.add("bad"); }
+  if (missing.length) { pqMsg(`Completa i campi obbligatori: <b>${missing.join(", ")}</b>.`, "err"); $("pq_" + (r.v.nome ? (r.v.telefono ? "indirizzo" : "telefono") : "nome")).focus(); return; }
+  const now = Date.now(), rec = Object.assign({}, pqCur, r, { updated: now, created: pqCur.created || now });
+  const i = pqList.findIndex(x => x.id === rec.id);
+  if (i >= 0) pqList[i] = rec; else pqList.unshift(rec);
+  pqCur = rec; pqPersist();
+  try { localStorage.removeItem(PQ_DRAFT); } catch {}
+  $("pq-sync").textContent = "Salvato";
+  pqMsg(`✅ Foglio di <b>${esc(rec.v.nome)}</b> salvato${store && store.gas ? " nel tuo Google" : " su questo dispositivo (accedi con Google per averlo anche sugli altri)"}.`);
+  pqRenderList();
+});
+$("pq-new").addEventListener("click", () => { try { localStorage.removeItem(PQ_DRAFT); } catch {} pqLoad(pqEmpty()); window.scrollTo({ top: 0, behavior: "smooth" }); $("pq_nome").focus(); });
+$("pq-list-btn").addEventListener("click", () => { $("pq-saved").hidden = !$("pq-saved").hidden; pqRenderList(); });
+$("pq-search").addEventListener("input", pqRenderList);
+$("pq-list").addEventListener("click", e => {
+  const o = e.target.closest("[data-pq-open]");
+  if (o) { const r = pqList.find(x => x.id === o.dataset.pqOpen); if (r) { pqLoad(r); try { localStorage.removeItem(PQ_DRAFT); } catch {} window.scrollTo({ top: 0, behavior: "smooth" }); } return; }
+  const d = e.target.closest("[data-pq-del]");
+  if (d) {
+    if (pqDelArm !== d.dataset.pqDel) { pqDelArm = d.dataset.pqDel; pqRenderList(); setTimeout(() => { if (pqDelArm === d.dataset.pqDel) { pqDelArm = null; pqRenderList(); } }, 4000); return; }
+    pqList = pqList.filter(x => x.id !== pqDelArm);
+    if (pqCur && pqCur.id === pqDelArm) pqLoad(pqEmpty());
+    pqDelArm = null; pqPersist(); pqRenderList(); toast("Foglio eliminato");
+  }
+});
+$("pq-copy").addEventListener("click", async () => {
+  const t = pqText(Object.assign({}, pqCur, pqRead()));
+  try { await navigator.clipboard.writeText(t); toast("Testo copiato ✓"); } catch { toast("Copia non riuscita: usa Stampa / PDF"); }
+});
+$("pq-print").addEventListener("click", () => {
+  const rec = Object.assign({}, pqCur, pqRead());
+  let html = `<h1>Foglio prequalifica</h1><p>${esc(new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }))}</p>`;
+  for (const s of PQ_SCHEMA) {
+    const rows = [];
+    if (s.fields) for (const f of s.fields) { const val = rec.v[f.k]; rows.push(`<tr><td>${esc(f.l)}</td><td>${val ? esc(val) + (f.unit ? " " + f.unit : "") + (f.per && rec.v[f.k + "_per"] ? (rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese") : "") : ""}</td></tr>`); }
+    else rows.push(`<tr><td colspan="2">${s.opts.map(o => ((rec.c[s.checks] || []).includes(o) ? "☑ " : "☐ ") + esc(o)).join("&nbsp;&nbsp;&nbsp; ")}</td></tr>`);
+    html += `<h2>${esc(s.title)}</h2><table>${rows.join("")}</table>`;
+  }
+  $("pq-print-area").innerHTML = html;
+  setTimeout(() => window.print(), 50);
+});
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["zona","messaggi"] : ["zona"];
+const APPS = RZ_CLOUD ? ["zona","messaggi","foto","preq"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "zona";
-  $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi";
+  $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) pqRender();
   document.querySelectorAll(".dd-item").forEach(b => b.setAttribute("aria-checked", b.dataset.view === v));
   lsSet("app_view", v);
   try { history.replaceState(null, "", "#" + v); } catch {}
@@ -1823,7 +2483,7 @@ document.querySelectorAll("[data-menu]").forEach(b => { if (APPS.length < 2) b.h
 if (APPS.length > 1) document.querySelectorAll("[data-menu]").forEach(b => {
   b.addEventListener("click", e => { e.stopPropagation(); $("dd").hidden ? openDd(b) : closeDd(); });
 });
-$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); if (b.dataset.view === "messaggi" && !tok && knownEmail()) doLogin(false); } });
+$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); if ((b.dataset.view === "messaggi" || b.dataset.view === "foto") && !tok && knownEmail()) doLogin(false); } });
 $("dd").addEventListener("keydown", e => {
   const items = [...document.querySelectorAll(".dd-item")], i = items.indexOf(document.activeElement);
   if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
