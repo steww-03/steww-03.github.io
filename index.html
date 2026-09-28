@@ -225,6 +225,26 @@ a{color:inherit}
 .pq-check input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
 .pq-check:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
 .pq-check:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.pq-valbox{border-color:var(--accent)}
+.pq-val-on{font-size:15px;min-height:48px;align-self:flex-start}
+#pq-val-opts{display:flex;flex-direction:column;gap:8px}
+.pq-val-hint{font-size:12px;color:var(--ink-3)}
+.pq-val{background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.pq-val h3{margin:0;font-family:var(--display);font-size:17px}
+.pq-val .sub2{font-size:12px;color:var(--ink-3);margin-top:-6px}
+.pq-range{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pq-range div{background:var(--surface-2);border-radius:12px;padding:12px 6px;text-align:center;min-width:0}
+.pq-range b{display:block;font-family:var(--display);font-size:clamp(17px,4.6vw,24px);font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.pq-range span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.pq-range .mid{background:var(--accent-soft);outline:2px solid var(--accent)}
+.pq-range .mid b{color:var(--accent)}
+.pq-bar2{position:relative;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--done-soft),var(--accent-soft),var(--done-soft))}
+.pq-bar2 i{position:absolute;top:-4px;width:4px;height:18px;border-radius:2px;background:var(--hot)}
+.pq-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 16px;font-size:12.5px}
+.pq-facts div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line-2);padding:3px 0}
+.pq-facts b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pq-facts .pos{color:var(--done)} .pq-facts .neg{color:var(--hot)}
+.pq-disc{font-size:11.5px;color:var(--ink-3);line-height:1.5}
 .pq-actions{display:flex;flex-direction:column;gap:10px;margin-top:4px}
 .pq-save{min-height:52px;font-size:15px}
 .pq-share{display:flex;gap:8px;flex-wrap:wrap}
@@ -743,6 +763,17 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     </section>
     <form id="pq-form" novalidate>
       <div id="pq-fields"></div>
+      <fieldset class="pq-sec pq-valbox">
+        <legend>Valutazione</legend>
+        <label class="pq-check pq-val-on"><input type="checkbox" id="pq-val-on"> Valutazione provvisoria</label>
+        <div id="pq-val-opts" hidden>
+          <label class="pq-f" for="pq_comune"><span>Comune dell'immobile <em>*</em></span>
+            <input class="inp" id="pq_comune" data-pq="comune" list="pq-comuni" autocomplete="off" placeholder="Scrivi il comune (province di Bergamo e Brescia)">
+          </label>
+          <datalist id="pq-comuni"></datalist>
+          <div class="pq-val-hint" id="pq-val-hint">La stima viene calcolata quando salvi il foglio. Servono almeno comune e superficie.</div>
+        </div>
+      </fieldset>
       <div class="pq-actions">
         <button type="submit" class="btn pq-save">💾 Salva foglio</button>
         <div class="pq-share">
@@ -752,6 +783,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         </div>
         <div id="pq-msg" role="status"></div>
       </div>
+      <section class="pq-val" id="pq-val" hidden aria-live="polite"></section>
     </form>
   </main>
 </div>
@@ -1038,11 +1070,13 @@ function openSheet(via){
   const s = (STREETS[ui.comune] || []).find(x => x.n === via); if (!s) return;
   const a = getAnn(ui.comune, via);
   sheet = { via, tipo: s.t, stato: a.stato, nota: a.nota || "", ultimoPassaggio: a.ultimoPassaggio || "", attivitaMercato: a.attivitaMercato || "", notaMercato: a.notaMercato || "", civici: (a.civici || []).map(x => ({ ...x })) };
+  sheet.comune = ui.comune;
+  sheet._last = sheetSig();
   drawSheet();
   $("overlay").hidden = false;
   document.body.style.overflow = "hidden";
 }
-function closeSheet(){ sheet = null; $("overlay").hidden = true; $("overlay").innerHTML = ""; document.body.style.overflow = ""; }
+function closeSheet(){ if (sheet) sheetCommit(); sheet = null; $("overlay").hidden = true; $("overlay").innerHTML = ""; document.body.style.overflow = ""; }
 function sortedCivici(){
   return sheet.civici.map((c, i) => ({ c, i })).sort((x, y) => {
     const a = parseInt(x.c.numero, 10), b = parseInt(y.c.numero, 10);
@@ -1081,7 +1115,7 @@ function drawSheet(){
       <div class="row"><input class="inp" id="sh-add" placeholder="Aggiungi civico (es. 12, 23A)"><button class="btn" data-act="add">+ Aggiungi</button></div>
       ${S.civici.length ? `<div class="civs">${civ}</div>` : `<div class="hint">Nessun civico ancora. Aggiungili man mano che li rilevi sul campo.</div>`}
     </div>
-    <div class="sheet-foot"><button class="btn muted" data-act="close">Annulla</button><button class="btn" data-act="save">Salva</button></div>
+    <div class="sheet-foot"><span id="sh-saved" style="align-self:center;font-size:12px;color:var(--done);font-weight:700;flex:1;opacity:.7">Si salva da solo</span><button class="btn" data-act="save">Fatto ✓</button></div>
   </div>`;
 }
 function readTexts(){
@@ -1098,6 +1132,7 @@ function addCivico(){
   readTexts();
   if (!sheet.civici.some(c => c.numero.toLowerCase() === v.toLowerCase())) sheet.civici.push({ numero: v, interesse: "no", nota: "" });
   redraw("sh-add");
+  sheetCommitSoon();
 }
 $("overlay").addEventListener("click", e => {
   if (modalHandlers) { if (e.target === $("overlay")) return closeModal(); const mb = e.target.closest("button,a"); if (mb && modalHandlers.onClick) modalHandlers.onClick(mb); return; }
@@ -1115,11 +1150,13 @@ $("overlay").addEventListener("click", e => {
   else if (act === "del") sheet.civici.splice(i, 1);
   else if (act === "int") sheet.civici[i].interesse = b.dataset.v;
   redraw();
+  sheetCommitSoon();
 });
 $("overlay").addEventListener("input", e => {
   if (modalHandlers) { if (modalHandlers.onInput) modalHandlers.onInput(e); return; }
   const f = e.target.dataset.f, civEl = e.target.closest("[data-i]");
   if (f && civEl && sheet) sheet.civici[+civEl.dataset.i][f] = e.target.value || undefined;
+  if (sheet) sheetCommitSoon();
 });
 $("overlay").addEventListener("change", e => {
   if (modalHandlers) return;
@@ -1127,19 +1164,29 @@ $("overlay").addEventListener("change", e => {
 });
 $("overlay").addEventListener("keydown", e => { if (modalHandlers) return; if (e.key === "Enter" && e.target.id === "sh-add") { e.preventDefault(); addCivico(); } });
 document.addEventListener("keydown", e => { if (e.key !== "Escape") return; if (modalHandlers) closeModal(); else if (sheet) closeSheet(); });
-function saveSheet(){
-  readTexts();
-  const S = sheet;
-  const prevA = ann[key(ui.comune, S.via)] || null;
-  ann[key(ui.comune, S.via)] = {
-    stato: S.stato, nota: S.nota.trim() || undefined, civici: S.civici, aggiornato: Date.now(),
-    ultimoPassaggio: S.ultimoPassaggio || undefined, attivitaMercato: S.attivitaMercato || undefined, notaMercato: S.notaMercato.trim() || undefined
+/* Salvataggio automatico della scheda: ogni modifica viene salvata subito, anche chiudendo senza premere nulla */
+function sheetSig(){ const S = sheet; return JSON.stringify({ s: S.stato, n: (S.nota || "").trim(), u: S.ultimoPassaggio || "", m: S.attivitaMercato || "", nm: (S.notaMercato || "").trim(), c: S.civici }); }
+let sheetTimer = null;
+function sheetCommit(){
+  clearTimeout(sheetTimer);
+  if (!sheet) return;
+  if (document.getElementById("sh-nota")) readTexts();
+  const sig = sheetSig();
+  if (sig === sheet._last) return;
+  sheet._last = sig;
+  const S = sheet, c = S.comune || ui.comune, k = key(c, S.via), prevA = ann[k] || null;
+  ann[k] = {
+    stato: S.stato, nota: (S.nota || "").trim() || undefined, civici: JSON.parse(JSON.stringify(S.civici)), aggiornato: Date.now(),
+    ultimoPassaggio: S.ultimoPassaggio || undefined, attivitaMercato: S.attivitaMercato || undefined, notaMercato: (S.notaMercato || "").trim() || undefined
   };
   ann = JSON.parse(JSON.stringify(ann));
-  persist([ui.comune]);
-  if (window.diaryRecord) diaryRecord(ui.comune, S.via, ann[key(ui.comune, S.via)], prevA);
-  closeSheet(); render();
+  persist([c]);
+  if (window.diaryRecord) diaryRecord(c, S.via, ann[k], prevA);
+  const hint = document.getElementById("sh-saved"); if (hint) { hint.textContent = "✓ Salvato"; hint.style.opacity = "1"; }
+  render();
 }
+function sheetCommitSoon(){ clearTimeout(sheetTimer); sheetTimer = setTimeout(sheetCommit, 500); }
+function saveSheet(){ sheetCommit(); closeSheet(); }
 
 /* ---------- export / backup / restore ---------- */
 function flash(t, err){ toast(t); $("msg").textContent = t; $("msg").classList.toggle("err", !!err); clearTimeout(flash.t); flash.t = setTimeout(() => $("msg").textContent = "", 4000); }
@@ -2354,16 +2401,16 @@ function pqBuild(){
 }
 function pqRead(){
   const r = { v: {}, c: {} };
-  document.querySelectorAll("#pq-fields [data-pq]").forEach(el => { const val = el.value.trim(); if (val && !(el.tagName === "SELECT" && !r.v[el.dataset.pq.replace(/_per$/, "")] && el.dataset.pq.endsWith("_per"))) r.v[el.dataset.pq] = val; });
+  document.querySelectorAll("#pq-form [data-pq]").forEach(el => { const val = el.value.trim(); if (val && !(el.tagName === "SELECT" && !r.v[el.dataset.pq.replace(/_per$/, "")] && el.dataset.pq.endsWith("_per"))) r.v[el.dataset.pq] = val; });
   document.querySelectorAll("#pq-fields [data-pqc]").forEach(el => { if (el.checked) (r.c[el.dataset.pqc] = r.c[el.dataset.pqc] || []).push(el.value); });
   if (!r.v.spese_condominiali) delete r.v.spese_condominiali_per;
   return r;
 }
 function pqFill(rec){
-  document.querySelectorAll("#pq-fields [data-pq]").forEach(el => { el.value = rec.v[el.dataset.pq] || (el.tagName === "SELECT" ? el.options[0].value : ""); el.classList.remove("bad"); });
+  document.querySelectorAll("#pq-form [data-pq]").forEach(el => { el.value = rec.v[el.dataset.pq] || (el.tagName === "SELECT" ? el.options[0].value : ""); el.classList.remove("bad"); });
   document.querySelectorAll("#pq-fields [data-pqc]").forEach(el => { el.checked = !!(rec.c[el.dataset.pqc] || []).includes(el.value); });
 }
-function pqDraftSave(){ if (!pqCur) return; const r = pqRead(); try { localStorage.setItem(PQ_DRAFT, JSON.stringify(Object.assign({}, pqCur, r))); } catch {} $("pq-sync").textContent = pqCur.created ? "Modifiche non salvate" : "Bozza"; }
+function pqDraftSave(){ if (!pqCur) return; const r = pqRead(); r.valOn = $("pq-val-on").checked; try { localStorage.setItem(PQ_DRAFT, JSON.stringify(Object.assign({}, pqCur, r))); } catch {} $("pq-sync").textContent = pqCur.created ? "Modifiche non salvate" : "Bozza"; }
 function pqPersist(){
   pqList.sort((a, b) => (b.updated || 0) - (a.updated || 0));
   try { localStorage.setItem(PQ_KEY, JSON.stringify(pqList)); } catch {}
@@ -2385,7 +2432,7 @@ function pqText(rec){
     else if ((rec.c[s.checks] || []).length) lines.push(rec.c[s.checks].join(", "));
     if (lines.length) { out.push(s.title.toUpperCase()); out.push(...lines); out.push(""); }
   }
-  return out.join("\n").trim();
+  return (out.join("\n").trim() + (rec.valOn && rec.val ? "\n" + pqValText(rec.val) : "")).trim();
 }
 function pqRenderList(){
   $("pq-count").textContent = pqList.length;
@@ -2396,7 +2443,7 @@ function pqRenderList(){
       <div class="acts">${r.v.telefono ? `<a class="chip" href="tel:${esc(r.v.telefono.replace(/[^\d+]/g, ""))}">📞</a>` : ""}<button type="button" class="chip" data-pq-open="${esc(r.id)}">Apri</button><button type="button" class="chip" data-pq-del="${esc(r.id)}" style="${pqDelArm === r.id ? "background:var(--hot);color:#fff;border-color:var(--hot)" : ""}">${pqDelArm === r.id ? "Conferma" : "🗑️"}</button></div></div>`).join("");
 }
 function pqMsg(html, kind){ $("pq-msg").innerHTML = html ? `<div class="note-box ${kind || "info"}">${html}</div>` : ""; }
-function pqLoad(rec){ pqCur = JSON.parse(JSON.stringify(rec)); pqFill(pqCur); $("pq-sync").textContent = pqCur.created ? "Salvato" : "Bozza"; pqMsg(""); pqRenderList(); pqShareLinks(); }
+function pqLoad(rec){ pqCur = JSON.parse(JSON.stringify(rec)); pqFill(pqCur); if (typeof pqValShow === "function") pqValShow(pqCur); $("pq-sync").textContent = pqCur.created ? "Salvato" : "Bozza"; pqMsg(""); pqRenderList(); pqShareLinks(); }
 function pqShareLinks(){ const t = pqText(Object.assign({}, pqCur || {}, pqRead())); $("pq-wa").href = "https://wa.me/?text=" + encodeURIComponent(t); }
 function pqRender(){
   if (!pqBuilt) {
@@ -2416,6 +2463,8 @@ $("pq-form").addEventListener("submit", e => {
   for (const [k, l] of [["nome","nome e cognome"],["telefono","telefono"],["indirizzo","indirizzo"]]) if (!r.v[k]) { missing.push(l); $("pq_" + k).classList.add("bad"); }
   if (missing.length) { pqMsg(`Completa i campi obbligatori: <b>${missing.join(", ")}</b>.`, "err"); $("pq_" + (r.v.nome ? (r.v.telefono ? "indirizzo" : "telefono") : "nome")).focus(); return; }
   const now = Date.now(), rec = Object.assign({}, pqCur, r, { updated: now, created: pqCur.created || now });
+  rec.valOn = $("pq-val-on").checked;
+  rec.val = rec.valOn ? pqValuate(rec) : null;
   const i = pqList.findIndex(x => x.id === rec.id);
   if (i >= 0) pqList[i] = rec; else pqList.unshift(rec);
   pqCur = rec; pqPersist();
@@ -2423,6 +2472,9 @@ $("pq-form").addEventListener("submit", e => {
   $("pq-sync").textContent = "Salvato";
   pqMsg(`✅ Foglio di <b>${esc(rec.v.nome)}</b> salvato${store && store.gas ? " nel tuo Google" : " su questo dispositivo (accedi con Google per averlo anche sugli altri)"}.`);
   pqRenderList();
+  pqValShow(rec);
+  if (rec.val && !rec.val.error) setTimeout(() => $("pq-val").scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  pqShareLinks();
 });
 $("pq-new").addEventListener("click", () => { try { localStorage.removeItem(PQ_DRAFT); } catch {} pqLoad(pqEmpty()); window.scrollTo({ top: 0, behavior: "smooth" }); $("pq_nome").focus(); });
 $("pq-list-btn").addEventListener("click", () => { $("pq-saved").hidden = !$("pq-saved").hidden; pqRenderList(); });
@@ -2454,6 +2506,131 @@ $("pq-print").addEventListener("click", () => {
   $("pq-print-area").innerHTML = html;
   setTimeout(() => window.print(), 50);
 });
+
+const PQ_PREZZI={"Bergamo":["BG",2909],"Adrara San Martino":["BG",1027],"Adrara San Rocco":["BG",735],"Albano Sant'Alessandro":["BG",1833],"Albino":["BG",1464],"Algua":["BG",769],"Almè":["BG",1892],"Almenno San Bartolomeo":["BG",1548],"Almenno San Salvatore":["BG",1293],"Alzano Lombardo":["BG",1892],"Ambivere":["BG",1346],"Antegnate":["BG",1617],"Arcene":["BG",1588],"Ardesio":["BG",825],"Arzago d'Adda":["BG",1275],"Averara":["BG",689],"Aviatico":["BG",1254],"Azzano San Paolo":["BG",2347],"Azzone":["BG",1013],"Bagnatica":["BG",2031],"Barbata":["BG",1113],"Bariano":["BG",1543],"Barzana":["BG",2644],"Bedulita":["BG",387],"Berbenno":["BG",608],"Berzo San Fermo":["BG",1169],"Bianzano":["BG",1373],"Blello":["BG",383],"Bolgare":["BG",1945],"Boltiere":["BG",1670],"Bonate Sopra":["BG",1920],"Bonate Sotto":["BG",1527],"Borgo di Terzo":["BG",849],"Bossico":["BG",841],"Bottanuco":["BG",1406],"Bracca":["BG",764],"Branzi":["BG",1221],"Brembate":["BG",1392],"Brembate di Sopra":["BG",1911],"Brignano Gera d'Adda":["BG",1460],"Brumano":["BG",510],"Brusaporto":["BG",2030],"Calcinate":["BG",1750],"Calcio":["BG",1591],"Calusco d'Adda":["BG",1802],"Calvenzano":["BG",1679],"Camerata Cornello":["BG",843],"Canonica d'Adda":["BG",1432],"Capizzone":["BG",731],"Capriate San Gervasio":["BG",1815],"Caprino Bergamasco":["BG",1178],"Caravaggio":["BG",1697],"Carobbio degli Angeli":["BG",1684],"Carona":["BG",1695],"Carvico":["BG",1561],"Casazza":["BG",1339],"Casirate d'Adda":["BG",2054],"Casnigo":["BG",899],"Cassiglio":["BG",779],"Castel Rozzone":["BG",1553],"Castelli Calepio":["BG",1896],"Castione della Presolana":["BG",1598],"Castro":["BG",1673],"Cavernago":["BG",1754],"Cazzano Sant'Andrea":["BG",1466],"Cenate Sopra":["BG",1932],"Cenate Sotto":["BG",2250],"Cene":["BG",1161],"Cerete":["BG",1047],"Chignolo d'Isola":["BG",1831],"Chiuduno":["BG",1342],"Cisano Bergamasco":["BG",1807],"Ciserano":["BG",1605],"Cividate al Piano":["BG",1247],"Clusone":["BG",1279],"Colere":["BG",1553],"Cologno al Serio":["BG",1999],"Colzate":["BG",833],"Comun Nuovo":["BG",1866],"Corna Imagna":["BG",441],"Cornalba":["BG",808],"Cortenuova":["BG",1484],"Costa di Mezzate":["BG",1688],"Costa Serina":["BG",874],"Costa Valle Imagna":["BG",837],"Costa Volpino":["BG",1297],"Covo":["BG",1442],"Credaro":["BG",1645],"Curno":["BG",2615],"Cusio":["BG",672],"Dalmine":["BG",1960],"Dossena":["BG",806],"Endine Gaiano":["BG",974],"Entratico":["BG",1279],"Fara Gera d'Adda":["BG",1636],"Fara Olivana con Sola":["BG",1263],"Filago":["BG",1636],"Fino del Monte":["BG",1140],"Fiorano al Serio":["BG",1024],"Fontanella":["BG",1294],"Fonteno":["BG",1228],"Foppolo":["BG",1353],"Foresto Sparso":["BG",963],"Fornovo San Giovanni":["BG",1369],"Fuipiano Valle Imagna":["BG",670],"Gandellino":["BG",1100],"Gandino":["BG",670],"Gandosso":["BG",973],"Gaverina Terme":["BG",419],"Gazzaniga":["BG",985],"Ghisalba":["BG",1652],"Gorlago":["BG",1513],"Gorle":["BG",2106],"Gorno":["BG",582],"Grassobbio":["BG",2117],"Gromo":["BG",1291],"Grone":["BG",924],"Grumello del Monte":["BG",1949],"Isola di Fondra":["BG",831],"Isso":["BG",823],"Lallio":["BG",2026],"Leffe":["BG",817],"Lenna":["BG",890],"Levate":["BG",1547],"Locatello":["BG",563],"Lovere":["BG",1734],"Lurano":["BG",1956],"Luzzana":["BG",1409],"Madone":["BG",1557],"Mapello":["BG",1580],"Martinengo":["BG",1546],"Medolago":["BG",1661],"Mezzoldo":["BG",610],"Misano di Gera d'Adda":["BG",1524],"Moio de' Calvi":["BG",728],"Monasterolo del Castello":["BG",1410],"Montello":["BG",1426],"Morengo":["BG",1174],"Mornico al Serio":["BG",1502],"Mozzanica":["BG",1329],"Mozzo":["BG",2804],"Nembro":["BG",1643],"Olmo al Brembo":["BG",567],"Oltre il Colle":["BG",641],"Oltressenda Alta":["BG",696],"Oneta":["BG",985],"Onore":["BG",1292],"Orio al Serio":["BG",1841],"Ornica":["BG",945],"Osio Sopra":["BG",1951],"Osio Sotto":["BG",1617],"Pagazzano":["BG",1473],"Paladina":["BG",2081],"Palazzago":["BG",1491],"Palosco":["BG",1375],"Parre":["BG",876],"Parzanica":["BG",2061],"Pedrengo":["BG",2182],"Peia":["BG",839],"Pianico":["BG",784],"Piario":["BG",787],"Piazza Brembana":["BG",1102],"Piazzatorre":["BG",953],"Piazzolo":["BG",671],"Pognano":["BG",1445],"Ponte Nossa":["BG",852],"Ponte San Pietro":["BG",1610],"Ponteranica":["BG",2177],"Pontida":["BG",1370],"Pontirolo Nuovo":["BG",1438],"Pradalunga":["BG",1547],"Predore":["BG",2884],"Premolo":["BG",932],"Presezzo":["BG",1597],"Pumenengo":["BG",964],"Ranica":["BG",2438],"Ranzanico":["BG",1495],"Riva di Solto":["BG",2580],"Rogno":["BG",1016],"Romano di Lombardia":["BG",1846],"Roncobello":["BG",704],"Roncola":["BG",1001],"Rota d'Imagna":["BG",771],"Rovetta":["BG",1414],"San Giovanni Bianco":["BG",681],"San Paolo d'Argon":["BG",1850],"San Pellegrino Terme":["BG",1182],"Sant'Omobono Terme":["BG",759],"Santa Brigida":["BG",704],"Sarnico":["BG",3248],"Scanzorosciate":["BG",2244],"Schilpario":["BG",835],"Sedrina":["BG",798],"Selvino":["BG",1539],"Seriate":["BG",1880],"Serina":["BG",798],"Solto Collina":["BG",1333],"Solza":["BG",1551],"Songavazzo":["BG",1347],"Sorisole":["BG",1581],"Sotto il Monte Giovanni XXIII":["BG",1595],"Sovere":["BG",1011],"Spinone al Lago":["BG",1308],"Spirano":["BG",1264],"Stezzano":["BG",1877],"Strozza":["BG",1035],"Suisio":["BG",1541],"Taleggio":["BG",759],"Tavernola Bergamasca":["BG",1772],"Telgate":["BG",1472],"Terno d'Isola":["BG",1652],"Torre Boldone":["BG",2353],"Torre de' Busi":["BG",846],"Torre de' Roveri":["BG",2614],"Torre Pallavicina":["BG",932],"Trescore Balneario":["BG",1884],"Treviglio":["BG",2232],"Treviolo":["BG",2729],"Ubiale Clanezzo":["BG",760],"Urgnano":["BG",1768],"Val Brembilla":["BG",710],"Valbondione":["BG",1004],"Valbrembo":["BG",2112],"Valgoglio":["BG",988],"Valleve":["BG",1248],"Valnegra":["BG",558],"Valtorta":["BG",591],"Vedeseta":["BG",493],"Verdellino":["BG",1377],"Verdello":["BG",1534],"Vertova":["BG",964],"Viadanica":["BG",992],"Vigano San Martino":["BG",1744],"Vigolo":["BG",939],"Villa d'Adda":["BG",1476],"Villa d'Almè":["BG",1836],"Villa d'Ogna":["BG",900],"Villa di Serio":["BG",1632],"Villongo":["BG",1553],"Vilminore di Scalve":["BG",794],"Zandobbio":["BG",1554],"Zanica":["BG",1974],"Zogno":["BG",994],"Brescia":["BS",2328],"Acquafredda":["BS",923],"Adro":["BS",1737],"Agnosine":["BS",813],"Alfianello":["BS",926],"Anfo":["BS",1111],"Angolo Terme":["BS",732],"Artogne":["BS",1119],"Azzano Mella":["BS",1833],"Bagnolo Mella":["BS",1686],"Bagolino":["BS",1072],"Barbariga":["BS",1483],"Barghe":["BS",755],"Bassano Bresciano":["BS",1406],"Bedizzole":["BS",1515],"Berlingo":["BS",1335],"Berzo Demo":["BS",670],"Berzo Inferiore":["BS",1082],"Bienno":["BS",669],"Bione":["BS",996],"Borgo San Giacomo":["BS",978],"Borgosatollo":["BS",2241],"Borno":["BS",1148],"Botticino":["BS",2167],"Bovegno":["BS",662],"Bovezzo":["BS",1966],"Brandico":["BS",1371],"Braone":["BS",841],"Breno":["BS",791],"Brione":["BS",1242],"Caino":["BS",1276],"Calcinato":["BS",1704],"Calvagese della Riviera":["BS",1957],"Calvisano":["BS",1075],"Capo di Ponte":["BS",888],"Capovalle":["BS",584],"Capriano del Colle":["BS",1446],"Capriolo":["BS",1701],"Carpenedolo":["BS",1700],"Castegnato":["BS",1905],"Castel Mella":["BS",2248],"Castelcovati":["BS",1781],"Castenedolo":["BS",1896],"Casto":["BS",554],"Castrezzato":["BS",1666],"Cazzago San Martino":["BS",1269],"Cedegolo":["BS",655],"Cellatica":["BS",2396],"Cerveno":["BS",1000],"Ceto":["BS",727],"Cevo":["BS",581],"Chiari":["BS",1643],"Cigole":["BS",714],"Cimbergo":["BS",693],"Cividate Camuno":["BS",877],"Coccaglio":["BS",1475],"Collebeato":["BS",2475],"Collio":["BS",646],"Cologne":["BS",1615],"Comezzano-Cizzago":["BS",1813],"Concesio":["BS",1926],"Corte Franca":["BS",2049],"Corteno Golgi":["BS",1928],"Corzano":["BS",889],"Darfo Boario Terme":["BS",1450],"Dello":["BS",1391],"Desenzano del Garda":["BS",3990],"Edolo":["BS",1053],"Erbusco":["BS",2048],"Esine":["BS",1183],"Fiesse":["BS",673],"Flero":["BS",2086],"Gambara":["BS",947],"Gardone Riviera":["BS",4353],"Gardone Val Trompia":["BS",1059],"Gargnano":["BS",3498],"Gavardo":["BS",1819],"Ghedi":["BS",1491],"Gianico":["BS",1077],"Gottolengo":["BS",995],"Gussago":["BS",2332],"Idro":["BS",1555],"Incudine":["BS",711],"Irma":["BS",636],"Iseo":["BS",2882],"Isorella":["BS",999],"Lavenone":["BS",426],"Leno":["BS",1267],"Limone sul Garda":["BS",5517],"Lodrino":["BS",906],"Lograto":["BS",1279],"Lonato del Garda":["BS",2824],"Longhena":["BS",554],"Losine":["BS",441],"Lozio":["BS",722],"Lumezzane":["BS",896],"Maclodio":["BS",1999],"Magasa":["BS",3166],"Mairano":["BS",1559],"Malegno":["BS",872],"Malonno":["BS",1036],"Manerba del Garda":["BS",4034],"Manerbio":["BS",1296],"Marcheno":["BS",1039],"Marmentino":["BS",472],"Marone":["BS",2215],"Mazzano":["BS",1738],"Milzano":["BS",631],"Moniga del Garda":["BS",3942],"Monno":["BS",1428],"Monte Isola":["BS",2017],"Monticelli Brusati":["BS",2344],"Montichiari":["BS",1767],"Montirone":["BS",2176],"Mura":["BS",451],"Muscoline":["BS",2360],"Nave":["BS",1471],"Niardo":["BS",791],"Nuvolento":["BS",1677],"Nuvolera":["BS",1690],"Odolo":["BS",710],"Offlaga":["BS",1178],"Ome":["BS",1596],"Ono San Pietro":["BS",564],"Orzinuovi":["BS",1613],"Orzivecchi":["BS",833],"Ospitaletto":["BS",1749],"Ossimo":["BS",804],"Padenghe sul Garda":["BS",4793],"Paderno Franciacorta":["BS",1468],"Paisco Loveno":["BS",349],"Paitone":["BS",1661],"Palazzolo sull'Oglio":["BS",1526],"Paratico":["BS",2827],"Paspardo":["BS",489],"Passirano":["BS",1664],"Pavone del Mella":["BS",783],"Pertica Alta":["BS",684],"Pertica Bassa":["BS",385],"Pezzaze":["BS",712],"Pian Camuno":["BS",1263],"Piancogno":["BS",1093],"Pisogne":["BS",2058],"Polaveno":["BS",765],"Polpenazze del Garda":["BS",3544],"Pompiano":["BS",1054],"Poncarale":["BS",1861],"Ponte di Legno":["BS",4617],"Pontevico":["BS",1029],"Pontoglio":["BS",1303],"Pozzolengo":["BS",2721],"Pralboino":["BS",1001],"Preseglie":["BS",430],"Prevalle":["BS",1520],"Provaglio d'Iseo":["BS",2115],"Provaglio Val Sabbia":["BS",545],"Puegnago sul Garda":["BS",2748],"Quinzano d'Oglio":["BS",1023],"Remedello":["BS",888],"Rezzato":["BS",2119],"Roccafranca":["BS",1695],"Rodengo Saiano":["BS",2470],"Roè Volciano":["BS",1853],"Roncadelle":["BS",2192],"Rovato":["BS",1787],"Rudiano":["BS",1275],"Sabbio Chiese":["BS",1243],"Sale Marasino":["BS",2633],"Salò":["BS",4077],"San Felice del Benaco":["BS",4104],"San Gervasio Bresciano":["BS",1109],"San Paolo":["BS",1213],"San Zeno Naviglio":["BS",1965],"Sarezzo":["BS",1448],"Saviore dell'Adamello":["BS",709],"Sellero":["BS",503],"Seniga":["BS",885],"Serle":["BS",979],"Sirmione":["BS",4260],"Soiano del Lago":["BS",3644],"Sonico":["BS",596],"Sulzano":["BS",3141],"Tavernole sul Mella":["BS",526],"Temù":["BS",3636],"Tignale":["BS",2461],"Torbole Casaglia":["BS",1874],"Toscolano-Maderno":["BS",4307],"Travagliato":["BS",1758],"Tremosine sul Garda":["BS",3651],"Trenzano":["BS",1444],"Treviso Bresciano":["BS",509],"Urago d'Oglio":["BS",1307],"Vallio Terme":["BS",906],"Valvestino":["BS",731],"Verolanuova":["BS",1142],"Verolavecchia":["BS",1087],"Vestone":["BS",871],"Vezza d'Oglio":["BS",1745],"Villa Carcina":["BS",1443],"Villachiara":["BS",906],"Villanuova sul Clisi":["BS",2188],"Vione":["BS",2468],"Visano":["BS",744],"Vobarno":["BS",1234],"Zone":["BS",1553]};
+/* ===================== VALUTAZIONE PROVVISORIA ===================== */
+const PQ_FONTE = "Prezzi medi richiesti per comune, Immobiliare.it, agosto 2026";
+const pqNorm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[’`]/g, "'").replace(/\s+/g, " ").trim();
+const PQ_COMUNI = Object.keys(PQ_PREZZI).sort((a, b) => a.localeCompare(b, "it"));
+const PQ_BYNORM = Object.fromEntries(PQ_COMUNI.map(c => [pqNorm(c), c]));
+function pqFindComune(text){
+  const t = " " + pqNorm(text).replace(/[^a-z0-9' ]/g, " ") + " ";
+  let best = null;
+  for (const c of PQ_COMUNI) { const n = " " + pqNorm(c).replace(/[^a-z0-9' ]/g, " ") + " "; if (t.includes(n) && (!best || n.length > best.n)) best = { c, n: n.length }; }
+  return best ? best.c : "";
+}
+const euro = n => "€ " + Math.round(n).toLocaleString("it-IT");
+const num = v => { const x = parseFloat(String(v || "").replace(",", ".")); return isFinite(x) ? x : null; };
+const roundPrice = v => { const step = v >= 300000 ? 5000 : 1000; return Math.round(v / step) * step; };
+function pqValuate(rec){
+  const v = rec.v, c = rec.c, pick = g => c[g] || [];
+  const comune = PQ_BYNORM[pqNorm(v.comune)] || pqFindComune((v.comune || "") + " " + (v.indirizzo || ""));
+  const sup = num(v.superficie);
+  if (!comune || !sup || sup < 10) return { error: !comune ? "Indica il comune dell'immobile (province di Bergamo o Brescia)." : "Inserisci la superficie in m² per calcolare la stima." };
+  const [prov, prezzoComune] = PQ_PREZZI[comune];
+  const facts = []; let missing = 0;
+  const base = prezzoComune * 0.95;
+  facts.push(["Prezzo medio richiesto a " + comune, euro(prezzoComune) + "/m²", ""]);
+  facts.push(["Sconto trattativa medio", "−5%", "neg"]);
+  // superficie commerciale
+  const balc = num(v.balconi) || 0, terr = num(v.terrazzi) || 0, cant = num(v.cantine) || 0, giar = num(v.giardino_privato) || 0;
+  const giarEq = Math.min(giar, sup) * 0.10 + Math.max(0, giar - sup) * 0.02;
+  const supComm = sup + balc * 1.5 + terr * 3.5 + cant * 3 + giarEq;
+  if (supComm > sup) facts.push(["Superficie commerciale (con balconi, terrazzi, cantine, giardino)", supComm.toFixed(0) + " m²", ""]);
+  let k = 1;
+  const mul = (label, f) => { if (Math.abs(f - 1) < 0.001) return; k *= f; facts.push([label, (f > 1 ? "+" : "−") + Math.abs(Math.round((f - 1) * 100)) + "%", f > 1 ? "pos" : "neg"]); };
+  // tipologia
+  const TIPO = { "Appartamento in villetta": 1, "Casa indipendente": 1.05, "Attico": 1.12, "Mansarda": 0.9, "Loft": 1.03, "Villa": 1.15, "Villetta a schiera": 1.05, "Rustico / Casale": 0.92, "Palazzo": 0.95 };
+  const tipi = pick("tipologia");
+  if (tipi.length) mul("Tipologia: " + tipi.join(", "), tipi.reduce((s, t) => s + (TIPO[t] || 1), 0) / tipi.length); else missing++;
+  const isApt = !tipi.length || tipi.some(t => ["Appartamento in villetta", "Attico", "Mansarda", "Loft"].includes(t));
+  // stato
+  const STATO = { "Nuovo": 1.15, "Abitabile": 1, "Da ristrutturare": 0.72 };
+  const stati = pick("stato");
+  if (stati.length) mul("Stato: " + stati.join(", "), stati.reduce((s, t) => s + (STATO[t] || 1), 0) / stati.length); else missing++;
+  // classe energetica
+  const ce = String(v.classe_energetica || "").toUpperCase().replace(/\s/g, "");
+  const CE = { A4: 1.10, A3: 1.09, A2: 1.08, A1: 1.07, A: 1.08, "A+": 1.09, B: 1.05, C: 1.02, D: 1, E: 0.97, F: 0.94, G: 0.91 };
+  const ceKey = (ce.match(/^(A4|A3|A2|A1|A\+|[A-G])/) || [])[0];
+  if (ceKey) mul("Classe energetica " + ceKey, CE[ceKey]); else missing++;
+  // anno
+  const anno = num(v.anno_costruzione);
+  if (anno && !stati.includes("Nuovo") && !stati.includes("Da ristrutturare")) mul("Anno di costruzione " + anno, anno >= 2015 ? 1.06 : anno >= 2000 ? 1.03 : anno >= 1980 ? 1 : anno >= 1960 ? 0.97 : 0.96);
+  else if (!anno && !stati.includes("Nuovo")) missing++;
+  // piano
+  const caratt = pick("caratteristiche"), hasLift = caratt.includes("Ascensore");
+  const pianoTxt = pqNorm(v.piano), piano = /terra|^t$|^pt$|rialz/.test(pianoTxt) ? 0 : num(v.piano), tot = num(v.piani_totali);
+  if (isApt) {
+    if (piano === null) missing++;
+    else if (piano === 0) mul("Piano terra" + (giar ? " con giardino" : ""), giar ? 1 : 0.96);
+    else if (piano >= 3) mul("Piano " + piano + (hasLift ? " con ascensore" : " senza ascensore"), hasLift ? 1.02 : 0.92);
+    else if (piano === 1) mul("Primo piano", 0.99);
+    if (piano !== null && tot && piano >= 2 && piano === tot && !tipi.includes("Attico")) mul("Ultimo piano", 1.02);
+  }
+  // caratteristiche
+  const CAR = { "Ascensore": isApt && piano !== null && piano >= 2 ? 2 : 1, "Aria condizionata": 1.5, "Allarme": 1, "Videocitofono": 0.5, "Giardino condominiale": 1.5, "Domotica": 2, "Portiere": 2, "Edificio storico": 3, "Pannelli solari": 2, "Piscina": 5, "Porta blindata": 0.5, "Camino": 1 };
+  const carPct = Math.min(15, caratt.reduce((s, t) => s + (CAR[t] || 0), 0));
+  if (carPct) mul("Dotazioni: " + caratt.join(", "), 1 + carPct / 100);
+  const risc = pick("riscaldamento");
+  if (risc.length === 1) mul("Riscaldamento " + risc[0].toLowerCase(), risc[0] === "Autonomo" ? 1.015 : 0.99);
+  const bagni = num(v.bagni);
+  if (bagni && sup >= 90 && bagni >= 2) mul("Doppi servizi", 1.02);
+  if (bagni === 1 && sup >= 120) mul("Un solo bagno per " + sup + " m²", 0.97);
+  if (pick("arredamento").includes("Completo")) mul("Arredamento completo", 1.01);
+  // taglio
+  const size = sup < 50 ? 1.08 : sup < 80 ? 1.03 : sup <= 150 ? 1 : sup <= 250 ? 0.95 : 0.9;
+  mul("Taglio dell'immobile (" + sup + " m²)", size);
+  k = Math.max(0.55, Math.min(1.6, k));
+  // box
+  const box = num(v.box) || 0, boxVal = box * base * 8;
+  if (box) facts.push([box + (box === 1 ? " box" : " box"), "+" + euro(boxVal), "pos"]);
+  const med = base * k * supComm + boxVal;
+  const u = Math.min(0.15, 0.08 + missing * 0.015);
+  const r = { comune, prov, prezzoComune, supComm: Math.round(supComm), eurmq: Math.round((med - boxVal) / supComm), coeff: +k.toFixed(3),
+    min: roundPrice(med * (1 - u)), med: roundPrice(med), max: roundPrice(med * (1 + u)), spread: Math.round(u * 100), missing, facts, date: new Date().toISOString(), fonte: PQ_FONTE };
+  const richiesta = num(v.prezzo);
+  if (richiesta) r.richiesta = { valore: richiesta, diff: Math.round((richiesta / r.med - 1) * 100) };
+  return r;
+}
+function pqValHtml(r){
+  if (!r) return "";
+  if (r.error) return `<h3>Valutazione provvisoria</h3><div class="note-box warn">${esc(r.error)}</div>`;
+  const pos = r.richiesta ? Math.max(0, Math.min(100, (r.richiesta.valore - r.min) / Math.max(1, r.max - r.min) * 100)) : null;
+  return `<h3>Valutazione provvisoria</h3>
+    <div class="sub2">${esc(r.comune)} (${r.prov}) · ${r.supComm} m² commerciali · ${euro(r.eurmq)}/m² stimati · ${esc(new Date(r.date).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }))}</div>
+    <div class="pq-range"><div><span>Minimo</span><b>${euro(r.min)}</b></div><div class="mid"><span>Medio</span><b>${euro(r.med)}</b></div><div><span>Massimo</span><b>${euro(r.max)}</b></div></div>
+    ${r.richiesta ? `<div class="pq-bar2" title="Prezzo indicato dal cliente"><i style="left:calc(${pos}% - 2px)"></i></div>
+      <div class="note-box ${Math.abs(r.richiesta.diff) <= r.spread ? "info" : "warn"}">Prezzo indicato nel foglio: <b>${euro(r.richiesta.valore)}</b>, ${r.richiesta.diff >= 0 ? "+" : ""}${r.richiesta.diff}% rispetto alla stima media${Math.abs(r.richiesta.diff) <= r.spread ? ", dentro la forbice." : r.richiesta.diff > 0 ? ", sopra la forbice." : ", sotto la forbice."}</div>` : ""}
+    <div class="pq-facts">${r.facts.map(([l, val, cls]) => `<div><span>${esc(l)}</span><b class="${cls}">${esc(val)}</b></div>`).join("")}</div>
+    <div class="pq-disc">Forbice ±${r.spread}%${r.missing ? `, più ampia perché mancano ${r.missing} ${r.missing === 1 ? "dato" : "dati"} (tipologia, stato, classe energetica, anno o piano)` : ""}. Base: ${esc(r.fonte)}, con coefficienti di merito su tipologia, stato, efficienza, piano, dotazioni e pertinenze. È una stima indicativa per la prima valutazione, non una perizia: va confermata con il sopralluogo e le compravendite recenti della zona.</div>`;
+}
+function pqValText(r){
+  if (!r || r.error) return "";
+  return ["", "VALUTAZIONE PROVVISORIA (indicativa)", `Comune: ${r.comune} (${r.prov}) · ${r.supComm} m² commerciali`, `Minimo: ${euro(r.min)}`, `Medio: ${euro(r.med)}`, `Massimo: ${euro(r.max)}`, `Fonte prezzi: ${r.fonte}`].join("\n");
+}
+function pqValShow(rec){
+  const on = !!(rec && rec.valOn);
+  $("pq-val-on").checked = on; $("pq-val-opts").hidden = !on;
+  const r = rec && rec.val;
+  $("pq-val").hidden = !(on && r);
+  $("pq-val").innerHTML = on && r ? pqValHtml(r) : "";
+  pqValHint();
+}
+function pqValHint(){
+  const c = PQ_BYNORM[pqNorm($("pq_comune").value)];
+  $("pq-val-hint").textContent = c ? `${c} (${PQ_PREZZI[c][0]}): prezzo medio richiesto ${euro(PQ_PREZZI[c][1])}/m². La stima si calcola quando salvi il foglio.` :
+    "La stima viene calcolata quando salvi il foglio. Servono almeno comune e superficie.";
+}
+$("pq-comuni").innerHTML = PQ_COMUNI.map(c => `<option value="${esc(c)}">${PQ_PREZZI[c][0]}</option>`).join("");
+$("pq-val-on").addEventListener("change", e => {
+  $("pq-val-opts").hidden = !e.target.checked;
+  if (e.target.checked && !$("pq_comune").value && $("pq_indirizzo")) { const g = pqFindComune($("pq_indirizzo").value); if (g) $("pq_comune").value = g; }
+  if (!e.target.checked) $("pq-val").hidden = true;
+  if (pqCur) pqCur.valOn = e.target.checked;
+  pqValHint(); pqDraftSave();
+});
+$("pq_comune").addEventListener("input", pqValHint);
+document.addEventListener("change", e => { if (e.target.id !== "pq_indirizzo") return; if ($("pq-val-on").checked && !$("pq_comune").value) { const g = pqFindComune(e.target.value); if (g) { $("pq_comune").value = g; pqValHint(); } } });
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["zona","messaggi","foto","preq"] : ["zona"];
