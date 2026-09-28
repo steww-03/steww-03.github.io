@@ -265,6 +265,9 @@ a{color:inherit}
 .pq-item .acts{display:flex;gap:6px;flex-shrink:0}
 .pq-item.current{background:var(--accent-soft);border-radius:10px;padding:10px}
 #pq-print-area{display:none}
+.pq-print-btn{display:none}
+@media (hover:hover) and (pointer:fine){ .pq-print-btn{display:inline-flex} }
+.pq-pdf-link{display:inline-flex;align-items:center;gap:6px;margin-top:8px;min-height:44px;padding:0 16px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-weight:800;text-decoration:none}
 @media print{
   body>*:not(#pq-print-area){display:none!important}
   #pq-print-area{display:block!important;color:#000;background:#fff;font:12pt/1.45 Arial,sans-serif;padding:0 8mm}
@@ -1051,7 +1054,8 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         <div class="pq-share">
           <button type="button" class="tool" id="pq-copy">📋 Copia testo</button>
           <a class="tool" id="pq-wa" href="#" target="_blank" rel="noopener">📱 Invia su WhatsApp</a>
-          <button type="button" class="tool" id="pq-print">🖨️ Stampa / PDF</button>
+          <button type="button" class="tool primary" id="pq-pdf">📄 Scarica PDF</button>
+          <button type="button" class="tool pq-print-btn" id="pq-print">🖨️ Stampa</button>
         </div>
         <div id="pq-msg" role="status"></div>
       </div>
@@ -4005,12 +4009,114 @@ $("overlay").addEventListener("click", e => {
   else { const own = pqList.find(p => p.clId === cl.id || (cl.pqIds || []).includes(p.id)); if (own) { if (!pqBuilt) pqRender(); pqLoad(own); showView("preq"); } else clOpenPreq(cl); }
 }, true);
 
+
+/* ===================== PREQUALIFICA: PDF ===================== */
+const PDF_LIB = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+let pdfLoading = null;
+function pdfLoad(){
+  if (window.jspdf && window.jspdf.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
+  if (pdfLoading) return pdfLoading;
+  pdfLoading = new Promise((res, rej) => {
+    const s = document.createElement("script"); s.src = PDF_LIB; s.async = true;
+    s.onload = () => window.jspdf && window.jspdf.jsPDF ? res(window.jspdf.jsPDF) : rej(new Error("libreria PDF non valida"));
+    s.onerror = () => { pdfLoading = null; rej(new Error("serve la connessione a internet per creare il PDF")); };
+    document.head.appendChild(s);
+  });
+  return pdfLoading;
+}
+/* testo compatibile coi font standard del PDF (niente emoji o simboli fuori da Windows-1252) */
+const pdfTxt = s => String(s == null ? "" : s).replace(/m²/g, "mq").replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/[–—]/g, "-")
+  .replace(/[^\x09\x0A\x0D\x20-\x7E -ÿ€]/g, "").replace(/[ \t]+/g, " ").trim();
+function pdfBuild(jsPDF, rec){
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const W = 210, M = 15, CW = W - 2 * M, BOTTOM = 282;
+  let y = M;
+  const need = h => { if (y + h > BOTTOM) { doc.addPage(); y = M; } };
+  const nome = pdfTxt(rec.v.nome) || "Senza nome";
+  doc.setFillColor(29, 78, 216); doc.rect(0, 0, W, 26, "F");
+  doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(18); doc.text("Foglio prequalifica", M, 12);
+  doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+  doc.text(pdfTxt(nome + "  -  " + new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })), M, 20);
+  const sig = pdfTxt((typeof crm !== "undefined" && crm.signature) || "");
+  if (sig) doc.text(sig, W - M, 20, { align: "right" });
+  doc.setTextColor(21, 32, 51); y = 34;
+  const labelW = 62;
+  for (const s of PQ_SCHEMA) {
+    need(16);
+    doc.setFillColor(238, 241, 245); doc.rect(M, y, CW, 7.5, "F");
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.setTextColor(18, 48, 110);
+    doc.text(pdfTxt(s.title).toUpperCase(), M + 2.5, y + 5.2); y += 10.5;
+    doc.setTextColor(21, 32, 51);
+    if (s.fields) {
+      for (const f of s.fields) {
+        let val = rec.v[f.k] ? String(rec.v[f.k]) : "";
+        if (val && f.unit) val += " " + f.unit;
+        if (val && f.per && rec.v[f.k + "_per"]) val += rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese";
+        doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+        const lines = val ? doc.splitTextToSize(pdfTxt(val), CW - labelW - 2) : [""];
+        const h = Math.max(1, lines.length) * 5 + 2.2;
+        need(h);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(9.5); doc.setTextColor(74, 86, 107);
+        doc.text(doc.splitTextToSize(pdfTxt(f.l), labelW - 3), M + 1, y + 4);
+        doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); doc.setTextColor(21, 32, 51);
+        doc.text(lines, M + labelW, y + 4);
+        doc.setDrawColor(210, 216, 225); doc.setLineWidth(0.2); doc.line(M, y + h, M + CW, y + h);
+        y += h + 1;
+      }
+    } else {
+      const picked = rec.c[s.checks] || [];
+      doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+      let x = M + 1; need(7);
+      for (const o of s.opts) {
+        const t = pdfTxt(o), w = 5.5 + doc.getTextWidth(t) + 7;
+        if (x + w > M + CW) { x = M + 1; y += 7; need(7); }
+        doc.setDrawColor(74, 86, 107); doc.setLineWidth(0.35); doc.rect(x, y + 0.6, 3.8, 3.8);
+        if (picked.includes(o)) { doc.setDrawColor(29, 78, 216); doc.setLineWidth(0.7); doc.line(x + 0.7, y + 2.6, x + 1.6, y + 3.7); doc.line(x + 1.6, y + 3.7, x + 3.3, y + 1.1); doc.setFont("helvetica", "bold"); }
+        doc.text(t, x + 5.5, y + 3.9); doc.setFont("helvetica", "normal");
+        x += w;
+      }
+      y += 9;
+    }
+    y += 2;
+  }
+  const pages = doc.getNumberOfPages();
+  for (let i = 1; i <= pages; i++) { doc.setPage(i); doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(124, 135, 153); doc.text(`Pagina ${i} di ${pages}`, W - M, 292, { align: "right" }); }
+  return doc;
+}
+function pdfName(rec){ const n = pdfTxt(rec.v.nome || "senza-nome").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]+/g, "_").replace(/^_|_$/g, "") || "foglio"; return `Prequalifica_${n}_${xISO(Date.now())}.pdf`; }
+async function pdfMake(){
+  const btn = $("pq-pdf"), rec = Object.assign({}, pqCur || {}, pqRead());
+  btn.disabled = true; const old = btn.textContent; btn.textContent = "Creo il PDF…";
+  try {
+    const jsPDF = await pdfLoad();
+    const doc = pdfBuild(jsPDF, rec), name = pdfName(rec), blob = doc.output("blob");
+    const touch = window.matchMedia && matchMedia("(pointer:coarse)").matches;
+    let file = null; try { file = new File([blob], name, { type: "application/pdf" }); } catch {}
+    if (touch && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: name.replace(/\.pdf$/, "") }); pdfLink(blob, name, "PDF pronto."); return; }
+      catch (e) { if (e && e.name === "AbortError") { pdfLink(blob, name, "Condivisione annullata."); return; } }
+    }
+    const url = URL.createObjectURL(blob), a = document.createElement("a");
+    a.href = url; a.download = name; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
+    pdfLink(blob, name, "PDF scaricato.");
+  } catch (e) {
+    pqMsg(`Non riesco a creare il PDF: ${esc((e && e.message) || String(e))}.`, "err");
+  } finally { btn.disabled = false; btn.textContent = old; }
+}
+let pdfUrl = null;
+function pdfLink(blob, name, head){
+  if (pdfUrl) URL.revokeObjectURL(pdfUrl);
+  pdfUrl = URL.createObjectURL(blob);
+  pqMsg(`📄 ${esc(head)} Se non lo vedi, tocca qui: <br><a class="pq-pdf-link" href="${pdfUrl}" download="${esc(name)}" target="_blank" rel="noopener">📄 Apri il PDF</a>`, "info");
+}
+$("pq-pdf").addEventListener("click", pdfMake);
+
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["zona", "giro", "clienti", "messaggi", "match", "preq", "calc", "foto", "obiettivi"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "zona";
-  $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) pqRender(); xCur = v; for (const n of Object.keys(XVIEWS)) $("view-" + n).hidden = v !== n; if (XVIEWS[v]) XVIEWS[v]();
+  $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) { pqRender(); setTimeout(() => pdfLoad().catch(() => {}), 400); } xCur = v; for (const n of Object.keys(XVIEWS)) $("view-" + n).hidden = v !== n; if (XVIEWS[v]) XVIEWS[v]();
   document.querySelectorAll(".dd-item").forEach(b => b.setAttribute("aria-checked", b.dataset.view === v));
   lsSet("app_view", v);
   try { history.replaceState(null, "", "#" + v); } catch {}
