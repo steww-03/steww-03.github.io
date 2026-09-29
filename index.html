@@ -3,13 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ricerca Zona · Centro Messaggi</title>
+<title>Agente Pro</title>
 <meta name="description" content="Strumenti per agenti immobiliari: vie e civici di Bergamo e Brescia, appuntamenti e messaggi WhatsApp.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%A1%3C/text%3E%3C/svg%3E">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Agente Pro">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 </head>
 <body>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -411,7 +416,8 @@ a{color:inherit}
   .calc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .calc-main{max-width:1500px}
 }
-@media (min-width:1700px){ .calc-grid{grid-template-columns:repeat(3,minmax(0,1fr))} .calc-main{max-width:2200px} }
+@media (min-width:1700px){ .calc-main{max-width:1800px} }
+@media (min-width:2200px){ .calc-grid{grid-template-columns:repeat(4,minmax(0,1fr))} .calc-main{max-width:2800px} }
 /* ---------- INCROCIO ---------- */
 .mt-top{display:flex;flex-direction:column;gap:10px}
 .mt-sum{font-size:13px;color:var(--ink-2)}
@@ -507,15 +513,20 @@ a{color:inherit}
 .gr-map{height:300px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2);isolation:isolate;z-index:0}
 .gr-pin{background:var(--accent);color:#fff;border:2px solid #fff;border-radius:50%;width:28px!important;height:28px!important;display:grid;place-items:center;font:800 13px var(--display);box-shadow:0 2px 6px rgba(0,0,0,.35)}
 .gr-pin.home{background:#111827}
-.gs-navall{position:fixed;left:var(--gut);right:var(--gut);bottom:calc(env(safe-area-inset-bottom,0px) + 12px);z-index:40;min-height:54px;border-radius:14px;background:var(--done);color:#fff;font-weight:800;font-size:16px;display:grid;place-items:center;text-decoration:none;box-shadow:0 6px 20px rgba(10,20,40,.3)}
-.gs-navall[hidden]{display:none}
+.gs-navbar{position:fixed;left:var(--gut);right:var(--gut);bottom:calc(env(safe-area-inset-bottom,0px) + 12px);z-index:40;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gs-navbar[hidden]{display:none}
+.gs-nav{min-height:58px;border-radius:14px;color:#fff;font-weight:800;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 20px rgba(10,20,40,.3);line-height:1.2;text-align:center;padding:4px 6px}
+.gs-nav small{font-size:11.5px;font-weight:600;opacity:.9}
+.gs-nav.g{background:var(--done)}
+.gs-nav.a{background:#111827}
 @media (min-width:900px){
   .gs-wrap{grid-template-columns:minmax(380px,560px) minmax(0,1fr);padding-bottom:0}
   .gs-mapcol{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
   .gs-maptoggle{display:none}
   .gs-mapbox{display:flex}
   .gr-map{height:calc(100dvh - 130px);min-height:420px}
-  .gs-navall{position:static;box-shadow:none}
+  .gs-navbar{position:static}
+  .gs-nav{box-shadow:none}
 }
 @media (min-width:1900px){ .gs-wrap{grid-template-columns:minmax(520px,680px) minmax(0,1fr)} .gs-hero .when{font-size:54px} }
 /* ---------- OBIETTIVI ---------- */
@@ -542,6 +553,149 @@ a{color:inherit}
 .civ-lead{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
 .civ-lead .btn{flex:1;min-height:46px}
 .btn.lead{background:var(--hot);border-color:var(--hot);color:#fff;font-weight:800}
+/* ---------- GENERATORE DESCRIZIONE ---------- */
+.ds-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.ds-in,.ds-out{display:flex;flex-direction:column;gap:12px;min-width:0}
+.ds-facts{display:flex;flex-wrap:wrap;gap:6px}
+.ds-facts span{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line-2);color:var(--ink-2)}
+.ds-facts .miss{background:transparent;border-style:dashed;color:var(--ink-3)}
+.ds-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ds-chips label{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:4px 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);font-size:13px;font-weight:600;cursor:pointer;user-select:none}
+.ds-chips label:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.ds-chips input{accent-color:var(--accent);margin:0;width:16px;height:16px}
+.ds-gen{min-height:54px;font-size:16px;margin-top:4px}
+.ds-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ds-title{font-weight:700;font-size:15px}
+.ds-box{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:flex;flex-direction:column;overflow:hidden}
+.ds-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.ds-box #ds-text{border:0!important;box-shadow:none!important;border-radius:0;height:auto;min-height:360px;resize:vertical;font-size:15px;line-height:1.6;padding:14px}
+.ds-boxfoot{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:8px 10px;border-top:1px solid var(--line-2);background:var(--surface-2);flex-wrap:wrap}
+.ds-count{margin-right:auto;font-size:12px;color:var(--ink-3)}
+.ds-result.flash{animation:dsflash .6s ease-out}
+@keyframes dsflash{from{box-shadow:0 0 0 4px var(--accent-soft)}to{box-shadow:none}}
+@media (min-width:1000px){
+  .ds-wrap{grid-template-columns:minmax(420px,1fr) minmax(0,1.1fr)}
+  .ds-out{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+  .ds-box #ds-text{min-height:calc(100dvh - 380px)}
+}
+@media (min-width:1900px){ .ds-wrap{grid-template-columns:minmax(520px,760px) minmax(0,1fr)} .ds-box #ds-text{font-size:16px} }
+/* ---------- VISITE ---------- */
+.vs-main{max-width:1100px}
+.vs-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.vs-day{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:8px 2px 0}
+.vs-card{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;overflow:hidden}
+.vs-card.todo{border-color:var(--todo-bar)}
+.vs-head{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:12px 14px;background:none;border:0;text-align:left;cursor:pointer}
+.vs-head .t{font-family:var(--display);font-weight:800;font-size:18px;font-variant-numeric:tabular-nums}
+.vs-head b{font-size:15px;overflow-wrap:anywhere}
+.vs-head small{display:block;font-size:12.5px;color:var(--ink-3);overflow-wrap:anywhere}
+.vs-st{font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.vs-st.todo{background:var(--todo-soft);color:var(--todo)}
+.vs-st.ok{background:var(--done-soft);color:var(--done)}
+.vs-st.fut{background:var(--surface-2);color:var(--ink-3)}
+.vs-form{border-top:1px solid var(--line-2);padding:14px;display:flex;flex-direction:column;gap:12px;background:var(--surface-2)}
+.vs-seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.vs-seg button{min-height:52px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:12.5px;line-height:1.2;padding:4px}
+.vs-seg button span{display:block;font-size:19px}
+.vs-seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.vs-seg3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.vs-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.vs-stats div{background:var(--surface-2);border-radius:10px;padding:10px;text-align:center}
+.vs-stats b{display:block;font-family:var(--display);font-size:22px}
+.vs-stats span{font-size:11.5px;color:var(--ink-3)}
+.vs-rep{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.ds-box .vs-reptext{border:0!important;box-shadow:none!important;border-radius:0;height:auto;min-height:320px;font-size:15px;line-height:1.55;padding:14px}
+@media (max-width:420px){ .vs-seg{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (min-width:1000px){ .vs-rep{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);align-items:start} .vs-main{max-width:1500px} }
+@media (min-width:1900px){ .vs-main{max-width:2000px} .vs-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start} .vs-day{grid-column:1/-1} }
+/* ---------- MODELLI ---------- */
+.md-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.md-listcol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.md-list{display:flex;flex-direction:column;gap:6px}
+.md-cat{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:8px 2px 2px}
+.md-item{width:100%;text-align:left;border:1px solid var(--line-2);background:var(--surface);border-radius:12px;padding:11px 14px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.md-item[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.md-item b{font-size:14.5px}
+.md-item small{font-size:12px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.md-ed{min-width:0}
+.md-ed h2{margin:0}
+.ds-box .md-text{border:0!important;box-shadow:none!important;border-radius:0;height:auto;min-height:220px;font-size:15px;line-height:1.55;padding:14px}
+.md-edit textarea{min-height:160px}
+.md-ph{font-size:12px;color:var(--ink-3)}
+.md-ph code{background:var(--surface-2);padding:1px 5px;border-radius:5px;font-family:var(--mono);font-size:11.5px}
+@media (min-width:900px){ .md-wrap{grid-template-columns:minmax(280px,380px) minmax(0,1fr)} .md-ed{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} .md-list{max-height:calc(100dvh - 170px);overflow-y:auto;scrollbar-width:thin} }
+@media (min-width:1900px){ .md-wrap{grid-template-columns:420px minmax(0,1100px)} }
+/* ---------- OMI ---------- */
+.omi{border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.omi h4{margin:0;font-family:var(--display);font-size:14px}
+.omi .rng{font-family:var(--display);font-size:20px;font-weight:800;color:var(--market)}
+.omi .rng small{font-size:12.5px;color:var(--ink-3);font-weight:600;font-family:var(--body)}
+.omi .x-row .inp{max-width:130px}
+.omi a{color:var(--accent);font-weight:700}
+/* ---------- ACQUISIZIONE ---------- */
+.aq-main{max-width:1200px}
+.aq-tabs{overflow-x:auto;scrollbar-width:none}
+.aq-tabs button{white-space:nowrap;flex:1 0 auto;padding:0 10px}
+.aq-body{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.aq-form .x-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.aq-list{display:flex;flex-direction:column;gap:10px;min-width:0}
+.aq-card{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:start}
+.aq-card.due{border-color:var(--todo-bar);box-shadow:0 0 0 2px var(--todo-soft)}
+.aq-card.off{opacity:.6}
+.aq-card .ph{width:64px;height:64px;border-radius:10px;object-fit:cover;background:var(--surface-2);display:grid;place-items:center;font-size:26px;grid-row:span 2}
+.aq-card b{font-size:15px;overflow-wrap:anywhere}
+.aq-card small{display:block;font-size:12.5px;color:var(--ink-3);overflow-wrap:anywhere}
+.aq-card .x-acts{grid-column:1 / -1;margin-top:6px}
+.aq-card .x-acts .x-act{min-height:40px}
+.aq-due{font-size:11.5px;font-weight:800;color:var(--todo)}
+.aq-sum{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.aq-sum div{background:var(--surface);border:1px solid var(--line-2);border-radius:12px;padding:10px;text-align:center}
+.aq-sum b{display:block;font-family:var(--display);font-size:22px}
+.aq-sum span{font-size:11.5px;color:var(--ink-3)}
+.aq-vie{display:flex;flex-wrap:wrap;gap:6px}
+.aq-vie span{display:inline-flex;align-items:center;gap:4px;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:600}
+.aq-vie button{border:0;background:none;color:inherit;font-weight:800;cursor:pointer;padding:0 2px}
+.aq-motivi{display:flex;flex-wrap:wrap;gap:6px}
+.aq-day{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:6px 2px 0}
+.aq-photo{display:flex;gap:10px;align-items:center}
+.aq-photo img{width:72px;height:72px;object-fit:cover;border-radius:10px}
+.aq-log{grid-column:1/-1;font-size:12.5px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:6px;margin-top:4px}
+@media (min-width:1000px){ .aq-body{grid-template-columns:minmax(340px,420px) minmax(0,1fr)} .aq-form{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} .aq-main{max-width:1500px} }
+@media (min-width:1900px){ .aq-main{max-width:2100px} .aq-list.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))} .aq-list.grid2 .aq-day,.aq-list.grid2 .aq-sum{grid-column:1/-1} }
+/* ---------- OFFLINE / MODALITÀ AUTO ---------- */
+.x-offline{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 80px);z-index:95;background:#111827;color:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:calc(100vw - 32px);text-align:center}
+.x-offline[hidden]{display:none}
+/* ---------- UTILITÀ ---------- */
+.ut-stars{display:inline-flex;gap:2px}
+.ut-stars button{border:0;background:none;font-size:20px;padding:2px;cursor:pointer;color:var(--line)}
+.ut-stars button.on{color:#f5b301}
+.ut-tl{display:flex;flex-direction:column}
+.ut-tl div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid var(--line-2);font-size:14px}
+.ut-tl div:first-child{border-top:0}
+.ut-tl b{font-variant-numeric:tabular-nums}
+.ut-tl .past{opacity:.5;text-decoration:line-through}
+.ut-tl .main b,.ut-tl .main span{color:var(--accent);font-weight:800}
+.ut-set{display:flex;flex-direction:column;gap:12px}
+.ut-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ut-row .x-tabs{flex:0 1 360px}
+.ut-autobtn{min-height:120px;font-size:22px;border-radius:18px;background:#111827;color:#fff;border:0;font-weight:800;width:100%}
+@media (max-width:520px){ html[style*="zoom"] .top .sub{display:none} }
+/* modalità auto */
+.auto{position:fixed;inset:0;z-index:200;background:#0b1220;color:#fff;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);gap:12px;overflow-y:auto}
+.auto[hidden]{display:none}
+.auto-top{display:flex;justify-content:space-between;align-items:center}
+.auto-clock{font-family:var(--display);font-size:40px;font-weight:800;font-variant-numeric:tabular-nums}
+.auto-x{min-width:64px;min-height:56px;border-radius:14px;border:0;background:#1f2937;color:#fff;font-size:20px;font-weight:800}
+.auto-next{background:#111c33;border-radius:18px;padding:16px;font-size:17px;line-height:1.4}
+.auto-next b{font-size:22px;display:block}
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1}
+.auto-grid a,.auto-grid button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:130px;border-radius:20px;border:0;font-size:21px;font-weight:800;color:#fff;text-decoration:none;text-align:center;padding:10px}
+.auto-grid span{font-size:40px}
+.auto-nav{background:#15803d} .auto-call{background:#1d4ed8} .auto-late{background:#b45309} .auto-home{background:#374151}
+.auto-lates{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.auto-lates a{min-height:80px;border-radius:16px;background:#b45309;color:#fff;font-size:22px;font-weight:800;display:grid;place-items:center;text-decoration:none}
+@media (min-width:900px){ .auto-grid{grid-template-columns:repeat(4,1fr);flex:0} .auto{padding-inline:max(16px,calc((100vw - 1200px)/2))} }
+@media (orientation:landscape) and (max-height:500px){ .auto-grid{grid-template-columns:repeat(4,1fr)} .auto-grid a,.auto-grid button{min-height:100px} .auto-clock{font-size:28px} }
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
 .list-head span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .list{padding:8px var(--gut) 28px;display:grid;grid-template-columns:1fr;gap:8px;align-content:start}
@@ -1055,6 +1209,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         <button type="submit" class="btn pq-save">💾 Salva foglio</button>
         <div class="pq-share">
           <button type="button" class="tool" id="pq-copy">📋 Copia testo</button>
+          <a class="tool" id="pq-docs" href="#" target="_blank" rel="noopener">📨 Chiedi i documenti mancanti</a>
           <a class="tool" id="pq-wa" href="#" target="_blank" rel="noopener">📱 Invia su WhatsApp</a>
           <button type="button" class="tool primary" id="pq-pdf">📄 Scarica PDF</button>
           <button type="button" class="tool pq-print-btn" id="pq-print">🖨️ Stampa</button>
@@ -1106,6 +1261,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
       <button type="button" role="tab" data-calc-tab="mutuo" aria-selected="true">🏦 Mutuo</button>
       <button type="button" role="tab" data-calc-tab="costi" aria-selected="false">🧾 Costi acquisto</button>
       <button type="button" role="tab" data-calc-tab="netto" aria-selected="false">💶 Netto venditore</button>
+      <button type="button" role="tab" data-calc-tab="buyer" aria-selected="false">🔑 Per l'acquirente</button>
     </div>
     <div class="calc-grid" id="calc-grid">
       <section class="x-card calc-card" data-calc="mutuo" aria-labelledby="calc-h-mutuo">
@@ -1151,6 +1307,25 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         <div class="x-note">La plusvalenza è stimata con l'imposta sostitutiva del 26% applicata dal notaio. Casi particolari (immobili ereditati, lavori col Superbonus) vanno verificati col notaio o il commercialista.</div>
         <div class="x-acts"><a class="x-act wa" data-calc-wa="netto" href="#" target="_blank" rel="noopener">💬 Invia su WhatsApp</a><button type="button" class="x-act" data-calc-copy="netto">📋 Copia</button></div>
       </section>
+      <section class="x-card calc-card" data-calc="buyer" aria-labelledby="calc-h-buyer">
+        <h2 id="calc-h-buyer">🔑 Prima di comprare</h2>
+        <div class="x-note">Mutuo e costi in un unico foglio da lasciare all'acquirente dopo la visita.</div>
+        <div class="x-grid">
+          <label class="x-f"><span>Nome acquirente</span><input class="inp" data-c="b_nome" placeholder="Es. Giulia Bianchi"></label>
+          <label class="x-f" id="calc-bfrom-wrap"><span>Immobile da un foglio</span><select class="inp" id="calc-bfrom"></select></label>
+          <label class="x-f x-full"><span>Immobile</span><input class="inp" data-c="b_imm" placeholder="Es. Trilocale con box, Via Roma, Seriate"></label>
+          <label class="x-f"><span>Prezzo</span><div class="x-unit"><input class="inp" data-c="b_prezzo" inputmode="numeric" value="200.000"><small>€</small></div></label>
+          <label class="x-f"><span>Anticipo</span><div class="x-unit"><input class="inp" data-c="b_ant" inputmode="decimal" value="20"><small>%</small></div></label>
+          <label class="x-f"><span>Tasso (TAN)</span><div class="x-unit"><input class="inp" data-c="b_tasso" inputmode="decimal" value="3"><small>%</small></div></label>
+          <label class="x-f"><span>Durata</span><select class="inp" data-c="b_anni"><option>15</option><option>20</option><option selected>25</option><option>30</option></select></label>
+          <label class="x-f"><span>Acquisto</span><select class="inp" data-c="b_casa"><option value="prima">Prima casa</option><option value="seconda">Seconda casa</option></select></label>
+          <label class="x-f"><span>Chi vende</span><select class="inp" data-c="b_vend"><option value="privato">Privato</option><option value="impresa">Impresa</option></select></label>
+          <label class="x-f"><span>Rendita catastale</span><div class="x-unit"><input class="inp" data-c="b_rendita" inputmode="decimal" placeholder="se nota"><small>€</small></div></label>
+          <label class="x-f"><span>Agenzia</span><div class="x-unit"><input class="inp" data-c="b_ag" inputmode="decimal" value="3"><small>% + IVA</small></div></label>
+        </div>
+        <div class="calc-out" id="calc-out-buyer"></div>
+        <div class="x-acts"><button type="button" class="x-act call" id="calc-bpdf">📄 PDF per il cliente</button><a class="x-act wa" data-calc-wa="buyer" href="#" target="_blank" rel="noopener">💬 WhatsApp</a><button type="button" class="x-act" data-calc-copy="buyer">📋 Copia</button></div>
+      </section>
     </div>
   </main>
 </div>
@@ -1186,7 +1361,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
   <header class="top">
     <div class="top-row">
       <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
-      <div style="min-width:0;flex:1"><h1>🚗 Giro della giornata</h1><p class="sub">Quando partire, quanta strada e quanto tempo libero</p></div>
+      <div style="min-width:0;flex:1"><h1>🚗 Giro della giornata</h1><p class="sub">Valutazioni e visite in ordine, con il percorso</p></div>
       <span class="sync" id="gr-sync">Locale</span>
     </div>
   </header>
@@ -1207,6 +1382,8 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
           <button type="button" class="x-act" data-gs-panel="add">＋ Aggiungi tappa</button>
           <button type="button" class="x-act" data-gs-panel="set">⚙️ Impostazioni</button>
           <button type="button" class="x-act" id="gs-share">📤 Condividi il giro</button>
+          <button type="button" class="x-act" id="gs-depcal">🔔 Partenze nel calendario</button>
+          <button type="button" class="x-act" data-auto-open>🚘 Modalità auto</button>
         </div>
         <div class="x-card gs-panel" id="gs-add" hidden>
           <h3>＋ Tappa non presente nel calendario</h3>
@@ -1224,6 +1401,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
             <label class="x-f x-full"><span>Parto da (casa o ufficio)</span><input class="inp" id="gr-start" data-gr="start" placeholder="Es. Via Roma 1, Seriate" autocomplete="street-address"></label>
             <label class="x-f"><span>Voglio arrivare in anticipo di</span><select class="inp" data-gr="margine"><option value="0">0 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="20">20 min</option></select></label>
             <label class="x-f"><span>Pausa pranzo</span><select class="inp" data-gr="pranzoMin"><option value="0">Nessuna</option><option value="30">30 min</option><option value="45">45 min</option><option value="60">1 ora</option></select></label>
+            <label class="x-f x-full"><span>Naviga con</span><select class="inp" id="gs-navapp"><option value="google">Google Maps</option><option value="apple">Mappe di Apple</option></select></label>
             <label class="x-f calc-chk x-full"><input type="checkbox" data-gr="ritorno"> A fine giornata torno al punto di partenza</label>
             <label class="x-f calc-chk x-full"><input type="checkbox" data-gr="traffico"> Considera il traffico nelle ore di punta</label>
           </div>
@@ -1235,7 +1413,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         <button type="button" class="x-act gs-maptoggle" id="gs-maptoggle">🗺️ Mostra la mappa</button>
         <div class="gs-mapbox" id="gs-mapbox"><div class="gr-map" id="gr-map"></div><div class="x-note">Percorsi © OpenStreetMap, OSRM · tempi stimati</div></div>
       </section>
-      <a class="gs-navall" id="gs-navall" href="#" target="_blank" rel="noopener" hidden>▶ Avvia il giro in Google Maps</a>
+      <div class="gs-navbar" id="gs-navbar" hidden><a class="gs-nav g" id="gs-navall" href="#" target="_blank" rel="noopener">▶ Tutto il giro<small>Google Maps</small></a><a class="gs-nav a" id="gs-navapple" href="#" target="_blank" rel="noopener">➜ Prossima tappa<small>Mappe di Apple</small></a></div>
     </div>
   </main>
 </div>
@@ -1258,13 +1436,164 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     <div class="x-note" id="ob-note">Tocca il numero dell'obiettivo per cambiarlo. I conteggi arrivano da Clienti, Prequalifiche, Ricerca Zona, Centro Messaggi e dal tuo calendario Google. Ognuno vede solo i propri numeri.</div>
   </main>
 </div>
+<div class="view" id="view-desc" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>✍️ Generatore descrizione</h1><p class="sub">Il testo dell'annuncio a partire dal foglio di prequalifica</p></div>
+      <span class="sync" id="ds-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide ds-main">
+    <div class="ds-wrap">
+      <section class="ds-in">
+        <div class="x-card">
+          <h3>1 · Parti dal foglio di prequalifica</h3>
+          <div class="x-note" style="font-size:13px">Nessun campo è obbligatorio: più dati metti, più ricca e precisa sarà la descrizione. Quello che manca viene semplicemente saltato.</div>
+          <select class="inp" id="ds-src"></select>
+          <div class="ds-facts" id="ds-facts"></div>
+        </div>
+        <div class="x-card">
+          <h3>2 · Aggiungi i dettagli che rendono unico l'immobile</h3>
+          <div class="x-grid">
+            <label class="x-f"><span>Zona o quartiere</span><input class="inp" data-ds="zona" placeholder="Es. Borgo Palazzo, centro storico"></label>
+            <label class="x-f"><span>Contesto</span><select class="inp" data-ds="contesto"><option value="">—</option><option>zona residenziale</option><option>centro paese</option><option>centro città</option><option>zona semicentrale</option><option>zona collinare</option><option>zona tranquilla e verde</option><option>vicino al lago</option></select></label>
+            <label class="x-f"><span>Libero</span><select class="inp" data-ds="libero"><option value="">—</option><option>subito</option><option>al rogito</option><option>entro pochi mesi</option></select></label>
+            <label class="x-f"><span>Tipo di edificio</span><select class="inp" data-ds="edificio"><option value="">—</option><option>palazzina di poche unità</option><option>condominio ben tenuto</option><option>contesto signorile</option><option>edificio di recente costruzione</option><option>corte ristrutturata</option></select></label>
+          </div>
+          <div class="x-f"><span>Esposizione</span><div class="ds-chips"><label><input type="checkbox" data-ds-c="espo" value="Nord"> Nord</label><label><input type="checkbox" data-ds-c="espo" value="Sud"> Sud</label><label><input type="checkbox" data-ds-c="espo" value="Est"> Est</label><label><input type="checkbox" data-ds-c="espo" value="Ovest"> Ovest</label></div></div>
+          <div class="x-f"><span>Punti di forza</span><div class="ds-chips"><label><input type="checkbox" data-ds-c="forza" value="Molto luminoso"> Molto luminoso</label><label><input type="checkbox" data-ds-c="forza" value="Silenzioso"> Silenzioso</label><label><input type="checkbox" data-ds-c="forza" value="Vista aperta"> Vista aperta</label><label><input type="checkbox" data-ds-c="forza" value="Vista sulle montagne"> Vista sulle montagne</label><label><input type="checkbox" data-ds-c="forza" value="Vista lago"> Vista lago</label><label><input type="checkbox" data-ds-c="forza" value="Finiture di pregio"> Finiture di pregio</label><label><input type="checkbox" data-ds-c="forza" value="Ristrutturato di recente"> Ristrutturato di recente</label><label><input type="checkbox" data-ds-c="forza" value="Infissi nuovi"> Infissi nuovi</label><label><input type="checkbox" data-ds-c="forza" value="Parquet"> Parquet</label><label><input type="checkbox" data-ds-c="forza" value="Soffitti alti"> Soffitti alti</label><label><input type="checkbox" data-ds-c="forza" value="Cucina abitabile"> Cucina abitabile</label><label><input type="checkbox" data-ds-c="forza" value="Cabina armadio"> Cabina armadio</label><label><input type="checkbox" data-ds-c="forza" value="Lavanderia"> Lavanderia</label><label><input type="checkbox" data-ds-c="forza" value="Doppi servizi"> Doppi servizi</label><label><input type="checkbox" data-ds-c="forza" value="Ampio terrazzo"> Ampio terrazzo</label><label><input type="checkbox" data-ds-c="forza" value="Posto auto"> Posto auto</label><label><input type="checkbox" data-ds-c="forza" value="Pronto da abitare"> Pronto da abitare</label><label><input type="checkbox" data-ds-c="forza" value="Basse spese"> Basse spese</label><label><input type="checkbox" data-ds-c="forza" value="Adatto a famiglie"> Adatto a famiglie</label><label><input type="checkbox" data-ds-c="forza" value="Ottimo investimento"> Ottimo investimento</label></div></div>
+          <div class="x-f"><span>Nelle vicinanze</span><div class="ds-chips"><label><input type="checkbox" data-ds-c="vicino" value="Scuole"> Scuole</label><label><input type="checkbox" data-ds-c="vicino" value="Negozi"> Negozi</label><label><input type="checkbox" data-ds-c="vicino" value="Supermercati"> Supermercati</label><label><input type="checkbox" data-ds-c="vicino" value="Mezzi pubblici"> Mezzi pubblici</label><label><input type="checkbox" data-ds-c="vicino" value="Stazione"> Stazione</label><label><input type="checkbox" data-ds-c="vicino" value="Parchi"> Parchi</label><label><input type="checkbox" data-ds-c="vicino" value="Farmacia"> Farmacia</label><label><input type="checkbox" data-ds-c="vicino" value="Ospedale"> Ospedale</label><label><input type="checkbox" data-ds-c="vicino" value="Autostrada"> Autostrada</label><label><input type="checkbox" data-ds-c="vicino" value="Centro storico"> Centro storico</label><label><input type="checkbox" data-ds-c="vicino" value="Università"> Università</label><label><input type="checkbox" data-ds-c="vicino" value="Piste ciclabili"> Piste ciclabili</label></div></div>
+        </div>
+        <div class="x-card">
+          <h3>3 · Come la vuoi</h3>
+          <div class="x-grid">
+            <label class="x-f"><span>Stile</span><select class="inp" data-ds="tono"><option value="pro">Professionale</option><option value="emo">Emozionale</option><option value="list">Schematico (a punti)</option></select></label>
+            <label class="x-f"><span>Lunghezza</span><select class="inp" data-ds="lung"><option value="breve">Breve</option><option value="media" selected>Media</option><option value="lunga">Lunga</option></select></label>
+          </div>
+          <label class="calc-chk"><input type="checkbox" data-ds="prezzo"> Scrivi il prezzo</label>
+          <label class="calc-chk"><input type="checkbox" data-ds="via"> Scrivi il nome della via (senza civico)</label>
+          <button type="button" class="btn ds-gen" id="ds-gen">✨ Genera descrizione</button>
+        </div>
+      </section>
+      <section class="ds-out">
+        <div class="x-card ds-result" id="ds-result">
+          <div class="ds-head"><h3>Titolo</h3><button type="button" class="x-act" id="ds-copytitle">📋 Copia titolo</button></div>
+          <input class="inp ds-title" id="ds-title" placeholder="Il titolo comparirà qui">
+          <h3>Descrizione</h3>
+          <div class="ds-box">
+            <textarea class="inp ds-text" id="ds-text" placeholder="Compila i dati e tocca “✨ Genera descrizione”. Poi puoi modificare il testo direttamente qui."></textarea>
+            <div class="ds-boxfoot"><span class="ds-count" id="ds-count">0 caratteri</span><button type="button" class="x-act" id="ds-regen" title="Stessi dati, frasi diverse">🔄 Altra versione</button><button type="button" class="x-act call" id="ds-copy">📋 Copia</button></div>
+          </div>
+          <div class="x-note">Il testo si salva da solo, anche dopo le tue modifiche. Controllalo sempre prima di pubblicarlo.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-visite" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🏠 Visite</h1><p class="sub">Com'è andata ogni visita e il report per il proprietario</p></div>
+      <span class="sync" id="vs-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main vs-main">
+    <div class="x-tabs" role="tablist" aria-label="Sezione">
+      <button type="button" role="tab" data-vs-tab="list" aria-selected="true">📝 Schede visita <span class="nb" id="vs-badge" hidden></span></button>
+      <button type="button" role="tab" data-vs-tab="rep" aria-selected="false">📨 Report al venditore</button>
+    </div>
+    <div id="vs-login"></div>
+    <section id="vs-list-wrap">
+      <div class="x-pills" id="vs-filter" role="group" aria-label="Filtro"></div>
+      <div class="vs-list" id="vs-list"></div>
+    </section>
+    <section id="vs-rep-wrap" hidden>
+      <div class="vs-rep">
+        <div class="x-card">
+          <h3>Per quale immobile?</h3>
+          <select class="inp" id="vs-rep-imm"></select>
+          <div class="x-grid">
+            <label class="x-f"><span>Periodo</span><select class="inp" id="vs-rep-per"><option value="7">Ultimi 7 giorni</option><option value="14">Ultimi 14 giorni</option><option value="30" selected>Ultimi 30 giorni</option><option value="0">Tutte le visite</option></select></label>
+            <label class="x-f"><span>Nome del proprietario</span><input class="inp" id="vs-rep-own" placeholder="Es. Sig. Rossi"></label>
+            <label class="x-f"><span>Telefono del proprietario</span><input class="inp" id="vs-rep-tel" type="tel" inputmode="tel" placeholder="Per inviarlo su WhatsApp"></label>
+            <label class="x-f"><span>Indirizzo immobile</span><input class="inp" id="vs-rep-addr" placeholder="Es. Via Roma 5, Stezzano"></label>
+          </div>
+          <div class="vs-stats" id="vs-rep-stats"></div>
+        </div>
+        <div class="x-card">
+          <h3>Report (puoi modificarlo)</h3>
+          <div class="ds-box"><textarea class="inp vs-reptext" id="vs-rep-text"></textarea>
+            <div class="ds-boxfoot"><button type="button" class="x-act" id="vs-rep-regen">🔄 Rifai</button><button type="button" class="x-act" id="vs-rep-pdf">📄 PDF</button><a class="x-act wa" id="vs-rep-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp</a><button type="button" class="x-act call" id="vs-rep-copy">📋 Copia</button></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="view" id="view-modelli" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>💬 Modelli di messaggi</h1><p class="sub">Messaggi pronti: scegli, completa e invia</p></div>
+      <span class="sync" id="md-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide md-main">
+    <div class="md-wrap">
+      <section class="md-listcol">
+        <div class="x-row"><input class="inp x-grow" id="md-q" type="search" placeholder="Cerca un modello…"><button type="button" class="tool primary" id="md-new">＋ Nuovo</button></div>
+        <div class="md-list" id="md-list"></div>
+      </section>
+      <section class="md-ed x-card" id="md-ed"></section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-acq" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🚪 Acquisizione</h1><p class="sub">Cartelli, volantini, chiamate e contatti che portano notizie</p></div>
+      <span class="sync" id="aq-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main aq-main">
+    <div class="x-tabs aq-tabs" role="tablist" aria-label="Sezione">
+      <button type="button" role="tab" data-aq-tab="call" aria-selected="true">📞 Chiamate</button>
+      <button type="button" role="tab" data-aq-tab="cart" aria-selected="false">🪧 Cartelli <span class="nb" id="aq-b-cart" hidden></span></button>
+      <button type="button" role="tab" data-aq-tab="vol" aria-selected="false">📬 Volantini</button>
+      <button type="button" role="tab" data-aq-tab="sv" aria-selected="false">🤝 Contatti utili <span class="nb" id="aq-b-sv" hidden></span></button>
+    </div>
+    <div class="aq-body" id="aq-body"></div>
+  </main>
+</div>
+<div class="view" id="view-utilita" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🧰 Utilità</h1><p class="sub">Rubrica, scadenze, modalità auto e impostazioni dell'app</p></div>
+      <span class="sync" id="ut-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main aq-main">
+    <div class="x-tabs aq-tabs" role="tablist" aria-label="Sezione">
+      <button type="button" role="tab" data-ut-tab="pro" aria-selected="true">📇 Professionisti</button>
+      <button type="button" role="tab" data-ut-tab="sca" aria-selected="false">📅 Scadenze</button>
+      <button type="button" role="tab" data-ut-tab="auto" aria-selected="false">🚘 Modalità auto</button>
+      <button type="button" role="tab" data-ut-tab="set" aria-selected="false">⚙️ Impostazioni</button>
+    </div>
+    <div class="aq-body" id="ut-body"></div>
+  </main>
+</div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
-  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Percorso, pause e orari di partenza</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Scheda dati cliente e immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi d'acquisto, netto venditore</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
+  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti utili</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da completare e inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio dal foglio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto e foglio acquirente</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e strumenti</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, modalità auto, backup</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
+<div class="x-offline" id="x-offline" role="status" hidden>📴 Sei offline: tutto resta salvato sul telefono e si sincronizza quando torna la rete</div>
 
 <div class="overlay" id="overlay" hidden></div>
+<div class="auto" id="auto" hidden role="dialog" aria-modal="true" aria-label="Modalità auto"></div>
 
 <script>
 const RZ_CLOUD=true; window.RZ_WEB=true;
@@ -2345,14 +2674,17 @@ function login(select){
 }
 async function doLogin(select){
   if (loggingIn) return; loggingIn = true;
-  try { await login(select); toast("Accesso effettuato ✓"); startWeb(); }
+  try { await login(select); toast("Accesso effettuato ✓"); startWeb(); if (window.xAfterLogin) setTimeout(xAfterLogin, 60); }
   catch (e) { toast((e && e.message) || "Accesso non riuscito"); }
   loggingIn = false;
 }
 // Sessione scaduta ma account noto: il primo tocco nel Centro Messaggi la riprende da solo.
 document.addEventListener("click", e => {
-  if (tok || loggingIn || !knownEmail() || CLIENT_ID.startsWith("__")) return;
-  if ($("view-msg").hidden && $("view-foto").hidden) return;
+  if (loggingIn || !knownEmail() || CLIENT_ID.startsWith("__") || !navigator.onLine) return;
+  if (tok && tok.exp - Date.now() > 5 * 60000) return;
+  if (Date.now() - (window.__lastAutoLogin || 0) < 90000) return;
+  if ($("view-zona").hidden === false && !tok && !window.__zonaAuto) return;
+  window.__lastAutoLogin = Date.now();
   if (e.target.closest("[data-login],[data-login-select],[data-logout],[data-menu],#dd")) return;
   doLogin(false);
 }, true);
@@ -2413,7 +2745,8 @@ async function driveSaveNow(){
       await api(DRVU + "/" + driveFileId + "?uploadType=media", { method: "PATCH", headers: { "Content-Type": "application/json" }, body });
     }
     setSync("Salvato nel tuo Google");
-  } catch (e) { setSync(e instanceof AuthErr ? "Accedi con Google" : "Salvato solo qui"); }
+    window.__driveDirty = false;
+  } catch (e) { setSync(e instanceof AuthErr ? "Accedi con Google" : "Salvato solo qui"); window.__driveDirty = true; }
   driveSaving = false;
   if (driveAgain) { driveAgain = false; driveSaveNow(); }
 }
@@ -2841,6 +3174,7 @@ const PQ_SCHEMA = [
   { title: "Costi", fields: [
     { k: "spese_condominiali", l: "Spese condominiali", t: "num", unit: "€", per: true },
     { k: "prezzo", l: "Prezzo", t: "num", unit: "€" } ] },
+  { title: "Documenti già ricevuti", checks: "documenti", opts: ["Atto di provenienza", "Planimetria catastale", "Visura catastale", "APE (attestato energetico)", "Documento d'identità e codice fiscale", "Spese e regolamento condominiale", "Pratiche edilizie / conformità", "Certificato di agibilità", "Conformità degli impianti", "Successione (se ereditato)", "Conteggio estintivo del mutuo"] },
   { title: "Note", fields: [ { k: "note", l: "Note", t: "area", full: true } ] }
 ];
 const PQ_KEY = "rz_preq_v1", PQ_DRAFT = "rz_preq_draft_v1";
@@ -3080,7 +3414,7 @@ function pqValShow(rec){
   $("pq-val-on").checked = on; $("pq-val-opts").hidden = !on;
   const r = rec && rec.val;
   $("pq-val").hidden = !(on && r);
-  $("pq-val").innerHTML = on && r ? pqValHtml(r) : "";
+  $("pq-val").innerHTML = on && r ? pqValHtml(r) : ""; if (on && r && !r.error && window.omiBlock) $("pq-val").insertAdjacentHTML("beforeend", omiBlock(rec, r));
   pqValHint();
 }
 function pqValHint(){
@@ -3545,8 +3879,8 @@ function calcNetto(){
   calcTxt.netto = `💶 QUANTO LE RESTA DALLA VENDITA\n` + rows.map(r => `• ${r[0]}: ${r[1]}`).join("\n") + `\n➡️ Netto: ${xEuro(netto)}\n(Stima indicativa)`;
 }
 function calcAll(){
-  calcMutuo(); calcCosti(); calcNetto();
-  for (const k of ["mutuo", "costi", "netto"]) { const a = document.querySelector(`[data-calc-wa="${k}"]`); if (a) a.href = xWa("", calcTxt[k]); }
+  calcMutuo(); calcCosti(); calcNetto(); calcBuyer();
+  for (const k of ["mutuo", "costi", "netto", "buyer"]) { const a = document.querySelector(`[data-calc-wa="${k}"]`); if (a) a.href = xWa("", calcTxt[k]); }
 }
 function calcSave(){ const vals = {}; document.querySelectorAll("#view-calc [data-c]").forEach(el => vals[el.dataset.c] = el.type === "checkbox" ? el.checked : el.value); calcState.vals = vals; lsSet("rz_calc_v1", calcState); }
 function calcTab(tab){ calcState.tab = tab; document.querySelectorAll("[data-calc-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.calcTab === tab)); document.querySelectorAll("#view-calc .calc-card").forEach(c => c.classList.toggle("off", c.dataset.calc !== tab)); lsSet("rz_calc_v1", calcState); }
@@ -3700,13 +4034,21 @@ function grStops(){
   const P = grPrefs.data, list = [];
   for (const ev of grEvents || []) {
     if (!ev.start || !ev.start.dateTime) continue;
-    const a = parseEvent(ev), s = new Date(ev.start.dateTime).getTime();
+    if (!grIsAppt(ev)) continue;
+    const a = parseEvent(ev), s = new Date(ev.start.dateTime).getTime(), isVal = grIsVal(ev);
     let e = ev.end && ev.end.dateTime ? new Date(ev.end.dateTime).getTime() : s + P.durata * 6e4; if (e <= s) e = s + P.durata * 6e4;
     const loc = (P.locs[ev.id] || ev.location || field(ev.description || "", ["Indirizzo", "Luogo"]) || "").trim();
-    list.push({ id: ev.id, title: a.kind !== "altro" && a.clientName && a.clientName !== "Cliente" ? `${KIND[a.kind].short} · ${a.clientName}` : (ev.summary || "Appuntamento"), raw: ev.summary || "", s, e, loc, phone: a.phone, link: ev.htmlLink, own: false });
+    list.push({ id: ev.id, title: `${isVal ? "📐 Valutazione" : "🏠 Visita"}${a.clientName && a.clientName !== "Cliente" ? " · " + a.clientName : ""}${!isVal && a.dvCode ? " (" + a.dvCode + ")" : ""}`, kind: isVal ? "val" : "visita", raw: ev.summary || "", s, e, loc, phone: a.phone, link: ev.htmlLink, own: false });
   }
   for (const x of (P.extra[grDate] || [])) { const s = grAt(grDate, x.ora); list.push({ id: x.id, title: x.titolo || "Tappa", raw: x.titolo || "", s, e: s + (x.dur || 30) * 6e4, loc: x.luogo, own: true }); }
   return list.sort((a, b) => a.s - b.s);
+}
+/* Solo i veri appuntamenti fuori ufficio: valutazioni [VAL] e visite [DV-…] di Dove.it (niente [REMINDER], riunioni, pranzi…) */
+function grIsVal(ev){ const s = ev.summary || "", d = (ev.description || "").trim().toLowerCase(); return /\[val\]/i.test(s) || d.startsWith("appuntamento di valutazione"); }
+function grIsAppt(ev){
+  const s = ev.summary || "", d = (ev.description || "").trim().toLowerCase();
+  if (/\[reminder\]/i.test(s) || d.startsWith("reminder")) return false;
+  return grIsVal(ev) || /\[dv[-\s]?\d+\]/i.test(s) || d.startsWith("appuntamento di visita");
 }
 async function grCompute(){
   const P = grPrefs.data, req = ++grReq, stops = grStops();
@@ -3732,7 +4074,10 @@ async function grCompute(){
     idx++;
     if (!st.ll) { items.push({ k: "appt", st, n: idx, noLoc: true }); prev = prev ? Math.max(prev, st.e) : st.e; continue; }
     const l = (home || located.indexOf(st) > 0) ? leg() : null;
-    if (l) {
+    if (l && prev != null && prevLoc && xNorm(prevLoc) === xNorm(st.loc)) {
+      if (st.s > prev) pushPause(prev, st.s);
+      items.push({ k: "same", t: prev });
+    } else if (l) {
       const base = l.sec / 60;
       let travel = Math.ceil(base * grTraffic(st.s - base * 6e4));
       const buffer = +P.margine || 0;
@@ -3783,7 +4128,10 @@ function grMapDraw(plan){
 }
 
 let gsShowPast = false, gsPanel = "";
-const gsNav = loc => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(loc) + "&travelmode=driving";
+const gsApple = () => { const v = grPrefs.data.navApp; if (v) return v === "apple"; return /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1); };
+const gsGoogle1 = loc => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(loc) + "&travelmode=driving";
+const gsApple1 = loc => "https://maps.apple.com/?daddr=" + encodeURIComponent(loc) + "&dirflg=d";
+const gsNav = loc => gsApple() ? gsApple1(loc) : gsGoogle1(loc);
 const gsRel = mins => mins <= 0 ? "adesso" : "tra " + xDur(mins);
 function gsDayName(){ const t = xISO(Date.now()); return grDate === t ? "Oggi" : grDate === xAddDays(t, 1) ? "Domani" : xDay(grDate); }
 function gsHero(plan){
@@ -3815,6 +4163,7 @@ function gsLink(it){
     case "go": return `<div class="gs-link drive${it.rush ? " rush" : ""}">🚗 <span><b>${it.rush ? "Parti subito" : "Parti alle " + xHM(it.t)}</b> · ${xDur(it.travel)} di strada (${Math.round(it.km)} km)</span></div>`;
     case "pause": return (it.t2 - it.t) >= 5 * 6e4 ? `<div class="gs-link free">☕ <span><b>${xDur((it.t2 - it.t) / 6e4)} liberi</b> · dalle ${xHM(it.t)} alle ${xHM(it.t2)}</span></div>` : "";
     case "lunch": return `<div class="gs-link lunch">🍝 <span><b>Pranzo</b> · dalle ${xHM(it.t)} alle ${xHM(it.t2)}</span></div>`;
+    case "same": return `<div class="gs-link">📍 <span><b>Stesso indirizzo</b> · resti lì</span></div>`;
     case "back": return `<div class="gs-link drive">🏁 <span><b>Rientro alle ${xHM(it.arrive)}</b> · ${xDur(it.travel)} di strada</span></div>`;
   }
   return "";
@@ -3827,7 +4176,7 @@ function gsCard(it, plan, now, isToday){
     ${warn ? `<div class="gs-late"><span>⚠️ Arrivi circa <b>${warn.late} min in ritardo</b>: l'appuntamento prima finisce troppo tardi.</span>${st.phone ? `<a href="${esc(xWa(st.phone, txt))}" target="_blank" rel="noopener">💬 Avvisa</a>` : ""}</div>` : ""}
     ${tight ? `<div class="gs-late" style="background:var(--todo-soft);color:var(--todo)"><span>⏱️ Arrivi giusto in tempo: esci appena finisci.</span></div>` : ""}
     ${it.noLoc ? `<div class="gs-miss"><input class="inp" data-gr-loc="${esc(st.id)}" placeholder="Scrivi l'indirizzo"><button type="button" class="tool primary" data-gr-locsave="${esc(st.id)}">OK</button></div>` : ""}
-    <div class="x-acts">${st.loc && !it.noLoc ? `<a class="x-act call" href="${esc(gsNav(st.loc))}" target="_blank" rel="noopener">🧭 Naviga</a>` : ""}${st.phone ? `<a class="x-act" href="${xTel(st.phone)}">📞 Chiama</a>` : ""}${st.own ? `<button type="button" class="x-act danger" data-gr-xdel="${esc(st.id)}">Rimuovi</button>` : ""}${!st.own && st.id in grPrefs.data.locs ? `<button type="button" class="x-act" data-gr-locdel="${esc(st.id)}">✏️ Cambia indirizzo</button>` : ""}</div></div>`;
+    <div class="x-acts">${st.loc && !it.noLoc ? `<a class="x-act call" href="${esc(gsNav(st.loc))}" target="_blank" rel="noopener">🧭 Naviga</a>` : ""}${st.phone ? `<a class="x-act" href="${xTel(st.phone)}">📞 Chiama</a>` : ""}${st.kind === "visita" && st.e < now ? `<button type="button" class="x-act" data-vs-open="${esc(st.id)}">📝 Scheda visita</button>` : ""}${st.own ? `<button type="button" class="x-act danger" data-gr-xdel="${esc(st.id)}">Rimuovi</button>` : ""}${!st.own && st.id in grPrefs.data.locs ? `<button type="button" class="x-act" data-gr-locdel="${esc(st.id)}">✏️ Cambia indirizzo</button>` : ""}</div></div>`;
 }
 function grDraw(){
   const plan = grPlan, P = grPrefs.data, now = Date.now(), isToday = grDate === xISO(now);
@@ -3840,8 +4189,8 @@ function grDraw(){
   gsHero(plan);
   if (!plan.stops.length) {
     $("gs-sum").innerHTML = "";
-    $("gs-list").innerHTML = `<div class="gs-empty"><div class="big">🗓️</div>${esc(gsDayName())} non hai appuntamenti con orario${xLogged() ? " nel calendario" : ""}.<br><br><button type="button" class="x-act call" data-gs-panel="add">＋ Aggiungi una tappa</button></div>`;
-    $("gs-navall").hidden = true; grMapDraw(plan); return;
+    $("gs-list").innerHTML = `<div class="gs-empty"><div class="big">🗓️</div>${esc(gsDayName())} non hai valutazioni o visite in calendario.<div class="x-note" style="margin-top:6px">Qui compaiono solo gli appuntamenti [VAL] e [DV-…]: i promemoria [REMINDER] e le riunioni vengono esclusi.</div><br><br><button type="button" class="x-act call" data-gs-panel="add">＋ Aggiungi una tappa</button></div>`;
+    $("gs-navbar").hidden = true; grMapDraw(plan); return;
   }
   const n = plan.stops.length;
   $("gs-sum").innerHTML = `<b>${n}</b> ${n === 1 ? "appuntamento" : "appuntamenti"} · <b>${xDur(plan.drive)}</b> di strada · <b>${Math.round(plan.km)} km</b>${plan.lastEnd ? ` · finisci alle <b>${xHM(plan.lastEnd)}</b>` : ""}`;
@@ -3865,12 +4214,14 @@ function grDraw(){
   const todo = (isToday ? plan.located.filter(s => (s.effE || s.e) > now) : plan.located).map(s => s.loc);
   const dest = P.ritorno && P.start && todo.length ? P.start : todo[todo.length - 1];
   const wps = P.ritorno && P.start ? todo : todo.slice(0, -1);
-  const nav = $("gs-navall");
+  const nav = $("gs-navall"), bar = $("gs-navbar");
   if (todo.length) {
-    nav.hidden = false;
+    bar.hidden = false;
     nav.href = "https://www.google.com/maps/dir/?api=1&travelmode=driving" + (!isToday && P.start ? "&origin=" + encodeURIComponent(P.start) : "") + "&destination=" + encodeURIComponent(dest) + (wps.length ? "&waypoints=" + encodeURIComponent(wps.slice(0, 9).join("|")) : "");
-    nav.textContent = isToday ? `▶ Avvia il giro (${todo.length} ${todo.length === 1 ? "tappa" : "tappe"})` : "▶ Apri il giro in Google Maps";
-  } else nav.hidden = true;
+    nav.innerHTML = `▶ Tutto il giro (${todo.length} ${todo.length === 1 ? "tappa" : "tappe"})<small>Google Maps</small>`;
+    $("gs-navapple").href = gsApple1(todo[0]);
+    $("gs-navapple").innerHTML = `➜ ${isToday ? "Prossima tappa" : "Prima tappa"}<small>Mappe di Apple</small>`;
+  } else bar.hidden = true;
   grMapDraw(plan);
 }
 async function grLoad(){
@@ -3879,7 +4230,7 @@ async function grLoad(){
   $("gs-hero").innerHTML = ""; $("gs-sum").innerHTML = "";
   $("gs-list").innerHTML = `<div class="gs-empty">${xLogged() ? "Leggo gli appuntamenti…" : "Calcolo il giro…"}</div>`;
   if (xLogged()) {
-    try { const s = grAt(grDate, "00:00"); grEvents = (await xCalList(s, s + 864e5)).filter(ev => (!/^(📍 Ripasso zona|📞)/.test(ev.summary || "") && ev.transparency !== "transparent") || /^📸/.test(ev.summary || "")); }
+    try { const s = grAt(grDate, "00:00"); grEvents = await xCalList(s, s + 864e5); }
     catch (e) { grErr = (e && e.message) || String(e); }
   }
   if (req !== grReq) return;
@@ -3899,6 +4250,7 @@ function grRender(){
   if (!grInit) { grInit = true; if (new Date().getHours() >= 20) grDate = xAddDays(xISO(Date.now()), 1); }
   document.querySelectorAll("#view-giro [data-gr]").forEach(el => { const v = P[el.dataset.gr]; if (el.type === "checkbox") el.checked = !!v; else if (document.activeElement !== el) el.value = v == null ? "" : String(v); });
   $("gr-date").value = grDate;
+  $("gs-navapp").value = gsApple() ? "apple" : "google";
   $("gr-login").innerHTML = xLogged() ? "" : `<div class="x-card"><div class="x-note" style="font-size:13px">Accedi con Google per vedere i tuoi appuntamenti del calendario.</div>${loginCardHtml()}</div>`;
   grLoad();
   clearInterval(grTick); grTick = setInterval(() => { if (xCur !== "giro") return clearInterval(grTick); if (grPlan) grDraw(); }, 30000);
@@ -3913,6 +4265,7 @@ $("view-giro").addEventListener("input", e => {
   clearTimeout(grOptTimer); grOptTimer = setTimeout(grRecalc, k === "start" ? 900 : 200);
 });
 $("view-giro").addEventListener("change", e => {
+  if (e.target.id === "gs-navapp") { grPrefs.data.navApp = e.target.value; grPrefs.save(); grDraw(); return; }
   if (e.target.id === "gr-date" && e.target.value) { grDate = e.target.value; gsShowPast = false; grLoad(); return; }
   if (e.target.dataset.gr && e.target.tagName === "SELECT") e.target.dispatchEvent(new Event("input", { bubbles: true }));
 });
@@ -3934,6 +4287,7 @@ $("view-giro").addEventListener("click", async e => {
   const xd = e.target.closest("[data-gr-xdel]"); if (xd) { const P = grPrefs.data; P.extra[grDate] = (P.extra[grDate] || []).filter(x => x.id !== xd.dataset.grXdel); grPrefs.save(); grRecalc(); return; }
   const ls = e.target.closest("[data-gr-locsave]"); if (ls) { const inp = [...document.querySelectorAll("[data-gr-loc]")].find(x => x.dataset.grLoc === ls.dataset.grLocsave); const v = inp && inp.value.trim(); if (!v) return; grPrefs.data.locs[ls.dataset.grLocsave] = v; grPrefs.save(); grRecalc(); return; }
   const ld = e.target.closest("[data-gr-locdel]"); if (ld) { delete grPrefs.data.locs[ld.dataset.grLocdel]; grPrefs.save(); grRecalc(); return; }
+  if (e.target.closest("#gs-depcal")) { if (window.grDepToCal) grDepToCal(); return; }
   if (e.target.closest("#gs-share") && grPlan) {
     const t = grText(grPlan);
     if (navigator.share) { try { await navigator.share({ text: t }); return; } catch (err) { if (err && err.name === "AbortError") return; } }
@@ -3983,7 +4337,7 @@ async function obLoadCal(s, e, force){
   try {
     const items = await xCalList(s, Math.min(e, Date.now() + 31 * 864e5));
     let visite = 0, valut = 0, foto = 0;
-    for (const ev of items) { const sm = ev.summary || "", k2 = kindOf(sm, ev.description || ""); if (/servizio fotografico/i.test(sm)) foto++; else if (k2 === "visita" || /\bvisit/i.test(sm)) visite++; else if (k2 === "valutazione") valut++; }
+    for (const ev of items) { const sm = ev.summary || "", ds = (ev.description || "").trim().toLowerCase(); if (/\[reminder\]/i.test(sm) || ds.startsWith("reminder")) continue; if (/servizio fotografico|servizio foto/i.test(sm)) foto++; else if (/\[val\]/i.test(sm) || ds.startsWith("appuntamento di valutazione")) valut++; else if (/\[dv[-\s]?\d+\]/i.test(sm) || ds.startsWith("appuntamento di visita")) visite++; }
     obCal[k] = { visite, valut, foto };
   } catch (err) { obCal[k] = { err: (err && err.message) || String(err) }; }
   if (xCur === "obiettivi") obRender(true);
@@ -4072,6 +4426,212 @@ $("overlay").addEventListener("click", e => {
   if (b.dataset.act === "lead-open") { clUi.sel = cl.id; clOpenMobile = true; clSaveUi(); showView("clienti"); }
   else { const own = pqList.find(p => p.clId === cl.id || (cl.pqIds || []).includes(p.id)); if (own) { if (!pqBuilt) pqRender(); pqLoad(own); showView("preq"); } else clOpenPreq(cl); }
 }, true);
+
+
+/* ===================== GENERATORE DESCRIZIONE ===================== */
+const dsDoc = xDoc("rz_desc_v1", "descrizioni", { by: {} });
+let dsSrc = "", dsSeed = 1, dsInit = false;
+const DS_KEY_DRAFT = "__bozza";
+function dsSheets(){ const out = []; let draft = null; try { draft = JSON.parse(localStorage.getItem(PQ_DRAFT) || "null"); } catch {} if (draft && draft.v && Object.keys(draft.v).length) out.push({ id: DS_KEY_DRAFT, label: "✏️ Foglio in compilazione" + (draft.v.nome ? " · " + draft.v.nome : ""), rec: draft }); for (const p of pqList) out.push({ id: p.id, label: (p.v.nome || "Senza nome") + " · " + (p.v.indirizzo || "").split("\n")[0], rec: p }); return out; }
+function dsRec(){ const s = dsSheets().find(x => x.id === dsSrc); return s ? s.rec : null; }
+function dsState(){ return dsDoc.data.by[dsSrc] || (dsDoc.data.by[dsSrc] = { f: {}, c: {}, title: "", text: "" }); }
+/* ---- lettura dei dati del foglio ---- */
+function dsData(rec){
+  const v = rec ? rec.v : {}, c = rec ? rec.c : {}, n = k => { const x = num(v[k]); return x && x > 0 ? x : 0; };
+  const tip = (c.tipologia || [])[0] || "";
+  const comune = v.comune || pqFindComune(v.indirizzo || "") || "";
+  let via = ""; const m = String(v.indirizzo || "").split(/[\n,]/)[0].trim().match(/^((?:via|viale|piazza|piazzale|corso|largo|vicolo|strada|località|borgo)\b[^\d]*)/i); if (m) via = m[1].trim();
+  return { v, c, tip, comune, via, mq: n("superficie"), camere: n("stanze_letto"), bagni: n("bagni"), sogg: n("soggiorni"), cucine: n("cucine"), rip: n("ripostigli"), balconi: n("balconi"), terrazzi: n("terrazzi"), cantine: n("cantine"), box: n("box"), giardino: n("giardino_privato"),
+    piano: String(v.piano || "").trim(), piani: n("piani_totali"), classe: String(v.classe_energetica || "").trim().toUpperCase(), anno: n("anno_costruzione"), prezzo: n("prezzo"),
+    spese: n("spese_condominiali"), spesePer: v.spese_condominiali_per || "mese", stato: (c.stato || [])[0] || "", car: c.caratteristiche || [], risc: (c.riscaldamento || [])[0] || "", arr: (c.arredamento || [])[0] || "" };
+}
+const DS_G = { "Appartamento": ["un", "appartamento", "m"], "Appartamento in villetta": ["un", "appartamento in villetta", "m"], "Casa indipendente": ["una", "casa indipendente", "f"], "Attico": ["un", "attico", "m"], "Mansarda": ["una", "mansarda", "f"], "Loft": ["un", "loft", "m"], "Villa": ["una", "villa", "f"], "Villetta a schiera": ["una", "villetta a schiera", "f"], "Rustico / Casale": ["un", "rustico", "m"], "Palazzo": ["un", "palazzo", "m"], "Commerciale": ["un", "immobile commerciale", "m"] };
+const DS_LOC = ["", "monolocale", "bilocale", "trilocale", "quadrilocale", "cinque locali"];
+function dsLocali(d){ if (!d.camere) return 0; return Math.min(5, d.camere + Math.max(1, d.sogg || 1)); }
+function dsPianoTxt(d){
+  const p = d.piano.toLowerCase(); if (!p) return "";
+  if (/^(0|t|pt|terra|piano terra)$/.test(p)) return "al piano terra";
+  if (/rialz/.test(p)) return "al piano rialzato";
+  const x = parseInt(p, 10); if (isNaN(x)) return "al piano " + d.piano;
+  if (d.piani && x >= d.piani) return `all'ultimo piano (${x}°)`;
+  return `al ${x}° piano${d.piani ? " di " + d.piani : ""}`;
+}
+const dsList = a => a.length <= 1 ? (a[0] || "") : a.slice(0, -1).join(", ") + " e " + a[a.length - 1];
+const dsNum = (n, one, many) => n === 1 ? "un" + (one.startsWith("a") || one.startsWith("o") || one.startsWith("e") ? " " : " ") + one : `${n} ${many}`;
+/* generatore di varianti deterministico */
+const dsCap = x => x ? x.charAt(0).toUpperCase() + x.slice(1) : x;
+const dsTidy = x => x.replace(/[ \t]+([.,:;])/g, "$1").replace(/,\s*,/g, ",").replace(/[ \t]{2,}/g, " ");
+function dsRand(seed){ let s = seed % 2147483647; if (s <= 0) s += 2147483646; return () => (s = s * 16807 % 2147483647) / 2147483647; }
+function dsGenerate(rec, f, ch, seed){
+  const d = dsData(rec), R = dsRand(seed * 7919 + 13), pick = a => a[Math.floor(R() * a.length)];
+  const g = DS_G[d.tip] || ["un", "immobile", "m"], [art, noun, gen] = g, fem = gen === "f";
+  const tono = f.tono || "pro", lung = f.lung || "media", loc = dsLocali(d), forza = ch.forza || [], vicino = ch.vicino || [], espo = ch.espo || [];
+  const agg = (m, fe) => fem ? fe : m;
+  const has = x => forza.includes(x) || d.car.includes(x);
+  const where = [f.via && d.via ? d.via : "", f.zona ? (f.zona.match(/^(zona|quartiere|frazione)/i) ? f.zona : "zona " + f.zona) : "", d.comune].filter(Boolean);
+  const whereTxt = where.length ? (d.comune ? `a ${d.comune}` : "") + (where.length > 1 ? `, ${where.slice(0, -1).join(", ")}` : "") : "";
+  /* titolo */
+  const tNoun = d.tip === "Appartamento" && loc ? DS_LOC[loc][0].toUpperCase() + DS_LOC[loc].slice(1) : (d.tip || "Immobile");
+  const tQual = [];
+  if (d.terrazzi || has("Ampio terrazzo")) tQual.push("con terrazzo"); else if (d.giardino) tQual.push("con giardino privato"); else if (d.box) tQual.push(d.box > 1 ? "con doppio box" : "con box");
+  const tAdj = has("Molto luminoso") ? agg("luminoso", "luminosa") : d.stato === "Nuovo" ? agg("nuovo", "nuova") : has("Ristrutturato di recente") ? agg("ristrutturato", "ristrutturata") : d.stato === "Da ristrutturare" ? "da ristrutturare" : "";
+  const title = [tNoun + (d.tip !== "Appartamento" && loc ? ` ${DS_LOC[loc]}` : ""), tAdj, tQual[0], d.comune ? "a " + d.comune : "", f.zona && d.comune ? "– " + f.zona : ""].filter(Boolean).join(" ").replace(/\s+/g, " ");
+  /* frasi */
+  const P = [];
+  const size = d.mq ? ` di ${d.mq} m²` : "";
+  const locTxt = d.tip === "Appartamento" && loc ? `${art === "una" ? "una" : "un"} ${DS_LOC[loc]}` : `${art} ${noun}${loc && d.tip !== "Commerciale" ? " " + DS_LOC[loc] : ""}`;
+  const DS_CTX = { "zona residenziale": "in un contesto residenziale", "centro paese": "in pieno centro", "centro città": "in pieno centro città", "zona semicentrale": "in posizione semicentrale", "zona collinare": "in posizione collinare", "zona tranquilla e verde": "in un contesto tranquillo e verde", "vicino al lago": "a due passi dal lago" };
+  const ctx = f.contesto ? (DS_CTX[f.contesto] || "in " + f.contesto) : "";
+  const edi = f.edificio ? `in ${f.edificio}` : "";
+  const pianoTxt = dsPianoTxt(d), asc = d.car.includes("Ascensore") ? "servito da ascensore" : "";
+  if (tono === "emo") P.push(pick([`Immagina di rientrare a casa ${ctx ? ctx + " " : ""}${whereTxt}: ${locTxt}${size} pensato per vivere bene ogni giorno.`, `${whereTxt ? whereTxt[0].toUpperCase() + whereTxt.slice(1) + (ctx ? ", " + ctx : "") + ", ti aspetta " : "Ti aspetta "}${locTxt}${size} dove sentirti subito a casa.`, `Se cerchi uno spazio che unisca comfort e praticità, questo è ${locTxt}${size} ${whereTxt} che fa per te.`]));
+  else P.push(pick([`${whereTxt ? whereTxt[0].toUpperCase() + whereTxt.slice(1) + (ctx ? ", " + ctx : "") + ", " : ""}proponiamo in vendita ${locTxt}${size}`, `Dove.it propone in vendita${whereTxt ? " " + whereTxt : ""}${ctx ? ", " + ctx : ""}, ${locTxt}${size}`, `In vendita${whereTxt ? " " + whereTxt : ""}${ctx ? ", " + ctx : ""}, ${locTxt}${size}`]) + [edi ? " " + edi : "", pianoTxt ? " posto " + pianoTxt : "", asc ? ", " + asc : ""].join("") + ".");
+  /* interni */
+  const rooms = [];
+  if (d.sogg) rooms.push(d.sogg > 1 ? `${d.sogg} soggiorni` : pick(has("Molto luminoso") ? ["un ampio soggiorno", "il soggiorno"] : ["un ampio soggiorno", "un luminoso soggiorno", "il soggiorno"]));
+  if (d.cucine || has("Cucina abitabile")) rooms.push(has("Cucina abitabile") ? "una cucina abitabile" : d.cucine > 1 ? `${d.cucine} cucine` : "la cucina");
+  if (d.camere) rooms.push(d.camere === 1 ? "una camera da letto" : `${d.camere} camere da letto`);
+  if (d.bagni || has("Doppi servizi")) rooms.push(d.bagni > 1 || has("Doppi servizi") ? `${Math.max(2, d.bagni)} bagni` : "un bagno");
+  if (d.rip) rooms.push(d.rip > 1 ? `${d.rip} ripostigli` : "un ripostiglio");
+  if (has("Lavanderia")) rooms.push("una lavanderia");
+  if (has("Cabina armadio")) rooms.push("una comoda cabina armadio");
+  const outs = [];
+  if (d.terrazzi) outs.push(d.terrazzi > 1 ? `${d.terrazzi} terrazzi` : has("Ampio terrazzo") ? "un ampio terrazzo" : "un terrazzo");
+  else if (has("Ampio terrazzo")) outs.push("un ampio terrazzo");
+  if (d.balconi) outs.push(d.balconi > 1 ? `${d.balconi} balconi` : "un balcone");
+  const lines = [];
+  if (tono !== "list" && rooms.length) lines.push(pick([`Gli interni si compongono di ${dsList(rooms)}`, `La casa è così distribuita: ${dsList(rooms)}`, `All'interno troviamo ${dsList(rooms)}`]) + (outs.length ? `, oltre a ${dsList(outs)}` : "") + ".");
+  const light = [];
+  if (espo.length >= 2) light.push(`La doppia esposizione (${espo.join(" e ").toLowerCase()})`); else if (espo.length) light.push(`L'esposizione a ${espo[0].toLowerCase()}`);
+  if (has("Molto luminoso") || espo.length) lines.push(light.length ? `${light[0]} rende gli ambienti ${pick(["luminosi per tutto il giorno", "molto luminosi", "ricchi di luce naturale"])}.` : pick(["Gli ambienti sono molto luminosi.", "La luce naturale è una delle qualità principali della casa."]));
+  const views = forza.filter(x => /^Vista/.test(x)).map(x => x.replace("Vista ", "vista ").toLowerCase().replace("vista aperta", "una vista aperta").replace("vista sulle montagne", "la vista sulle montagne").replace("vista lago", "la vista lago"));
+  if (views.length) lines.push(tono === "emo" ? `Dalle finestre ti godrai ${dsList(views)}.` : `Da segnalare ${dsList(views)}.`);
+  if (has("Silenzioso")) lines.push(tono === "emo" ? "Qui regna la tranquillità, lontano dal traffico." : "La posizione è silenziosa e riservata.");
+  /* stato e dotazioni */
+  const st = d.stato === "Nuovo" ? agg("di nuova costruzione", "di nuova costruzione") : d.stato === "Abitabile" ? (has("Pronto da abitare") ? "in ottimo stato e pronto da abitare" : "in buono stato e abitabile") : d.stato === "Da ristrutturare" ? "da ristrutturare, ideale per chi vuole personalizzare gli spazi" : has("Ristrutturato di recente") ? agg("ristrutturato di recente", "ristrutturata di recente") : "";
+  const fin = [];
+  if (has("Finiture di pregio")) fin.push("finiture di pregio"); if (has("Parquet")) fin.push("pavimenti in parquet"); if (has("Infissi nuovi")) fin.push("infissi nuovi"); if (has("Soffitti alti")) fin.push("soffitti alti");
+  if (st) lines.push(`L'immobile è ${st}${fin.length ? `, con ${dsList(fin)}` : ""}.`); else if (fin.length) lines.push(`Da notare ${dsList(fin)}.`);
+  const imp = [];
+  if (d.risc) imp.push(`riscaldamento ${d.risc.toLowerCase()}`);
+  for (const [k, t] of [["Aria condizionata", "aria condizionata"], ["Pannelli solari", "pannelli solari"], ["Domotica", "impianto domotico"], ["Allarme", "impianto d'allarme"], ["Porta blindata", "porta blindata"], ["Videocitofono", "videocitofono"], ["Camino", "camino"]]) if (d.car.includes(k)) imp.push(t);
+  if (imp.length && lung !== "breve") lines.push(`Completano la dotazione ${dsList(imp)}.`);
+  if (d.classe && lung !== "breve") lines.push(`Classe energetica ${d.classe}${d.anno ? `, anno di costruzione ${d.anno}` : ""}.`);
+  else if (d.anno && lung === "lunga") lines.push(`Anno di costruzione ${d.anno}.`);
+  if (d.arr && lung !== "breve") lines.push(d.arr === "Completo" ? "Viene venduto completamente arredato." : d.arr === "Parziale" ? "Viene venduto parzialmente arredato." : d.arr === "Trattabile" ? "L'arredamento è trattabile." : "");
+  /* esterni */
+  const ext = [];
+  if (d.giardino) ext.push(`un giardino privato di ${d.giardino} m²`);
+  if (d.car.includes("Giardino condominiale")) ext.push("un giardino condominiale");
+  if (d.car.includes("Piscina")) ext.push("una piscina");
+  if (d.cantine) ext.push(d.cantine > 1 ? `${d.cantine} cantine` : "una cantina");
+  if (d.box) ext.push(d.box > 1 ? `${d.box} box auto` : "un box auto");
+  if (has("Posto auto")) ext.push("un posto auto");
+  if (ext.length) lines.push(`${pick(["Fanno parte della proprietà", "Nella vendita sono compresi"])} ${dsList(ext)}.`);
+  /* zona */
+  const vic = vicino.map(x => x.toLowerCase());
+  if (vic.length && lung !== "breve") lines.push(tono === "emo" ? `Tutto è a portata di mano: ${dsList(vic)} a pochi minuti.` : `La zona è ben servita: nelle vicinanze ${dsList(vic)}.`);
+  else if (vic.length) lines.push(`Vicino a ${dsList(vic.slice(0, 3))}.`);
+  if (has("Adatto a famiglie") && lung !== "breve") lines.push("Una soluzione ideale per una famiglia.");
+  if (has("Ottimo investimento") && lung !== "breve") lines.push("Rappresenta anche un'ottima opportunità di investimento.");
+  /* costi */
+  const cost = [];
+  if (d.spese && (lung !== "breve" || has("Basse spese"))) cost.push(`Spese condominiali di circa ${d.spese} € ${d.spesePer === "anno" ? "all'anno" : "al mese"}${has("Basse spese") ? ", contenute" : ""}.`);
+  else if (has("Basse spese")) cost.push("Spese di gestione contenute.");
+  if (f.libero) cost.push(`Libero ${f.libero}.`);
+  if (f.prezzo && d.prezzo) cost.push(`Prezzo richiesto: ${xEuro(d.prezzo)}.`);
+  const lo = fem ? "la" : "lo";
+  const close = tono === "emo" ? pick([`Vieni a veder${lo} di persona: contattaci per fissare una visita.`, `Non lasciarte${lo} scappare: chiamaci per una visita senza impegno.`, `Contattaci per scoprir${lo} dal vivo.`]) : pick(["Per maggiori informazioni o per fissare una visita, contattaci.", "Contattaci per ricevere la documentazione completa e organizzare una visita.", "Siamo a disposizione per informazioni e visite."]);
+  /* composizione */
+  if (tono === "list") {
+    const b = [];
+    if (d.mq) b.push(`Superficie: ${d.mq} m²`);
+    if (loc) b.push(`Locali: ${loc}${d.camere ? ` (${d.camere} ${d.camere === 1 ? "camera" : "camere"})` : ""}`);
+    if (d.bagni) b.push(`Bagni: ${d.bagni}`);
+    if (pianoTxt) b.push(`Piano: ${pianoTxt.replace(/^al |^all'/, "")}${asc ? ", con ascensore" : ""}`);
+    if (outs.length) b.push(`Esterni: ${dsList(outs)}`);
+    if (ext.length) b.push(`Pertinenze: ${dsList(ext)}`);
+    if (d.stato) b.push(`Stato: ${d.stato.toLowerCase()}`);
+    if (d.risc) b.push(`Riscaldamento: ${d.risc.toLowerCase()}`);
+    if (d.classe) b.push(`Classe energetica: ${d.classe}`);
+    if (espo.length) b.push(`Esposizione: ${espo.join(", ").toLowerCase()}`);
+    const fz = forza.filter(x => !/^Vista|Ampio terrazzo|Posto auto|Doppi servizi|Cucina abitabile/.test(x) || lung === "lunga");
+    if (fz.length) b.push(`Punti di forza: ${fz.join(", ").toLowerCase()}`);
+    if (vic.length) b.push(`Vicino a: ${vic.join(", ")}`);
+    const c2 = [];
+    if (d.spese) c2.push(`Spese condominiali: ${d.spese} € ${d.spesePer === "anno" ? "all'anno" : "al mese"}`);
+    if (f.libero) c2.push(`Disponibilità: libero ${f.libero}`);
+    if (f.prezzo && d.prezzo) c2.push(`Prezzo: ${xEuro(d.prezzo)}`);
+    const intro = P[0], limit = lung === "breve" ? 6 : lung === "media" ? 10 : 99;
+    const bl = b.slice(0, limit).concat(c2).map(x => "• " + x);
+    return { title, text: dsTidy([dsCap(intro), bl.join("\n"), close].filter(Boolean).join("\n\n")) };
+  }
+  let body;
+  if (lung === "breve") body = [P[0] + " " + lines.slice(0, 3).join(" "), cost.join(" "), close];
+  else if (lung === "media") body = [P[0] + " " + lines.slice(0, 2).join(" "), lines.slice(2).join(" "), cost.join(" "), close];
+  else body = [P[0], lines.slice(0, 3).join(" "), lines.slice(3, 6).join(" "), lines.slice(6).join(" "), cost.join(" "), close];
+  return { title, text: dsTidy(body.map(x => dsCap(x.replace(/\s+/g, " ").trim())).filter(Boolean).join("\n\n")) };
+}
+/* ---- interfaccia ---- */
+function dsFacts(){
+  const rec = dsRec(), el = $("ds-facts");
+  if (!rec) { el.innerHTML = `<span class="miss">Nessun foglio: puoi generare lo stesso con i dettagli qui sotto</span>`; return; }
+  const d = dsData(rec), f = [];
+  const add = (ok, txt, miss) => f.push(ok ? `<span>${esc(txt)}</span>` : `<span class="miss">${esc(miss)}: non indicato</span>`);
+  add(d.tip, d.tip, "tipologia"); add(d.comune, d.comune, "comune"); add(d.mq, d.mq + " m²", "superficie");
+  add(d.camere, d.camere + (d.camere === 1 ? " camera" : " camere"), "camere"); add(d.bagni, d.bagni + (d.bagni === 1 ? " bagno" : " bagni"), "bagni");
+  if (d.piano) f.push(`<span>piano ${esc(d.piano)}</span>`); add(d.stato, d.stato, "stato"); if (d.classe) f.push(`<span>classe ${esc(d.classe)}</span>`);
+  if (d.box) f.push(`<span>${d.box} box</span>`); if (d.terrazzi || d.balconi) f.push(`<span>${d.terrazzi ? "terrazzo" : "balcone"}</span>`); if (d.prezzo) f.push(`<span>${esc(xEuro(d.prezzo))}</span>`);
+  el.innerHTML = f.join("") + `<button type="button" class="chip" id="ds-editpq">✏️ Modifica il foglio</button>`;
+}
+function dsLoadUi(){
+  const s = dsState();
+  document.querySelectorAll("#view-desc [data-ds]").forEach(el => { const v = s.f[el.dataset.ds]; if (el.type === "checkbox") el.checked = !!v; else el.value = v == null ? (el.tagName === "SELECT" ? el.options[el.dataset.ds === "lung" ? 1 : 0].value : "") : v; });
+  document.querySelectorAll("#view-desc [data-ds-c]").forEach(el => { el.checked = (s.c[el.dataset.dsC] || []).includes(el.value); });
+  $("ds-title").value = s.title || ""; $("ds-text").value = s.text || ""; dsCount();
+  dsFacts();
+}
+function dsReadUi(){
+  const s = dsState();
+  document.querySelectorAll("#view-desc [data-ds]").forEach(el => { s.f[el.dataset.ds] = el.type === "checkbox" ? el.checked : el.value; });
+  s.c = {}; document.querySelectorAll("#view-desc [data-ds-c]:checked").forEach(el => (s.c[el.dataset.dsC] = s.c[el.dataset.dsC] || []).push(el.value));
+  return s;
+}
+function dsCount(){ const n = $("ds-text").value.length; $("ds-count").textContent = n.toLocaleString("it-IT") + " caratteri"; }
+let dsSaveT = null; const dsSave = () => { clearTimeout(dsSaveT); dsSaveT = setTimeout(() => dsDoc.save(), 600); };
+function dsRender(){
+  const sheets = dsSheets();
+  if (!sheets.some(x => x.id === dsSrc)) dsSrc = (sheets.find(x => x.id !== DS_KEY_DRAFT && pqCur && x.id === pqCur.id) || sheets[0] || { id: "" }).id;
+  $("ds-src").innerHTML = sheets.length ? sheets.map(x => `<option value="${esc(x.id)}"${x.id === dsSrc ? " selected" : ""}>${esc(x.label)}</option>`).join("") : `<option value="">Nessun foglio di prequalifica salvato</option>`;
+  $("ds-sync").textContent = xLogged() ? "Google" : "Locale"; $("ds-sync").classList.remove("clickable");
+  dsLoadUi();
+}
+XVIEWS.desc = dsRender;
+function dsDo(newSeed){
+  const rec = dsRec();
+  const s = dsReadUi();
+  if (newSeed) dsSeed = (dsSeed % 97) + 1 + Math.floor(Math.random() * 50);
+  const out = dsGenerate(rec || { v: {}, c: {} }, s.f, s.c, dsSeed);
+  s.title = out.title; s.text = out.text; $("ds-title").value = out.title; $("ds-text").value = out.text; dsCount(); dsDoc.save();
+  const r = $("ds-result"); r.classList.remove("flash"); void r.offsetWidth; r.classList.add("flash");
+  if (innerWidth < 1000 && r.scrollIntoView) r.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+$("view-desc").addEventListener("change", e => {
+  if (e.target.id === "ds-src") { dsReadUi(); dsSrc = e.target.value; dsLoadUi(); return; }
+  if (e.target.dataset.ds || e.target.dataset.dsC) { dsReadUi(); dsSave(); }
+});
+$("view-desc").addEventListener("input", e => {
+  if (e.target.id === "ds-text") { dsState().text = e.target.value; dsCount(); dsSave(); }
+  else if (e.target.id === "ds-title") { dsState().title = e.target.value; dsSave(); }
+  else if (e.target.dataset.ds) { dsReadUi(); dsSave(); }
+});
+$("view-desc").addEventListener("click", e => {
+  if (e.target.closest("#ds-gen")) return dsDo(false);
+  if (e.target.closest("#ds-regen")) return dsDo(true);
+  if (e.target.closest("#ds-copy")) { const t = $("ds-text").value.trim(); if (!t) return toast("Genera prima la descrizione"); return xCopy(t); }
+  if (e.target.closest("#ds-copytitle")) { const t = $("ds-title").value.trim(); if (!t) return toast("Genera prima la descrizione"); return xCopy(t); }
+  if (e.target.closest("#ds-editpq")) { const r = dsRec(); if (r && dsSrc !== DS_KEY_DRAFT) { if (!pqBuilt) pqRender(); pqLoad(r); } showView("preq"); }
+});
 
 
 /* ===================== PREQUALIFICA: PDF ===================== */
@@ -4175,8 +4735,852 @@ function pdfLink(blob, name, head){
 }
 $("pq-pdf").addEventListener("click", pdfMake);
 
+
+/* ===================== SCHEDA VISITA E REPORT ===================== */
+const vsDoc = xDoc("rz_visite_v1", "visite", { schede: {}, imm: {} });
+const VS_ESITI = [["molto", "🔥", "Molto interessato"], ["si", "👍", "Interessato"], ["forse", "🤔", "Tiepido"], ["no", "👎", "Non interessato"]];
+const VS_PIACE = ["Posizione", "Luminosità", "Spazi", "Disposizione", "Finiture", "Esterni", "Box / posto auto", "Silenzio", "Prezzo"];
+const VS_NON = ["Prezzo alto", "Piano", "Spazi piccoli", "Da ristrutturare", "Rumore", "Zona", "Spese alte", "Esposizione", "Manca il box", "Manca l'ascensore"];
+const VS_PASSI = ["", "Seconda visita", "Farà una proposta", "Ci pensa", "Cerca altro"];
+let vsEvents = null, vsErr = "", vsOpen = null, vsTab = "list", vsFilter = "todo", vsLoading = false, vsLoadedAt = 0;
+function vsIsVisit(ev){ const s = ev.summary || "", d = (ev.description || "").trim().toLowerCase(); if (/\[reminder\]/i.test(s) || d.startsWith("reminder")) return false; return /\[dv[-\s]?\d+\]/i.test(s) || d.startsWith("appuntamento di visita"); }
+function vsItems(){
+  const map = new Map();
+  for (const ev of vsEvents || []) { if (!ev.start || !ev.start.dateTime || !vsIsVisit(ev)) continue; const a = parseEvent(ev); map.set(ev.id, { id: ev.id, dv: a.dvCode || "Senza codice", cliente: a.clientName && a.clientName !== "Cliente" ? a.clientName : (ev.summary || "Visita"), tel: a.phone, loc: ev.location || "", s: new Date(ev.start.dateTime).getTime(), e: new Date((ev.end && ev.end.dateTime) || ev.start.dateTime).getTime() }); }
+  for (const [id, sc] of Object.entries(vsDoc.data.schede)) if (!map.has(id) && sc.ev) map.set(id, Object.assign({}, sc.ev));
+  return [...map.values()].sort((a, b) => b.s - a.s);
+}
+const vsDone = it => !!(vsDoc.data.schede[it.id] && vsDoc.data.schede[it.id].esito);
+window.vsPending = () => vsItems().filter(it => it.e < Date.now() && !vsDone(it)).length;
+async function vsLoad(force){
+  if (!xLogged() || vsLoading || (!force && vsEvents && Date.now() - vsLoadedAt < 120000)) return;
+  vsLoading = true;
+  try { vsEvents = await xCalList(Date.now() - 45 * 864e5, Date.now() + 14 * 864e5); vsErr = ""; vsLoadedAt = Date.now(); }
+  catch (e) { vsErr = (e && e.message) || String(e); }
+  vsLoading = false;
+  if (xCur === "visite") vsRender(true);
+}
+function vsForm(it){
+  const sc = vsDoc.data.schede[it.id] || {}, sel = (arr, v) => (arr || []).includes(v);
+  return `<div class="vs-form" data-vs-id="${esc(it.id)}">
+    <div class="x-f"><span>Com'è andata</span><div class="vs-seg">${VS_ESITI.map(([v, ic, l]) => `<button type="button" data-vs-esito="${v}" aria-pressed="${sc.esito === v}"><span>${ic}</span>${l}</button>`).join("")}</div></div>
+    <div class="x-f"><span>Cosa è piaciuto</span><div class="ds-chips">${VS_PIACE.map(o => `<label><input type="checkbox" data-vs-piace value="${esc(o)}"${sel(sc.piace, o) ? " checked" : ""}> ${esc(o)}</label>`).join("")}</div></div>
+    <div class="x-f"><span>Cosa non è piaciuto</span><div class="ds-chips">${VS_NON.map(o => `<label><input type="checkbox" data-vs-non value="${esc(o)}"${sel(sc.non, o) ? " checked" : ""}> ${esc(o)}</label>`).join("")}</div></div>
+    <div class="x-f"><span>Sul prezzo</span><div class="vs-seg vs-seg3">${[["giusto", "👌", "Giusto"], ["alto", "💸", "Troppo alto"], ["offerta", "✍️", "Farebbe un'offerta"]].map(([v, ic, l]) => `<button type="button" data-vs-prezzo="${v}" aria-pressed="${sc.prezzo === v}"><span>${ic}</span>${l}</button>`).join("")}</div></div>
+    ${sc.prezzo === "offerta" ? `<label class="x-f"><span>Offerta indicativa</span><div class="x-unit"><input class="inp" data-vs-f="offerta" inputmode="numeric" value="${esc(sc.offerta || "")}" placeholder="Es. 230.000"><small>€</small></div></label>` : ""}
+    <label class="x-f"><span>Prossimo passo</span><select class="inp" data-vs-f="passo">${VS_PASSI.map(p => `<option${sc.passo === p ? " selected" : ""} value="${esc(p)}">${p || "—"}</option>`).join("")}</select></label>
+    <label class="x-f"><span>Note</span><textarea class="inp" data-vs-f="note" rows="2" placeholder="Es. vuole rivederla con la moglie, chiede se il box è compreso">${esc(sc.note || "")}</textarea></label>
+    <div class="x-acts"><button type="button" class="x-act call" data-vs-close>✓ Fatto</button>${it.tel ? `<a class="x-act" href="${xTel(it.tel)}">📞 Chiama</a>` : ""}</div>
+  </div>`;
+}
+function vsRenderList(){
+  const now = Date.now(), all = vsItems(), todoN = all.filter(it => it.e < now && !vsDone(it)).length, todo = all.filter(it => it.e < now && (!vsDone(it) || it.id === vsOpen)), fut = all.filter(it => it.s > now);
+  $("vs-badge").hidden = !todoN; $("vs-badge").textContent = todoN;
+  $("vs-filter").innerHTML = [["todo", "Da compilare", todoN], ["all", "Tutte", all.length], ["fut", "In programma", fut.length]].map(([v, l, n]) => `<button type="button" class="x-pill" data-vs-filter="${v}" aria-pressed="${vsFilter === v}">${l} <span class="n">${n}</span></button>`).join("");
+  const list = vsFilter === "todo" ? todo : vsFilter === "fut" ? fut.reverse() : all;
+  if (!list.length) { $("vs-list").innerHTML = `<div class="x-empty">${vsLoading ? "Leggo le visite dal calendario…" : vsFilter === "todo" ? "✅ Nessuna visita da compilare." : "Nessuna visita [DV-…] nel calendario in questo periodo."}${vsErr ? `<br><span class="x-note">${esc(vsErr)}</span>` : ""}</div>`; return; }
+  let last = "", html = "";
+  for (const it of list) {
+    const day = new Date(it.s).toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" });
+    if (day !== last) { html += `<div class="vs-day">${esc(day)}</div>`; last = day; }
+    const sc = vsDoc.data.schede[it.id] || {}, done = vsDone(it), future = it.s > now, e = VS_ESITI.find(x => x[0] === sc.esito);
+    html += `<div class="vs-card${!done && !future ? " todo" : ""}"><button type="button" class="vs-head" data-vs-toggle="${esc(it.id)}"><span class="t">${xHM(it.s)}</span><span><b>${esc(it.cliente)}</b><small>${esc(it.dv)}${it.loc ? " · " + esc(it.loc) : ""}</small></span><span class="vs-st ${done ? "ok" : future ? "fut" : "todo"}">${done ? e[1] + " " + e[2] : future ? "In programma" : "📝 Compila"}</span></button>${vsOpen === it.id ? vsForm(it) : ""}</div>`;
+  }
+  $("vs-list").innerHTML = html;
+}
+/* ---- report ---- */
+function vsImmList(){ const m = new Map(); for (const it of vsItems()) { if (it.s > Date.now()) continue; const x = m.get(it.dv) || { dv: it.dv, n: 0, loc: it.loc }; x.n++; m.set(it.dv, x); } return [...m.values()].sort((a, b) => b.n - a.n); }
+let vsRepSel = "", vsRepEdited = false;
+function vsRepData(){
+  const per = +$("vs-rep-per").value, since = per ? Date.now() - per * 864e5 : 0;
+  const its = vsItems().filter(it => it.dv === vsRepSel && it.s <= Date.now() && it.s >= since), sc = its.map(it => vsDoc.data.schede[it.id] || {});
+  const cnt = (arr, k) => { const m = {}; for (const s of arr) for (const v of s[k] || []) m[v] = (m[v] || 0) + 1; return Object.entries(m).sort((a, b) => b[1] - a[1]); };
+  const es = {}; for (const s of sc) if (s.esito) es[s.esito] = (es[s.esito] || 0) + 1;
+  const pr = { giusto: 0, alto: 0, offerta: 0 }, off = []; for (const s of sc) { if (s.prezzo) pr[s.prezzo]++; if (s.prezzo === "offerta" && xMoney(s.offerta)) off.push(xMoney(s.offerta)); }
+  const passi = {}; for (const s of sc) if (s.passo) passi[s.passo] = (passi[s.passo] || 0) + 1;
+  return { its, sc, n: its.length, compilate: sc.filter(s => s.esito).length, es, piace: cnt(sc, "piace"), non: cnt(sc, "non"), pr, off, passi, per };
+}
+function vsRepText(D){
+  const I = vsDoc.data.imm[vsRepSel] || {}, own = (I.own || "").trim(), addr = (I.addr || "").trim() || (D.its[0] && D.its[0].loc) || "";
+  const perTxt = D.per ? `negli ultimi ${D.per} giorni` : "finora";
+  const L = [`Buongiorno${own ? " " + own : ""},`, `ecco il riepilogo delle visite ${perTxt} per l'immobile${addr ? " in " + addr : ""}${vsRepSel && vsRepSel !== "Senza codice" ? " (" + vsRepSel + ")" : ""}.`, ""];
+  L.push(`• Visite fatte: ${D.n}`);
+  const esTxt = VS_ESITI.filter(e => D.es[e[0]]).map(e => `${D.es[e[0]]} ${e[2].toLowerCase()}`);
+  if (esTxt.length) L.push(`• Interesse: ${esTxt.join(", ")}`);
+  if (D.piace.length) L.push(`• Cosa è piaciuto: ${D.piace.slice(0, 5).map(([k, v]) => `${k.toLowerCase()} (${v})`).join(", ")}`);
+  if (D.non.length) L.push(`• Cosa ha frenato: ${D.non.slice(0, 5).map(([k, v]) => `${k.toLowerCase()} (${v})`).join(", ")}`);
+  const prTot = D.pr.giusto + D.pr.alto + D.pr.offerta;
+  if (prTot) L.push(`• Sul prezzo: ${D.pr.alto + D.pr.offerta} su ${prTot} lo ritengono alto${D.off.length ? `; offerte indicative: ${D.off.map(xEuro).join(", ")}` : ""}`);
+  const pTxt = Object.entries(D.passi).map(([k, v]) => `${v} ${k.toLowerCase()}`);
+  if (pTxt.length) L.push(`• Prossimi passi: ${pTxt.join(", ")}`);
+  L.push("");
+  const high = (D.es.molto || 0) + (D.es.si || 0);
+  if (prTot && (D.pr.alto + D.pr.offerta) / prTot >= 0.5) L.push("Il riscontro sul prezzo è abbastanza chiaro: le propongo di sentirci per valutare insieme un adeguamento, così da aumentare le richieste e arrivare a una proposta.");
+  else if (high && high >= D.compilate / 2) L.push("L'interesse è buono: sto seguendo da vicino le persone più motivate e la aggiornerò appena arriva una proposta.");
+  else if (D.n) L.push("Continuiamo con le visite: la terrò aggiornata settimana per settimana.");
+  else L.push("In questo periodo non ci sono state visite: le propongo di sentirci per rivedere insieme la strategia.");
+  L.push("", "Resto a disposizione per parlarne.", crm.signature || DEFAULT_SIG);
+  return L.join("\n");
+}
+function vsRenderRep(){
+  const imms = vsImmList();
+  if (!imms.some(x => x.dv === vsRepSel)) vsRepSel = imms[0] ? imms[0].dv : "";
+  $("vs-rep-imm").innerHTML = imms.length ? imms.map(x => `<option value="${esc(x.dv)}"${x.dv === vsRepSel ? " selected" : ""}>${esc(x.dv)} · ${x.n} ${x.n === 1 ? "visita" : "visite"}${x.loc ? " · " + esc(x.loc) : ""}</option>`).join("") : `<option value="">Nessuna visita fatta nel periodo</option>`;
+  const I = vsDoc.data.imm[vsRepSel] || {};
+  $("vs-rep-own").value = I.own || ""; $("vs-rep-tel").value = I.tel || ""; $("vs-rep-addr").value = I.addr || ((imms.find(x => x.dv === vsRepSel) || {}).loc || "");
+  vsRepUpdate(true);
+}
+function vsRepUpdate(regen){
+  const D = vsRepData();
+  $("vs-rep-stats").innerHTML = [[D.n, "visite"], [D.compilate, "schede compilate"], [(D.es.molto || 0) + (D.es.si || 0), "interessati"], [D.pr.alto + D.pr.offerta, "prezzo alto"]].map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("") + (D.n > D.compilate ? `<div style="grid-column:1/-1;background:var(--todo-soft);color:var(--todo);font-size:12.5px;font-weight:600">${D.n - D.compilate} visite senza scheda: compilale per un report più completo</div>` : "");
+  if (regen || !vsRepEdited) { $("vs-rep-text").value = vsRepSel ? vsRepText(D) : ""; vsRepEdited = false; }
+  $("vs-rep-wa").href = xWa($("vs-rep-tel").value, $("vs-rep-text").value);
+}
+function vsRender(noFetch){
+  xSync("vs-sync");
+  $("vs-login").innerHTML = xLogged() ? "" : `<div class="x-card"><div class="x-note" style="font-size:13px">Accedi con Google per leggere le visite [DV-…] dal calendario.</div>${loginCardHtml()}</div>`;
+  document.querySelectorAll("[data-vs-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.vsTab === vsTab));
+  $("vs-list-wrap").hidden = vsTab !== "list"; $("vs-rep-wrap").hidden = vsTab !== "rep";
+  if (vsTab === "list") vsRenderList(); else vsRenderRep();
+  if (!noFetch) vsLoad();
+}
+XVIEWS.visite = () => vsRender(false);
+function vsSc(id){ const it = vsItems().find(x => x.id === id); const sc = vsDoc.data.schede[id] || (vsDoc.data.schede[id] = {}); if (it) sc.ev = { id: it.id, dv: it.dv, cliente: it.cliente, tel: it.tel, loc: it.loc, s: it.s, e: it.e }; sc.at = Date.now(); return sc; }
+document.addEventListener("click", e => { const b = e.target.closest("[data-vs-open]"); if (!b) return; vsTab = "list"; vsFilter = "all"; vsOpen = b.dataset.vsOpen; showView("visite"); });
+$("view-visite").addEventListener("click", e => {
+  const tb = e.target.closest("[data-vs-tab]"); if (tb) { vsTab = tb.dataset.vsTab; vsRender(true); return; }
+  const fl = e.target.closest("[data-vs-filter]"); if (fl) { vsFilter = fl.dataset.vsFilter; vsRenderList(); return; }
+  const tg = e.target.closest("[data-vs-toggle]"); if (tg) { vsOpen = vsOpen === tg.dataset.vsToggle ? null : tg.dataset.vsToggle; vsRenderList(); return; }
+  const f = e.target.closest("[data-vs-id]");
+  if (f) {
+    const id = f.dataset.vsId, sc = vsSc(id);
+    const es = e.target.closest("[data-vs-esito]"); if (es) { sc.esito = es.dataset.vsEsito; vsDoc.save(); vsRenderList(); return; }
+    const pr = e.target.closest("[data-vs-prezzo]"); if (pr) { sc.prezzo = sc.prezzo === pr.dataset.vsPrezzo ? "" : pr.dataset.vsPrezzo; vsDoc.save(); vsRenderList(); return; }
+    if (e.target.closest("[data-vs-close]")) { vsOpen = null; vsDoc.save(); vsRenderList(); toast(sc.esito ? "Scheda salvata ✓" : "Scegli com'è andata"); return; }
+  }
+  if (e.target.closest("#vs-rep-regen")) { vsRepUpdate(true); return; }
+  if (e.target.closest("#vs-rep-copy")) return xCopy($("vs-rep-text").value);
+  if (e.target.closest("#vs-rep-pdf")) return vsRepPdf();
+});
+let vsT = null;
+$("view-visite").addEventListener("input", e => {
+  const f = e.target.closest("[data-vs-id]");
+  if (f && e.target.dataset.vsF) { vsSc(f.dataset.vsId)[e.target.dataset.vsF] = e.target.value; clearTimeout(vsT); vsT = setTimeout(() => vsDoc.save(), 500); return; }
+  if (e.target.id === "vs-rep-text") { vsRepEdited = true; $("vs-rep-wa").href = xWa($("vs-rep-tel").value, e.target.value); return; }
+  if (["vs-rep-own", "vs-rep-tel", "vs-rep-addr"].includes(e.target.id) && vsRepSel) { const I = vsDoc.data.imm[vsRepSel] || (vsDoc.data.imm[vsRepSel] = {}); I[{ "vs-rep-own": "own", "vs-rep-tel": "tel", "vs-rep-addr": "addr" }[e.target.id]] = e.target.value; clearTimeout(vsT); vsT = setTimeout(() => vsDoc.save(), 500); vsRepUpdate(false); }
+});
+$("view-visite").addEventListener("change", e => {
+  const f = e.target.closest("[data-vs-id]");
+  if (f && (e.target.matches("[data-vs-piace]") || e.target.matches("[data-vs-non]"))) { const sc = vsSc(f.dataset.vsId); sc.piace = [...f.querySelectorAll("[data-vs-piace]:checked")].map(x => x.value); sc.non = [...f.querySelectorAll("[data-vs-non]:checked")].map(x => x.value); vsDoc.save(); return; }
+  if (f && e.target.dataset.vsF) { vsSc(f.dataset.vsId)[e.target.dataset.vsF] = e.target.value; vsDoc.save(); return; }
+  if (e.target.id === "vs-rep-imm") { vsRepSel = e.target.value; vsRepEdited = false; vsRenderRep(); return; }
+  if (e.target.id === "vs-rep-per") { vsRepUpdate(false); }
+});
+async function vsRepPdf(){
+  try {
+    const jsPDF = await pdfLoad(), doc = new jsPDF({ unit: "mm", format: "a4" }), M = 18;
+    doc.setFillColor(29, 78, 216); doc.rect(0, 0, 210, 24, "F"); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(17);
+    doc.text("Report visite", M, 12); doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); doc.text(pdfTxt(`${vsRepSel} - ${new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })}`), M, 19);
+    doc.setTextColor(21, 32, 51); doc.setFontSize(11.5); let y = 36;
+    for (const line of $("vs-rep-text").value.split("\n")) { const parts = doc.splitTextToSize(pdfTxt(line.replace(/^•/, "-")) || " ", 210 - 2 * M); for (const p of parts) { if (y > 282) { doc.addPage(); y = 20; } doc.text(p, M, y); y += 6; } }
+    await xDownload(doc.output("blob"), `Report_visite_${(vsRepSel || "immobile").replace(/[^A-Za-z0-9-]+/g, "_")}_${xISO(Date.now())}.pdf`);
+  } catch (err) { toast("PDF non creato: " + ((err && err.message) || err)); }
+}
+
+
+/* ===================== MODELLI DI MESSAGGI ===================== */
+const MD_BASE = [
+  { id: "conferma", cat: "Appuntamenti", titolo: "Conferma appuntamento", testo: "Buongiorno {nome}, le confermo il nostro appuntamento di {data} alle {ora} in {via}. Per qualsiasi cosa mi scriva pure qui. A presto!\n{firma}" },
+  { id: "dopo_val", cat: "Venditori", titolo: "Dopo la valutazione", testo: "Buongiorno {nome}, grazie per il tempo che mi ha dedicato per la valutazione del suo immobile in {via}. Come promesso, le invierò a breve l'analisi di mercato. Resto a disposizione per qualsiasi domanda.\n{firma}" },
+  { id: "ribasso_prop", cat: "Venditori", titolo: "Proposta di adeguamento prezzo", testo: "Buongiorno {nome}, in queste settimane abbiamo raccolto diversi riscontri sull'immobile in {via}. Vorrei confrontarmi con lei su un possibile adeguamento del prezzo per rendere l'annuncio più competitivo. Quando possiamo sentirci?\n{firma}" },
+  { id: "documenti", cat: "Venditori", titolo: "Richiesta documenti", testo: "Buongiorno {nome}, per procedere mi servirebbero questi documenti: {documenti}. Può mandarmeli anche con una foto qui su WhatsApp. Grazie!\n{firma}" },
+  { id: "ricontatto", cat: "Venditori", titolo: "Ricontatto dopo qualche mese", testo: "Buongiorno {nome}, qualche mese fa ci eravamo sentiti per il suo immobile in {via}. Volevo aggiornarla su come si sta muovendo il mercato in zona: le va se ci sentiamo qualche minuto?\n{firma}" },
+  { id: "dopo_visita", cat: "Acquirenti", titolo: "Dopo la visita", testo: "Buongiorno {nome}, grazie per aver visitato con me l'immobile in {via}. Mi farebbe piacere sapere cosa ne pensa: c'è qualcosa che vorrebbe approfondire o rivedere con una seconda visita?\n{firma}" },
+  { id: "nuovo", cat: "Acquirenti", titolo: "Nuovo immobile per te", testo: "Buongiorno {nome}, è appena entrato un immobile che corrisponde a quello che cerca: {immobile} a {comune}, {prezzo}. Vuole ricevere foto e dettagli o fissare una visita?\n{firma}" },
+  { id: "ribasso", cat: "Acquirenti", titolo: "Prezzo ribassato", testo: "Buongiorno {nome}, la contatto perché l'immobile in {via} che le avevo proposto ha un nuovo prezzo: {prezzo}. Se le interessa possiamo organizzare una visita nei prossimi giorni.\n{firma}" },
+  { id: "compleanno", cat: "Relazione", titolo: "Auguri di compleanno", testo: "Tanti auguri di buon compleanno {nome}! 🎉 Le auguro una splendida giornata.\n{firma}" },
+  { id: "anniversario", cat: "Relazione", titolo: "Un anno nella casa nuova", testo: "Buongiorno {nome}, è già passato un anno da quando è entrato nella sua casa in {via}! Spero che si trovi benissimo. Se conosce qualcuno che vuole vendere o comprare, sarò felice di aiutarlo.\n{firma}" },
+  { id: "recensione", cat: "Relazione", titolo: "Richiesta di recensione", testo: "Buongiorno {nome}, è stato un piacere seguirla. Se si è trovato bene, mi aiuterebbe molto una sua recensione: {link}\nGrazie di cuore!\n{firma}" },
+  { id: "segnalazione", cat: "Relazione", titolo: "Grazie per la segnalazione", testo: "Buongiorno {nome}, grazie di cuore per la segnalazione! La terrò aggiornata su come va.\n{firma}" }
+];
+const MD_LABEL = { nome: "Nome", via: "Via / indirizzo", comune: "Comune", prezzo: "Prezzo", data: "Giorno", ora: "Ora", immobile: "Immobile (es. trilocale con box)", documenti: "Documenti", link: "Link recensione" };
+const mdDoc = xDoc("rz_modelli_v1", "modelli", { custom: {}, hidden: [], link: "" });
+let mdSel = "", mdVals = {}, mdTel = "", mdEdited = false, mdEditMode = false;
+function mdAll(){
+  const out = MD_BASE.filter(m => !mdDoc.data.hidden.includes(m.id)).map(m => Object.assign({}, m, mdDoc.data.custom[m.id] || {}, { base: true }));
+  for (const [id, m] of Object.entries(mdDoc.data.custom)) if (!MD_BASE.some(b => b.id === id)) out.push(Object.assign({ id, cat: "I miei modelli" }, m));
+  return out;
+}
+const mdGet = id => mdAll().find(m => m.id === id);
+const mdPh = t => [...new Set((t.match(/\{(\w+)\}/g) || []).map(x => x.slice(1, -1)).filter(x => x !== "firma"))];
+function mdFill(t){ return t.replace(/\{(\w+)\}/g, (m, k) => k === "firma" ? (crm.signature || DEFAULT_SIG) : (mdVals[k] || "").trim() || m); }
+function mdRenderList(){
+  const q = xNorm($("md-q").value), cats = {};
+  for (const m of mdAll()) if (!q || xNorm(m.titolo + " " + m.testo).includes(q)) (cats[m.cat] = cats[m.cat] || []).push(m);
+  $("md-list").innerHTML = Object.entries(cats).map(([c, ms]) => `<div class="md-cat">${esc(c)}</div>` + ms.map(m => `<button type="button" class="md-item" data-md="${esc(m.id)}" aria-current="${mdSel === m.id}"><b>${esc(m.titolo)}</b><small>${esc(m.testo.replace(/\n/g, " "))}</small></button>`).join("")).join("") || `<div class="x-empty">Nessun modello trovato.</div>`;
+}
+function mdRenderEd(){
+  const m = mdGet(mdSel), el = $("md-ed");
+  if (!m) { el.innerHTML = `<div class="x-empty">Scegli un modello dalla lista.</div>`; return; }
+  if (mdEditMode) {
+    el.innerHTML = `<div class="md-edit"><h2>✏️ Modifica modello</h2>
+      <label class="x-f"><span>Titolo</span><input class="inp" id="md-e-tit" value="${esc(m.titolo)}"></label>
+      <label class="x-f"><span>Testo</span><textarea class="inp" id="md-e-txt">${esc(m.testo)}</textarea></label>
+      <div class="md-ph">Puoi usare: ${["nome", "via", "comune", "prezzo", "data", "ora", "immobile", "documenti", "link", "firma"].map(x => `<code>{${x}}</code>`).join(" ")}</div>
+      <div class="x-acts" style="margin-top:10px"><button type="button" class="x-act call" id="md-e-save">Salva</button><button type="button" class="x-act" id="md-e-cancel">Annulla</button>${m.base && mdDoc.data.custom[m.id] ? `<button type="button" class="x-act" id="md-e-reset">Ripristina originale</button>` : ""}<button type="button" class="x-act danger" id="md-e-del">🗑️ Elimina</button></div></div>`;
+    return;
+  }
+  const ph = mdPh(m.testo), cl = clients.all().filter(c => c.nome || c.tel);
+  if (ph.includes("link") && !mdVals.link && mdDoc.data.link) mdVals.link = mdDoc.data.link;
+  el.innerHTML = `<div class="ds-head"><h2>${esc(m.titolo)}</h2><button type="button" class="x-act" id="md-editbtn">✏️ Modifica modello</button></div>
+    ${cl.length ? `<label class="x-f"><span>Compila da un cliente</span><select class="inp" id="md-cl"><option value="">— Scegli un cliente (facoltativo) —</option>${cl.map(c => `<option value="${esc(c.id)}">${esc(clName(c))}${c.tel ? " · " + esc(c.tel) : ""}</option>`).join("")}</select></label>` : ""}
+    <div class="x-grid">
+      <label class="x-f"><span>Telefono (per WhatsApp)</span><input class="inp" id="md-tel" type="tel" inputmode="tel" value="${esc(mdTel)}" placeholder="Es. 333 1234567"></label>
+      ${ph.map(k => `<label class="x-f${k === "documenti" ? " x-full" : ""}"><span>${esc(MD_LABEL[k] || k)}</span><input class="inp" data-md-v="${esc(k)}" value="${esc(mdVals[k] || "")}"${k === "data" ? ' placeholder="Es. giovedì 3 ottobre"' : k === "ora" ? ' placeholder="Es. 18:30"' : ""}></label>`).join("")}
+    </div>
+    <div class="ds-box"><textarea class="inp md-text" id="md-text">${esc(mdFill(m.testo))}</textarea>
+      <div class="ds-boxfoot"><span class="ds-count" id="md-left"></span><a class="x-act" id="md-mail" href="#">✉️ Email</a><a class="x-act wa" id="md-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp</a><button type="button" class="x-act call" id="md-copy">📋 Copia</button></div></div>`;
+  mdEdited = false; mdLinks();
+}
+function mdLinks(){
+  const t = $("md-text"); if (!t) return;
+  $("md-wa").href = xWa($("md-tel").value, t.value);
+  $("md-mail").href = "mailto:?subject=" + encodeURIComponent((mdGet(mdSel) || {}).titolo || "") + "&body=" + encodeURIComponent(t.value);
+  const miss = (t.value.match(/\{(\w+)\}/g) || []).length;
+  $("md-left").textContent = miss ? `⚠️ ${miss} ${miss === 1 ? "campo da completare" : "campi da completare"}` : "Pronto da inviare";
+}
+function mdRender(){
+  xSync("md-sync");
+  if (!mdGet(mdSel)) mdSel = (mdAll()[0] || {}).id || "";
+  mdRenderList(); mdRenderEd();
+}
+XVIEWS.modelli = mdRender;
+window.mdOpen = (id, vals, tel) => { mdSel = id; mdVals = Object.assign({}, vals || {}); mdTel = tel || ""; mdEditMode = false; showView("modelli"); };
+$("view-modelli").addEventListener("click", e => {
+  const it = e.target.closest("[data-md]");
+  if (it) { mdSel = it.dataset.md; mdEditMode = false; mdRenderList(); mdRenderEd(); if (innerWidth < 900 && $("md-ed").scrollIntoView) $("md-ed").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  if (e.target.closest("#md-new")) { const id = xId("md"); mdDoc.data.custom[id] = { titolo: "Nuovo modello", testo: "Buongiorno {nome}, \n{firma}", cat: "I miei modelli" }; mdDoc.save(); mdSel = id; mdEditMode = true; mdRender(); return; }
+  if (e.target.closest("#md-editbtn")) { mdEditMode = true; mdRenderEd(); return; }
+  if (e.target.closest("#md-e-cancel")) { mdEditMode = false; mdRenderEd(); return; }
+  if (e.target.closest("#md-e-save")) { const m = mdGet(mdSel); mdDoc.data.custom[mdSel] = { titolo: $("md-e-tit").value.trim() || "Modello", testo: $("md-e-txt").value, cat: m.cat }; mdDoc.save(); mdEditMode = false; mdRender(); toast("Modello salvato"); return; }
+  if (e.target.closest("#md-e-reset")) { delete mdDoc.data.custom[mdSel]; mdDoc.save(); mdEditMode = false; mdRender(); return; }
+  if (e.target.closest("#md-e-del")) { const b = e.target.closest("#md-e-del"); if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = "Conferma"; return; } if (MD_BASE.some(x => x.id === mdSel)) mdDoc.data.hidden.push(mdSel); delete mdDoc.data.custom[mdSel]; mdDoc.save(); mdSel = ""; mdEditMode = false; mdRender(); toast("Modello eliminato"); return; }
+  if (e.target.closest("#md-copy")) return xCopy($("md-text").value);
+});
+$("view-modelli").addEventListener("input", e => {
+  if (e.target.id === "md-q") return mdRenderList();
+  if (e.target.id === "md-tel") { mdTel = e.target.value; return mdLinks(); }
+  if (e.target.id === "md-text") { mdEdited = true; return mdLinks(); }
+  const k = e.target.dataset.mdV;
+  if (k) { mdVals[k] = e.target.value; if (k === "link") { mdDoc.data.link = e.target.value; mdDoc.save(); } if (!mdEdited) $("md-text").value = mdFill(mdGet(mdSel).testo); mdLinks(); }
+});
+$("view-modelli").addEventListener("change", e => {
+  if (e.target.id !== "md-cl") return;
+  const c = clients.get(e.target.value); if (!c) return;
+  mdVals.nome = (c.nome || "").split(" ")[0] || ""; mdVals.via = (c.indirizzo || "").split("\n")[0]; mdVals.comune = c.comune || ""; mdTel = c.tel || "";
+  mdRenderEd();
+});
+
+
+/* ===================== VALORI OMI ===================== */
+const OMI_URL = "https://www1.agenziaentrate.gov.it/servizi/geopoi_omi/index.php";
+const OMI_FASCIA = { B: "Centrale", C: "Semicentrale", D: "Periferica", E: "Suburbana", R: "Rurale" };
+const OMI_TIP = { "abitazioni civili": "civ", "abitazioni di tipo economico": "eco", "ville e villini": "ville", "abitazioni signorili": "sig", "box": "box" };
+const OMI_TIPL = { civ: "abitazioni civili", eco: "abitazioni di tipo economico", ville: "ville e villini", sig: "abitazioni signorili", box: "box" };
+const omiDoc = xDoc("rz_omi_v1", "omi", { sem: "", comuni: {}, zsel: {} });
+function omiComune(name){ const n = pqNorm(name); return PQ_BYNORM[n] || (name || "").toLowerCase().replace(/(^|[\s'-])\S/g, m => m.toUpperCase()); }
+function omiTipFor(rec){ const t = (rec.c && rec.c.tipologia) || []; return t.some(x => /Villa|Villetta|Casa indipendente|Rustico/.test(x)) ? "ville" : "civ"; }
+function omiCsvRows(text){
+  const lines = text.replace(/\r/g, "").split("\n"); let h = -1;
+  for (let i = 0; i < Math.min(lines.length, 6); i++) if (/compr_min|zona_descr/i.test(lines[i])) { h = i; break; }
+  if (h < 0) return { sem: "", rows: [] };
+  const sep = lines[h].includes(";") ? ";" : ",", cols = lines[h].split(sep).map(c => c.trim().toLowerCase());
+  const semM = lines.slice(0, h + 1).join(" ").match(/semestre\s+(\d{4})\s*\/\s*(\d)/i);
+  const rows = [];
+  for (let i = h + 1; i < lines.length; i++) { if (!lines[i].trim()) continue; const p = lines[i].split(sep), o = {}; cols.forEach((c, k) => o[c] = (p[k] || "").trim()); rows.push(o); }
+  return { sem: semM ? `${semM[2]}° semestre ${semM[1]}` : "", rows };
+}
+function omiImportTexts(texts){
+  let sem = "", valori = [], zone = [];
+  for (const t of texts) { const r = omiCsvRows(t); if (!r.rows.length) continue; if (r.sem) sem = r.sem; if ("compr_min" in r.rows[0]) valori = valori.concat(r.rows); else if ("zona_descr" in r.rows[0]) zone = zone.concat(r.rows); }
+  if (!valori.length) throw new Error("non trovo il file dei VALORI (quello con le colonne Compr_min e Compr_max)");
+  const zd = {}; for (const z of zone) zd[(z.comune_descrizione || "").toUpperCase() + "|" + z.zona] = z.zona_descr;
+  const out = {};
+  for (const r of valori) {
+    const prov = (r.prov || "").toUpperCase(); if (prov && prov !== "BG" && prov !== "BS") continue;
+    const tip = OMI_TIP[(r.descr_tipologia || "").toLowerCase().trim()]; if (!tip) continue;
+    const stato = (r.stato || "").toUpperCase(); if (stato && !/^N/.test(stato)) continue;
+    const min = parseFloat((r.compr_min || "").replace(",", ".")), max = parseFloat((r.compr_max || "").replace(",", ".")); if (!min || !max) continue;
+    const com = omiComune(r.comune_descrizione || ""), z = r.zona || "?";
+    const c = out[com] || (out[com] = { zone: {} }), zo = c.zone[z] || (c.zone[z] = { f: OMI_FASCIA[(r.fascia || z[0] || "").toUpperCase()] || r.fascia || "", d: zd[(r.comune_descrizione || "").toUpperCase() + "|" + z] || "", t: {} });
+    zo.t[tip] = [min, max];
+  }
+  const n = Object.keys(out).length; if (!n) throw new Error("il file non contiene comuni delle province di Bergamo o Brescia");
+  for (const [com, c] of Object.entries(out)) { const old = omiDoc.data.comuni[com] || {}; omiDoc.data.comuni[com] = Object.assign({}, old, { zone: c.zone }); }
+  omiDoc.data.sem = sem || omiDoc.data.sem; omiDoc.save();
+  return n;
+}
+let jszipLoading = null;
+function jszipLoad(){ if (window.JSZip) return Promise.resolve(window.JSZip); if (jszipLoading) return jszipLoading; jszipLoading = new Promise((res, rej) => { const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"; s.onload = () => res(window.JSZip); s.onerror = () => { jszipLoading = null; rej(new Error("serve internet per aprire il file .zip")); }; document.head.appendChild(s); }); return jszipLoading; }
+async function omiReadFiles(files){
+  const texts = [];
+  const dec = buf => { try { return new TextDecoder("utf-8", { fatal: true }).decode(buf); } catch { return new TextDecoder("windows-1252").decode(buf); } };
+  for (const f of files) {
+    const buf = await f.arrayBuffer();
+    if (/\.zip$/i.test(f.name)) { const Z = await jszipLoad(); const zip = await Z.loadAsync(buf); for (const e of Object.values(zip.files)) if (/\.csv$/i.test(e.name)) texts.push(dec(await e.async("uint8array"))); }
+    else texts.push(dec(buf));
+  }
+  return omiImportTexts(texts);
+}
+window.omiImportTexts = omiImportTexts;
+window.omiPick = () => { let inp = $("omi-file"); if (!inp) { document.body.insertAdjacentHTML("beforeend", `<input type="file" id="omi-file" accept=".csv,.zip,text/csv" multiple hidden>`); inp = $("omi-file"); inp.addEventListener("change", async () => { try { const n = await omiReadFiles([...inp.files]); toast(`✅ Valori OMI importati per ${n} comuni`); if (pqCur && typeof pqValShow === "function") pqValShow(pqCur); if (xCur === "utilita" && window.utRender) utRender(); } catch (e) { toast("Importazione OMI: " + ((e && e.message) || e)); } inp.value = ""; }); } inp.click(); };
+window.omiBlock = (rec, r) => {
+  const com = r.comune, C = omiDoc.data.comuni[com] || {}, zones = Object.entries(C.zone || {}), tip = omiTipFor(rec);
+  const link = `<a href="${OMI_URL}" target="_blank" rel="noopener">consultazione OMI ufficiale ↗</a>`;
+  let body;
+  const range = (mn, mx, label) => `<div class="rng">${euro(mn)} – ${euro(mx)} <small>/m² · ${esc(label)}</small></div><div class="x-note">Su ${r.supComm} m² commerciali: <b>${euro(mn * r.supComm)} – ${euro(mx * r.supComm)}</b></div>`;
+  if (zones.length) {
+    const zsel = omiDoc.data.zsel[com] && C.zone[omiDoc.data.zsel[com]] ? omiDoc.data.zsel[com] : zones[0][0], Z = C.zone[zsel];
+    const t = Z.t[tip] ? tip : Z.t.civ ? "civ" : Z.t.eco ? "eco" : Object.keys(Z.t)[0], v = Z.t[t];
+    body = `${zones.length > 1 ? `<label class="x-f"><span>Zona OMI</span><select class="inp" data-omi-zone="${esc(com)}">${zones.map(([z, o]) => `<option value="${esc(z)}"${z === zsel ? " selected" : ""}>${esc(z)} · ${esc(o.f)}${o.d ? " · " + esc(o.d) : ""}</option>`).join("")}</select></label>` : `<div class="x-note">Zona ${esc(zsel)} · ${esc(Z.f)}${Z.d ? " · " + esc(Z.d) : ""}</div>`}
+      ${v ? range(v[0], v[1], OMI_TIPL[t] + ", stato normale") : `<div class="x-note">Nessun valore per questa tipologia.</div>`}
+      <div class="x-note">Fonte: Agenzia delle Entrate – OMI${omiDoc.data.sem ? ", " + esc(omiDoc.data.sem) : ""}. <button type="button" class="chip" data-omi-import>Aggiorna file</button></div>`;
+  } else if (C.manual) {
+    body = `${range(C.manual[0], C.manual[1], "inseriti a mano")}<div class="x-note">Valori presi dalla ${link}. <button type="button" class="chip" data-omi-man="${esc(com)}">Modifica</button></div>`;
+  } else body = `<div class="x-note">Non ho ancora i valori OMI di ${esc(com)}. Aprili dalla ${link} e scrivili qui, oppure importa il file OMI completo dalla tua area riservata dell'Agenzia delle Entrate.</div>`;
+  const man = (!zones.length) ? `<div class="x-row omi-man" data-omi-com="${esc(com)}" ${C.manual ? "hidden" : ""}><input class="inp" data-omi-min inputmode="numeric" placeholder="Min €/m²" value="${C.manual ? C.manual[0] : ""}"><input class="inp" data-omi-max inputmode="numeric" placeholder="Max €/m²" value="${C.manual ? C.manual[1] : ""}"><button type="button" class="tool primary" data-omi-save>Salva</button>${!C.manual ? `<button type="button" class="chip" data-omi-import>📥 Importa file OMI</button>` : ""}</div>` : "";
+  return `<div class="omi"><h4>🏛️ Valori OMI – Agenzia delle Entrate</h4>${body}${man}</div>`;
+};
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-omi-import]")) { omiPick(); return; }
+  const m = e.target.closest("[data-omi-man]"); if (m) { const row = [...document.querySelectorAll(".omi-man")].find(x => x.dataset.omiCom === m.dataset.omiMan); if (row) row.hidden = false; return; }
+  const s = e.target.closest("[data-omi-save]");
+  if (s) { const row = s.closest("[data-omi-com]"), mn = xMoney(row.querySelector("[data-omi-min]").value), mx = xMoney(row.querySelector("[data-omi-max]").value);
+    if (!mn || !mx || mx < mn) { toast("Scrivi minimo e massimo in €/m²"); return; }
+    const com = row.dataset.omiCom; omiDoc.data.comuni[com] = Object.assign({}, omiDoc.data.comuni[com] || {}, { manual: [mn, mx] }); omiDoc.save(); toast("Valori OMI salvati per " + com); if (pqCur) pqValShow(pqCur); }
+});
+document.addEventListener("change", e => { const z = e.target.closest("[data-omi-zone]"); if (!z) return; omiDoc.data.zsel[z.dataset.omiZone] = z.value; omiDoc.save(); if (pqCur) pqValShow(pqCur); });
+
+
+/* ===================== ACQUISIZIONE ===================== */
+const aqCart = xColl("rz_cartelli_v1", "cartelli"), aqVol = xColl("rz_volantini_v1", "volantini"), aqCall = xColl("rz_chiamate_v1", "chiamate"), aqSv = xColl("rz_sempreverdi_v1", "sempreverdi");
+const AQ_FONTI = ["Volantino", "Cartello", "Portale / annuncio", "Passaparola", "Contatto utile", "Vetrina agenzia", "Social", "Altro"];
+const AQ_MOTIVI = ["Vende", "Compra", "Affitta", "Valutazione", "Informazioni"];
+const AQ_RUOLI = ["Portinaio", "Amministratore di condominio", "Notaio", "Geometra / tecnico", "Banca / mediatore", "Commerciante", "Barista", "Vicino di casa", "Altro"];
+let aqTab = "call", aqVie = [], aqPhoto = null, aqMotivo = "", aqLogOpen = null;
+const today0 = () => xISO(Date.now());
+/* foto dei cartelli: restano sul dispositivo (IndexedDB), compresse */
+function aqDb(){ return new Promise((res, rej) => { const r = indexedDB.open("rz_foto", 1); r.onupgradeneeded = () => r.result.createObjectStore("f"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+async function aqPhotoSet(id, data){ try { const db = await aqDb(); db.transaction("f", "readwrite").objectStore("f").put(data, id); } catch {} }
+async function aqPhotoGet(id){ try { const db = await aqDb(); return await new Promise(res => { const q = db.transaction("f").objectStore("f").get(id); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); }); } catch { return null; } }
+function aqCompress(file){ return new Promise((res, rej) => { const img = new Image(), url = URL.createObjectURL(file); img.onload = () => { const k = Math.min(1, 900 / Math.max(img.width, img.height)), c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", 0.72)); }; img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("foto non leggibile")); }; img.src = url; }); }
+function aqStreets(com){ const c = (typeof RZ_DATA !== "undefined" && RZ_DATA.comuni || []).find(x => x[0] === com); return c ? c[1].map(s => s[0]) : []; }
+const aqNav = loc => (typeof gsNav === "function" ? gsNav(loc) : "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(loc));
+function aqDueCount(){ const t = today0(); return { cart: aqCart.all().filter(c => c.stato === "attivo" && c.due && c.due <= t).length, sv: aqSv.all().filter(s => s.due && s.due <= t).length }; }
+window.aqDueCount = aqDueCount;
+function aqBadges(){ const d = aqDueCount(); $("aq-b-cart").hidden = !d.cart; $("aq-b-cart").textContent = d.cart; $("aq-b-sv").hidden = !d.sv; $("aq-b-sv").textContent = d.sv; }
+/* ---------- CHIAMATE ---------- */
+function aqCallHtml(){
+  const list = aqCall.all().sort((a, b) => b.created - a.created).slice(0, 80); let last = "", rows = "";
+  for (const c of list) { const day = new Date(c.created).toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" }); if (day !== last) { rows += `<div class="aq-day">${esc(day)}</div>`; last = day; }
+    rows += `<div class="aq-card${c.gest ? " off" : ""}"><div class="ph">📞</div><div><b>${esc(c.nome || c.tel)}</b><small>${esc([c.motivo, c.comune, c.fonte ? "da " + c.fonte.toLowerCase() : ""].filter(Boolean).join(" · "))} · ${xHM(c.created)}</small>${c.note ? `<small>${esc(c.note)}</small>` : ""}</div>
+      <div class="x-acts"><a class="x-act call" href="${xTel(c.tel)}">📞</a><a class="x-act wa" href="${esc(xWa(c.tel, ""))}" target="_blank" rel="noopener">💬</a><button type="button" class="x-act" data-aq-copy="${esc(c.id)}">📋 Copia</button><button type="button" class="x-act" data-aq-gest="${esc(c.id)}">${c.gest ? "✓ Nel gestionale" : "Segna: inserito nel gestionale"}</button>${c.clId && clients.get(c.clId) ? "" : `<button type="button" class="x-act" data-aq-tocl="${esc(c.id)}">👥 In Clienti</button>`}</div></div>`; }
+  return `<section class="x-card aq-form"><h3>📞 Registra una chiamata</h3>
+    <div class="x-grid">
+      <label class="x-f"><span>Telefono <em style="color:var(--hot);font-style:normal">*</em></span><input class="inp" id="aq-c-tel" type="tel" inputmode="tel" placeholder="Es. 333 1234567"></label>
+      <label class="x-f"><span>Nome</span><input class="inp" id="aq-c-nome" placeholder="Facoltativo"></label>
+      <label class="x-f"><span>Comune / zona</span><input class="inp" id="aq-c-com" list="cl-comuni" placeholder="Es. Seriate"></label>
+      <label class="x-f"><span>Come ci ha trovato</span><select class="inp" id="aq-c-fonte"><option value="">—</option>${AQ_FONTI.map(f => `<option>${f}</option>`).join("")}</select></label>
+    </div>
+    <div class="x-f"><span>Motivo</span><div class="aq-motivi">${AQ_MOTIVI.map(m => `<button type="button" class="x-pill" data-aq-motivo="${m}" aria-pressed="${aqMotivo === m}">${m}</button>`).join("")}</div></div>
+    <label class="x-f"><span>Note</span><textarea class="inp" id="aq-c-note" rows="2" placeholder="Es. trilocale ereditato, vuole vendere entro l'anno"></textarea></label>
+    <div class="x-acts"><button type="button" class="x-act call" id="aq-c-save">Salva</button><button type="button" class="x-act" id="aq-c-save-cl">Salva e apri in Clienti</button></div>
+    <div class="x-note">Serve solo a non perdere nessuna chiamata: con “📋 Copia” la incolli poi nel tuo gestionale.</div></section>
+    <section class="aq-list grid2">${rows || `<div class="x-empty">Nessuna chiamata registrata.</div>`}</section>`;
+}
+function aqCallText(c){ return [c.nome || "Contatto", c.tel, c.motivo, c.comune, c.fonte ? "Fonte: " + c.fonte : "", c.note, new Date(c.created).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })].filter(Boolean).join(" · "); }
+function aqCallSave(openCl){
+  const tel = $("aq-c-tel").value.trim(); if (!xDigits(tel)) { $("aq-c-tel").classList.add("bad"); $("aq-c-tel").focus(); return; }
+  const c = { id: xId("ch"), tel, nome: $("aq-c-nome").value.trim(), comune: $("aq-c-com").value.trim(), fonte: $("aq-c-fonte").value, motivo: aqMotivo, note: $("aq-c-note").value.trim() };
+  aqCall.put(c); aqMotivo = "";
+  if (openCl) aqToClient(c); else { toast("Chiamata salvata"); aqRender(); }
+}
+function aqToClient(c){
+  let r = clByPhone(c.tel);
+  if (!r) { r = clEmptyRec({ nome: c.nome, tel: c.tel, comune: c.comune, fonte: c.fonte === "Portale / annuncio" ? "Portale / annuncio" : c.fonte === "Passaparola" ? "Passaparola" : c.fonte === "Cartello" ? "Cartello" : "Altro", ruolo: c.motivo === "Compra" ? "acquirente" : "venditore", note: c.note, log: [{ at: Date.now(), t: "nota", txt: `Chiamata ricevuta${c.motivo ? " · " + c.motivo : ""}${c.fonte ? " · da " + c.fonte.toLowerCase() : ""}` }] }); clients.put(r); }
+  c.clId = r.id; aqCall.put(c); clUi.sel = r.id; clOpenMobile = true; clSaveUi(); showView("clienti");
+}
+/* ---------- CARTELLI ---------- */
+function aqCartHtml(){
+  const t = today0(), list = aqCart.all().sort((a, b) => { const da = a.stato === "attivo" && a.due <= t, db = b.stato === "attivo" && b.due <= t; if (da !== db) return da ? -1 : 1; if ((a.stato === "attivo") !== (b.stato === "attivo")) return a.stato === "attivo" ? -1 : 1; return (a.due || "").localeCompare(b.due || ""); });
+  const rows = list.map(c => { const due = c.stato === "attivo" && c.due <= t;
+    return `<div class="aq-card${due ? " due" : ""}${c.stato !== "attivo" ? " off" : ""}"><div class="ph" data-aq-ph="${esc(c.id)}">🪧</div><div><b>${esc(c.indirizzo || "Senza indirizzo")}</b><small>${esc([c.tipo, c.chi === "Agenzia" ? (c.agenzia || "Agenzia") : "Privato", c.tel].filter(Boolean).join(" · "))}</small>
+      <small>Visto il ${esc(xDay(c.visto))}${c.stato === "attivo" ? ` · ${due ? `<span class="aq-due">DA RIPASSARE</span>` : "ripassa il " + esc(xDay(c.due))}` : c.stato === "preso" ? " · 🎉 incarico preso" : " · non c'è più"}</small>${c.note ? `<small>${esc(c.note)}</small>` : ""}</div>
+      <div class="x-acts">${c.tel ? `<a class="x-act call" href="${xTel(c.tel)}">📞</a>` : ""}${c.indirizzo ? `<a class="x-act" href="${esc(aqNav(c.indirizzo))}" target="_blank" rel="noopener">🧭</a>` : ""}${c.stato === "attivo" ? `<button type="button" class="x-act" data-aq-cart="ancora" data-id="${esc(c.id)}">Ancora esposto</button><button type="button" class="x-act" data-aq-cart="tolto" data-id="${esc(c.id)}">Non c'è più</button><button type="button" class="x-act" data-aq-cart="preso" data-id="${esc(c.id)}">🎉 Preso io</button>` : `<button type="button" class="x-act" data-aq-cart="riattiva" data-id="${esc(c.id)}">Riattiva</button>`}<button type="button" class="x-act danger" data-aq-del="cart" data-id="${esc(c.id)}">🗑️</button></div></div>`; }).join("");
+  const att = aqCart.all().filter(c => c.stato === "attivo").length, d = aqDueCount().cart, preso = aqCart.all().filter(c => c.stato === "preso").length;
+  return `<section class="x-card aq-form"><h3>🪧 Nuovo cartello</h3>
+    <div class="aq-photo"><label class="x-act" style="cursor:pointer">📷 Foto<input type="file" id="aq-k-foto" accept="image/*" capture="environment" hidden></label><span id="aq-k-prev" class="x-note">${aqPhoto ? `<img src="${aqPhoto}" alt="">` : "La foto resta su questo telefono"}</span></div>
+    <label class="x-f"><span>Indirizzo</span><div class="x-row"><input class="inp x-grow" id="aq-k-ind" placeholder="Via, civico, comune"><button type="button" class="tool" id="aq-k-gps">📍 Qui</button></div></label>
+    <div class="x-grid">
+      <label class="x-f"><span>Tipo</span><select class="inp" id="aq-k-tipo"><option>Vendesi</option><option>Affittasi</option></select></label>
+      <label class="x-f"><span>Chi lo espone</span><select class="inp" id="aq-k-chi"><option>Privato</option><option>Agenzia</option></select></label>
+      <label class="x-f"><span>Nome agenzia</span><input class="inp" id="aq-k-ag" placeholder="Se è un'agenzia"></label>
+      <label class="x-f"><span>Telefono sul cartello</span><input class="inp" id="aq-k-tel" type="tel" inputmode="tel"></label>
+      <label class="x-f"><span>Ripassa tra</span><select class="inp" id="aq-k-gg"><option value="30">1 mese</option><option value="60" selected>2 mesi</option><option value="90">3 mesi</option></select></label>
+    </div>
+    <label class="x-f"><span>Note</span><input class="inp" id="aq-k-note" placeholder="Es. villetta, cartello sbiadito"></label>
+    <button type="button" class="x-act call" id="aq-k-save">Salva cartello</button>
+    <div class="x-note">Gli incarichi delle agenzie durano di solito qualche mese: quando è ora di ripassare lo trovi in cima alla lista.</div></section>
+    <section class="aq-list"><div class="aq-sum"><div><b>${att}</b><span>cartelli attivi</span></div><div><b>${d}</b><span>da ripassare</span></div><div><b>${preso}</b><span>incarichi presi</span></div></div>${rows || `<div class="x-empty">Nessun cartello salvato.</div>`}</section>`;
+}
+async function aqCartPhotos(){ for (const el of document.querySelectorAll("[data-aq-ph]")) { const d = await aqPhotoGet(el.dataset.aqPh); if (d) el.outerHTML = `<img class="ph" src="${d}" alt="Foto del cartello">`; } }
+/* ---------- VOLANTINI ---------- */
+function aqVolHtml(){
+  const byCom = {};
+  for (const v of aqVol.all()) { const k = v.comune || "—"; const x = byCom[k] || (byCom[k] = { n: 0, q: 0, last: "" }); x.n++; x.q += +v.qta || 0; if (v.data > x.last) x.last = v.data; }
+  const calls = c => aqCall.all().filter(x => x.fonte === "Volantino" && xNorm(x.comune) === xNorm(c)).length;
+  const sum = Object.entries(byCom).sort((a, b) => b[1].q - a[1].q).map(([c, x]) => { const ch = calls(c); return `<div><b>${x.q.toLocaleString("it-IT")}</b><span>${esc(c)} · ${ch} ${ch === 1 ? "chiamata" : "chiamate"}${ch ? ` (1 ogni ${Math.round(x.q / ch)})` : ""}</span></div>`; }).join("");
+  const rows = aqVol.all().sort((a, b) => (b.data || "").localeCompare(a.data || "")).map(v => `<div class="aq-card"><div class="ph">📬</div><div><b>${esc(v.comune || "—")} · ${(+v.qta || 0).toLocaleString("it-IT")} volantini</b><small>${esc(xDay(v.data))}${v.note ? " · " + esc(v.note) : ""}</small><small>${esc((v.vie || []).join(", "))}</small></div><div class="x-acts"><button type="button" class="x-act danger" data-aq-del="vol" data-id="${esc(v.id)}">🗑️</button></div></div>`).join("");
+  const coms = (typeof RZ_DATA !== "undefined" ? RZ_DATA.comuni.map(c => c[0]) : []);
+  return `<section class="x-card aq-form"><h3>📬 Volantinaggio</h3>
+    <div class="x-grid">
+      <label class="x-f"><span>Giorno</span><input class="inp" id="aq-v-data" type="date" value="${today0()}"></label>
+      <label class="x-f"><span>Comune</span><input class="inp" id="aq-v-com" list="aq-v-coms" placeholder="Es. Seriate"><datalist id="aq-v-coms">${coms.map(c => `<option value="${esc(c)}">`).join("")}</datalist></label>
+      <label class="x-f"><span>Quanti volantini</span><input class="inp" id="aq-v-qta" type="number" inputmode="numeric" min="0" placeholder="Es. 300"></label>
+    </div>
+    <label class="x-f"><span>Vie</span><div class="x-row"><input class="inp x-grow" id="aq-v-via" list="aq-v-streets" placeholder="Scrivi la via e premi ＋"><datalist id="aq-v-streets"></datalist><button type="button" class="tool" id="aq-v-add">＋</button><button type="button" class="tool" id="aq-v-oggi" title="Le vie segnate oggi in Ricerca Zona">Da Ricerca Zona</button></div></label>
+    <div class="aq-vie" id="aq-v-vie">${aqVie.map((v, i) => `<span>${esc(v)}<button type="button" data-aq-vdel="${i}" aria-label="Togli">×</button></span>`).join("")}</div>
+    <label class="x-f"><span>Note</span><input class="inp" id="aq-v-note" placeholder="Es. solo palazzine, cassette piene"></label>
+    <button type="button" class="x-act call" id="aq-v-save">Salva volantinaggio</button>
+    <div class="x-note">Le chiamate registrate con “Come ci ha trovato: Volantino” e lo stesso comune vengono contate qui, così vedi quale zona rende di più.</div></section>
+    <section class="aq-list">${sum ? `<div class="aq-sum">${sum}</div>` : ""}${rows || `<div class="x-empty">Nessun volantinaggio salvato.</div>`}</section>`;
+}
+/* ---------- CONTATTI UTILI (sempre verdi) ---------- */
+function aqSvHtml(){
+  const t = today0(), list = aqSv.all().sort((a, b) => (a.due || "9").localeCompare(b.due || "9"));
+  const rows = list.map(s => { const due = s.due && s.due <= t, log = s.log || [];
+    return `<div class="aq-card${due ? " due" : ""}"><div class="ph">🤝</div><div><b>${esc(s.nome)}</b><small>${esc([s.ruolo, s.zona, s.tel].filter(Boolean).join(" · "))}</small><small>${s.last ? "Sentito il " + esc(xDay(s.last)) : "Mai sentito"} · ${due ? `<span class="aq-due">DA SENTIRE</span>` : "prossima volta il " + esc(xDay(s.due))} · ${log.filter(l => l.t === "notizia").length} notizie portate</small></div>
+      <div class="x-acts">${s.tel ? `<a class="x-act call" href="${xTel(s.tel)}">📞</a><a class="x-act wa" href="${esc(xWa(s.tel, ""))}" target="_blank" rel="noopener">💬</a>` : ""}<button type="button" class="x-act" data-aq-sv="sentito" data-id="${esc(s.id)}">✓ Sentito oggi</button><button type="button" class="x-act" data-aq-sv="notizia" data-id="${esc(s.id)}">＋ Notizia</button><button type="button" class="x-act" data-aq-sv="log" data-id="${esc(s.id)}">Storico</button><button type="button" class="x-act danger" data-aq-del="sv" data-id="${esc(s.id)}">🗑️</button></div>
+      ${aqLogOpen === s.id ? `<div class="aq-log"><div class="x-row" style="margin-bottom:6px"><input class="inp x-grow" id="aq-s-news" placeholder="Es. ha segnalato un trilocale in via Verdi"><button type="button" class="tool primary" data-aq-sv="addnews" data-id="${esc(s.id)}">＋</button></div>${log.length ? log.slice().reverse().map(l => `<div>${l.t === "notizia" ? "🏠" : "📞"} ${esc(xDay(l.d))} · ${esc(l.txt || (l.t === "notizia" ? "Notizia" : "Sentito"))}</div>`).join("") : "Nessuna attività."}</div>` : ""}</div>`; }).join("");
+  return `<section class="x-card aq-form"><h3>🤝 Nuovo contatto utile</h3>
+    <div class="x-grid">
+      <label class="x-f"><span>Nome</span><input class="inp" id="aq-s-nome" placeholder="Es. Mario, portinaio"></label>
+      <label class="x-f"><span>Chi è</span><select class="inp" id="aq-s-ruolo">${AQ_RUOLI.map(r => `<option>${r}</option>`).join("")}</select></label>
+      <label class="x-f"><span>Telefono</span><input class="inp" id="aq-s-tel" type="tel" inputmode="tel"></label>
+      <label class="x-f"><span>Zona</span><input class="inp" id="aq-s-zona" placeholder="Es. Borgo Palazzo"></label>
+      <label class="x-f"><span>Sentilo ogni</span><select class="inp" id="aq-s-gg"><option value="15">2 settimane</option><option value="30" selected>mese</option><option value="60">2 mesi</option><option value="90">3 mesi</option></select></label>
+    </div>
+    <button type="button" class="x-act call" id="aq-s-save">Salva contatto</button>
+    <div class="x-note">Portinai, amministratori, notai, commercianti: chi ti passa le notizie. L'app ti ricorda quando è ora di farti sentire.</div></section>
+    <section class="aq-list grid2">${rows || `<div class="x-empty">Nessun contatto utile salvato.</div>`}</section>`;
+}
+function aqRender(){
+  xSync("aq-sync");
+  if (!$("cl-comuni")) document.body.insertAdjacentHTML("beforeend", `<datalist id="cl-comuni">${PQ_COMUNI.map(c => `<option value="${esc(c)}">`).join("")}</datalist>`);
+  document.querySelectorAll("[data-aq-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.aqTab === aqTab));
+  $("aq-body").innerHTML = aqTab === "call" ? aqCallHtml() : aqTab === "cart" ? aqCartHtml() : aqTab === "vol" ? aqVolHtml() : aqSvHtml();
+  if (aqTab === "cart") aqCartPhotos();
+  if (aqTab === "vol") aqVolStreets();
+  aqBadges();
+}
+XVIEWS.acq = aqRender;
+function aqVolStreets(){ const dl = $("aq-v-streets"); if (dl) dl.innerHTML = aqStreets(($("aq-v-com") || {}).value || "").slice(0, 400).map(s => `<option value="${esc(s)}">`).join(""); }
+function aqRefreshVie(){ $("aq-v-vie").innerHTML = aqVie.map((v, i) => `<span>${esc(v)}<button type="button" data-aq-vdel="${i}" aria-label="Togli">×</button></span>`).join(""); }
+$("view-acq").addEventListener("click", async e => {
+  const t = e.target;
+  const tb = t.closest("[data-aq-tab]"); if (tb) { aqTab = tb.dataset.aqTab; aqRender(); return; }
+  const mo = t.closest("[data-aq-motivo]"); if (mo) { aqMotivo = aqMotivo === mo.dataset.aqMotivo ? "" : mo.dataset.aqMotivo; document.querySelectorAll("[data-aq-motivo]").forEach(b => b.setAttribute("aria-pressed", b.dataset.aqMotivo === aqMotivo)); return; }
+  if (t.closest("#aq-c-save")) return aqCallSave(false);
+  if (t.closest("#aq-c-save-cl")) return aqCallSave(true);
+  const cp = t.closest("[data-aq-copy]"); if (cp) { const c = aqCall.get(cp.dataset.aqCopy); return c && xCopy(aqCallText(c)); }
+  const ge = t.closest("[data-aq-gest]"); if (ge) { const c = aqCall.get(ge.dataset.aqGest); if (c) { c.gest = !c.gest; aqCall.put(c); aqRender(); } return; }
+  const tc = t.closest("[data-aq-tocl]"); if (tc) { const c = aqCall.get(tc.dataset.aqTocl); if (c) aqToClient(c); return; }
+  const del = t.closest("[data-aq-del]");
+  if (del) { if (!del.classList.contains("armed")) { del.classList.add("armed"); del.textContent = "Conferma"; setTimeout(() => { if (del.isConnected) { del.classList.remove("armed"); del.textContent = "🗑️"; } }, 3500); return; }
+    ({ cart: aqCart, vol: aqVol, sv: aqSv })[del.dataset.aqDel].remove(del.dataset.id); toast("Eliminato"); aqRender(); return; }
+  if (t.closest("#aq-k-gps")) {
+    if (!navigator.geolocation) { toast("Posizione non disponibile"); return; }
+    toast("Cerco la posizione…");
+    navigator.geolocation.getCurrentPosition(async p => { const { latitude: la, longitude: lo } = p.coords; aqKPos = [la, lo];
+      try { const r = await fetch("https://photon.komoot.io/reverse?" + new URLSearchParams({ lat: la, lon: lo, lang: "it" })); const j = await r.json(); const q = ((j.features || [])[0] || {}).properties || {}; $("aq-k-ind").value = [[q.street, q.housenumber].filter(Boolean).join(" "), q.city || q.town || q.village].filter(Boolean).join(", ") || `${la.toFixed(5)}, ${lo.toFixed(5)}`; }
+      catch { $("aq-k-ind").value = `${la.toFixed(5)}, ${lo.toFixed(5)}`; } }, () => toast("Non riesco a leggere la posizione: consenti l'accesso alla posizione"), { enableHighAccuracy: true, timeout: 12000 });
+    return;
+  }
+  if (t.closest("#aq-k-save")) {
+    const ind = $("aq-k-ind").value.trim(); if (!ind && !aqPhoto) { $("aq-k-ind").classList.add("bad"); toast("Scrivi l'indirizzo o scatta una foto"); return; }
+    const gg = +$("aq-k-gg").value || 60, c = { id: xId("ct"), indirizzo: ind, tipo: $("aq-k-tipo").value, chi: $("aq-k-chi").value, agenzia: $("aq-k-ag").value.trim(), tel: $("aq-k-tel").value.trim(), note: $("aq-k-note").value.trim(), gg, visto: today0(), due: xAddDays(today0(), gg), stato: "attivo", pos: aqKPos || null };
+    if (aqPhoto) await aqPhotoSet(c.id, aqPhoto);
+    aqCart.put(c); aqPhoto = null; aqKPos = null; toast("Cartello salvato: ripassa il " + xDay(c.due)); aqRender(); return;
+  }
+  const ca = t.closest("[data-aq-cart]");
+  if (ca) { const c = aqCart.get(ca.dataset.id); if (!c) return; const a = ca.dataset.aqCart;
+    if (a === "ancora") { c.visto = today0(); c.due = xAddDays(today0(), 30); toast("Ok, ripassa tra un mese"); }
+    else if (a === "tolto") { c.stato = "tolto"; toast("Segnato: cartello tolto. È il momento giusto per chiamare il proprietario!"); }
+    else if (a === "preso") { c.stato = "preso"; toast("🎉 Complimenti!"); }
+    else { c.stato = "attivo"; c.due = xAddDays(today0(), c.gg || 60); }
+    aqCart.put(c); aqRender(); return; }
+  if (t.closest("#aq-v-add")) { const v = $("aq-v-via").value.trim(); if (v && !aqVie.includes(v)) aqVie.push(v); $("aq-v-via").value = ""; aqRefreshVie(); $("aq-v-via").focus(); return; }
+  if (t.closest("#aq-v-oggi")) { const d = (typeof diary !== "undefined" && diary[today0()]) || null; const its = d ? Object.values(d.items || {}) : []; if (!its.length) { toast("Oggi non hai ancora segnato vie in Ricerca Zona"); return; } for (const i of its) if (!aqVie.includes(i.via)) aqVie.push(i.via); if (!$("aq-v-com").value && its[0]) $("aq-v-com").value = its[0].comune; aqRefreshVie(); return; }
+  const vd = t.closest("[data-aq-vdel]"); if (vd) { aqVie.splice(+vd.dataset.aqVdel, 1); aqRefreshVie(); return; }
+  if (t.closest("#aq-v-save")) { const com = $("aq-v-com").value.trim(), qta = +$("aq-v-qta").value || 0; if (!com) { $("aq-v-com").classList.add("bad"); return; }
+    aqVol.put({ id: xId("vo"), data: $("aq-v-data").value || today0(), comune: com, qta, vie: aqVie.slice(), note: $("aq-v-note").value.trim() }); aqVie = []; toast("Volantinaggio salvato"); aqRender(); return; }
+  if (t.closest("#aq-s-save")) { const nome = $("aq-s-nome").value.trim(); if (!nome) { $("aq-s-nome").classList.add("bad"); return; }
+    const gg = +$("aq-s-gg").value || 30; aqSv.put({ id: xId("sv"), nome, ruolo: $("aq-s-ruolo").value, tel: $("aq-s-tel").value.trim(), zona: $("aq-s-zona").value.trim(), gg, last: "", due: today0(), log: [] }); toast("Contatto salvato"); aqRender(); return; }
+  const sv = t.closest("[data-aq-sv]");
+  if (sv) { const s = aqSv.get(sv.dataset.id); if (!s) return; const a = sv.dataset.aqSv; s.log = s.log || [];
+    if (a === "sentito") { s.last = today0(); s.due = xAddDays(today0(), s.gg || 30); s.log.push({ d: today0(), t: "sentito" }); aqSv.put(s); toast("Prossima volta il " + xDay(s.due)); aqRender(); }
+    else if (a === "notizia" || a === "log") { aqLogOpen = aqLogOpen === s.id ? null : s.id; aqRender(); if (aqLogOpen && $("aq-s-news")) $("aq-s-news").focus(); }
+    else if (a === "addnews") { const v = $("aq-s-news").value.trim(); s.log.push({ d: today0(), t: "notizia", txt: v || "Notizia" }); s.last = today0(); s.due = xAddDays(today0(), s.gg || 30); aqSv.put(s); toast("🏠 Notizia registrata. Ricordati di ringraziarlo!"); aqRender(); }
+    return; }
+});
+let aqKPos = null;
+$("view-acq").addEventListener("change", async e => {
+  if (e.target.id === "aq-k-foto" && e.target.files[0]) { try { aqPhoto = await aqCompress(e.target.files[0]); $("aq-k-prev").innerHTML = `<img src="${aqPhoto}" alt="">`; } catch (err) { toast(err.message); } return; }
+  if (e.target.id === "aq-v-com") aqVolStreets();
+});
+$("view-acq").addEventListener("input", e => { if (e.target.classList.contains("bad")) e.target.classList.remove("bad"); if (e.target.id === "aq-v-com") aqVolStreets(); });
+$("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.id === "aq-v-via") { e.preventDefault(); $("aq-v-add").click(); } if (e.key === "Enter" && e.target.id === "aq-s-news") { e.preventDefault(); e.target.nextElementSibling.click(); } });
+
+
+/* ===================== PARTE TECNICA ===================== */
+/* app installabile + funzionamento offline */
+let xInstallEvt = null;
+if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); xInstallEvt = e; if (xCur === "utilita" && window.utRender) utRender(); });
+window.xStandalone = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+window.xInstall = async () => { if (!xInstallEvt) return false; xInstallEvt.prompt(); try { await xInstallEvt.userChoice; } catch {} xInstallEvt = null; return true; };
+window.xCanInstall = () => !!xInstallEvt;
+function xNetState(){ const off = !navigator.onLine; $("x-offline").hidden = !off; }
+window.addEventListener("offline", xNetState);
+window.addEventListener("online", () => {
+  xNetState();
+  if (tok && tok.exp > Date.now()) { if (!store) { webStarted = false; startWeb(); } else if (window.__driveDirty) driveSaveNow(); }
+});
+xNetState();
+/* dopo un nuovo accesso ridisegna la pagina aperta; la sessione scaduta si vede subito */
+window.xAfterLogin = () => { if (window.__driveDirty) driveSaveNow(); if (xCur && XVIEWS[xCur]) XVIEWS[xCur](); };
+setInterval(() => { if (tok && tok.exp < Date.now()) { tok = null; authExpired(); if (xCur && XVIEWS[xCur]) XVIEWS[xCur](); } }, 30000);
+/* download che funziona anche su telefono (condivisione) con link di riserva */
+async function xDownload(blob, name){
+  const touch = window.matchMedia && matchMedia("(pointer:coarse)").matches;
+  let file = null; try { file = new File([blob], name, { type: blob.type || "application/octet-stream" }); } catch {}
+  if (touch && file && navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: name }); return true; } catch (e) { if (e && e.name === "AbortError") return false; } }
+  const url = URL.createObjectURL(blob), a = document.createElement("a"); a.href = url; a.download = name; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000); toast("📥 " + name); return true;
+}
+/* avvisi sul telefono */
+const notifDoc = xDoc("rz_notif_v1", "notifiche", { on: false, partenze: true, mattino: true });
+window.xNotifOk = () => "Notification" in window && Notification.permission === "granted";
+async function xNotify(title, body, tag, url){
+  if (!notifDoc.data.on || !xNotifOk()) return false;
+  const opts = { body, tag, icon: "icon-192.png", badge: "icon-192.png", data: { url: url || "./" } };
+  try { const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if (reg) { await reg.showNotification(title, opts); return true; } } catch {}
+  try { new Notification(title, opts); return true; } catch { return false; }
+}
+window.xNotify = xNotify;
+window.xNotifEnable = async () => { if (!("Notification" in window)) { toast("Questo browser non supporta gli avvisi. Su iPhone installa prima l'app sulla schermata Home."); return false; } const p = await Notification.requestPermission(); notifDoc.data.on = p === "granted"; notifDoc.save(); if (p === "granted") xNotify("Avvisi attivi ✓", "Ti avviserò quando è ora di partire e di cosa fare oggi.", "test"); else toast("Avvisi non consentiti: puoi attivarli dalle impostazioni del browser"); return p === "granted"; };
+const notifSent = new Set(lsGet("rz_notif_sent") || []);
+const notifMark = k => { notifSent.add(k); lsSet("rz_notif_sent", [...notifSent].slice(-200)); };
+async function xDailyDigest(force){
+  if (!notifDoc.data.on || !notifDoc.data.mattino || !xNotifOk()) return;
+  const k = "digest-" + xISO(Date.now()); if (notifSent.has(k) && !force) return;
+  const bits = [], cl = clients.all().filter(clDue).length, aq = window.aqDueCount ? aqDueCount() : { cart: 0, sv: 0 }, vs = window.vsPending ? vsPending() : 0;
+  if (cl) bits.push(`${cl} ${cl === 1 ? "cliente da richiamare" : "clienti da richiamare"}`);
+  if (vs) bits.push(`${vs} ${vs === 1 ? "scheda visita da compilare" : "schede visita da compilare"}`);
+  if (aq.sv) bits.push(`${aq.sv} ${aq.sv === 1 ? "contatto utile da sentire" : "contatti utili da sentire"}`);
+  if (aq.cart) bits.push(`${aq.cart} ${aq.cart === 1 ? "cartello da ripassare" : "cartelli da ripassare"}`);
+  notifMark(k);
+  if (bits.length) xNotify("Oggi da fare", bits.join(" · "), "digest", "./#clienti");
+}
+let bgPlanAt = 0;
+async function xDepartureCheck(){
+  if (!notifDoc.data.on || !notifDoc.data.partenze || !xNotifOk() || !xLogged()) return;
+  const t = xISO(Date.now());
+  if (xCur !== "giro" && (Date.now() - bgPlanAt > 10 * 60000 || grDate !== t)) { bgPlanAt = Date.now(); grDate = t; try { await grLoad(); } catch {} }
+  if (!grPlan || grDate !== t) return;
+  const now = Date.now();
+  for (const it of grPlan.items) if (it.k === "go" && it.t - now <= 10 * 60000 && it.t - now > -60000) {
+    const k = "go-" + it.st.id + "-" + it.t; if (notifSent.has(k)) continue; notifMark(k);
+    xNotify(`🚗 Parti alle ${xHM(it.t)}`, `${it.st.title} alle ${xHM(it.st.s)} · ${it.st.loc} · ${xDur(it.travel)} di strada`, k, "./#giro");
+  }
+}
+window.xDailyDigest = xDailyDigest;
+setInterval(() => { xDepartureCheck(); xDailyDigest(); }, 60000);
+setTimeout(() => { xDailyDigest(); xDepartureCheck(); }, 8000);
+/* orari di partenza nel calendario: avvisano il telefono anche ad app chiusa */
+window.grDepToCal = async () => {
+  if (!xLogged()) { toast("Accedi con Google per usare il calendario"); return; }
+  if (!grPlan) return;
+  const P = grPrefs.data, gos = grPlan.items.filter(it => it.k === "go" && it.t > Date.now() - 60000);
+  if (!gos.length) { toast("Non ci sono partenze da segnare"); return; }
+  P.depEv = P.depEv || {};
+  for (const id of P.depEv[grDate] || []) { try { await api(CAL + "/" + encodeURIComponent(id) + "?sendUpdates=none", { method: "DELETE" }); } catch {} }
+  const ids = [];
+  for (const it of gos) {
+    try {
+      const ev = await api(CAL + "?sendUpdates=none", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+        summary: `🚗 Parti per ${it.st.title}`, location: it.st.loc, description: `Appuntamento alle ${xHM(it.st.s)}\n${xDur(it.travel)} di strada (${Math.round(it.km)} km)\n\nNaviga: https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(it.st.loc)}\n\nCreato dal Giro della giornata`,
+        start: { dateTime: new Date(it.t).toISOString(), timeZone: "Europe/Rome" }, end: { dateTime: new Date(it.t + Math.max(5, it.travel) * 6e4).toISOString(), timeZone: "Europe/Rome" },
+        transparency: "transparent", colorId: "8", reminders: { useDefault: false, overrides: [{ method: "popup", minutes: 0 }, { method: "popup", minutes: 10 }] } }) });
+      ids.push(ev.id);
+    } catch (e) { toast("Calendario: " + ((e && e.message) || e)); break; }
+  }
+  P.depEv[grDate] = ids; for (const d of Object.keys(P.depEv)) if (d < xAddDays(xISO(Date.now()), -7)) delete P.depEv[d];
+  grPrefs.save(); toast(`🔔 ${ids.length} ${ids.length === 1 ? "partenza segnata" : "partenze segnate"} nel calendario`);
+};
+
+
+/* ===================== UTILITÀ ===================== */
+const utPro = xColl("rz_professionisti_v1", "professionisti"), utSca = xColl("rz_scadenze_v1", "scadenze");
+const UT_CAT = ["Notaio", "Geometra / tecnico", "Fotografo", "Banca / mediatore creditizio", "Impresa edile", "Idraulico / elettricista", "Traslochi", "Avvocato", "Commercialista", "Home staging", "Altro"];
+let utTab = "pro", utProQ = "", utProCat = "", utScaCur = null;
+/* aspetto: tema e dimensione del testo */
+const lookDoc = xDoc("rz_look_v1", "aspetto", { theme: "auto", size: "n" });
+function utApplyLook(){ const L = lookDoc.data, h = document.documentElement; if (L.theme === "auto") h.removeAttribute("data-theme"); else h.dataset.theme = L.theme; h.style.zoom = { n: "", l: "1.12", xl: "1.25" }[L.size] || ""; const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = L.theme === "dark" || (L.theme === "auto" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) ? "#0f141c" : "#12306e"; }
+utApplyLook();
+/* ---------- professionisti ---------- */
+function utProHtml(){
+  const q = xNorm(utProQ), list = utPro.all().filter(p => (!utProCat || p.cat === utProCat) && (!q || xNorm(`${p.nome} ${p.cat} ${p.zona} ${p.note}`).includes(q))).sort((a, b) => (b.voto || 0) - (a.voto || 0) || a.nome.localeCompare(b.nome));
+  const cats = [...new Set(utPro.all().map(p => p.cat))];
+  const rows = list.map(p => { const share = `Ti passo il contatto di ${p.nome}${p.cat ? " (" + p.cat.toLowerCase() + ")" : ""}: ${p.tel || ""}${p.email ? " · " + p.email : ""}`;
+    return `<div class="aq-card"><div class="ph">📇</div><div><b>${esc(p.nome)}</b><small>${esc([p.cat, p.zona].filter(Boolean).join(" · "))}</small><span class="ut-stars" data-ut-star="${esc(p.id)}">${[1, 2, 3, 4, 5].map(n => `<button type="button" data-v="${n}" class="${(p.voto || 0) >= n ? "on" : ""}" aria-label="${n} stelle">★</button>`).join("")}</span>${p.note ? `<small>${esc(p.note)}</small>` : ""}</div>
+      <div class="x-acts">${p.tel ? `<a class="x-act call" href="${xTel(p.tel)}">📞</a><a class="x-act wa" href="${esc(xWa(p.tel, ""))}" target="_blank" rel="noopener">💬</a>` : ""}${p.email ? `<a class="x-act" href="mailto:${esc(p.email)}">✉️</a>` : ""}<a class="x-act" href="${esc(xWa("", share))}" target="_blank" rel="noopener">📤 Passa il contatto</a><button type="button" class="x-act danger" data-ut-del="pro" data-id="${esc(p.id)}">🗑️</button></div></div>`; }).join("");
+  return `<section class="x-card aq-form"><h3>📇 Nuovo professionista</h3>
+    <div class="x-grid"><label class="x-f"><span>Nome</span><input class="inp" id="ut-p-nome" placeholder="Es. Notaio Bianchi"></label>
+      <label class="x-f"><span>Categoria</span><select class="inp" id="ut-p-cat">${UT_CAT.map(c => `<option>${c}</option>`).join("")}</select></label>
+      <label class="x-f"><span>Telefono</span><input class="inp" id="ut-p-tel" type="tel" inputmode="tel"></label>
+      <label class="x-f"><span>Email</span><input class="inp" id="ut-p-mail" type="email"></label>
+      <label class="x-f"><span>Zona</span><input class="inp" id="ut-p-zona" placeholder="Es. Bergamo"></label></div>
+    <label class="x-f"><span>Note</span><input class="inp" id="ut-p-note" placeholder="Es. veloce, prezzi onesti, parla inglese"></label>
+    <button type="button" class="x-act call" id="ut-p-save">Salva</button></section>
+    <section class="aq-list grid2"><div class="aq-sum" style="grid-template-columns:1fr"><div style="text-align:left;display:flex;gap:8px;flex-wrap:wrap"><input class="inp" id="ut-p-q" type="search" placeholder="Cerca…" value="${esc(utProQ)}" style="flex:1;min-width:150px"><select class="inp" id="ut-p-f" style="flex:0 1 220px"><option value="">Tutte le categorie</option>${cats.map(c => `<option${c === utProCat ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></div></div>${rows || `<div class="x-empty">Nessun professionista salvato.</div>`}</section>`;
+}
+/* ---------- scadenze compromesso → rogito ---------- */
+function utScaSteps(s){
+  const C = s.comp, R = s.rog || (C ? xAddDays(C, +s.gg || 90) : ""), out = [];
+  if (!C) return out;
+  out.push([C, "✍️ Firma del compromesso", 1]);
+  out.push([xAddDays(C, 20), "📑 Registrazione del compromesso (entro 20 giorni)"]);
+  if (s.mutuo) { out.push([xAddDays(C, 7), "🏦 Richiesta del mutuo in banca"]); out.push([xAddDays(C, 30), "🔎 Perizia della banca"]); out.push([xAddDays(R, -20), "✅ Delibera del mutuo"]); }
+  out.push([xAddDays(R, -30), "📐 Verifica conformità, APE e planimetria"]);
+  out.push([xAddDays(R, -15), "📨 Documenti completi al notaio"]);
+  out.push([xAddDays(R, -7), "💡 Ricorda al cliente volture e utenze"]);
+  out.push([R, "🔑 Rogito", 1]);
+  return out.sort((a, b) => a[0].localeCompare(b[0]));
+}
+function utScaText(s){ return [`📅 SCADENZE${s.nome ? " · " + s.nome : ""}`, "", ...utScaSteps(s).map(([d, l]) => `${new Date(d + "T12:00").toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short", year: "numeric" })} – ${l.replace(/^\S+\s/, "")}`)].join("\n"); }
+function utScaHtml(){
+  const s = utScaCur || (utScaCur = { id: xId("sc"), nome: "", comp: xISO(Date.now()), rog: "", gg: 90, mutuo: true });
+  const t = xISO(Date.now()), steps = utScaSteps(s);
+  const saved = utSca.all().sort((a, b) => (b.updated || 0) - (a.updated || 0));
+  return `<section class="x-card aq-form"><h3>📅 Dal compromesso al rogito</h3>
+    <div class="x-grid"><label class="x-f x-full"><span>Pratica</span><input class="inp" data-ut-s="nome" value="${esc(s.nome)}" placeholder="Es. Rossi – Via Roma 5"></label>
+      <label class="x-f"><span>Compromesso</span><input class="inp" type="date" data-ut-s="comp" value="${esc(s.comp)}"></label>
+      <label class="x-f"><span>Rogito</span><input class="inp" type="date" data-ut-s="rog" value="${esc(s.rog)}"></label>
+      <label class="x-f"><span>Oppure dopo</span><select class="inp" data-ut-s="gg">${[60, 90, 120, 150, 180].map(g => `<option value="${g}"${+s.gg === g ? " selected" : ""}>${g} giorni</option>`).join("")}</select></label></div>
+    <label class="calc-chk"><input type="checkbox" data-ut-s="mutuo"${s.mutuo ? " checked" : ""}> L'acquirente fa il mutuo</label>
+    <div class="x-acts"><button type="button" class="x-act call" id="ut-s-cal">📅 Metti tutto nel calendario</button><button type="button" class="x-act" id="ut-s-save">💾 Salva pratica</button><a class="x-act wa" href="${esc(xWa("", utScaText(s)))}" target="_blank" rel="noopener">💬</a><button type="button" class="x-act" id="ut-s-copy">📋</button></div>
+    <div class="x-note">Date indicative da adattare al caso: la registrazione del preliminare va fatta entro 20 giorni (30 se firmato dal notaio).</div></section>
+    <section class="aq-list"><div class="x-card"><h3>Le date</h3><div class="ut-tl">${steps.map(([d, l, main]) => `<div class="${d < t ? "past" : ""}${main ? " main" : ""}"><b>${esc(new Date(d + "T12:00").toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short" }))}</b><span>${esc(l)}</span></div>`).join("")}</div></div>
+      ${saved.length ? `<div class="x-card"><h3>Pratiche salvate</h3>${saved.map(p => `<div class="ut-row" style="border-top:1px solid var(--line-2);padding-top:8px"><span><b>${esc(p.nome || "Senza nome")}</b><br><small class="x-note">Rogito ${esc(xDay(p.rog || xAddDays(p.comp, +p.gg || 90)))}</small></span><span class="x-acts"><button type="button" class="x-act" data-ut-sopen="${esc(p.id)}">Apri</button><button type="button" class="x-act danger" data-ut-del="sca" data-id="${esc(p.id)}">🗑️</button></span></div>`).join("")}</div>` : ""}</section>`;
+}
+/* ---------- modalità auto ---------- */
+function utAutoHtml(){ return `<section class="x-card" style="grid-column:1/-1"><h3>🚘 Modalità auto</h3><p class="x-note" style="font-size:14px">Una schermata con pulsanti grandi per quando sei in macchina (da usare da fermo): prossima tappa, navigazione, chiamata al cliente e messaggio “sono in ritardo”. Lo schermo resta acceso finché la usi.</p><button type="button" class="ut-autobtn" data-auto-open>🚘 Avvia la modalità auto</button></section>`; }
+let autoTimer = null, autoLock = null, autoLate = false;
+async function autoOpen(){
+  const t = xISO(Date.now());
+  if (xLogged() && (!grPlan || grDate !== t)) { grDate = t; try { await grLoad(); } catch {} }
+  autoLate = false; $("auto").hidden = false; document.body.style.overflow = "hidden"; autoDraw();
+  clearInterval(autoTimer); autoTimer = setInterval(autoDraw, 20000);
+  try { if (navigator.wakeLock) autoLock = await navigator.wakeLock.request("screen"); } catch {}
+}
+function autoClose(){ $("auto").hidden = true; document.body.style.overflow = ""; clearInterval(autoTimer); try { autoLock && autoLock.release(); } catch {} autoLock = null; }
+function autoDraw(){
+  const now = Date.now(), P = grPrefs.data, today = grDate === xISO(now) && grPlan;
+  const next = today ? grPlan.stops.find(s => s.ll && (s.effE || s.e) > now && s.s > now - 30 * 60000) : null;
+  const go = next && grPlan.items.find(it => it.k === "go" && it.st === next);
+  const nav = next ? gsNav(next.loc) : "", home = P.start ? gsNav(P.start) : "";
+  const lateTxt = m => `Buongiorno, sono ${crm.signature || DEFAULT_SIG}. Arriverò con circa ${m} minuti di ritardo al nostro appuntamento${next ? " delle " + xHM(next.s) : ""}. Mi scuso per l'attesa.`;
+  $("auto").innerHTML = `<div class="auto-top"><div class="auto-clock">${xHM(now)}</div><button type="button" class="auto-x" data-auto-close aria-label="Chiudi">✕ Esci</button></div>
+    <div class="auto-next">${next ? `Prossima tappa alle <b>${xHM(next.s)} · ${esc(next.title)}</b>${esc(next.loc)}${go && go.t > now ? `<br>Parti alle <b style="display:inline;font-size:inherit">${xHM(go.t)}</b> · ${xDur(go.travel)} di strada` : ""}` : `Nessuna tappa in programma${xLogged() ? " per oggi" : ": accedi con Google per vedere gli appuntamenti"}.`}</div>
+    ${autoLate ? `<div class="auto-next">Quanti minuti di ritardo?</div><div class="auto-lates">${[5, 10, 15, 20].map(m => `<a href="${esc(xWa(next && next.phone || "", lateTxt(m)))}" target="_blank" rel="noopener">${m}′</a>`).join("")}</div><button type="button" class="auto-x" style="width:100%" data-auto-back>‹ Indietro</button>`
+    : `<div class="auto-grid">
+      ${nav ? `<a class="auto-nav" href="${esc(nav)}" target="_blank" rel="noopener"><span>🧭</span>Naviga</a>` : `<button class="auto-nav" disabled style="opacity:.4"><span>🧭</span>Naviga</button>`}
+      ${next && next.phone ? `<a class="auto-call" href="${xTel(next.phone)}"><span>📞</span>Chiama il cliente</a>` : `<button class="auto-call" disabled style="opacity:.4"><span>📞</span>Chiama</button>`}
+      <button type="button" class="auto-late" data-auto-late ${next ? "" : "disabled style=\"opacity:.4\""}><span>⏱️</span>Sono in ritardo</button>
+      ${home ? `<a class="auto-home" href="${esc(home)}" target="_blank" rel="noopener"><span>🏠</span>Torna a casa</a>` : `<button class="auto-home" disabled style="opacity:.4"><span>🏠</span>Casa</button>`}
+    </div>`}`;
+}
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-auto-open]")) { autoOpen(); return; }
+  if (e.target.closest("[data-auto-close]")) { autoClose(); return; }
+  if (e.target.closest("[data-auto-late]")) { autoLate = true; autoDraw(); return; }
+  if (e.target.closest("[data-auto-back]")) { autoLate = false; autoDraw(); return; }
+});
+document.addEventListener("visibilitychange", async () => { if (!$("auto").hidden && document.visibilityState === "visible" && navigator.wakeLock) { try { autoLock = await navigator.wakeLock.request("screen"); } catch {} } });
+/* ---------- impostazioni, avvisi, backup ---------- */
+const UT_KEYS_SKIP = ["rz_tok", "rz_acct", "rz_geocache_v1", "rz_notif_sent"];
+function utAppKeys(){ const out = []; for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (/^(rz_|ricerca_zona|centro_messaggi|app_view)/.test(k) && !UT_KEYS_SKIP.includes(k)) out.push(k); } return out.sort(); }
+function utSetHtml(){
+  const L = lookDoc.data, N = notifDoc.data, ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  const omiN = Object.keys(omiDoc.data.comuni || {}).length, seg = (key, opts, cur) => `<div class="x-tabs">${opts.map(([v, l]) => `<button type="button" data-ut-look="${key}" data-v="${v}" aria-selected="${cur === v}">${l}</button>`).join("")}</div>`;
+  return `<section class="ut-set" style="grid-column:1/-1;max-width:900px">
+    <div class="x-card"><h3>🎨 Aspetto</h3>
+      <div class="ut-row"><span>Tema</span>${seg("theme", [["auto", "Automatico"], ["light", "☀️ Chiaro"], ["dark", "🌙 Scuro"]], L.theme)}</div>
+      <div class="ut-row"><span>Dimensione del testo</span>${seg("size", [["n", "Normale"], ["l", "Grande"], ["xl", "Molto grande"]], L.size)}</div></div>
+    <div class="x-card"><h3>📲 Installa l'app sul telefono</h3>
+      ${xStandalone() ? `<p class="x-note" style="font-size:14px">✅ Stai già usando l'app installata.</p>` : xCanInstall() ? `<p class="x-note" style="font-size:14px">Aggiungi l'icona alla schermata Home: si apre a schermo intero e funziona anche senza campo.</p><button type="button" class="x-act call" id="ut-install">📲 Installa l'app</button>`
+        : ios ? `<p class="x-note" style="font-size:14px">Su iPhone e iPad: apri il sito con <b>Safari</b>, tocca il pulsante <b>Condividi</b> (il quadrato con la freccia) e scegli <b>“Aggiungi alla schermata Home”</b>.</p>` : `<p class="x-note" style="font-size:14px">Apri il sito con Chrome e dal menu ⋮ scegli <b>“Installa app”</b> o <b>“Aggiungi a schermata Home”</b>.</p>`}
+      <p class="x-note">Senza rete puoi continuare a usare Ricerca Zona (anche la mappa delle zone già viste), prequalifica, chiamate, cartelli e calcolatori: tutto si sincronizza con Google appena torna la connessione.</p></div>
+    <div class="x-card"><h3>🔔 Avvisi sul telefono</h3>
+      ${N.on && xNotifOk() ? `<label class="calc-chk"><input type="checkbox" data-ut-notif="partenze"${N.partenze ? " checked" : ""}> 10 minuti prima di ogni partenza del Giro</label><label class="calc-chk"><input type="checkbox" data-ut-notif="mattino"${N.mattino ? " checked" : ""}> Riepilogo di cosa fare oggi (clienti da richiamare, schede visita, cartelli, contatti utili)</label><div class="x-acts"><button type="button" class="x-act" id="ut-notif-test">Prova un avviso</button><button type="button" class="x-act" id="ut-notif-off">Disattiva</button></div>`
+        : `<button type="button" class="x-act call" id="ut-notif-on">🔔 Attiva gli avvisi</button>`}
+      <p class="x-note">Gli avvisi arrivano mentre l'app è aperta o in secondo piano${ios ? " (su iPhone solo con l'app installata sulla schermata Home)" : ""}. Per essere avvisato sempre, anche ad app chiusa, nel Giro usa <b>“🔔 Partenze nel calendario”</b>: gli orari finiscono nel tuo Google Calendar con il promemoria.</p></div>
+    <div class="x-card"><h3>🏛️ Valori OMI</h3>
+      <p class="x-note" style="font-size:14px">${omiN ? `Hai i valori OMI di <b>${omiN}</b> comuni${omiDoc.data.sem ? " (" + esc(omiDoc.data.sem) + ")" : ""}.` : "Nessun valore OMI importato."} Il file si scarica gratis dalla tua area riservata dell'Agenzia delle Entrate (Fisconline/Entratel → Servizi ipotecari e catastali, Osservatorio Mercato Immobiliare → Forniture OMI – Quotazioni). Puoi caricare il .zip così com'è.</p>
+      <div class="x-acts"><button type="button" class="x-act call" data-omi-import>📥 Importa file OMI</button><a class="x-act" href="${OMI_URL}" target="_blank" rel="noopener">Consultazione OMI ↗</a>${omiN ? `<button type="button" class="x-act danger" id="ut-omi-clear">Cancella valori</button>` : ""}</div></div>
+    <div class="x-card"><h3>💾 Backup ed esportazione</h3>
+      <p class="x-note" style="font-size:14px">I dati sono tuoi: esportali quando vuoi.</p>
+      <div class="x-acts"><button type="button" class="x-act call" id="ut-xlsx">📊 Esporta tutto in Excel</button><button type="button" class="x-act" id="ut-json">💾 Scarica backup completo</button><label class="x-act" style="cursor:pointer">♻️ Ripristina backup<input type="file" id="ut-restore" accept=".json,application/json" hidden></label></div>
+      <div class="x-note" id="ut-bk-msg"></div></div>
+    <div class="x-card"><h3>👤 Account</h3>${tok ? `<p class="x-note" style="font-size:14px">Collegato come <b>${esc(tok.email || "")}</b>.</p><div class="x-acts"><button class="x-act" data-login-select>Cambia account</button><button class="x-act danger" data-logout>Esci</button></div>` : loginCardHtml()}</div>
+  </section>`;
+}
+let xlsxLoading = null;
+function xlsxLoad(){ if (window.XLSX) return Promise.resolve(window.XLSX); if (xlsxLoading) return xlsxLoading; xlsxLoading = new Promise((res, rej) => { const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"; s.onload = () => res(window.XLSX); s.onerror = () => { xlsxLoading = null; rej(new Error("serve internet per creare il file Excel")); }; document.head.appendChild(s); }); return xlsxLoading; }
+async function utExportXlsx(){
+  const X = await xlsxLoad(), wb = X.utils.book_new(), d = t => t ? new Date(t).toLocaleString("it-IT") : "";
+  const add = (name, rows) => { if (!rows.length) rows = [{ "Nessun dato": "" }]; X.utils.book_append_sheet(wb, X.utils.json_to_sheet(rows), name.slice(0, 31)); };
+  add("Clienti", clients.all().map(c => ({ Nome: c.nome, Telefono: c.tel, Email: c.email, Ruolo: c.ruolo, Stato: (CL_ST[c.stato] || [])[1] || c.stato, Indirizzo: c.indirizzo, Comune: c.comune, Fonte: c.fonte, Note: c.note, "Prossima azione": c.prossima && c.prossima.data ? `${c.prossima.data} ${c.prossima.ora || ""} ${c.prossima.cosa || ""}` : "", "Budget max": c.rich && c.rich.max || "", Zone: c.rich && c.rich.zone || "", Creato: d(c.created) })));
+  add("Prequalifiche", pqList.map(p => Object.assign({ Salvato: d(p.updated) }, p.v, Object.fromEntries(Object.entries(p.c || {}).map(([k, v]) => [k, v.join(", ")])), p.val && !p.val.error ? { "Stima min": p.val.min, "Stima media": p.val.med, "Stima max": p.val.max } : {})));
+  const vie = []; for (const [k, a] of Object.entries(ann)) { const [com, via] = k.split("||"); vie.push({ Comune: com, Via: via, Stato: STATO_LBL[a.stato] || a.stato, "Ultimo passaggio": a.ultimoPassaggio || "", Nota: a.nota || "", Civici: (a.civici || []).map(c => `${c.numero}${c.interesse && c.interesse !== "no" ? " (" + c.interesse + ")" : ""}${c.telefono ? " tel " + c.telefono : ""}${c.nota ? " – " + c.nota : ""}`).join(" | ") }); }
+  add("Vie e civici", vie);
+  add("Visite", Object.entries(vsDoc.data.schede).filter(([, s]) => s.ev).map(([, s]) => ({ Data: d(s.ev.s), Immobile: s.ev.dv, Cliente: s.ev.cliente, Esito: (VS_ESITI.find(e => e[0] === s.esito) || [])[2] || "", Piaciuto: (s.piace || []).join(", "), "Non piaciuto": (s.non || []).join(", "), Prezzo: s.prezzo || "", Offerta: s.offerta || "", "Prossimo passo": s.passo || "", Note: s.note || "" })));
+  add("Chiamate", aqCall.all().map(c => ({ Data: d(c.created), Telefono: c.tel, Nome: c.nome, Motivo: c.motivo, Comune: c.comune, Fonte: c.fonte, Note: c.note, "Nel gestionale": c.gest ? "sì" : "" })));
+  add("Cartelli", aqCart.all().map(c => ({ Visto: c.visto, Indirizzo: c.indirizzo, Tipo: c.tipo, Chi: c.chi === "Agenzia" ? c.agenzia || "Agenzia" : "Privato", Telefono: c.tel, Stato: c.stato, "Da ripassare": c.due, Note: c.note })));
+  add("Volantini", aqVol.all().map(v => ({ Data: v.data, Comune: v.comune, Quantità: v.qta, Vie: (v.vie || []).join(", "), Note: v.note })));
+  add("Contatti utili", aqSv.all().map(s => ({ Nome: s.nome, Ruolo: s.ruolo, Telefono: s.tel, Zona: s.zona, "Ultimo contatto": s.last, "Notizie portate": (s.log || []).filter(l => l.t === "notizia").length })));
+  add("Professionisti", utPro.all().map(p => ({ Nome: p.nome, Categoria: p.cat, Telefono: p.tel, Email: p.email, Zona: p.zona, Voto: p.voto || "", Note: p.note })));
+  const out = X.write(wb, { bookType: "xlsx", type: "array" });
+  await xDownload(new Blob([out], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `Agente_Pro_${xISO(Date.now())}.xlsx`);
+}
+async function utExportJson(){ const data = {}; for (const k of utAppKeys()) data[k] = localStorage.getItem(k); await xDownload(new Blob([JSON.stringify({ app: "agente-pro", v: 1, at: new Date().toISOString(), data }, null, 1)], { type: "application/json" }), `Backup_Agente_Pro_${xISO(Date.now())}.json`); }
+function utRender(){
+  xSync("ut-sync");
+  document.querySelectorAll("[data-ut-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.utTab === utTab));
+  $("ut-body").innerHTML = utTab === "pro" ? utProHtml() : utTab === "sca" ? utScaHtml() : utTab === "auto" ? utAutoHtml() : utSetHtml();
+}
+window.utRender = utRender;
+XVIEWS.utilita = utRender;
+function utScaCal(){
+  const s = utScaCur; if (!xLogged()) { toast("Accedi con Google per usare il calendario"); return; }
+  (async () => { let n = 0; for (const [d, l] of utScaSteps(s)) { if (d < xISO(Date.now())) continue; try { await api(CAL + "?sendUpdates=none", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ summary: `${l}${s.nome ? " · " + s.nome : ""}`, start: { date: d }, end: { date: xAddDays(d, 1) }, transparency: "transparent", colorId: "2", reminders: { useDefault: false, overrides: [{ method: "popup", minutes: 900 }] } }) }); n++; } catch (e) { toast("Calendario: " + ((e && e.message) || e)); return; } } toast(`📅 ${n} date messe nel calendario`); })();
+}
+$("view-utilita").addEventListener("click", async e => {
+  const t = e.target;
+  const tb = t.closest("[data-ut-tab]"); if (tb) { utTab = tb.dataset.utTab; utRender(); return; }
+  if (t.closest("#ut-p-save")) { const nome = $("ut-p-nome").value.trim(); if (!nome) { $("ut-p-nome").classList.add("bad"); return; } utPro.put({ id: xId("pr"), nome, cat: $("ut-p-cat").value, tel: $("ut-p-tel").value.trim(), email: $("ut-p-mail").value.trim(), zona: $("ut-p-zona").value.trim(), note: $("ut-p-note").value.trim(), voto: 0 }); toast("Salvato"); utRender(); return; }
+  const st = t.closest("[data-ut-star] button"); if (st) { const p = utPro.get(st.parentElement.dataset.utStar); if (p) { p.voto = +st.dataset.v === p.voto ? 0 : +st.dataset.v; utPro.put(p); utRender(); } return; }
+  const del = t.closest("[data-ut-del]"); if (del) { if (!del.classList.contains("armed")) { del.classList.add("armed"); del.textContent = "Conferma"; return; } ({ pro: utPro, sca: utSca })[del.dataset.utDel].remove(del.dataset.id); utRender(); return; }
+  if (t.closest("#ut-s-cal")) return utScaCal();
+  if (t.closest("#ut-s-save")) { utSca.put(Object.assign({}, utScaCur)); toast("Pratica salvata"); utRender(); return; }
+  if (t.closest("#ut-s-copy")) return xCopy(utScaText(utScaCur));
+  const so = t.closest("[data-ut-sopen]"); if (so) { utScaCur = Object.assign({}, utSca.get(so.dataset.utSopen)); utRender(); return; }
+  const lk = t.closest("[data-ut-look]"); if (lk) { lookDoc.data[lk.dataset.utLook] = lk.dataset.v; lookDoc.save(); utApplyLook(); utRender(); return; }
+  if (t.closest("#ut-install")) { await xInstall(); utRender(); return; }
+  if (t.closest("#ut-notif-on")) { await xNotifEnable(); utRender(); return; }
+  if (t.closest("#ut-notif-off")) { notifDoc.data.on = false; notifDoc.save(); utRender(); return; }
+  if (t.closest("#ut-notif-test")) { xNotify("Prova avviso", "Gli avvisi funzionano ✓", "test"); return; }
+  if (t.closest("#ut-omi-clear")) { const b = t.closest("#ut-omi-clear"); if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = "Conferma"; return; } omiDoc.data.comuni = {}; omiDoc.data.sem = ""; omiDoc.save(); utRender(); return; }
+  if (t.closest("#ut-xlsx")) { $("ut-bk-msg").textContent = "Preparo il file Excel…"; try { await utExportXlsx(); $("ut-bk-msg").textContent = "✅ File Excel pronto."; } catch (err) { $("ut-bk-msg").textContent = "Errore: " + ((err && err.message) || err); } return; }
+  if (t.closest("#ut-json")) { await utExportJson(); $("ut-bk-msg").textContent = "✅ Backup pronto: conservalo in un posto sicuro."; return; }
+});
+$("view-utilita").addEventListener("input", e => {
+  if (e.target.id === "ut-p-q") { utProQ = e.target.value; const pos = e.target.selectionStart; utRender(); const q = $("ut-p-q"); q.focus(); try { q.setSelectionRange(pos, pos); } catch {} return; }
+  const k = e.target.dataset.utS; if (k) { utScaCur[k] = e.target.type === "checkbox" ? e.target.checked : e.target.value; if (k === "rog" && e.target.value) utScaCur.rog = e.target.value; clearTimeout(utScaCur._t); utScaCur._t = setTimeout(() => { const f = document.activeElement && document.activeElement.dataset.utS; utRender(); if (f) { const el = document.querySelector(`[data-ut-s="${f}"]`); if (el && el.type !== "date") el.focus(); } }, 500); }
+});
+$("view-utilita").addEventListener("change", async e => {
+  if (e.target.id === "ut-p-f") { utProCat = e.target.value; utRender(); return; }
+  const k = e.target.dataset.utS; if (k) { utScaCur[k] = e.target.type === "checkbox" ? e.target.checked : e.target.value; utRender(); return; }
+  const n = e.target.dataset.utNotif; if (n) { notifDoc.data[n] = e.target.checked; notifDoc.save(); return; }
+  if (e.target.id === "ut-restore" && e.target.files[0]) {
+    try { const j = JSON.parse(await e.target.files[0].text()); if (!j || !j.data) throw new Error("file non valido"); for (const [k, v] of Object.entries(j.data)) if (!UT_KEYS_SKIP.includes(k)) localStorage.setItem(k, v); $("ut-bk-msg").textContent = "✅ Backup ripristinato: ricarico l'app…"; setTimeout(() => location.reload(), 900); }
+    catch (err) { $("ut-bk-msg").textContent = "Ripristino non riuscito: " + ((err && err.message) || err); }
+  }
+});
+
+
+/* ===================== CHECKLIST DOCUMENTI ===================== */
+function pqDocsMissing(rec){ const s = PQ_SCHEMA.find(x => x.checks === "documenti"); const have = (rec.c && rec.c.documenti) || []; return s ? s.opts.filter(o => !have.includes(o) && !/Successione|mutuo/i.test(o)) : []; }
+function pqDocsLink(){
+  const a = $("pq-docs"); if (!a) return;
+  const rec = Object.assign({}, pqCur || {}, pqRead()), miss = pqDocsMissing(rec);
+  a.hidden = !miss.length;
+  const nome = ((rec.v.nome || "").split(" ")[0]) || "";
+  const tpl = (window.mdAll && (mdAll().find(m => m.id === "documenti") || {}).testo) || "Buongiorno {nome}, per procedere mi servirebbero questi documenti: {documenti}. Grazie!\n{firma}";
+  const txt = tpl.replace(/\{nome\}/g, nome).replace(/\{documenti\}/g, "\n" + miss.map(m => "• " + m).join("\n") + "\n").replace(/\{firma\}/g, crm.signature || DEFAULT_SIG).replace(/\{\w+\}/g, "").replace(/ ,/g, ",");
+  a.href = xWa(rec.v.telefono || "", txt);
+  a.textContent = `📨 Chiedi i documenti mancanti (${miss.length})`;
+}
+$("pq-form").addEventListener("change", pqDocsLink);
+$("pq-form").addEventListener("input", e => { if (e.target.id === "pq_telefono" || e.target.id === "pq_nome") pqDocsLink(); });
+const _pqLoadDocs = pqLoad; pqLoad = function(rec){ _pqLoadDocs(rec); pqDocsLink(); };
+
+
+/* ===================== PRIMA DI COMPRARE ===================== */
+let calcBuyerData = null;
+function calcBuyer(){
+  const el = $("calc-out-buyer"); if (!el) return;
+  const prezzo = xMoney(cv("b_prezzo")), ant = prezzo * xPct(cv("b_ant")) / 100, P = Math.max(0, prezzo - ant), tan = xPct(cv("b_tasso")), anni = +cv("b_anni") || 25, n = anni * 12, r = tan / 100 / 12;
+  const rata = !P ? 0 : r ? P * r / (1 - Math.pow(1 + r, -n)) : P / n;
+  const impresa = cv("b_vend") === "impresa", prima = cv("b_casa") === "prima", rendita = xMoney(cv("b_rendita")), rows = [];
+  let imposte = 0, pv = false;
+  if (!impresa) { let base = prezzo; if (rendita > 0) { base = rendita * 1.05 * (prima ? 110 : 120); pv = true; } const reg = Math.max(1000, base * (prima ? 0.02 : 0.09)); rows.push([`Imposta di registro ${prima ? "2%" : "9%"}`, reg], ["Imposte ipotecaria e catastale", 100]); imposte = reg + 100; }
+  else { const iva = prezzo * (prima ? 0.04 : 0.10); rows.push([`IVA ${prima ? "4%" : "10%"}`, iva], ["Imposte fisse", 600]); imposte = iva + 600; }
+  const notaio = calcNotaio(prezzo, pv), ag = prezzo * xPct(cv("b_ag")) / 100 * 1.22;
+  rows.push(["Notaio (stima)", notaio], ["Agenzia", ag]);
+  let mut = 0; if (P) { const sost = P * (prima ? 0.0025 : 0.02); mut = sost + 1800; rows.push([`Imposta sul mutuo ${prima ? "0,25%" : "2%"}`, sost], ["Perizia, istruttoria e notaio del mutuo (stima)", 1800]); }
+  const costi = imposte + notaio + ag + mut, subito = ant + costi;
+  calcBuyerData = { nome: cv("b_nome").trim(), imm: cv("b_imm").trim(), prezzo, ant, P, tan, anni, rata, rows, costi, subito, prima, impresa };
+  el.innerHTML = `<div class="calc-big">${xEuro(subito)} <small>da avere tra anticipo e spese</small></div>` + calcKV([["Prezzo", xEuro(prezzo)], ["Anticipo", xEuro(ant)], [`Mutuo in ${anni} anni al ${String(tan).replace(".", ",")}%`, xEuro(P)], ["Rata mensile", xEuro(rata), "tot"], ...rows.map(x => [x[0], xEuro(x[1]), "sub"]), ["Totale spese", xEuro(costi), "tot"], ["Reddito netto consigliato", "da " + xEuro(rata * 3) + " al mese"]]);
+  calcTxt.buyer = `🔑 IL TUO ACQUISTO IN NUMERI${calcBuyerData.nome ? " · " + calcBuyerData.nome : ""}\n${calcBuyerData.imm ? calcBuyerData.imm + "\n" : ""}Prezzo: ${xEuro(prezzo)}\nAnticipo: ${xEuro(ant)}\nMutuo: ${xEuro(P)} in ${anni} anni al ${String(tan).replace(".", ",")}%\n➡️ Rata: ${xEuro(rata)} al mese\nSpese di acquisto: ${xEuro(costi)}\n➡️ Da avere subito (anticipo + spese): ${xEuro(subito)}\n(Stima indicativa: importi da confermare con banca e notaio)`;
+}
+function calcBuyerFrom(){ const opts = pqList.filter(p => xMoney(p.v.prezzo) || (p.val && !p.val.error)); const w = $("calc-bfrom-wrap"); if (!w) return; w.hidden = !opts.length; $("calc-bfrom").innerHTML = `<option value="">— Scegli —</option>` + opts.map(p => `<option value="${esc(p.id)}">${esc(((p.c.tipologia || [])[0] || "Immobile") + " · " + (p.v.indirizzo || "").split("\n")[0])}</option>`).join(""); }
+const _calcRender = calcRender; calcRender = function(){ _calcRender(); calcBuyerFrom(); };
+XVIEWS.calc = calcRender;
+$("view-calc").addEventListener("change", e => {
+  if (e.target.id !== "calc-bfrom") return;
+  const p = pqList.find(x => x.id === e.target.value); if (!p) return;
+  const pr = xMoney(p.v.prezzo) || (p.val && p.val.med) || 0, com = p.v.comune || pqFindComune(p.v.indirizzo || "");
+  document.querySelector('#view-calc [data-c="b_prezzo"]').value = Math.round(pr).toLocaleString("it-IT");
+  document.querySelector('#view-calc [data-c="b_imm"]').value = [((p.c.tipologia || [])[0] || "Immobile") + (num(p.v.superficie) ? ` di ${num(p.v.superficie)} m²` : ""), com].filter(Boolean).join(", ");
+  calcAll(); calcSave();
+});
+async function calcBuyerPdf(){
+  const D = calcBuyerData; if (!D) return;
+  try {
+    const jsPDF = await pdfLoad(), doc = new jsPDF({ unit: "mm", format: "a4" }), M = 18, W = 210;
+    doc.setFillColor(29, 78, 216); doc.rect(0, 0, W, 30, "F"); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(19); doc.text("Il tuo acquisto in numeri", M, 14);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(11); doc.text(pdfTxt([D.nome, new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })].filter(Boolean).join("  -  ")), M, 23);
+    doc.setTextColor(21, 32, 51); let y = 42;
+    if (D.imm) { doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.text(doc.splitTextToSize(pdfTxt(D.imm), W - 2 * M), M, y); y += 10; }
+    const box = (label, val, x, w) => { doc.setFillColor(238, 241, 245); doc.roundedRect(x, y, w, 24, 3, 3, "F"); doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(74, 86, 107); doc.text(label, x + 4, y + 8); doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(29, 78, 216); doc.text(pdfTxt(val), x + 4, y + 18); };
+    const bw = (W - 2 * M - 8) / 3; box("Rata mensile", xEuro(D.rata), M, bw); box("Da avere subito", xEuro(D.subito), M + bw + 4, bw); box("Prezzo", xEuro(D.prezzo), M + 2 * (bw + 4), bw); y += 34;
+    const table = (title, rows) => { doc.setFont("helvetica", "bold"); doc.setFontSize(11.5); doc.setTextColor(18, 48, 110); doc.text(title.toUpperCase(), M, y); y += 3; doc.setDrawColor(18, 48, 110); doc.setLineWidth(.4); doc.line(M, y, W - M, y); y += 6;
+      for (const [k, v, b] of rows) { doc.setFont("helvetica", b ? "bold" : "normal"); doc.setFontSize(11); doc.setTextColor(21, 32, 51); doc.text(pdfTxt(k), M, y); doc.text(pdfTxt(v), W - M, y, { align: "right" }); y += 3; doc.setDrawColor(215, 220, 228); doc.setLineWidth(.2); doc.line(M, y, W - M, y); y += 5.5; } y += 4; };
+    table("Mutuo", [["Prezzo dell'immobile", xEuro(D.prezzo)], ["Anticipo", xEuro(D.ant)], ["Importo del mutuo", xEuro(D.P)], [`Durata e tasso`, `${D.anni} anni al ${String(D.tan).replace(".", ",")}%`], ["Rata mensile", xEuro(D.rata), 1], ["Reddito netto consigliato", "da " + xEuro(D.rata * 3) + " al mese"]]);
+    table(`Spese di acquisto (${D.prima ? "prima casa" : "seconda casa"}, venditore ${D.impresa ? "impresa" : "privato"})`, [...D.rows.map(r => [r[0], xEuro(r[1])]), ["Totale spese", xEuro(D.costi), 1]]);
+    table("Riepilogo", [["Anticipo", xEuro(D.ant)], ["Spese", xEuro(D.costi)], ["Totale da avere tra compromesso e rogito", xEuro(D.subito), 1]]);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(124, 135, 153);
+    doc.text(doc.splitTextToSize("Simulazione indicativa: la rata dipende dall'offerta della banca e le imposte dai dati catastali; gli importi definitivi vengono confermati da banca e notaio.", W - 2 * M), M, y + 2);
+    doc.setTextColor(21, 32, 51); doc.setFontSize(11); doc.text(pdfTxt(crm.signature || DEFAULT_SIG), M, 285);
+    await xDownload(doc.output("blob"), `Acquisto_${(D.nome || "cliente").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "_")}_${xISO(Date.now())}.pdf`);
+  } catch (err) { toast("PDF non creato: " + ((err && err.message) || err)); }
+}
+$("view-calc").addEventListener("click", e => { if (e.target.closest("#calc-bpdf")) calcBuyerPdf(); });
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["zona", "giro", "clienti", "messaggi", "match", "preq", "calc", "foto", "obiettivi"] : ["zona"];
+const APPS = RZ_CLOUD ? ["zona", "acq", "giro", "clienti", "messaggi", "visite", "match", "modelli", "preq", "desc", "calc", "foto", "obiettivi", "utilita"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "zona";
@@ -4203,7 +5607,7 @@ document.querySelectorAll("[data-menu]").forEach(b => { if (APPS.length < 2) b.h
 if (APPS.length > 1) document.querySelectorAll("[data-menu]").forEach(b => {
   b.addEventListener("click", e => { e.stopPropagation(); $("dd").hidden ? openDd(b) : closeDd(); });
 });
-$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); if (["messaggi","foto","clienti","giro","obiettivi"].includes(b.dataset.view) && !tok && knownEmail()) doLogin(false); } });
+$("dd").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeDd(); showView(b.dataset.view); if (["messaggi","foto","clienti","giro","obiettivi","visite"].includes(b.dataset.view) && !tok && knownEmail()) doLogin(false); } });
 $("dd").addEventListener("keydown", e => {
   const items = [...document.querySelectorAll(".dd-item")], i = items.indexOf(document.activeElement);
   if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }

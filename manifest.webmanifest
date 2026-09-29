@@ -1,0 +1,43 @@
+{
+ "name": "Agente Pro – strumenti per l'agente immobiliare",
+ "short_name": "Agente Pro",
+ "lang": "it",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#12306e",
+ "theme_color": "#12306e",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "shortcuts": [
+  {
+   "name": "Giro della giornata",
+   "url": "./#giro"
+  },
+  {
+   "name": "Registra chiamata",
+   "url": "./#acq"
+  },
+  {
+   "name": "Foglio prequalifica",
+   "url": "./#preq"
+  }
+ ]
+}
