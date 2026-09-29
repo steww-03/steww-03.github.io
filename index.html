@@ -812,6 +812,7 @@ a{color:inherit}
 .gq-item small{display:block;font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere;margin-top:2px}
 .gq-item .tx{font-size:13.5px;margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
 .gq-item .x-acts{grid-column:1/-1;margin-top:6px}
+.gq-plan{font-size:13px;font-weight:700;color:var(--todo-bar);margin-top:4px;overflow-wrap:anywhere}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -5226,6 +5227,7 @@ $("view-visite").addEventListener("click", e => {
     if (e.target.closest("[data-vs-close]")) { vsOpen = null; vsDoc.save(); vsRenderList(); toast(sc.esito ? "Scheda salvata ✓" : "Scegli com'è andata");
       if (sc.esito && window.gqAdd) { const E = VS_ESITI.find(x => x[0] === sc.esito); gqAdd({ key: "vis:" + id, tipo: "Nota", cliente: (sc.ev && sc.ev.cliente) || "", tel: (sc.ev && sc.ev.tel) || "", link: (sc.ev && sc.ev.link) || "", fonte: "Scheda visita " + ((sc.ev && sc.ev.dv) || ""),
         testo: [`Esito visita${sc.ev && sc.ev.dv ? " " + sc.ev.dv : ""}: ${E ? E[2].toLowerCase() : sc.esito}`, (sc.piace || []).length ? "Piaciuto: " + sc.piace.join(", ").toLowerCase() : "", (sc.non || []).length ? "Non piaciuto: " + sc.non.join(", ").toLowerCase() : "", sc.prezzo ? "Prezzo: " + ({ giusto: "giusto", alto: "troppo alto", offerta: "farebbe un'offerta" + (sc.offerta ? " di " + sc.offerta + " €" : "") })[sc.prezzo] : "", sc.passo ? "Prossimo passo: " + sc.passo.toLowerCase() : "", sc.note ? "Note: " + sc.note : ""].filter(Boolean).join("\n") }, "visite"); }
+      if (sc.esito && window.rgVisitaOpinione) rgVisitaOpinione(id, sc);
       return; }
   }
   if (e.target.closest("#vs-rep-regen")) { vsRepUpdate(true); return; }
@@ -5472,7 +5474,7 @@ function aqCallText(c){ return [c.nome || "Contatto", c.tel, c.motivo, c.comune,
 function aqCallSave(openCl){
   const tel = $("aq-c-tel").value.trim(); if (!xDigits(tel)) { $("aq-c-tel").classList.add("bad"); $("aq-c-tel").focus(); return; }
   const c = { id: xId("ch"), tel, nome: $("aq-c-nome").value.trim(), comune: $("aq-c-com").value.trim(), fonte: $("aq-c-fonte").value, motivo: aqMotivo, note: $("aq-c-note").value.trim() };
-  aqCall.put(c); aqMotivo = ""; if (window.gqAdd) gqAdd({ key: "call:" + c.id, tipo: c.motivo === "Vende" || c.motivo === "Valutazione" ? "Nuova notizia" : "Nota", cliente: c.nome || "", tel: c.tel, testo: [c.motivo ? "Motivo: " + c.motivo : "", c.comune ? "Zona: " + c.comune : "", c.fonte ? "Fonte: " + c.fonte : "", c.note].filter(Boolean).join("\n"), fonte: "Chiamata registrata" }, "chiamate");
+  aqCall.put(c); aqMotivo = ""; if (window.gqAdd) gqAdd({ key: "call:" + c.id, tipo: c.motivo === "Vende" || c.motivo === "Valutazione" ? "Nuova notizia" : "Nota", cliente: c.nome || "", tel: c.tel, testo: [c.motivo ? "Motivo: " + c.motivo : "", c.comune ? "Zona: " + c.comune : "", c.fonte ? "Fonte: " + c.fonte : "", c.note].filter(Boolean).join("\n"), nota: c.note || "", fonte: "Chiamata registrata" }, "chiamate");
   if (openCl) aqToClient(c); else { toast("Chiamata salvata"); aqRender(); }
 }
 function aqToClient(c){
@@ -6299,8 +6301,8 @@ $("view-consegna").addEventListener("change", async e => {
 
 /* ===================== DA FARE NEL GESTIONALE ===================== */
 const gqColl = xColl("rz_gestionale_v1", "gestionale");
-const gqCfg = xDoc("rz_gestionale_cfg_v1", "gestionale_cfg", { visite: true, reminder: true, stato: true, chiamate: true, civici: true, wa: true });
-const GQ_AUTO = [["wa", "Messaggi WhatsApp inviati dal Centro Messaggi (“inviato WA …”)"], ["visite", "Esito delle schede visita"], ["reminder", "Prossime azioni dei Clienti (reminder)"], ["stato", "Cambi di stato dei Clienti"], ["chiamate", "Chiamate registrate in Acquisizione"], ["civici", "Civici caldi trasformati in clienti"]];
+const gqCfg = xDoc("rz_gestionale_cfg_v1", "gestionale_cfg", { visite: true, reminder: true, stato: true, chiamate: true, civici: true, wa: true, enrico: true });
+const GQ_AUTO = [["enrico", "Invita enrico.rosani@dove.it ai promemoria “ric con enrico” nel calendario Google"], ["wa", "Messaggi WhatsApp inviati dal Centro Messaggi (“inviato WA …”)"], ["visite", "Esito delle schede visita"], ["reminder", "Prossime azioni dei Clienti (reminder)"], ["stato", "Cambi di stato dei Clienti"], ["chiamate", "Chiamate registrate in Acquisizione"], ["civici", "Civici caldi trasformati in clienti"]];
 let gqFilter = "todo";
 const gqLinkRe = /https:\/\/backoffice\.dove\.it\/\S+/i;
 function gqFindLink(name, tel){
@@ -6319,7 +6321,7 @@ window.gqAdd = function(o, cfgKey){
   return it;
 };
 function gqWhen(it){ return it.data ? `${new Date(it.data + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" })}${it.ora ? " ore " + it.ora : ""}` : ""; }
-function gqLine(it, n){ return `${n}. [${it.tipo}] ${[it.cliente, it.tel ? "tel " + it.tel : "", gqWhen(it)].filter(Boolean).join(" · ")}${it.testo ? `\n   Testo: ${it.testo.replace(/\n/g, " / ")}` : ""}\n   ${it.link ? "Scheda: " + it.link : "Scheda: da cercare nel gestionale per nome o telefono"}`; }
+function gqLine(it, n){ const P = rgPlan(it); return `${n}. [${it.tipo}] ${[it.cliente, it.tel ? "tel " + it.tel : "", gqWhen(it)].filter(Boolean).join(" · ")}${it.testo ? `\n   Testo: ${it.testo.replace(/\n/g, " / ")}` : ""}${P ? `\n   Promemoria in Calendario: ${P.quando} · "${P.testo}"${P.invito ? " · poi invitare " + P.invito + " all'evento Google" : ""}` : ""}\n   ${it.link ? "Scheda: " + it.link : "Scheda: da cercare nel gestionale per nome o telefono"}`; }
 function gqTodo(){ return gqColl.all().filter(x => x.stato !== "fatto").sort((a, b) => (a.created || 0) - (b.created || 0)); }
 function gqBadge(){ const n = gqTodo().length; document.querySelectorAll("[data-gq-badge]").forEach(el => { el.hidden = !n; el.textContent = n; }); }
 function gqRender(){
@@ -6328,7 +6330,7 @@ function gqRender(){
   $("gq-filter").innerHTML = [["todo", "Da fare", todo.length], ["done", "Fatte", done.length]].map(([v, l, n]) => `<button type="button" class="x-pill" data-gq-f="${v}" aria-pressed="${gqFilter === v}">${l} <span class="n">${n}</span></button>`).join("");
   const list = gqFilter === "todo" ? todo : done;
   $("gq-list").innerHTML = list.length ? list.map((it, i) => `<div class="gq-item${it.stato === "fatto" ? " done" : ""}"><span class="gq-n">${it.stato === "fatto" ? "✓" : i + 1}</span>
-      <div><b><span class="tp">${esc(it.tipo)}</span>${esc(it.cliente || "Senza nome")}</b>${it.tel || it.data ? `<small>${esc([it.tel, gqWhen(it)].filter(Boolean).join(" · "))}</small>` : ""}${it.testo ? `<div class="tx">${esc(it.testo)}</div>` : ""}<div class="gq-src">${esc(it.fonte || "Aggiunta a mano")} · ${esc(new Date(it.created).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}${it.stato === "fatto" && it.done ? " · fatta il " + esc(new Date(it.done).toLocaleDateString("it-IT", { day: "numeric", month: "short" })) : ""}</div></div>
+      <div><b><span class="tp">${esc(it.tipo)}</span>${esc(it.cliente || "Senza nome")}</b>${it.tel || it.data ? `<small>${esc([it.tel, gqWhen(it)].filter(Boolean).join(" · "))}</small>` : ""}${it.testo ? `<div class="tx">${esc(it.testo)}</div>` : ""}${(P => P ? `<div class="gq-plan">⏰ Promemoria: ${esc(P.quando)} · “${esc(P.testo)}”${P.invito ? ` · 👥 ${esc(P.invito)}` : ""}</div>` : "")(rgPlan(it))}<div class="gq-src">${esc(it.fonte || "Aggiunta a mano")} · ${esc(new Date(it.created).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}${it.stato === "fatto" && it.done ? " · fatta il " + esc(new Date(it.done).toLocaleDateString("it-IT", { day: "numeric", month: "short" })) : ""}</div></div>
       <div class="x-acts">${it.link ? `<a class="x-act" href="${esc(it.link)}" target="_blank" rel="noopener">🔗 Apri la scheda</a>` : ""}<button type="button" class="x-act" data-gq-copy="${esc(it.id)}">📋 Copia</button>${it.stato === "fatto" ? `<button type="button" class="x-act" data-gq-undo="${esc(it.id)}">Rimetti da fare</button>` : `<button type="button" class="x-act call" data-gq-done="${esc(it.id)}">✓ Fatto</button>`}<button type="button" class="x-act danger" data-gq-del="${esc(it.id)}">🗑️</button></div></div>`).join("")
     : `<div class="x-empty">${gqFilter === "todo" ? "✅ Niente da riportare nel gestionale." : "Ancora nessuna voce fatta."}</div>`;
   const evs = [...(typeof vsEvents !== "undefined" && vsEvents || []), ...(typeof grEvents !== "undefined" && grEvents || []), ...(typeof agEvents !== "undefined" && agEvents || [])].filter(ev => (ev.description || "").match(gqLinkRe));
@@ -6344,7 +6346,7 @@ function gqRender(){
 XVIEWS.gestionale = gqRender;
 $("view-gestionale").addEventListener("click", e => {
   const f = e.target.closest("[data-gq-f]"); if (f) { gqFilter = f.dataset.gqF; gqRender(); return; }
-  if (e.target.closest("#gq-copyall")) { const todo = gqTodo(); if (!todo.length) return toast("La lista è vuota"); return xCopy(`LISTA DA FARE NEL GESTIONALE DOVE.IT (${todo.length})\n\n` + todo.map((it, i) => gqLine(it, i + 1)).join("\n\n")); }
+  if (e.target.closest("#gq-copyall")) { const todo = gqTodo(); if (!todo.length) return toast("La lista è vuota"); return xCopy(`LISTA DA FARE NEL GESTIONALE DOVE.IT (${todo.length})\n${RG_REGOLE}\n\n` + todo.map((it, i) => gqLine(it, i + 1)).join("\n\n")); }
   const cp = e.target.closest("[data-gq-copy]"); if (cp) { const it = gqColl.get(cp.dataset.gqCopy); return it && xCopy(gqLine(it, 1).replace(/^1\. /, "")); }
   const dn = e.target.closest("[data-gq-done]"); if (dn) { const it = gqColl.get(dn.dataset.gqDone); if (it) { it.stato = "fatto"; it.done = Date.now(); gqColl.put(it); toast("✓ Segnata come fatta"); gqRender(); } return; }
   const un = e.target.closest("[data-gq-undo]"); if (un) { const it = gqColl.get(un.dataset.gqUndo); if (it) { it.stato = "da_fare"; delete it.done; gqColl.put(it); gqRender(); } return; }
@@ -6352,7 +6354,7 @@ $("view-gestionale").addEventListener("click", e => {
   if (e.target.closest("#gq-add")) {
     const cli = $("gq-cli").value.trim(), txt = $("gq-txt").value.trim(), tipo = $("gq-tipo").value;
     if (!cli && !txt) { $("gq-cli").classList.add("bad"); toast("Scrivi almeno il cliente o il testo"); return; }
-    gqAdd({ tipo, cliente: cli, tel: $("gq-tel").value.trim(), data: tipo === "Reminder" ? $("gq-data").value : "", ora: tipo === "Reminder" ? $("gq-ora").value : "", testo: txt, link: $("gq-link").value.trim(), fonte: "Aggiunta a mano" });
+    gqAdd({ tipo, cliente: cli, tel: $("gq-tel").value.trim(), data: tipo === "Reminder" ? $("gq-data").value : "", ora: tipo === "Reminder" ? $("gq-ora").value : "", testo: txt, nota: tipo === "Nuova notizia" ? txt : "", link: $("gq-link").value.trim(), fonte: "Aggiunta a mano" });
     ["gq-cli", "gq-tel", "gq-txt", "gq-link", "gq-data"].forEach(id => $(id).value = ""); $("gq-from").value = ""; gqFilter = "todo"; toast("Aggiunta alla lista"); gqRender();
   }
 });
@@ -6456,6 +6458,56 @@ renderList = function(){
   list.insertAdjacentHTML("afterbegin", `<div class="vx-banner"><span>🏠 <b>${n}</b> ${n === 1 ? "visita passata da confermare" : "visite passate da confermare"}: è stata fatta?</span><button type="button" data-vx-show>Mostra</button></div>`);
 };
 document.addEventListener("click", e => { if (e.target.closest("[data-vx-show]")) { mui.range = "passati"; mui.kind = "tutti"; try { lsSet(M_UI, mui); } catch {} watchRange(); mRender(); } });
+
+
+/* ===================== REGOLE GESTIONALE ===================== */
+const RG_ENRICO = "enrico.rosani@dove.it";
+const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar.";
+function rgNextMonday(iso){ let d = xAddDays(iso, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
+/* visita fatta con esito diverso da "non interessato" */
+window.rgVisitaOpinione = function(id, sc){
+  const key = "visop:" + id;
+  for (const it of gqColl.all()) if (it.key === key && it.stato !== "fatto") gqColl.remove(it.id);
+  if (sc.esito === "no" || !gqCfg.data.visite) { gqBadge(); return; }
+  const today = xISO(Date.now()), visit = sc.ev && sc.ev.s ? xISO(new Date(sc.ev.s)) : today;
+  let d = rgNextMonday(visit);
+  if (d < today || (d === today && new Date().getHours() * 60 + new Date().getMinutes() > 9 * 60 + 50)) d = rgNextMonday(today);
+  gqAdd({ key, tipo: "Reminder", cliente: (sc.ev && sc.ev.cliente) || "", tel: (sc.ev && sc.ev.tel) || "", link: (sc.ev && sc.ev.link) || "", data: d, ora: "10:00", testo: "chiedere opinione immobile", fonte: "Scheda visita " + ((sc.ev && sc.ev.dv) || "") });
+};
+/* promemoria da mettere per una notizia, dalla nota scritta */
+function rgPlan(it){
+  if (!it || it.tipo !== "Nuova notizia") return null;
+  const nota = String(it.nota || "").trim(); if (!nota) return null;
+  if (/no\s*risp\w*\s*ris?c/i.test(nota)) { const d = xAddDays(xISO(it.created || Date.now()), 1); return { quando: new Date(d + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" }) + " ore 10:00", testo: "ric" }; }
+  return { quando: "oggi, all'ora di inserimento + 5 minuti", testo: nota, invito: /ric\w*\s+con\s+enrico/i.test(nota) ? RG_ENRICO : "" };
+}
+window.rgPlan = rgPlan;
+/* promemoria "ric con enrico" nel calendario Google -> aggiungi Enrico come invitato */
+let rgBusy = false;
+async function rgInviteEnrico(){
+  if (rgBusy || !gqCfg.data.enrico || typeof tok === "undefined" || !tok || !navigator.onLine) return;
+  rgBusy = true;
+  try {
+    const now = Date.now(), evs = await xCalList(now - 2 * 864e5, now + 60 * 864e5, "enrico");
+    for (const ev of evs) {
+      const txt = (ev.summary || "") + "\n" + (ev.description || "");
+      if (!/ric\w*\s+con\s+enrico/i.test(txt)) continue;
+      const att = ev.attendees || [];
+      if (att.some(a => (a.email || "").toLowerCase() === RG_ENRICO)) continue;
+      try {
+        await api(CAL + "/" + encodeURIComponent(ev.id) + "?sendUpdates=all", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ attendees: att.concat([{ email: RG_ENRICO }]) }) });
+        toast("👥 Enrico invitato a “" + (ev.summary || "promemoria") + "”");
+      } catch (e) {
+        if (e instanceof AuthErr) throw e;
+        gqAdd({ key: "enr:" + ev.id, tipo: "Azione", cliente: (ev.summary || "").replace(/^\[REMINDER\]\s*/i, ""), testo: "Aggiungere " + RG_ENRICO + " come invitato all'evento del " + new Date(ev.start.dateTime || ev.start.date).toLocaleString("it-IT", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }) + " (non sono riuscito a farlo da solo)", fonte: "Regola ric con enrico" });
+      }
+    }
+  } catch {} finally { rgBusy = false; }
+}
+window.rgInviteEnrico = rgInviteEnrico;
+setTimeout(rgInviteEnrico, 8000);
+setInterval(rgInviteEnrico, 10 * 60e3);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(rgInviteEnrico, 3000); });
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "agenda", "clienti", "messaggi", "gestionale", "visite", "match", "modelli", "preq", "desc", "brochure", "prezzi", "calc", "consegna", "foto", "obiettivi", "utilita"] : ["zona"];
