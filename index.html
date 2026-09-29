@@ -696,6 +696,126 @@ a{color:inherit}
 .auto-lates a{min-height:80px;border-radius:16px;background:#b45309;color:#fff;font-size:22px;font-weight:800;display:grid;place-items:center;text-decoration:none}
 @media (min-width:900px){ .auto-grid{grid-template-columns:repeat(4,1fr);flex:0} .auto{padding-inline:max(16px,calc((100vw - 1200px)/2))} }
 @media (orientation:landscape) and (max-height:500px){ .auto-grid{grid-template-columns:repeat(4,1fr)} .auto-grid a,.auto-grid button{min-height:100px} .auto-clock{font-size:28px} }
+/* ---------- BROCHURE ---------- */
+.br-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.br-in,.br-out{display:flex;flex-direction:column;gap:12px;min-width:0}
+.br-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.br-ph{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--surface-2)}
+.br-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.br-ph.cover{outline:3px solid var(--accent);outline-offset:-3px}
+.br-ph .bar{position:absolute;inset:auto 0 0 0;display:flex;justify-content:space-between;background:rgba(0,0,0,.55)}
+.br-ph .bar button{border:0;background:none;color:#fff;font-weight:800;min-width:34px;min-height:32px;cursor:pointer}
+.br-ph .tag{position:absolute;top:6px;left:6px;background:var(--accent);color:#fff;font-size:10.5px;font-weight:800;border-radius:6px;padding:2px 6px}
+.br-page{background:#fff;color:#152033;border-radius:6px;box-shadow:0 8px 30px rgba(10,20,40,.18);aspect-ratio:210/297;overflow:hidden;display:flex;flex-direction:column;font-family:Arial,sans-serif}
+.br-page .cv{height:38%;background:#dfe5ee center/cover no-repeat;display:grid;place-items:center;color:#7c8799;font-size:13px}
+.br-page .bd{padding:5% 6%;display:flex;flex-direction:column;gap:8px;flex:1;min-height:0}
+.br-page h4{margin:0;font-size:clamp(14px,2.2vw,22px);line-height:1.15}
+.br-page .zn{font-size:clamp(10px,1.2vw,13px);color:#4a566b}
+.br-page .pr{font-size:clamp(14px,2vw,22px);font-weight:800;color:#1d4ed8}
+.br-page .fx{display:flex;flex-wrap:wrap;gap:6px}
+.br-page .fx span{background:#eef1f5;border-radius:6px;padding:3px 7px;font-size:clamp(9px,1vw,12px);font-weight:700}
+.br-page .tx{font-size:clamp(9px,1vw,12px);line-height:1.45;color:#333;overflow:hidden;flex:1;white-space:pre-line}
+.br-page .ft{background:#12306e;color:#fff;padding:3% 6%;font-size:clamp(9px,1vw,12px);display:flex;justify-content:space-between;gap:8px}
+@media (min-width:1000px){ .br-wrap{grid-template-columns:minmax(420px,1fr) minmax(360px,.8fr)} .br-out{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} .br-page{max-height:calc(100dvh - 110px);margin:0 auto;width:auto;height:calc(100dvh - 110px)} }
+@media (min-width:1900px){ .br-wrap{grid-template-columns:minmax(560px,820px) minmax(0,1fr)} }
+/* ---------- PREZZI DI ZONA ---------- */
+.pz-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.pz-left{display:flex;flex-direction:column;gap:12px;min-width:0}
+.pz-big{font-family:var(--display);font-size:40px;font-weight:800;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.pz-big small{font-size:15px;color:var(--ink-3);font-weight:600}
+.pz-name{font-family:var(--display);font-size:22px;font-weight:800;margin:10px 0 4px}
+.pz-meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.pz-meta span{font-size:12.5px;font-weight:700;border-radius:999px;padding:4px 10px;background:var(--surface-2)}
+.pz-meta .up{background:var(--hot-soft);color:var(--hot)} .pz-meta .dn{background:var(--done-soft);color:var(--done)}
+.pz-est{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px;font-size:14px}
+.pz-est .inp{max-width:110px}
+.pz-row{display:grid;grid-template-columns:34px minmax(0,1fr) 80px;gap:8px;align-items:center;padding:6px 4px;border-radius:8px;cursor:pointer;border:0;background:none;width:100%;text-align:left;font-size:13.5px}
+.pz-row:hover,.pz-row[aria-current="true"]{background:var(--accent-soft)}
+.pz-row .n{color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:12px;text-align:right}
+.pz-row .nm{min-width:0}
+.pz-row .nm b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pz-row .nm i{display:block;height:6px;border-radius:999px;background:var(--accent);opacity:.75;margin-top:3px}
+.pz-row .v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.pz-row .p{font-size:10.5px;color:var(--ink-3);font-weight:700;margin-left:4px}
+.pz-rank{max-height:none}
+.pz-cmp-row{display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr) auto;gap:8px;align-items:center;margin:6px 0;font-size:13.5px}
+.pz-cmp-row b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pz-cmp-row .bar{height:14px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.pz-cmp-row .bar i{display:block;height:100%;background:var(--market);border-radius:inherit}
+.pz-cmp-row button{border:0;background:none;color:var(--ink-3);cursor:pointer;font-weight:800}
+@media (min-width:1000px){ .pz-wrap{grid-template-columns:minmax(360px,460px) minmax(0,1fr)} .pz-left{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} .pz-rank{max-height:calc(100dvh - 230px);overflow-y:auto;scrollbar-width:thin} }
+@media (min-width:1900px){ .pz-wrap{grid-template-columns:480px minmax(0,1fr)} .pz-rank{columns:2;column-gap:28px} .pz-row{break-inside:avoid} }
+@media (min-width:2400px){ .pz-rank{columns:3} }
+/* ---------- AGENDA ---------- */
+.ag-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.ag-nav b{font-family:var(--display);font-size:16px;min-width:170px;text-align:center}
+.ag-week{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding-bottom:80px}
+.ag-day{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.ag-day.today{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.ag-day.past{opacity:.55}
+.ag-day h3{margin:0 0 2px;font-size:14px;text-transform:capitalize;display:flex;justify-content:space-between}
+.ag-day h3 small{font-size:11.5px;color:var(--ink-3);font-weight:600;text-transform:none}
+.ag-ev{display:grid;grid-template-columns:46px minmax(0,1fr);gap:8px;font-size:12.5px;padding:6px 8px;border-radius:8px;background:var(--surface-2);border-left:4px solid var(--line)}
+.ag-ev b{font-variant-numeric:tabular-nums}
+.ag-ev span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ag-ev.val{border-left-color:var(--market);background:var(--market-soft)}
+.ag-ev.vis{border-left-color:var(--accent);background:var(--accent-soft)}
+.ag-ev.rem{opacity:.6;font-size:11.5px}
+.ag-free{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.ag-free button{border:1px dashed var(--done-bar);background:var(--done-soft);color:var(--done);border-radius:10px;padding:7px 10px;font-size:12.5px;font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.ag-free button[aria-pressed="true"]{background:var(--done);color:#fff;border-style:solid}
+.ag-none{font-size:12px;color:var(--ink-3)}
+.ag-bar{position:fixed;left:var(--gut);right:var(--gut);bottom:calc(env(safe-area-inset-bottom,0px) + 12px);z-index:40;display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 10px;box-shadow:0 8px 24px rgba(10,20,40,.22)}
+.ag-bar[hidden]{display:none}
+.ag-bar span{flex:1;font-weight:700;font-size:13.5px}
+.ag-msg{position:relative}
+@media (min-width:760px){ .ag-week{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (min-width:1100px){ .ag-week{grid-template-columns:repeat(3,minmax(0,1fr))} .ag-bar{left:50%;right:auto;transform:translateX(-50%);min-width:520px} }
+@media (min-width:1500px){ .ag-week{grid-template-columns:repeat(var(--agcols,6),minmax(0,1fr))} }
+/* ---------- CONSEGNA ---------- */
+.cs-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.cs-list{display:flex;flex-direction:column;gap:10px;min-width:0}
+.cs-item{width:100%;text-align:left;border:1px solid var(--line-2);background:var(--surface);border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.cs-item[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.cs-item b{font-size:14.5px} .cs-item small{font-size:12px;color:var(--ink-3)}
+.cs-form{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cs-checks{display:flex;flex-direction:column;gap:6px}
+.cs-keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.cs-key{display:flex;align-items:center;justify-content:space-between;gap:6px;background:var(--surface-2);border-radius:10px;padding:6px 8px;font-size:13px;font-weight:600}
+.cs-key .st{display:flex;align-items:center;gap:4px}
+.cs-key button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--surface);font-size:17px;font-weight:800;cursor:pointer}
+.cs-key b{min-width:18px;text-align:center;font-variant-numeric:tabular-nums}
+.cs-meter{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;border-top:1px solid var(--line-2);padding-top:10px}
+.cs-meter:first-of-type{border-top:0;padding-top:0}
+.cs-meter h4{margin:0;font-size:14px}
+.cs-meter .x-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.cs-ph{display:flex;align-items:center;gap:8px}
+.cs-ph img{width:64px;height:48px;object-fit:cover;border-radius:8px}
+.cs-sig{display:flex;flex-direction:column;gap:6px}
+.cs-sig canvas{width:100%;height:150px;border:2px dashed var(--line);border-radius:12px;background:#fff;touch-action:none;cursor:crosshair}
+.cs-sig.done canvas{border-style:solid;border-color:var(--done-bar)}
+.cs-sigs{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+@media (min-width:1000px){ .cs-wrap{grid-template-columns:minmax(280px,340px) minmax(0,1fr)} .cs-list{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} .cs-sigs{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (min-width:1900px){ .cs-wrap{grid-template-columns:360px minmax(0,1400px)} .cs-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start} .cs-form .cs-full{grid-column:1/-1} }
+/* ---------- DA FARE NEL GESTIONALE ---------- */
+.gq-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.gq-main,.gq-side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.gq-claude{flex-direction:row!important;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:2px solid var(--accent)}
+.gq-claude>div{flex:1;min-width:220px}
+.gq-list{display:flex;flex-direction:column;gap:10px}
+.gq-item{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:start}
+.gq-item.done{opacity:.55}
+.gq-n{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;display:grid;place-items:center;font-size:13px;grid-row:span 2}
+.gq-item.done .gq-n{background:var(--done-soft);color:var(--done)}
+.gq-item b{font-size:15px;overflow-wrap:anywhere}
+.gq-item .tp{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-right:6px}
+.gq-item small{display:block;font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere;margin-top:2px}
+.gq-item .tx{font-size:13.5px;margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
+.gq-item .x-acts{grid-column:1/-1;margin-top:6px}
+.gq-src{font-size:11px;color:var(--ink-3)}
+#gq-auto{display:flex;flex-direction:column;gap:4px}
+@media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
+@media (min-width:1900px){ .gq-mainwrap{max-width:2100px} .gq-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))} }
 /* ---------- HOME ---------- */
 .dd-home{margin-bottom:4px}
 .view .hm-top{position:relative;top:auto;padding-bottom:22px;flex-direction:column!important;align-items:stretch!important}
@@ -731,6 +851,19 @@ a{color:inherit}
 @media (min-width:1000px){ .hm-grid{grid-template-columns:repeat(4,minmax(0,1fr))} .hm-tile{min-height:132px;padding:16px} .hm-tile .ic{font-size:34px} .hm-hero{padding-top:0} .hm-logo{width:80px;height:80px} .hm-name{font-size:46px!important} }
 @media (min-width:1900px){ .hm-main{max-width:2200px} .hm-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;align-items:start} .hm-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
 @media (min-width:2400px){ .hm-groups{grid-template-columns:repeat(4,minmax(0,1fr))} .hm-grid{grid-template-columns:repeat(2,minmax(0,1fr))} .hm-main{max-width:2500px} }
+/* ---------- VISITA FATTA? ---------- */
+.vx{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--todo-soft);border:1px solid var(--todo-bar);border-radius:12px;padding:10px 12px;margin:0 0 10px}
+.vx b{flex:1;min-width:160px;font-size:14px;color:var(--ink)}
+.vx button{min-height:44px;min-width:92px;border-radius:10px;border:0;font-weight:800;font-size:15px;cursor:pointer}
+.vx .si{background:var(--done);color:#fff}
+.vx .no{background:var(--hot);color:#fff}
+.vx.ok{background:var(--done-soft);border-color:var(--done-bar)}
+.vx.ko{background:var(--hot-soft);border-color:var(--hot)}
+.vx.ok b,.vx.ko b{font-weight:600;font-size:13px}
+.vx .ch{min-width:0;min-height:34px;background:none;border:1px solid var(--line);color:var(--ink-2);font-size:12.5px;font-weight:700;padding:0 10px}
+.vx-banner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--todo-soft);border:1px solid var(--todo-bar);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:14px}
+.vx-banner span{flex:1;min-width:180px}
+.vx-banner button{min-height:40px;border-radius:10px;border:0;background:var(--todo-bar);color:#fff;font-weight:800;padding:0 14px;cursor:pointer}
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
 .list-head span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .list{padding:8px var(--gut) 28px;display:grid;grid-template-columns:1fr;gap:8px;align-content:start}
@@ -1639,9 +1772,184 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     <div class="aq-body" id="ut-body"></div>
   </main>
 </div>
+<div class="view" id="view-brochure" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📄 Brochure immobile</h1><p class="sub">Un PDF curato con foto e descrizione, da inviare o stampare</p></div>
+      <span class="sync" id="br-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide br-main">
+    <div class="br-wrap">
+      <section class="br-in">
+        <div class="x-card">
+          <h3>1 · Immobile</h3>
+          <select class="inp" id="br-src"></select>
+          <div class="ds-facts" id="br-facts"></div>
+        </div>
+        <div class="x-card">
+          <div class="ds-head"><h3>2 · Foto <span class="x-note" id="br-nph"></span></h3><label class="x-act call" style="cursor:pointer">📷 Aggiungi foto<input type="file" id="br-add" accept="image/*" multiple hidden></label></div>
+          <div class="br-photos" id="br-photos"></div>
+          <div class="x-note">La prima è la copertina. Usa ◀ ▶ per cambiare l'ordine. Le foto restano su questo dispositivo.</div>
+        </div>
+        <div class="x-card">
+          <h3>3 · Testi</h3>
+          <label class="x-f"><span>Titolo</span><input class="inp" id="br-title"></label>
+          <label class="x-f"><span>Descrizione</span><textarea class="inp" id="br-text" rows="8"></textarea></label>
+          <div class="x-acts"><button type="button" class="x-act" id="br-fromdesc">✍️ Usa il Generatore descrizione</button></div>
+          <div class="x-grid">
+            <label class="x-f"><span>Prezzo</span><select class="inp" id="br-prezzo"><option value="si">Mostra il prezzo</option><option value="rich">Prezzo su richiesta</option><option value="no">Non indicare</option></select></label>
+          </div>
+        </div>
+        <div class="x-card">
+          <h3>4 · I tuoi contatti</h3>
+          <div class="x-grid">
+            <label class="x-f"><span>Nome</span><input class="inp" id="br-nome" data-br-me="nome"></label>
+            <label class="x-f"><span>Telefono</span><input class="inp" id="br-tel" data-br-me="tel" type="tel" inputmode="tel"></label>
+            <label class="x-f"><span>Email</span><input class="inp" id="br-mail" data-br-me="mail" type="email"></label>
+          </div>
+        </div>
+        <button type="button" class="btn ds-gen" id="br-make">📄 Crea la brochure PDF</button>
+        <div id="br-msg"></div>
+      </section>
+      <section class="br-out">
+        <div class="br-page" id="br-preview" aria-label="Anteprima della brochure"></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-prezzi" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📈 Prezzi di zona</h1><p class="sub">Prezzi medi al m² dei comuni di Bergamo e Brescia</p></div>
+      <span class="sync" id="pz-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide pz-main">
+    <div class="pz-wrap">
+      <section class="pz-left">
+        <div class="x-card">
+          <input class="inp" id="pz-q" type="search" placeholder="Cerca un comune (es. Seriate)" list="pz-list-dl" autocomplete="off">
+          <datalist id="pz-list-dl"></datalist>
+          <div id="pz-card"></div>
+        </div>
+        <div class="x-card">
+          <div class="ds-head"><h3>⚖️ Confronto</h3><button type="button" class="x-act" id="pz-clear">Svuota</button></div>
+          <div id="pz-cmp"></div>
+        </div>
+        <div class="x-note">Prezzi medi richiesti al m² (Immobiliare.it, agosto 2026): sono prezzi di offerta, non di vendita. Utili per orientarsi e confrontare i comuni.</div>
+      </section>
+      <section class="pz-right x-card">
+        <div class="ds-head"><h3>🏆 Classifica</h3><div class="x-pills" id="pz-prov"></div></div>
+        <div class="x-pills" id="pz-sort"></div>
+        <div class="pz-rank" id="pz-rank"></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-agenda" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📅 Agenda settimanale</h1><p class="sub">La settimana a colpo d'occhio e gli orari liberi da proporre</p></div>
+      <span class="sync" id="ag-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide ag-main">
+    <div class="ag-top">
+      <div class="gr-day ag-nav"><button type="button" class="chip" data-ag-w="-1" aria-label="Settimana precedente">‹</button><b id="ag-title">Settimana</b><button type="button" class="chip" data-ag-w="1" aria-label="Settimana successiva">›</button><button type="button" class="chip" data-ag-w="0">Oggi</button></div>
+      <button type="button" class="x-act" data-ag-set>⚙️ Orari di lavoro</button>
+    </div>
+    <div class="x-card ag-set" id="ag-set" hidden>
+      <div class="x-grid">
+        <label class="x-f"><span>Inizio giornata</span><input class="inp" type="time" data-ag="da"></label>
+        <label class="x-f"><span>Fine giornata</span><input class="inp" type="time" data-ag="a"></label>
+        <label class="x-f"><span>Pausa pranzo dalle</span><input class="inp" type="time" data-ag="pDa"></label>
+        <label class="x-f"><span>alle</span><input class="inp" type="time" data-ag="pA"></label>
+        <label class="x-f"><span>Tempo minimo libero</span><select class="inp" data-ag="slot"><option value="30">30 min</option><option value="45">45 min</option><option value="60">1 ora</option><option value="90">1 ora e mezza</option></select></label>
+        <label class="x-f"><span>Margine per gli spostamenti</span><select class="inp" data-ag="buf"><option value="0">nessuno</option><option value="15">15 min</option><option value="30">30 min</option><option value="45">45 min</option></select></label>
+      </div>
+      <label class="calc-chk"><input type="checkbox" data-ag="sab"> Lavoro anche il sabato</label>
+      <label class="calc-chk"><input type="checkbox" data-ag="rem"> I promemoria [REMINDER] occupano tempo</label>
+    </div>
+    <div id="ag-login"></div>
+    <div class="ag-week" id="ag-week"></div>
+    <div class="ag-bar" id="ag-bar" hidden>
+      <span id="ag-bar-n"></span>
+      <button type="button" class="x-act" id="ag-bar-clear">Annulla</button>
+      <button type="button" class="x-act call" id="ag-bar-go">💬 Proponi questi orari</button>
+    </div>
+    <div class="x-card ag-msg" id="ag-msg" hidden>
+      <div class="ds-head"><h3>💬 Messaggio con gli orari</h3><button type="button" class="x-act" id="ag-msg-x">✕</button></div>
+      <div class="x-grid"><label class="x-f"><span>Nome</span><input class="inp" id="ag-m-nome" placeholder="Es. Mario"></label><label class="x-f"><span>Telefono</span><input class="inp" id="ag-m-tel" type="tel" inputmode="tel"></label><label class="x-f"><span>Per</span><select class="inp" id="ag-m-cosa"><option value="la valutazione del suo immobile">una valutazione</option><option value="la visita dell'immobile">una visita</option><option value="un incontro">un incontro</option></select></label></div>
+      <div class="ds-box"><textarea class="inp md-text" id="ag-m-text"></textarea><div class="ds-boxfoot"><a class="x-act wa" id="ag-m-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp</a><button type="button" class="x-act call" id="ag-m-copy">📋 Copia</button></div></div>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-consegna" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🔑 Consegna immobile</h1><p class="sub">Letture dei contatori, chiavi e verbale firmato</p></div>
+      <span class="sync" id="cs-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide cs-main">
+    <div class="cs-wrap">
+      <section class="cs-list">
+        <button type="button" class="btn ds-gen" id="cs-new">＋ Nuova consegna</button>
+        <div id="cs-items"></div>
+      </section>
+      <section class="cs-form" id="cs-form"></section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-gestionale" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📋 Da fare nel gestionale</h1><p class="sub">Tutto quello da riportare nel backoffice, pronto da inserire</p></div>
+      <span class="sync" id="gq-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide gq-mainwrap">
+    <div class="gq-wrap">
+      <section class="gq-main">
+        <div class="x-card gq-claude">
+          <div><b>🤖 Vuoi che le inserisca io?</b><div class="x-note" style="font-size:13px">Apri il gestionale nel browser, fai l'accesso e scrivimi <b>“svuota la lista”</b>. Poi tocca qui e incolla la lista nella chat: le inserisco una per una e ti chiedo conferma prima di salvare ognuna.</div></div>
+          <button type="button" class="x-act call" id="gq-copyall">📋 Copia la lista per Claude</button>
+        </div>
+        <div class="x-pills" id="gq-filter"></div>
+        <div class="gq-list" id="gq-list"></div>
+      </section>
+      <section class="gq-side">
+        <div class="x-card">
+          <h3>＋ Aggiungi a mano</h3>
+          <div class="x-grid">
+            <label class="x-f"><span>Cosa</span><select class="inp" id="gq-tipo"><option>Reminder</option><option>Nota</option><option>Nuova notizia</option><option>Cambio stato</option><option>Altro</option></select></label>
+            <label class="x-f"><span>Da un appuntamento</span><select class="inp" id="gq-from"></select></label>
+            <label class="x-f"><span>Cliente</span><input class="inp" id="gq-cli" placeholder="Nome e cognome"></label>
+            <label class="x-f"><span>Telefono</span><input class="inp" id="gq-tel" type="tel" inputmode="tel"></label>
+            <label class="x-f gq-when"><span>Giorno</span><input class="inp" id="gq-data" type="date"></label>
+            <label class="x-f gq-when"><span>Ora</span><input class="inp" id="gq-ora" type="time" value="10:00"></label>
+            <label class="x-f x-full"><span>Testo</span><textarea class="inp" id="gq-txt" rows="2" placeholder="Es. richiamare dopo le 18, vuole la valutazione entro fine mese"></textarea></label>
+            <label class="x-f x-full"><span>Link alla scheda (facoltativo)</span><input class="inp" id="gq-link" placeholder="https://backoffice.dove.it/…"></label>
+          </div>
+          <button type="button" class="x-act call" id="gq-add">Aggiungi alla lista</button>
+        </div>
+        <div class="x-card">
+          <h3>⚙️ Aggiungi in automatico</h3>
+          <div id="gq-auto"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
   <button class="dd-item dd-home" role="menuitemradio" data-view="home"><span class="dd-i">🏠</span><span class="dd-t"><b>Home</b><small>Tutte le sezioni</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
-  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti utili</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da completare e inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio dal foglio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto e foglio acquirente</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e strumenti</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, modalità auto, backup</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
+  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti utili</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi da proporre</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Reminder e note da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da completare e inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio dal foglio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="brochure"><span class="dd-i">📄</span><span class="dd-t"><b>Brochure immobile</b><small>PDF con foto e descrizione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto e foglio acquirente</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale firmato</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e strumenti</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, modalità auto, backup</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -2200,7 +2508,7 @@ function parseEvent(ev){
     email: field(desc, ["Email","Mail","E-mail"]), location: ev.location || null,
     notes: field(desc, ["Note Appuntamento","Note reminder","Note"]),
     startISO: start, endISO: end, isAllDay: !!(ev.start && ev.start.date && !ev.start.dateTime),
-    kind: kindOf(summary, desc), dvCode: dvOf(summary, desc), htmlLink: ev.htmlLink || null
+    kind: kindOf(summary, desc), dvCode: dvOf(summary, desc), htmlLink: ev.htmlLink || null, boLink: ((desc.match(/https:\/\/backoffice\.dove\.it\/\S+/i) || [""])[0]).replace(/[).,]+$/, "")
   };
 }
 function needsFollow(a){
@@ -2417,6 +2725,7 @@ function cardHtml(a){
   const wa = om ? waUrl(a.phone, om.text) : null, mail = om ? mailUrl(a.email, MAIL_SUBJ[om.type], om.text) : null;
   return `<article class="card${follow ? " follow" : ""}" data-id="${esc(a.id)}">
     ${follow ? `<div class="banner2">🔔 Da ricontattare: chiedi un feedback sull'incontro</div>` : ""}
+    ${window.vxBox ? vxBox(a) : ""}
     ${a.source === "email" && !contacted && a.startISO && Date.now() - new Date(a.startISO).getTime() > 864e5 ? `<div class="note-box err">⚠️ In ritardo: questa richiesta è arrivata da oltre 24 ore, rispondi il prima possibile!</div>` : ""}
     <div class="card-h"><div class="who"><div class="name">${contacted ? `<span title="Contattato">${RED} </span>` : ""}<button data-a="client">${esc(a.clientName)}</button>${showPr && pr ? `<span class="prio p-${pr}">${PRIO[pr].emoji} ${PRIO[pr].label}</span>` : ""}</div><div class="when">${esc(when)}</div></div><span class="kind k-${a.kind}">${k.label}</span></div>
     <div class="meta2">${a.phoneDisplay ? `<span>📞 <span class="num">${esc(a.phoneDisplay)}</span></span><a href="tel:+${esc(a.phone)}">Chiama</a>` : `<span class="no">📞 nessun numero trovato</span>`}
@@ -2617,8 +2926,10 @@ function mBind(){
     else if (act === "prio") { crm.priority[a.id] === b.dataset.v ? delete crm.priority[a.id] : crm.priority[a.id] = b.dataset.v; saveCrm(); }
     else if (act === "msg") { const t = b.dataset.v; if (openMsg[a.id] && openMsg[a.id].type === t) delete openMsg[a.id]; else openMsg[a.id] = { type: t, text: buildMessage(t, a) }; }
     else if (act === "copy") return copyText(openMsg[a.id].text, document.getElementById("t-" + a.id));
-    else if (act === "wa" || act === "mail") { markContacted(a, openMsg[a.id] && openMsg[a.id].type); return; }
+    else if (act === "wa" || act === "mail") { if (act === "wa" && window.vxWaSent && openMsg[a.id]) { const ta = document.getElementById("t-" + a.id); vxWaSent(a, openMsg[a.id].type, (ta && ta.value) || openMsg[a.id].text); } markContacted(a, openMsg[a.id] && openMsg[a.id].type); return; }
     else if (act === "mark") { markContacted(a, openMsg[a.id] && openMsg[a.id].type); return; }
+    else if (act === "vxsi" || act === "vxno") { vxAnswer(a, act === "vxsi"); }
+    else if (act === "vxreset") { vxReset(a); }
     else return;
     renderList();
   });
@@ -3842,20 +4153,20 @@ $("view-clienti").addEventListener("click", async e => {
   if (t.closest("#cl-new")) { const r = clients.put(clEmptyRec({ ruolo: clUi.ruolo || "venditore", log: [{ at: Date.now(), t: "nota", txt: "Cliente creato" }] })); clUi.q = ""; clUi.stato = ""; clSelect(r.id, true); clRenderSide(); setTimeout(() => $("clf-nome") && $("clf-nome").focus(), 30); return; }
   if (t.closest("[data-cl-back]")) { clOpenMobile = false; clCleanup(null); clRenderDetail(); clRenderList(); return; }
   const r = clients.get(clUi.sel); if (!r) return;
-  const sb = t.closest("[data-cl-stato]"); if (sb) { clSetStato(r, sb.dataset.clStato); clients.put(r); clRenderSide(); clRenderList(); clRenderDetail(); return; }
+  const sb = t.closest("[data-cl-stato]"); if (sb) { clSetStato(r, sb.dataset.clStato); clients.put(r); if (window.gqAdd) gqAdd({ key: "clst:" + r.id, tipo: "Cambio stato", cliente: r.nome, tel: r.tel, testo: "Nuovo stato: " + (CL_ST[r.stato] || [])[1], fonte: "Clienti" }, "stato"); clRenderSide(); clRenderList(); clRenderDetail(); return; }
   if (t.closest("[data-cl-del]")) {
     if (!clDelArm) { clDelArm = true; clRenderDetail(); setTimeout(() => { if (clDelArm) { clDelArm = false; clRenderDetail(); } }, 4000); return; }
     clDelArm = false; clients.remove(r.id, ["pqIds"]); clUi.sel = null; clOpenMobile = false; clSaveUi(); clRender(); toast("Cliente eliminato"); return;
   }
   const w = t.closest("[data-cl-when]");
-  if (w) { r.prossima = r.prossima || {}; if (w.dataset.clWhen === "done") { r.log.push({ at: Date.now(), t: "nota", txt: "Fatto: " + (r.prossima.cosa || "azione") }); r.prossima = { data: "", ora: "10:00", cosa: "", evId: "" }; } else { r.prossima.data = xWorkday(xAddDays(xISO(Date.now()), +w.dataset.clWhen)); if (!r.prossima.cosa) r.prossima.cosa = "Richiamare"; } clients.put(r); clRenderSide(); clRenderList(); clRenderDetail(); return; }
+  if (w) { r.prossima = r.prossima || {}; if (w.dataset.clWhen === "done") { r.log.push({ at: Date.now(), t: "nota", txt: "Fatto: " + (r.prossima.cosa || "azione") }); r.prossima = { data: "", ora: "10:00", cosa: "", evId: "" }; } else { r.prossima.data = xWorkday(xAddDays(xISO(Date.now()), +w.dataset.clWhen)); if (!r.prossima.cosa) r.prossima.cosa = "Richiamare"; if (window.gqAdd) gqAdd({ key: "clrem:" + r.id, tipo: "Reminder", cliente: r.nome, tel: r.tel, data: r.prossima.data, ora: r.prossima.ora || "10:00", testo: r.prossima.cosa, fonte: "Clienti" }, "reminder"); } clients.put(r); clRenderSide(); clRenderList(); clRenderDetail(); return; }
   if (t.closest("[data-cl-cal]")) {
     if (!xLogged()) { toast("Accedi con Google per usare il calendario"); return; }
     const p = r.prossima; if (!p.data) return;
     clCalBusy = true; clRenderDetail();
     try {
       const ev = await xCalUpsert(p.evId, Object.assign({ summary: `📞 ${p.cosa || "Richiamare"} · ${clName(r)}`, description: [r.tel ? "Telefono: " + r.tel : "", r.indirizzo ? "Indirizzo: " + r.indirizzo : "", r.note ? "Note: " + r.note : "", "", "Creato dalla sezione Clienti"].filter((x, i) => x || i > 2).join("\n"), colorId: "6", reminders: { useDefault: false, overrides: [{ method: "popup", minutes: 10 }] } }, xEventTimes(p.data, p.ora, 15)));
-      p.evId = ev.id; r.log.push({ at: Date.now(), t: "cal", txt: `${xDay(p.data)} alle ${p.ora || "10:00"} · ${p.cosa || "Richiamare"}` }); clients.put(r); toast("📅 Promemoria salvato nel calendario");
+      if (window.gqAdd) gqAdd({ key: "clrem:" + r.id, tipo: "Reminder", cliente: r.nome, tel: r.tel, data: p.data, ora: p.ora || "10:00", testo: p.cosa || "Richiamare", fonte: "Clienti" }, "reminder"); p.evId = ev.id; r.log.push({ at: Date.now(), t: "cal", txt: `${xDay(p.data)} alle ${p.ora || "10:00"} · ${p.cosa || "Richiamare"}` }); clients.put(r); toast("📅 Promemoria salvato nel calendario");
     } catch (err) { toast("Calendario: " + ((err && err.message) || err)); }
     clCalBusy = false; clRenderDetail(); return;
   }
@@ -4465,6 +4776,7 @@ async function leadFromCivico(i){
       calMsg = ` · promemoria ${xDay(day)} alle 10:00`;
     } catch (e) { calMsg = " · promemoria non creato (" + ((e && e.message) || e) + ")"; }
   } else calMsg = " · accedi con Google per il promemoria";
+  if (window.gqAdd) gqAdd({ key: "civ:" + r.id, tipo: "Nuova notizia", cliente: c.nota || addr, tel: c.telefono || "", data: day, ora: "10:00", testo: `Porta a porta: civico caldo ${addr}${c.nota ? "\nNota: " + c.nota : ""}\nRichiamare il ${xDay(day)} alle 10:00`, fonte: "Ricerca Zona" }, "civici");
   closeSheet();
   showView("preq");
   toast("⚡ Cliente creato" + calMsg);
@@ -4801,7 +5113,7 @@ let vsEvents = null, vsErr = "", vsOpen = null, vsTab = "list", vsFilter = "todo
 function vsIsVisit(ev){ const s = ev.summary || "", d = (ev.description || "").trim().toLowerCase(); if (/\[reminder\]/i.test(s) || d.startsWith("reminder")) return false; return /\[dv[-\s]?\d+\]/i.test(s) || d.startsWith("appuntamento di visita"); }
 function vsItems(){
   const map = new Map();
-  for (const ev of vsEvents || []) { if (!ev.start || !ev.start.dateTime || !vsIsVisit(ev)) continue; const a = parseEvent(ev); map.set(ev.id, { id: ev.id, dv: a.dvCode || "Senza codice", cliente: a.clientName && a.clientName !== "Cliente" ? a.clientName : (ev.summary || "Visita"), tel: a.phone, loc: ev.location || "", s: new Date(ev.start.dateTime).getTime(), e: new Date((ev.end && ev.end.dateTime) || ev.start.dateTime).getTime() }); }
+  for (const ev of vsEvents || []) { if (!ev.start || !ev.start.dateTime || !vsIsVisit(ev)) continue; const a = parseEvent(ev); map.set(ev.id, { id: ev.id, dv: a.dvCode || "Senza codice", cliente: a.clientName && a.clientName !== "Cliente" ? a.clientName : (ev.summary || "Visita"), tel: a.phone, loc: ev.location || "", link: ((ev.description || "").match(/https:\/\/backoffice\.dove\.it\/\S+/i) || [""])[0], s: new Date(ev.start.dateTime).getTime(), e: new Date((ev.end && ev.end.dateTime) || ev.start.dateTime).getTime() }); }
   for (const [id, sc] of Object.entries(vsDoc.data.schede)) if (!map.has(id) && sc.ev) map.set(id, Object.assign({}, sc.ev));
   return [...map.values()].sort((a, b) => b.s - a.s);
 }
@@ -4900,7 +5212,7 @@ function vsRender(noFetch){
   if (!noFetch) vsLoad();
 }
 XVIEWS.visite = () => vsRender(false);
-function vsSc(id){ const it = vsItems().find(x => x.id === id); const sc = vsDoc.data.schede[id] || (vsDoc.data.schede[id] = {}); if (it) sc.ev = { id: it.id, dv: it.dv, cliente: it.cliente, tel: it.tel, loc: it.loc, s: it.s, e: it.e }; sc.at = Date.now(); return sc; }
+function vsSc(id){ const it = vsItems().find(x => x.id === id); const sc = vsDoc.data.schede[id] || (vsDoc.data.schede[id] = {}); if (it) sc.ev = { id: it.id, dv: it.dv, cliente: it.cliente, tel: it.tel, loc: it.loc, link: it.link || (sc.ev && sc.ev.link) || "", s: it.s, e: it.e }; sc.at = Date.now(); return sc; }
 document.addEventListener("click", e => { const b = e.target.closest("[data-vs-open]"); if (!b) return; vsTab = "list"; vsFilter = "all"; vsOpen = b.dataset.vsOpen; showView("visite"); });
 $("view-visite").addEventListener("click", e => {
   const tb = e.target.closest("[data-vs-tab]"); if (tb) { vsTab = tb.dataset.vsTab; vsRender(true); return; }
@@ -4911,7 +5223,10 @@ $("view-visite").addEventListener("click", e => {
     const id = f.dataset.vsId, sc = vsSc(id);
     const es = e.target.closest("[data-vs-esito]"); if (es) { sc.esito = es.dataset.vsEsito; vsDoc.save(); vsRenderList(); return; }
     const pr = e.target.closest("[data-vs-prezzo]"); if (pr) { sc.prezzo = sc.prezzo === pr.dataset.vsPrezzo ? "" : pr.dataset.vsPrezzo; vsDoc.save(); vsRenderList(); return; }
-    if (e.target.closest("[data-vs-close]")) { vsOpen = null; vsDoc.save(); vsRenderList(); toast(sc.esito ? "Scheda salvata ✓" : "Scegli com'è andata"); return; }
+    if (e.target.closest("[data-vs-close]")) { vsOpen = null; vsDoc.save(); vsRenderList(); toast(sc.esito ? "Scheda salvata ✓" : "Scegli com'è andata");
+      if (sc.esito && window.gqAdd) { const E = VS_ESITI.find(x => x[0] === sc.esito); gqAdd({ key: "vis:" + id, tipo: "Nota", cliente: (sc.ev && sc.ev.cliente) || "", tel: (sc.ev && sc.ev.tel) || "", link: (sc.ev && sc.ev.link) || "", fonte: "Scheda visita " + ((sc.ev && sc.ev.dv) || ""),
+        testo: [`Esito visita${sc.ev && sc.ev.dv ? " " + sc.ev.dv : ""}: ${E ? E[2].toLowerCase() : sc.esito}`, (sc.piace || []).length ? "Piaciuto: " + sc.piace.join(", ").toLowerCase() : "", (sc.non || []).length ? "Non piaciuto: " + sc.non.join(", ").toLowerCase() : "", sc.prezzo ? "Prezzo: " + ({ giusto: "giusto", alto: "troppo alto", offerta: "farebbe un'offerta" + (sc.offerta ? " di " + sc.offerta + " €" : "") })[sc.prezzo] : "", sc.passo ? "Prossimo passo: " + sc.passo.toLowerCase() : "", sc.note ? "Note: " + sc.note : ""].filter(Boolean).join("\n") }, "visite"); }
+      return; }
   }
   if (e.target.closest("#vs-rep-regen")) { vsRepUpdate(true); return; }
   if (e.target.closest("#vs-rep-copy")) return xCopy($("vs-rep-text").value);
@@ -5157,7 +5472,7 @@ function aqCallText(c){ return [c.nome || "Contatto", c.tel, c.motivo, c.comune,
 function aqCallSave(openCl){
   const tel = $("aq-c-tel").value.trim(); if (!xDigits(tel)) { $("aq-c-tel").classList.add("bad"); $("aq-c-tel").focus(); return; }
   const c = { id: xId("ch"), tel, nome: $("aq-c-nome").value.trim(), comune: $("aq-c-com").value.trim(), fonte: $("aq-c-fonte").value, motivo: aqMotivo, note: $("aq-c-note").value.trim() };
-  aqCall.put(c); aqMotivo = "";
+  aqCall.put(c); aqMotivo = ""; if (window.gqAdd) gqAdd({ key: "call:" + c.id, tipo: c.motivo === "Vende" || c.motivo === "Valutazione" ? "Nuova notizia" : "Nota", cliente: c.nome || "", tel: c.tel, testo: [c.motivo ? "Motivo: " + c.motivo : "", c.comune ? "Zona: " + c.comune : "", c.fonte ? "Fonte: " + c.fonte : "", c.note].filter(Boolean).join("\n"), fonte: "Chiamata registrata" }, "chiamate");
   if (openCl) aqToClient(c); else { toast("Chiamata salvata"); aqRender(); }
 }
 function aqToClient(c){
@@ -5636,11 +5951,425 @@ async function calcBuyerPdf(){
 $("view-calc").addEventListener("click", e => { if (e.target.closest("#calc-bpdf")) calcBuyerPdf(); });
 
 
+/* ===================== BROCHURE IMMOBILE ===================== */
+const brDoc = xDoc("rz_brochure_v1", "brochure", { me: {}, by: {} });
+let brSrc = "", brThumbs = {};
+async function aqPhotoDel(id){ try { const db = await aqDb(); db.transaction("f", "readwrite").objectStore("f").delete(id); } catch {} }
+function brSheets(){ return pqList.map(p => ({ id: p.id, label: ((p.c.tipologia || [])[0] || "Immobile") + " · " + (p.v.indirizzo || "").split("\n")[0] + (p.v.nome ? " · " + p.v.nome : ""), rec: p })); }
+function brRec(){ const s = brSheets().find(x => x.id === brSrc); return s ? s.rec : null; }
+function brState(){ return brDoc.data.by[brSrc] || (brDoc.data.by[brSrc] = { photos: [], title: "", text: "", prezzo: "" }); }
+function brFacts(rec){
+  const d = dsData(rec), f = [];
+  if (d.tip) f.push(d.tip); if (d.mq) f.push(d.mq + " m²"); const loc = dsLocali(d); if (loc) f.push(loc + " locali"); if (d.camere) f.push(d.camere + (d.camere === 1 ? " camera" : " camere"));
+  if (d.bagni) f.push(d.bagni + (d.bagni === 1 ? " bagno" : " bagni")); const pt = dsPianoTxt(d); if (pt) f.push(pt.replace(/^al |^all'/, "").replace(/^piano terra/, "piano terra"));
+  if (d.terrazzi) f.push(d.terrazzi > 1 ? d.terrazzi + " terrazzi" : "terrazzo"); else if (d.balconi) f.push(d.balconi > 1 ? d.balconi + " balconi" : "balcone");
+  if (d.giardino) f.push("giardino " + d.giardino + " m²"); if (d.box) f.push(d.box > 1 ? d.box + " box" : "box"); if (d.cantine) f.push("cantina");
+  if (d.classe) f.push("classe " + d.classe); if (d.risc) f.push("risc. " + d.risc.toLowerCase());
+  return f;
+}
+function brDefaults(rec){
+  const st = brState(), ds = dsDoc.data.by[brSrc];
+  if (!st.title) st.title = (ds && ds.title) || (rec ? dsGenerate(rec, { tono: "pro", lung: "media" }, {}, 3).title : "");
+  if (!st.text) st.text = (ds && ds.text) || (rec ? dsGenerate(rec, { tono: "pro", lung: "media" }, {}, 3).text : "");
+  if (!st.prezzo) st.prezzo = rec && dsData(rec).prezzo ? "si" : "rich";
+}
+async function brThumbsLoad(){ const st = brState(); for (const k of st.photos) if (!brThumbs[k]) brThumbs[k] = await aqPhotoGet(k); brDrawPhotos(); brPreview(); }
+function brDrawPhotos(){
+  const st = brState();
+  $("br-nph").textContent = st.photos.length ? `(${st.photos.length})` : "";
+  $("br-photos").innerHTML = st.photos.length ? st.photos.map((k, i) => `<div class="br-ph${i === 0 ? " cover" : ""}">${brThumbs[k] ? `<img src="${brThumbs[k]}" alt="Foto ${i + 1}">` : ""}${i === 0 ? `<span class="tag">Copertina</span>` : ""}<div class="bar"><button type="button" data-br-mv="-1" data-i="${i}" aria-label="Sposta a sinistra">◀</button><button type="button" data-br-del="${i}" aria-label="Elimina">✕</button><button type="button" data-br-mv="1" data-i="${i}" aria-label="Sposta a destra">▶</button></div></div>`).join("") : `<div class="x-empty" style="grid-column:1/-1;padding:16px">Nessuna foto: aggiungile dalla galleria o scattale ora.</div>`;
+}
+function brPrice(rec){ const st = brState(), p = rec ? dsData(rec).prezzo : 0; return st.prezzo === "si" && p ? xEuro(p) : st.prezzo === "rich" ? "Prezzo su richiesta" : ""; }
+function brZone(rec){ if (!rec) return ""; const d = dsData(rec), ds = dsDoc.data.by[brSrc], z = ds && ds.f && ds.f.zona; return [z, d.comune].filter(Boolean).join(" · "); }
+function brPreview(){
+  const rec = brRec(), st = brState(), me = brDoc.data.me, cover = st.photos[0] && brThumbs[st.photos[0]];
+  $("br-preview").innerHTML = !rec ? `<div class="bd"><div class="x-empty">Salva prima un foglio di prequalifica.</div></div>` :
+    `<div class="cv" style="${cover ? `background-image:url('${cover}')` : ""}">${cover ? "" : "Foto di copertina"}</div>
+     <div class="bd"><h4>${esc(st.title || "Titolo")}</h4><div class="zn">📍 ${esc(brZone(rec))}</div>${brPrice(rec) ? `<div class="pr">${esc(brPrice(rec))}</div>` : ""}
+     <div class="fx">${brFacts(rec).slice(0, 8).map(f => `<span>${esc(f)}</span>`).join("")}</div><div class="tx">${esc(st.text)}</div></div>
+     <div class="ft"><span>${esc(me.nome || crm.signature || DEFAULT_SIG)}</span><span>${esc([me.tel, me.mail].filter(Boolean).join(" · "))}</span></div>`;
+}
+function brRender(){
+  const sheets = brSheets();
+  if (!sheets.some(x => x.id === brSrc)) brSrc = (pqCur && sheets.find(x => x.id === pqCur.id) || sheets[0] || { id: "" }).id;
+  $("br-src").innerHTML = sheets.length ? sheets.map(x => `<option value="${esc(x.id)}"${x.id === brSrc ? " selected" : ""}>${esc(x.label)}</option>`).join("") : `<option value="">Nessun foglio di prequalifica salvato</option>`;
+  $("br-sync").textContent = xLogged() ? "Google" : "Locale"; $("br-sync").classList.remove("clickable");
+  const rec = brRec(), me = brDoc.data.me;
+  if (!me.nome) me.nome = crm.signature || DEFAULT_SIG;
+  $("br-nome").value = me.nome || ""; $("br-tel").value = me.tel || ""; $("br-mail").value = me.mail || "";
+  if (rec) { brDefaults(rec); const st = brState(); $("br-title").value = st.title; $("br-text").value = st.text; $("br-prezzo").value = st.prezzo;
+    $("br-facts").innerHTML = brFacts(rec).map(f => `<span>${esc(f)}</span>`).join("") || `<span class="miss">Compila la prequalifica per avere più dati</span>`; }
+  else { $("br-title").value = ""; $("br-text").value = ""; $("br-facts").innerHTML = ""; }
+  brDrawPhotos(); brPreview(); brThumbsLoad();
+}
+XVIEWS.brochure = brRender;
+function brCrop(src, ratio){ return new Promise(res => { const img = new Image(); img.onload = () => { const r = img.width / img.height; let sw = img.width, sh = img.height, sx = 0, sy = 0; if (r > ratio) { sw = img.height * ratio; sx = (img.width - sw) / 2; } else { sh = img.width / ratio; sy = (img.height - sh) / 2; } const c = document.createElement("canvas"); c.width = Math.min(1600, Math.round(sw)); c.height = Math.round(c.width / ratio); c.getContext("2d").drawImage(img, sx, sy, sw, sh, 0, 0, c.width, c.height); res(c.toDataURL("image/jpeg", 0.82)); }; img.onerror = () => res(null); img.src = src; }); }
+async function brMake(){
+  const rec = brRec(); if (!rec) { toast("Scegli un foglio di prequalifica"); return; }
+  const st = brState(), me = brDoc.data.me, btn = $("br-make"); btn.disabled = true; btn.textContent = "Creo la brochure…";
+  try {
+    const jsPDF = await pdfLoad(), doc = new jsPDF({ unit: "mm", format: "a4" }), W = 210, H = 297, M = 14;
+    const photos = []; for (const k of st.photos) { const d = brThumbs[k] || await aqPhotoGet(k); if (d) photos.push(d); }
+    const footer = () => { doc.setFillColor(18, 48, 110); doc.rect(0, H - 16, W, 16, "F"); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.text(pdfTxt(me.nome || crm.signature || DEFAULT_SIG), M, H - 6.5); doc.setFont("helvetica", "normal"); doc.text(pdfTxt([me.tel, me.mail].filter(Boolean).join("  ·  ")), W - M, H - 6.5, { align: "right" }); };
+    let y;
+    if (photos[0]) { const c = await brCrop(photos[0], W / 118); if (c) doc.addImage(c, "JPEG", 0, 0, W, 118); y = 128; }
+    else { doc.setFillColor(29, 78, 216); doc.rect(0, 0, W, 40, "F"); y = 52; }
+    doc.setTextColor(21, 32, 51); doc.setFont("helvetica", "bold"); doc.setFontSize(19);
+    const tl = doc.splitTextToSize(pdfTxt(st.title || "Immobile in vendita"), W - 2 * M - 52); doc.text(tl, M, y); const tlH = tl.length * 7.5;
+    const pr = brPrice(rec);
+    if (pr) { doc.setFillColor(227, 235, 253); doc.roundedRect(W - M - 48, y - 7, 48, 13, 2, 2, "F"); doc.setTextColor(29, 78, 216); doc.setFontSize(pr.length > 12 ? 9.5 : 14); doc.text(pdfTxt(pr), W - M - 24, y + 1.5, { align: "center" }); }
+    y += tlH; doc.setTextColor(74, 86, 107); doc.setFont("helvetica", "normal"); doc.setFontSize(11); doc.text(pdfTxt(brZone(rec)), M, y); y += 8;
+    let x = M; doc.setFontSize(9.5); doc.setFont("helvetica", "bold");
+    for (const f of brFacts(rec)) { const t = pdfTxt(f), w = doc.getTextWidth(t) + 6; if (x + w > W - M) { x = M; y += 8; } doc.setFillColor(238, 241, 245); doc.roundedRect(x, y - 4.6, w, 6.6, 1.5, 1.5, "F"); doc.setTextColor(21, 32, 51); doc.text(t, x + 3, y); x += w + 2.5; }
+    y += 10; doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); doc.setTextColor(40, 48, 62);
+    const lines = doc.splitTextToSize(pdfTxt(st.text), W - 2 * M), room = Math.floor((H - 22 - y) / 5.2);
+    doc.text(lines.slice(0, room), M, y); let rest = lines.slice(room);
+    footer();
+    const more = photos.slice(1);
+    if (more.length || rest.length) {
+      doc.addPage(); y = M;
+      if (rest.length) { doc.setTextColor(40, 48, 62); doc.setFontSize(10.5); doc.text(rest, M, y + 4); y += rest.length * 5.2 + 8; }
+      const gw = (W - 2 * M - 6) / 2, gh = gw * 0.72;
+      for (let i = 0; i < more.length; i++) {
+        if (y + gh > H - 22) { footer(); doc.addPage(); y = M; }
+        const c = await brCrop(more[i], gw / gh); if (c) doc.addImage(c, "JPEG", M + (i % 2) * (gw + 6), y, gw, gh);
+        if (i % 2 === 1 || i === more.length - 1) y += gh + 6;
+      }
+      footer();
+    }
+    await xDownload(doc.output("blob"), `Brochure_${pdfTxt(brZone(rec) || "immobile").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "_")}_${xISO(Date.now())}.pdf`);
+    $("br-msg").innerHTML = `<div class="note-box info">✅ Brochure pronta${photos.length ? ` con ${photos.length} ${photos.length === 1 ? "foto" : "foto"}` : " (senza foto)"}.</div>`;
+  } catch (e) { $("br-msg").innerHTML = `<div class="note-box err">Brochure non creata: ${esc((e && e.message) || String(e))}</div>`; }
+  btn.disabled = false; btn.textContent = "📄 Crea la brochure PDF";
+}
+let brT = null; const brSave = () => { clearTimeout(brT); brT = setTimeout(() => brDoc.save(), 500); };
+$("view-brochure").addEventListener("change", async e => {
+  if (e.target.id === "br-src") { brSrc = e.target.value; brRender(); return; }
+  if (e.target.id === "br-prezzo") { brState().prezzo = e.target.value; brSave(); brPreview(); return; }
+  if (e.target.id === "br-add" && e.target.files.length) {
+    const st = brState(); $("br-msg").innerHTML = `<div class="note-box info">Preparo le foto…</div>`;
+    for (const f of e.target.files) { try { const d = await aqCompress(f), k = "br:" + brSrc + ":" + xId("f"); await aqPhotoSet(k, d); brThumbs[k] = d; st.photos.push(k); } catch {} }
+    e.target.value = ""; brDoc.save(); $("br-msg").innerHTML = ""; brDrawPhotos(); brPreview();
+  }
+});
+$("view-brochure").addEventListener("input", e => {
+  if (e.target.id === "br-title") { brState().title = e.target.value; brSave(); brPreview(); }
+  else if (e.target.id === "br-text") { brState().text = e.target.value; brSave(); brPreview(); }
+  else if (e.target.dataset.brMe) { brDoc.data.me[e.target.dataset.brMe] = e.target.value; brSave(); brPreview(); }
+});
+$("view-brochure").addEventListener("click", async e => {
+  const mv = e.target.closest("[data-br-mv]"); if (mv) { const st = brState(), i = +mv.dataset.i, j = i + +mv.dataset.brMv; if (j < 0 || j >= st.photos.length) return; [st.photos[i], st.photos[j]] = [st.photos[j], st.photos[i]]; brDoc.save(); brDrawPhotos(); brPreview(); return; }
+  const dl = e.target.closest("[data-br-del]"); if (dl) { const st = brState(), [k] = st.photos.splice(+dl.dataset.brDel, 1); aqPhotoDel(k); delete brThumbs[k]; brDoc.save(); brDrawPhotos(); brPreview(); return; }
+  if (e.target.closest("#br-fromdesc")) { const ds = dsDoc.data.by[brSrc]; if (ds && ds.text) { const st = brState(); st.title = ds.title || st.title; st.text = ds.text; brDoc.save(); brRender(); toast("Testo preso dal Generatore descrizione"); } else { dsSrc = brSrc; showView("desc"); toast("Genera la descrizione, poi torna qui"); } return; }
+  if (e.target.closest("#br-make")) brMake();
+});
+
+
+/* ===================== PREZZI DI ZONA ===================== */
+const pzUi = Object.assign({ sel: "", prov: "", sort: "desc", cmp: [] }, lsGet("rz_prezzi_ui_v1") || {});
+const pzSave = () => lsSet("rz_prezzi_ui_v1", pzUi);
+const pzK = v => euro(Math.round(v / 1000) * 1000);
+const pzAvg = prov => { const v = PQ_COMUNI.filter(c => PQ_PREZZI[c][0] === prov).map(c => PQ_PREZZI[c][1]); return v.reduce((a, b) => a + b, 0) / v.length; };
+const pzRankIn = c => { const prov = PQ_PREZZI[c][0], arr = PQ_COMUNI.filter(x => PQ_PREZZI[x][0] === prov).sort((a, b) => PQ_PREZZI[b][1] - PQ_PREZZI[a][1]); return [arr.indexOf(c) + 1, arr.length]; };
+function pzCard(){
+  const c = pzUi.sel, el = $("pz-card");
+  if (!c || !PQ_PREZZI[c]) { el.innerHTML = `<div class="x-empty" style="padding:18px">Cerca un comune per vedere il prezzo medio, la posizione in classifica e una stima veloce.</div>`; return; }
+  const [prov, p] = PQ_PREZZI[c], avg = pzAvg(prov), diff = Math.round((p / avg - 1) * 100), [r, n] = pzRankIn(c), mq = +pzUi.mq || 90;
+  const omi = typeof omiDoc !== "undefined" && omiDoc.data.comuni[c], om = omi && (omi.manual || (omi.zone && Object.values(omi.zone).map(z => z.t && z.t.civ).filter(Boolean)[0]));
+  const txt = `Prezzo medio richiesto a ${c} (${prov}): ${euro(p)}/m²${om ? `\nValori OMI: ${euro(om[0])}–${euro(om[1])}/m²` : ""}\nPer ${mq} m²: circa ${pzK(p * mq * 0.9)} – ${pzK(p * mq * 1.1)}\n(Fonte: Immobiliare.it, prezzi di offerta, agosto 2026)`;
+  el.innerHTML = `<div class="pz-name">${esc(c)} <span class="x-badge">${prov === "BG" ? "Bergamo" : "Brescia"}</span></div>
+    <div class="pz-big">${euro(p)} <small>/m²</small></div>
+    <div class="pz-meta"><span class="${diff > 0 ? "up" : "dn"}">${diff > 0 ? "+" : ""}${diff}% sulla media della provincia (${euro(avg)})</span><span>${r}° su ${n} in provincia</span>${om ? `<span>OMI ${euro(om[0])}–${euro(om[1])}</span>` : ""}</div>
+    <div class="pz-est">Per <input class="inp" id="pz-mq" type="number" inputmode="numeric" value="${mq}" min="10"> m² ≈ <b>${pzK(p * mq * 0.9)} – ${pzK(p * mq * 1.1)}</b></div>
+    <div class="x-acts" style="margin-top:10px"><button type="button" class="x-act" id="pz-add"${pzUi.cmp.includes(c) ? " disabled" : ""}>⚖️ Confronta</button><a class="x-act wa" href="${esc(xWa("", txt))}" target="_blank" rel="noopener">💬 Invia</a><button type="button" class="x-act" id="pz-copy">📋</button></div>`;
+  el.dataset.txt = txt;
+}
+function pzCmp(){
+  const list = pzUi.cmp.filter(c => PQ_PREZZI[c]), max = Math.max(1, ...list.map(c => PQ_PREZZI[c][1]));
+  $("pz-cmp").innerHTML = list.length ? list.sort((a, b) => PQ_PREZZI[b][1] - PQ_PREZZI[a][1]).map(c => `<div class="pz-cmp-row"><b>${esc(c)}</b><span class="bar"><i style="width:${PQ_PREZZI[c][1] / max * 100}%"></i></span><span><b>${euro(PQ_PREZZI[c][1])}</b> <button type="button" data-pz-rm="${esc(c)}" aria-label="Togli">✕</button></span></div>`).join("") : `<div class="x-note">Aggiungi fino a 6 comuni con “⚖️ Confronta” per vederli affiancati.</div>`;
+}
+function pzRank(){
+  let list = PQ_COMUNI.filter(c => !pzUi.prov || PQ_PREZZI[c][0] === pzUi.prov);
+  list.sort(pzUi.sort === "az" ? (a, b) => a.localeCompare(b, "it") : pzUi.sort === "asc" ? (a, b) => PQ_PREZZI[a][1] - PQ_PREZZI[b][1] : (a, b) => PQ_PREZZI[b][1] - PQ_PREZZI[a][1]);
+  const max = Math.max(...list.map(c => PQ_PREZZI[c][1]));
+  $("pz-prov").innerHTML = [["", "Tutti"], ["BG", "Bergamo"], ["BS", "Brescia"]].map(([v, l]) => `<button type="button" class="x-pill" data-pz-prov="${v}" aria-pressed="${pzUi.prov === v}">${l}</button>`).join("");
+  $("pz-sort").innerHTML = [["desc", "Più cari"], ["asc", "Più economici"], ["az", "A-Z"]].map(([v, l]) => `<button type="button" class="x-pill" data-pz-sort="${v}" aria-pressed="${pzUi.sort === v}">${l}</button>`).join("");
+  $("pz-rank").innerHTML = list.map((c, i) => `<button type="button" class="pz-row" data-pz="${esc(c)}" aria-current="${pzUi.sel === c}"><span class="n">${i + 1}</span><span class="nm"><b>${esc(c)}<span class="p">${PQ_PREZZI[c][0]}</span></b><i style="width:${PQ_PREZZI[c][1] / max * 100}%"></i></span><span class="v">${euro(PQ_PREZZI[c][1])}</span></button>`).join("");
+}
+function pzRender(){
+  $("pz-sync").textContent = "448 comuni"; $("pz-sync").classList.remove("clickable");
+  if (!$("pz-list-dl").options.length) $("pz-list-dl").innerHTML = PQ_COMUNI.map(c => `<option value="${esc(c)}">`).join("");
+  if (!pzUi.sel) { const c = (pqCur && pqCur.v && (pqCur.v.comune || pqFindComune(pqCur.v.indirizzo || ""))) || "Bergamo"; pzUi.sel = c; }
+  $("pz-q").value = ""; pzCard(); pzCmp(); pzRank();
+}
+XVIEWS.prezzi = pzRender;
+function pzPick(c){ pzUi.sel = c; pzSave(); pzCard(); pzRank(); if (innerWidth < 1000 && $("pz-card").scrollIntoView) $("pz-card").scrollIntoView({ behavior: "smooth", block: "center" }); }
+$("view-prezzi").addEventListener("input", e => {
+  if (e.target.id === "pz-q") { const c = PQ_BYNORM[pqNorm(e.target.value)]; if (c) { pzPick(c); e.target.value = ""; e.target.blur(); } return; }
+  if (e.target.id === "pz-mq") { pzUi.mq = +e.target.value || 90; pzSave(); const pos = e.target.selectionStart; pzCard(); const m = $("pz-mq"); m.focus(); try { m.setSelectionRange(pos, pos); } catch {} }
+});
+$("view-prezzi").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.id === "pz-q") { const q = pqNorm(e.target.value), c = PQ_COMUNI.find(x => pqNorm(x).startsWith(q)); if (c) { pzPick(c); e.target.value = ""; } } });
+$("view-prezzi").addEventListener("click", e => {
+  const r = e.target.closest("[data-pz]"); if (r) return pzPick(r.dataset.pz);
+  const pv = e.target.closest("[data-pz-prov]"); if (pv) { pzUi.prov = pv.dataset.pzProv; pzSave(); pzRank(); return; }
+  const so = e.target.closest("[data-pz-sort]"); if (so) { pzUi.sort = so.dataset.pzSort; pzSave(); pzRank(); return; }
+  if (e.target.closest("#pz-add")) { if (!pzUi.cmp.includes(pzUi.sel)) pzUi.cmp = pzUi.cmp.concat(pzUi.sel).slice(-6); pzSave(); pzCmp(); pzCard(); return; }
+  const rm = e.target.closest("[data-pz-rm]"); if (rm) { pzUi.cmp = pzUi.cmp.filter(c => c !== rm.dataset.pzRm); pzSave(); pzCmp(); pzCard(); return; }
+  if (e.target.closest("#pz-clear")) { pzUi.cmp = []; pzSave(); pzCmp(); pzCard(); return; }
+  if (e.target.closest("#pz-copy")) return xCopy($("pz-card").dataset.txt || "");
+});
+
+
+/* ===================== AGENDA SETTIMANALE ===================== */
+const agDoc = xDoc("rz_agenda_v1", "agenda", { da: "09:00", a: "19:30", pDa: "13:00", pA: "14:30", slot: 60, buf: 30, sab: true, rem: false });
+let agOff = 0, agEvents = null, agErr = "", agSel = new Set(), agReq = 0;
+function agMonday(off){ const d = new Date(); d.setHours(0, 0, 0, 0); const wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd + off * 7); return d; }
+const agHM = (iso, hm) => new Date(iso + "T" + hm + ":00").getTime();
+function agKind(ev){ const s = ev.summary || "", d = (ev.description || "").trim().toLowerCase(); if (/\[reminder\]/i.test(s) || d.startsWith("reminder")) return "rem"; if (/\[val\]/i.test(s) || d.startsWith("appuntamento di valutazione")) return "val"; if (/\[dv[-\s]?\d+\]/i.test(s) || d.startsWith("appuntamento di visita")) return "vis"; return "altro"; }
+function agDays(){ const m = agMonday(agOff), n = agDoc.data.sab ? 6 : 5, out = []; for (let i = 0; i < n; i++) { const d = new Date(m); d.setDate(m.getDate() + i); out.push(xISO(d)); } return out; }
+function agFree(iso, evs){
+  const P = agDoc.data, buf = (+P.buf || 0) * 6e4, now = Date.now();
+  let start = agHM(iso, P.da), end = agHM(iso, P.a);
+  if (end <= now) return [];
+  if (start < now) { start = Math.ceil(now / (30 * 6e4)) * 30 * 6e4; }
+  const busy = [];
+  if (P.pDa && P.pA && P.pA > P.pDa) busy.push([agHM(iso, P.pDa), agHM(iso, P.pA)]);
+  for (const ev of evs) { const k = ev.kind; if (k === "rem" && !P.rem) continue; const b = ev.loc && (k === "val" || k === "vis") ? buf : 0; busy.push([ev.s - b, ev.e + b]); }
+  busy.sort((a, b) => a[0] - b[0]);
+  const free = []; let cur = start;
+  for (const [a, b] of busy) { if (b <= cur) continue; if (a > cur) free.push([cur, Math.min(a, end)]); cur = Math.max(cur, b); if (cur >= end) break; }
+  if (cur < end) free.push([cur, end]);
+  const r5 = t => Math.ceil(t / (15 * 6e4)) * 15 * 6e4;
+  return free.map(([a, b]) => [r5(a), b]).filter(([a, b]) => b - a >= (+P.slot || 60) * 6e4);
+}
+function agDraw(){
+  const days = agDays(), t = xISO(Date.now()), m = agMonday(agOff), last = new Date(m); last.setDate(m.getDate() + days.length - 1);
+  $("ag-title").textContent = agOff === 0 ? "Questa settimana" : agOff === 1 ? "Prossima settimana" : `${m.toLocaleDateString("it-IT", { day: "numeric", month: "short" })} – ${last.toLocaleDateString("it-IT", { day: "numeric", month: "short" })}`;
+  document.querySelector(".ag-week").style.setProperty("--agcols", days.length);
+  const byDay = {}; for (const d of days) byDay[d] = [];
+  for (const ev of agEvents || []) { if (!ev.start || !ev.start.dateTime) continue; const s = new Date(ev.start.dateTime).getTime(), e = new Date((ev.end && ev.end.dateTime) || ev.start.dateTime).getTime(), d = xISO(s); if (!byDay[d] || ev.transparency === "transparent") continue; const a = parseEvent(ev), k = agKind(ev);
+    byDay[d].push({ id: ev.id, s, e, kind: k, loc: ev.location || "", title: k === "val" ? "Valutazione · " + a.clientName : k === "vis" ? "Visita · " + a.clientName : (ev.summary || "Impegno").replace(/^🔴\s*/, "").replace(/^\[REMINDER\]\s*/i, "📞 ") }); }
+  $("ag-week").innerHTML = !xLogged() ? "" : !agEvents ? `<div class="x-empty">Leggo il calendario…</div>` : days.map(d => {
+    const evs = byDay[d].sort((a, b) => a.s - b.s), free = agFree(d, evs), dt = new Date(d + "T12:00");
+    const nv = evs.filter(e => e.kind === "val" || e.kind === "vis").length;
+    return `<div class="ag-day${d === t ? " today" : ""}${d < t ? " past" : ""}"><h3>${esc(dt.toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "short" }))}<small>${nv ? nv + (nv === 1 ? " appuntamento" : " appuntamenti") : ""}</small></h3>
+      ${evs.map(e => `<div class="ag-ev ${e.kind}"><b>${xHM(e.s)}</b><span title="${esc(e.title)}">${esc(e.title)}</span></div>`).join("")}
+      ${free.length ? `<div class="ag-free">${free.map(([a, b]) => { const k = d + "|" + a + "|" + b; return `<button type="button" data-ag-slot="${k}" aria-pressed="${agSel.has(k)}">🟢 ${xHM(a)}–${xHM(b)}</button>`; }).join("")}</div>` : `<div class="ag-none">${d < t ? "" : "Nessun orario libero"}</div>`}
+    </div>`; }).join("") + (agErr ? `<div class="note-box err">${esc(agErr)}</div>` : "");
+  agBar();
+}
+function agBar(){ const n = agSel.size; $("ag-bar").hidden = !n; $("ag-bar-n").textContent = n === 1 ? "1 orario scelto" : `${n} orari scelti`; }
+function agText(){
+  const nome = $("ag-m-nome").value.trim(), cosa = $("ag-m-cosa").value;
+  const slots = [...agSel].map(k => k.split("|")).sort((a, b) => +a[1] - +b[1]).map(([d, a, b]) => { const dt = new Date(+a), wd = dt.toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" }); return (+b - +a) <= 90 * 6e4 ? `• ${wd} alle ${xHM(+a)}` : `• ${wd} tra le ${xHM(+a)} e le ${xHM(+b)}`; });
+  return `Buongiorno${nome ? " " + nome : ""}, per ${cosa} sono disponibile:\n${slots.join("\n")}\nMi dica quale preferisce e le confermo l'appuntamento.\n${crm.signature || DEFAULT_SIG}`;
+}
+function agMsgUpdate(){ $("ag-m-text").value = agText(); $("ag-m-wa").href = xWa($("ag-m-tel").value, $("ag-m-text").value); }
+async function agLoad(){
+  const req = ++agReq; agEvents = null; agErr = ""; agDraw();
+  if (!xLogged()) return;
+  const m = agMonday(agOff), e = new Date(m); e.setDate(m.getDate() + 7);
+  try { const items = await xCalList(m.getTime(), e.getTime()); if (req !== agReq) return; agEvents = items; }
+  catch (err) { if (req !== agReq) return; agEvents = []; agErr = "Calendario: " + ((err && err.message) || err); }
+  agDraw();
+}
+function agRender(){
+  xSync("ag-sync");
+  $("ag-login").innerHTML = xLogged() ? "" : `<div class="x-card"><div class="x-note" style="font-size:13px">Accedi con Google per vedere la settimana dal tuo calendario.</div>${loginCardHtml()}</div>`;
+  document.querySelectorAll("#view-agenda [data-ag]").forEach(el => { const v = agDoc.data[el.dataset.ag]; if (el.type === "checkbox") el.checked = !!v; else el.value = String(v); });
+  agLoad();
+}
+XVIEWS.agenda = agRender;
+$("view-agenda").addEventListener("click", e => {
+  const w = e.target.closest("[data-ag-w]"); if (w) { agOff = +w.dataset.agW === 0 ? 0 : agOff + +w.dataset.agW; agLoad(); return; }
+  if (e.target.closest("[data-ag-set]")) { $("ag-set").hidden = !$("ag-set").hidden; return; }
+  const s = e.target.closest("[data-ag-slot]"); if (s) { const k = s.dataset.agSlot; if (agSel.has(k)) agSel.delete(k); else agSel.add(k); s.setAttribute("aria-pressed", agSel.has(k)); agBar(); if (!$("ag-msg").hidden) agMsgUpdate(); return; }
+  if (e.target.closest("#ag-bar-clear")) { agSel.clear(); $("ag-msg").hidden = true; agDraw(); return; }
+  if (e.target.closest("#ag-bar-go")) { $("ag-msg").hidden = false; agMsgUpdate(); if ($("ag-msg").scrollIntoView) $("ag-msg").scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+  if (e.target.closest("#ag-msg-x")) { $("ag-msg").hidden = true; return; }
+  if (e.target.closest("#ag-m-copy")) return xCopy($("ag-m-text").value);
+});
+$("view-agenda").addEventListener("input", e => {
+  if (["ag-m-nome", "ag-m-tel"].includes(e.target.id)) return agMsgUpdate();
+  if (e.target.id === "ag-m-text") { $("ag-m-wa").href = xWa($("ag-m-tel").value, e.target.value); return; }
+});
+$("view-agenda").addEventListener("change", e => {
+  if (e.target.id === "ag-m-cosa") return agMsgUpdate();
+  const k = e.target.dataset.ag; if (!k) return;
+  agDoc.data[k] = e.target.type === "checkbox" ? e.target.checked : e.target.tagName === "SELECT" ? +e.target.value : e.target.value;
+  agDoc.save(); agSel.clear(); if (k === "sab") agLoad(); else agDraw();
+});
+
+
+/* ===================== CONSEGNA IMMOBILE ===================== */
+const csColl = xColl("rz_consegne_v1", "consegne");
+const CS_CHECK = ["Rogito firmato", "Saldo del prezzo ricevuto dal venditore", "Immobile libero da persone e cose", "Letture dei contatori fatte", "Utenze da volturare comunicate all'acquirente", "Libretto caldaia e manuali consegnati", "Chiavi e telecomandi consegnati"];
+const CS_KEYS = [["portone", "Portone / cancello"], ["casa", "Porta di casa"], ["cantina", "Cantina"], ["box", "Box / garage"], ["tele", "Telecomandi"], ["posta", "Cassetta posta"], ["altro", "Altre chiavi"]];
+const CS_METERS = [["luce", "💡 Luce", "POD (IT001E…)"], ["gas", "🔥 Gas", "PDR (14 cifre)"], ["acqua", "💧 Acqua", "Matricola"], ["risc", "🌡️ Riscaldamento / altro", "Matricola"]];
+let csSel = null, csPh = {}, csSigs = {};
+const csEmpty = () => ({ id: xId("cs"), data: xISO(Date.now()), ora: new Date().toTimeString().slice(0, 5), imm: "", vend: "", acq: "", check: [], keys: {}, met: {}, note: "", pq: "" });
+function csDraw(){
+  const list = csColl.all().sort((a, b) => (b.data || "").localeCompare(a.data || ""));
+  $("cs-items").innerHTML = list.length ? list.map(c => `<button type="button" class="cs-item" data-cs="${esc(c.id)}" aria-current="${csSel && csSel.id === c.id}"><b>${esc(c.imm || "Immobile")}</b><small>${esc(xDay(c.data))}${c.acq ? " · a " + esc(c.acq) : ""} · ${c.fatto ? "✅ verbale creato" : "in compilazione"}</small></button>`).join("") : `<div class="x-empty">Nessuna consegna salvata.</div>`;
+  const c = csSel;
+  if (!c) { $("cs-form").innerHTML = `<div class="x-card cs-full"><div class="x-empty">Tocca “＋ Nuova consegna” il giorno del rogito o della consegna delle chiavi.</div></div>`; return; }
+  const pqs = pqList.filter(p => p.v.indirizzo);
+  $("cs-form").innerHTML = `
+  <div class="x-card"><h3>🏠 Immobile e persone</h3>
+    ${pqs.length ? `<label class="x-f"><span>Prendi da un foglio</span><select class="inp" id="cs-pq"><option value="">—</option>${pqs.map(p => `<option value="${esc(p.id)}"${c.pq === p.id ? " selected" : ""}>${esc((p.v.indirizzo || "").split("\n")[0])}${p.v.nome ? " · " + esc(p.v.nome) : ""}</option>`).join("")}</select></label>` : ""}
+    <div class="x-grid"><label class="x-f x-full"><span>Immobile</span><input class="inp" data-cs-f="imm" value="${esc(c.imm)}" placeholder="Via, civico, comune"></label>
+      <label class="x-f"><span>Venditore</span><input class="inp" data-cs-f="vend" value="${esc(c.vend)}"></label>
+      <label class="x-f"><span>Acquirente</span><input class="inp" data-cs-f="acq" value="${esc(c.acq)}"></label>
+      <label class="x-f"><span>Giorno</span><input class="inp" type="date" data-cs-f="data" value="${esc(c.data)}"></label>
+      <label class="x-f"><span>Ora</span><input class="inp" type="time" data-cs-f="ora" value="${esc(c.ora)}"></label></div></div>
+  <div class="x-card"><h3>✅ Controlli</h3><div class="cs-checks">${CS_CHECK.map(o => `<label class="calc-chk"><input type="checkbox" data-cs-chk value="${esc(o)}"${c.check.includes(o) ? " checked" : ""}> ${esc(o)}</label>`).join("")}</div></div>
+  <div class="x-card"><h3>🔑 Chiavi consegnate</h3><div class="cs-keys">${CS_KEYS.map(([k, l]) => `<div class="cs-key"><span>${esc(l)}</span><span class="st"><button type="button" data-cs-key="${k}" data-d="-1" aria-label="Meno">−</button><b>${c.keys[k] || 0}</b><button type="button" data-cs-key="${k}" data-d="1" aria-label="Più">＋</button></span></div>`).join("")}</div></div>
+  <div class="x-card"><h3>📟 Contatori</h3>${CS_METERS.map(([k, l, ph]) => { const m = c.met[k] || {}; return `<div class="cs-meter"><h4>${l}</h4><div class="x-grid"><label class="x-f"><span>Lettura</span><input class="inp" data-cs-m="${k}" data-mf="let" inputmode="decimal" value="${esc(m.let || "")}"></label><label class="x-f"><span>Codice</span><input class="inp" data-cs-m="${k}" data-mf="cod" value="${esc(m.cod || "")}" placeholder="${esc(ph)}"></label></div>
+      <div class="cs-ph"><label class="x-act" style="cursor:pointer">📷 Foto contatore<input type="file" accept="image/*" capture="environment" data-cs-photo="${k}" hidden></label>${csPh[c.id + ":" + k] ? `<img src="${csPh[c.id + ":" + k]}" alt="Foto ${esc(l)}">` : ""}</div></div>`; }).join("")}</div>
+  <div class="x-card"><h3>📝 Note sullo stato dell'immobile</h3><textarea class="inp" data-cs-f="note" rows="3" placeholder="Es. immobile consegnato pulito, lasciati i mobili della cucina come da accordi">${esc(c.note)}</textarea></div>
+  <div class="x-card cs-full"><h3>✍️ Firme</h3><div class="cs-sigs">${[["vend", "Venditore"], ["acq", "Acquirente"], ["ag", "Agente"]].map(([k, l]) => `<div class="cs-sig${csSigs[c.id + ":" + k] ? " done" : ""}" data-sig="${k}"><div class="ds-head"><b>${l}</b><button type="button" class="x-act" data-cs-sigclear="${k}">Cancella</button></div><canvas width="600" height="220" aria-label="Firma ${l}"></canvas></div>`).join("")}</div>
+    <div class="x-note">Firma col dito o con la penna. Il verbale è un promemoria condiviso tra le parti, non sostituisce gli atti notarili.</div></div>
+  <div class="x-acts cs-full"><button type="button" class="btn ds-gen" id="cs-pdf" style="flex:1">📄 Crea il verbale PDF</button><button type="button" class="x-act danger" id="cs-del">🗑️ Elimina</button></div>`;
+  csInitSigs();
+}
+function csInitSigs(){
+  for (const box of document.querySelectorAll("#cs-form .cs-sig")) {
+    const cv = box.querySelector("canvas"), k = box.dataset.sig, key = csSel.id + ":" + k, ctx = cv.getContext && cv.getContext("2d"); if (!ctx) continue;
+    ctx.lineWidth = 3.2; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#111827";
+    if (csSigs[key]) { const img = new Image(); img.onload = () => ctx.drawImage(img, 0, 0, cv.width, cv.height); img.src = csSigs[key]; }
+    let drawing = false, last = null;
+    const pt = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
+    cv.addEventListener("pointerdown", e => { drawing = true; last = pt(e); try { cv.setPointerCapture(e.pointerId); } catch {} e.preventDefault(); });
+    cv.addEventListener("pointermove", e => { if (!drawing) return; const p = pt(e); ctx.beginPath(); ctx.moveTo(last[0], last[1]); ctx.lineTo(p[0], p[1]); ctx.stroke(); last = p; });
+    const end = () => { if (!drawing) return; drawing = false; csSigs[key] = cv.toDataURL("image/png"); aqPhotoSet("sig:" + key, csSigs[key]); box.classList.add("done"); };
+    cv.addEventListener("pointerup", end); cv.addEventListener("pointercancel", end); cv.addEventListener("pointerleave", end);
+  }
+}
+async function csLoadMedia(c){ for (const [k] of CS_METERS) { const key = c.id + ":" + k; if (!csPh[key]) { const d = await aqPhotoGet("csm:" + key); if (d) csPh[key] = d; } } for (const k of ["vend", "acq", "ag"]) { const key = c.id + ":" + k; if (!csSigs[key]) { const d = await aqPhotoGet("sig:" + key); if (d) csSigs[key] = d; } } }
+async function csOpen(c){ csSel = c; await csLoadMedia(c); csDraw(); }
+function csRender(){ xSync("cs-sync"); if (csSel && !csColl.get(csSel.id)) csSel = null; csDraw(); }
+XVIEWS.consegna = csRender;
+let csT = null; const csSave = () => { clearTimeout(csT); csT = setTimeout(() => { if (csSel) csColl.put(csSel); csDrawList(); }, 500); };
+function csDrawList(){ const list = csColl.all().sort((a, b) => (b.data || "").localeCompare(a.data || "")); $("cs-items").innerHTML = list.length ? list.map(c => `<button type="button" class="cs-item" data-cs="${esc(c.id)}" aria-current="${csSel && csSel.id === c.id}"><b>${esc(c.imm || "Immobile")}</b><small>${esc(xDay(c.data))}${c.acq ? " · a " + esc(c.acq) : ""} · ${c.fatto ? "✅ verbale creato" : "in compilazione"}</small></button>`).join("") : `<div class="x-empty">Nessuna consegna salvata.</div>`; }
+async function csPdf(){
+  const c = csSel; if (!c) return;
+  try {
+    const jsPDF = await pdfLoad(), doc = new jsPDF({ unit: "mm", format: "a4" }), W = 210, M = 16; let y;
+    doc.setFillColor(29, 78, 216); doc.rect(0, 0, W, 26, "F"); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(17); doc.text("Verbale di consegna immobile", M, 12);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); doc.text(pdfTxt(`${new Date(c.data + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} alle ${c.ora || ""}`), M, 20);
+    doc.setTextColor(21, 32, 51); y = 36;
+    const need = h => { if (y + h > 280) { doc.addPage(); y = 18; } };
+    const h2 = t => { need(14); doc.setFont("helvetica", "bold"); doc.setFontSize(11.5); doc.setTextColor(18, 48, 110); doc.text(t.toUpperCase(), M, y); y += 2.5; doc.setDrawColor(18, 48, 110); doc.setLineWidth(.4); doc.line(M, y, W - M, y); y += 6; doc.setTextColor(21, 32, 51); doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); };
+    const row = (k, v) => { const lines = doc.splitTextToSize(pdfTxt(v || "-"), W - 2 * M - 55); need(lines.length * 5 + 2); doc.setFont("helvetica", "bold"); doc.text(pdfTxt(k), M, y); doc.setFont("helvetica", "normal"); doc.text(lines, M + 55, y); y += lines.length * 5 + 2; };
+    h2("Immobile e parti"); row("Immobile", c.imm); row("Venditore", c.vend); row("Acquirente", c.acq); row("Agente", crm.signature || DEFAULT_SIG); y += 2;
+    h2("Controlli"); for (const o of CS_CHECK) { need(6); doc.setDrawColor(74, 86, 107); doc.setLineWidth(.35); doc.rect(M, y - 3.4, 3.8, 3.8); if (c.check.includes(o)) { doc.setDrawColor(29, 78, 216); doc.setLineWidth(.7); doc.line(M + .7, y - 1.4, M + 1.6, y - .3); doc.line(M + 1.6, y - .3, M + 3.3, y - 2.9); } doc.text(pdfTxt(o), M + 6, y); y += 6; } y += 2;
+    h2("Chiavi consegnate"); const ks = CS_KEYS.filter(([k]) => c.keys[k]); if (ks.length) for (const [k, l] of ks) row(l, String(c.keys[k])); else row("Chiavi", "nessuna indicata"); y += 2;
+    h2("Letture dei contatori");
+    for (const [k, l] of CS_METERS) { const m = c.met[k] || {}, ph = csPh[c.id + ":" + k]; if (!m.let && !m.cod && !ph) continue; need(ph ? 34 : 12);
+      doc.setFont("helvetica", "bold"); doc.text(pdfTxt(l.replace(/^\S+\s/, "")), M, y); doc.setFont("helvetica", "normal"); doc.text(pdfTxt(`Lettura: ${m.let || "-"}${m.cod ? "   Codice: " + m.cod : ""}`), M + 55, y);
+      if (ph) { try { doc.addImage(ph, "JPEG", M + 55, y + 2.5, 36, 27); } catch {} y += 36; } else y += 7; }
+    if (c.note) { y += 2; h2("Note"); const lines = doc.splitTextToSize(pdfTxt(c.note), W - 2 * M); need(lines.length * 5); doc.text(lines, M, y); y += lines.length * 5 + 4; }
+    need(52); y += 4; const sw = (W - 2 * M - 12) / 3;
+    [["vend", "Il venditore"], ["acq", "L'acquirente"], ["ag", "L'agente"]].forEach(([k, l], i) => { const x = M + i * (sw + 6), s = csSigs[c.id + ":" + k]; if (s) { try { doc.addImage(s, "PNG", x, y, sw, sw * 220 / 600); } catch {} } doc.setDrawColor(150, 150, 150); doc.line(x, y + 22, x + sw, y + 22); doc.setFontSize(9.5); doc.text(l, x, y + 27); });
+    await xDownload(doc.output("blob"), `Verbale_consegna_${pdfTxt(c.imm || "immobile").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "_").slice(0, 40)}_${c.data}.pdf`);
+    c.fatto = true; csColl.put(c); csDrawList();
+  } catch (e) { toast("Verbale non creato: " + ((e && e.message) || e)); }
+}
+$("view-consegna").addEventListener("click", async e => {
+  if (e.target.closest("#cs-new")) { const c = csEmpty(); csColl.put(c); await csOpen(c); return; }
+  const it = e.target.closest("[data-cs]"); if (it) { const c = csColl.get(it.dataset.cs); if (c) await csOpen(Object.assign({}, c)); if (innerWidth < 1000 && $("cs-form").scrollIntoView) $("cs-form").scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  const c = csSel; if (!c) return;
+  const kb = e.target.closest("[data-cs-key]"); if (kb) { const k = kb.dataset.csKey; c.keys[k] = Math.max(0, (c.keys[k] || 0) + +kb.dataset.d); kb.parentElement.querySelector("b").textContent = c.keys[k]; csSave(); return; }
+  const sc = e.target.closest("[data-cs-sigclear]"); if (sc) { const box = sc.closest(".cs-sig"), cv = box.querySelector("canvas"); cv.getContext("2d").clearRect(0, 0, cv.width, cv.height); delete csSigs[c.id + ":" + sc.dataset.csSigclear]; aqPhotoDel("sig:" + c.id + ":" + sc.dataset.csSigclear); box.classList.remove("done"); return; }
+  if (e.target.closest("#cs-pdf")) { csColl.put(c); return csPdf(); }
+  const del = e.target.closest("#cs-del"); if (del) { if (!del.classList.contains("armed")) { del.classList.add("armed"); del.textContent = "Conferma"; return; } csColl.remove(c.id); csSel = null; csDraw(); toast("Consegna eliminata"); }
+});
+$("view-consegna").addEventListener("input", e => {
+  const c = csSel; if (!c) return;
+  if (e.target.dataset.csF) { c[e.target.dataset.csF] = e.target.value; csSave(); return; }
+  if (e.target.dataset.csM) { const m = c.met[e.target.dataset.csM] || (c.met[e.target.dataset.csM] = {}); m[e.target.dataset.mf] = e.target.value; csSave(); }
+});
+$("view-consegna").addEventListener("change", async e => {
+  const c = csSel; if (!c) return;
+  if (e.target.matches("[data-cs-chk]")) { c.check = [...document.querySelectorAll("[data-cs-chk]:checked")].map(x => x.value); csSave(); return; }
+  if (e.target.id === "cs-pq") { const p = pqList.find(x => x.id === e.target.value); if (p) { c.pq = p.id; c.imm = (p.v.indirizzo || "").split("\n")[0]; if (!c.vend) c.vend = p.v.nome || ""; csColl.put(c); csDraw(); } return; }
+  const ph = e.target.dataset.csPhoto; if (ph && e.target.files[0]) { try { const d = await aqCompress(e.target.files[0]), key = c.id + ":" + ph; csPh[key] = d; await aqPhotoSet("csm:" + key, d); csDraw(); } catch (err) { toast(err.message); } }
+});
+
+
+/* ===================== DA FARE NEL GESTIONALE ===================== */
+const gqColl = xColl("rz_gestionale_v1", "gestionale");
+const gqCfg = xDoc("rz_gestionale_cfg_v1", "gestionale_cfg", { visite: true, reminder: true, stato: true, chiamate: true, civici: true, wa: true });
+const GQ_AUTO = [["wa", "Messaggi WhatsApp inviati dal Centro Messaggi (“inviato WA …”)"], ["visite", "Esito delle schede visita"], ["reminder", "Prossime azioni dei Clienti (reminder)"], ["stato", "Cambi di stato dei Clienti"], ["chiamate", "Chiamate registrate in Acquisizione"], ["civici", "Civici caldi trasformati in clienti"]];
+let gqFilter = "todo";
+const gqLinkRe = /https:\/\/backoffice\.dove\.it\/\S+/i;
+function gqFindLink(name, tel){
+  const nm = normName(name || ""), d = xDigits(tel || "");
+  const pools = [typeof vsEvents !== "undefined" ? vsEvents : null, typeof grEvents !== "undefined" ? grEvents : null, typeof agEvents !== "undefined" ? agEvents : null];
+  for (const pool of pools) for (const ev of pool || []) { const m = (ev.description || "").match(gqLinkRe); if (!m) continue; const a = parseEvent(ev); if ((nm && normName(a.clientName) === nm) || (d.length >= 6 && a.phone && xDigits(a.phone) === d)) return m[0].replace(/[).,]+$/, ""); }
+  return "";
+}
+/* aggiunge o aggiorna una voce (la chiave evita doppioni finché non è fatta) */
+window.gqAdd = function(o, cfgKey){
+  if (cfgKey && !gqCfg.data[cfgKey]) return null;
+  let it = o.key ? gqColl.all().find(x => x.key === o.key && x.stato !== "fatto") : null;
+  if (!o.link) o.link = gqFindLink(o.cliente, o.tel);
+  it = Object.assign(it || { id: xId("gq"), stato: "da_fare" }, o);
+  gqColl.put(it); gqBadge();
+  return it;
+};
+function gqWhen(it){ return it.data ? `${new Date(it.data + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" })}${it.ora ? " ore " + it.ora : ""}` : ""; }
+function gqLine(it, n){ return `${n}. [${it.tipo}] ${[it.cliente, it.tel ? "tel " + it.tel : "", gqWhen(it)].filter(Boolean).join(" · ")}${it.testo ? `\n   Testo: ${it.testo.replace(/\n/g, " / ")}` : ""}\n   ${it.link ? "Scheda: " + it.link : "Scheda: da cercare nel gestionale per nome o telefono"}`; }
+function gqTodo(){ return gqColl.all().filter(x => x.stato !== "fatto").sort((a, b) => (a.created || 0) - (b.created || 0)); }
+function gqBadge(){ const n = gqTodo().length; document.querySelectorAll("[data-gq-badge]").forEach(el => { el.hidden = !n; el.textContent = n; }); }
+function gqRender(){
+  xSync("gq-sync");
+  const todo = gqTodo(), done = gqColl.all().filter(x => x.stato === "fatto").sort((a, b) => (b.done || 0) - (a.done || 0)).slice(0, 40);
+  $("gq-filter").innerHTML = [["todo", "Da fare", todo.length], ["done", "Fatte", done.length]].map(([v, l, n]) => `<button type="button" class="x-pill" data-gq-f="${v}" aria-pressed="${gqFilter === v}">${l} <span class="n">${n}</span></button>`).join("");
+  const list = gqFilter === "todo" ? todo : done;
+  $("gq-list").innerHTML = list.length ? list.map((it, i) => `<div class="gq-item${it.stato === "fatto" ? " done" : ""}"><span class="gq-n">${it.stato === "fatto" ? "✓" : i + 1}</span>
+      <div><b><span class="tp">${esc(it.tipo)}</span>${esc(it.cliente || "Senza nome")}</b>${it.tel || it.data ? `<small>${esc([it.tel, gqWhen(it)].filter(Boolean).join(" · "))}</small>` : ""}${it.testo ? `<div class="tx">${esc(it.testo)}</div>` : ""}<div class="gq-src">${esc(it.fonte || "Aggiunta a mano")} · ${esc(new Date(it.created).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}${it.stato === "fatto" && it.done ? " · fatta il " + esc(new Date(it.done).toLocaleDateString("it-IT", { day: "numeric", month: "short" })) : ""}</div></div>
+      <div class="x-acts">${it.link ? `<a class="x-act" href="${esc(it.link)}" target="_blank" rel="noopener">🔗 Apri la scheda</a>` : ""}<button type="button" class="x-act" data-gq-copy="${esc(it.id)}">📋 Copia</button>${it.stato === "fatto" ? `<button type="button" class="x-act" data-gq-undo="${esc(it.id)}">Rimetti da fare</button>` : `<button type="button" class="x-act call" data-gq-done="${esc(it.id)}">✓ Fatto</button>`}<button type="button" class="x-act danger" data-gq-del="${esc(it.id)}">🗑️</button></div></div>`).join("")
+    : `<div class="x-empty">${gqFilter === "todo" ? "✅ Niente da riportare nel gestionale." : "Ancora nessuna voce fatta."}</div>`;
+  const evs = [...(typeof vsEvents !== "undefined" && vsEvents || []), ...(typeof grEvents !== "undefined" && grEvents || []), ...(typeof agEvents !== "undefined" && agEvents || [])].filter(ev => (ev.description || "").match(gqLinkRe));
+  const seen = new Set(), opts = [];
+  for (const ev of evs) { if (seen.has(ev.id)) continue; seen.add(ev.id); const a = parseEvent(ev); opts.push({ id: ev.id, a, link: ev.description.match(gqLinkRe)[0], when: ev.start && (ev.start.dateTime || ev.start.date) }); }
+  opts.sort((x, y) => (y.when || "").localeCompare(x.when || ""));
+  gqRender.opts = opts;
+  $("gq-from").innerHTML = `<option value="">—</option>` + opts.slice(0, 60).map(o => `<option value="${esc(o.id)}">${esc(o.a.clientName)} · ${esc(new Date(o.when).toLocaleDateString("it-IT", { day: "numeric", month: "short" }))}</option>`).join("");
+  $("gq-auto").innerHTML = GQ_AUTO.map(([k, l]) => `<label class="calc-chk"><input type="checkbox" data-gq-cfg="${k}"${gqCfg.data[k] ? " checked" : ""}> ${esc(l)}</label>`).join("");
+  document.querySelectorAll(".gq-when").forEach(el => el.hidden = $("gq-tipo").value !== "Reminder");
+  gqBadge();
+}
+XVIEWS.gestionale = gqRender;
+$("view-gestionale").addEventListener("click", e => {
+  const f = e.target.closest("[data-gq-f]"); if (f) { gqFilter = f.dataset.gqF; gqRender(); return; }
+  if (e.target.closest("#gq-copyall")) { const todo = gqTodo(); if (!todo.length) return toast("La lista è vuota"); return xCopy(`LISTA DA FARE NEL GESTIONALE DOVE.IT (${todo.length})\n\n` + todo.map((it, i) => gqLine(it, i + 1)).join("\n\n")); }
+  const cp = e.target.closest("[data-gq-copy]"); if (cp) { const it = gqColl.get(cp.dataset.gqCopy); return it && xCopy(gqLine(it, 1).replace(/^1\. /, "")); }
+  const dn = e.target.closest("[data-gq-done]"); if (dn) { const it = gqColl.get(dn.dataset.gqDone); if (it) { it.stato = "fatto"; it.done = Date.now(); gqColl.put(it); toast("✓ Segnata come fatta"); gqRender(); } return; }
+  const un = e.target.closest("[data-gq-undo]"); if (un) { const it = gqColl.get(un.dataset.gqUndo); if (it) { it.stato = "da_fare"; delete it.done; gqColl.put(it); gqRender(); } return; }
+  const dl = e.target.closest("[data-gq-del]"); if (dl) { if (!dl.classList.contains("armed")) { dl.classList.add("armed"); dl.textContent = "Conferma"; return; } gqColl.remove(dl.dataset.gqDel); gqRender(); return; }
+  if (e.target.closest("#gq-add")) {
+    const cli = $("gq-cli").value.trim(), txt = $("gq-txt").value.trim(), tipo = $("gq-tipo").value;
+    if (!cli && !txt) { $("gq-cli").classList.add("bad"); toast("Scrivi almeno il cliente o il testo"); return; }
+    gqAdd({ tipo, cliente: cli, tel: $("gq-tel").value.trim(), data: tipo === "Reminder" ? $("gq-data").value : "", ora: tipo === "Reminder" ? $("gq-ora").value : "", testo: txt, link: $("gq-link").value.trim(), fonte: "Aggiunta a mano" });
+    ["gq-cli", "gq-tel", "gq-txt", "gq-link", "gq-data"].forEach(id => $(id).value = ""); $("gq-from").value = ""; gqFilter = "todo"; toast("Aggiunta alla lista"); gqRender();
+  }
+});
+$("view-gestionale").addEventListener("change", e => {
+  const c = e.target.dataset.gqCfg; if (c) { gqCfg.data[c] = e.target.checked; gqCfg.save(); return; }
+  if (e.target.id === "gq-tipo") { document.querySelectorAll(".gq-when").forEach(el => el.hidden = e.target.value !== "Reminder"); if (e.target.value === "Reminder" && !$("gq-data").value) $("gq-data").value = xWorkday(xAddDays(xISO(Date.now()), 1)); return; }
+  if (e.target.id === "gq-from") { const o = (gqRender.opts || []).find(x => x.id === e.target.value); if (o) { $("gq-cli").value = o.a.clientName || ""; $("gq-tel").value = o.a.phone || ""; $("gq-link").value = o.link; } }
+});
+$("view-gestionale").addEventListener("input", e => e.target.classList.remove("bad"));
+setTimeout(gqBadge, 500);
+
+
 /* ===================== HOME ===================== */
 const HOME_GROUPS = [
-  ["Sul campo", [["zona", "🗺️", "Ricerca Zona", "Vie e civici"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite"]]],
-  ["Clienti", [["clienti", "👥", "Clienti", "Venditori e acquirenti"], ["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp"], ["visite", "🏠", "Visite", "Schede e report"], ["match", "🔗", "Incrocio", "Domanda e offerta"], ["modelli", "✉️", "Modelli", "Messaggi pronti"]]],
-  ["Schede e calcoli", [["preq", "📝", "Prequalifica", "Dati e valutazione"], ["desc", "✍️", "Descrizione", "Testo per l'annuncio"], ["calc", "🧮", "Calcolatori", "Mutuo e costi"], ["foto", "📸", "Fotografo", "Servizi fotografici"]]],
+  ["Sul campo", [["zona", "🗺️", "Ricerca Zona", "Vie e civici"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite"], ["agenda", "📅", "Agenda", "Settimana e orari liberi"]]],
+  ["Clienti", [["clienti", "👥", "Clienti", "Venditori e acquirenti"], ["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp"], ["gestionale", "📋", "Da fare nel gestionale", "Da riportare nel backoffice"], ["visite", "🏠", "Visite", "Schede e report"], ["match", "🔗", "Incrocio", "Domanda e offerta"], ["modelli", "✉️", "Modelli", "Messaggi pronti"]]],
+  ["Schede e calcoli", [["preq", "📝", "Prequalifica", "Dati e valutazione"], ["desc", "✍️", "Descrizione", "Testo per l'annuncio"], ["brochure", "📄", "Brochure", "PDF con foto"], ["prezzi", "📈", "Prezzi di zona", "€/m² dei comuni"], ["calc", "🧮", "Calcolatori", "Mutuo e costi"], ["consegna", "🔑", "Consegna", "Contatori e verbale"], ["foto", "📸", "Fotografo", "Servizi fotografici"]]],
   ["Risultati e strumenti", [["obiettivi", "📊", "Obiettivi", "Il mese in numeri"], ["utilita", "🧰", "Utilità", "Rubrica, scadenze, impostazioni"]]]
 ];
 const HOME_INFO = Object.fromEntries(HOME_GROUPS.flatMap(g => g[1]).map(x => [x[0], x]));
@@ -5651,6 +6380,7 @@ function homeBadges(){
   try { const n = clients.all().filter(clDue).length; if (n) b.clienti = n; } catch {}
   try { const n = vsPending(); if (n) b.visite = n; } catch {}
   try { const d = aqDueCount(); if (d.cart + d.sv) b.acq = d.cart + d.sv; } catch {}
+  try { const n = gqTodo().length; if (n) b.gestionale = n; } catch {}
   return b;
 }
 function homeRender(){
@@ -5664,6 +6394,8 @@ function homeRender(){
   if (B.visite) chips.push(["visite", "📝", `<b>${B.visite}</b> ${B.visite === 1 ? "scheda visita" : "schede visita"} da compilare`]);
   if (B.messaggi) chips.push(["messaggi", "💬", `<b>${B.messaggi}</b> messaggi da inviare`]);
   if (B.acq) chips.push(["acq", "🪧", `<b>${B.acq}</b> da ricontattare`]);
+  if (B.gestionale) chips.push(["gestionale", "📋", `<b>${B.gestionale}</b> da riportare nel gestionale`]);
+  try { const n = vxPending().length; if (n) chips.unshift(["messaggi", "🏠", `<b>${n}</b> ${n === 1 ? "visita da confermare" : "visite da confermare"}`]); } catch {}
   $("hm-today").innerHTML = chips.length ? `<div class="hm-today">${chips.map(([v, i, t]) => `<button type="button" data-home-go="${v}">${i} ${t}</button>`).join("")}</div>` : "";
   $("hm-groups").innerHTML = HOME_GROUPS.map(([g, items]) => `<section class="hm-group"><h2>${esc(g)}</h2><div class="hm-grid">${items.filter(x => APPS.includes(x[0])).map(([v, i, t, s]) => `<button type="button" class="hm-tile" data-home-go="${v}"><span class="ic" aria-hidden="true">${i}</span><b>${esc(t)}</b><small>${esc(s)}</small>${B[v] ? `<span class="nb">${B[v] > 99 ? "99+" : B[v]}</span>` : ""}</button>`).join("")}</div></section>`).join("");
   $("hm-acc").innerHTML = `<div class="hm-acc">${tok && tok.email ? `Collegato come <b>${esc(tok.email)}</b>` : knownEmail() ? "Sessione Google da riprendere: tocca una sezione e si riprende da sola" : "Non hai ancora fatto l'accesso con Google (Menu → Centro Messaggi)"}</div>`;
@@ -5671,8 +6403,62 @@ function homeRender(){
 XVIEWS.home = homeRender;
 $("view-home").addEventListener("click", e => { const b = e.target.closest("[data-home-go]"); if (b) showView(b.dataset.homeGo); });
 
+
+/* ===================== CENTRO MESSAGGI: VISITA FATTA? ===================== */
+const vxEnd = a => { const s = a.startISO ? new Date(a.startISO).getTime() : 0, e = a.endISO ? new Date(a.endISO).getTime() : s + 30 * 6e4; return Math.max(e, s + 15 * 6e4); };
+const vxAsk = a => a.kind === "visita" && a.source !== "email" && !a.isAllDay && a.startISO && vxEnd(a) < Date.now();
+const vxState = a => (crm.vx || {})[a.id];
+function vxNextMonday(fromISO){ let d = xAddDays(fromISO, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
+function vxDayAfter(visitISO){ const t1 = xAddDays(xISO(Date.now()), 1); let d = xAddDays(visitISO, 1); if (d < t1) d = t1; if (new Date(d + "T12:00").getDay() === 0) d = xAddDays(d, 1); return d; }
+window.vxBox = a => {
+  if (!vxAsk(a)) return "";
+  const st = vxState(a);
+  if (!st) return `<div class="vx"><b>🏠 La visita è stata fatta?</b><button type="button" class="si" data-a="vxsi">✅ Sì</button><button type="button" class="no" data-a="vxno">❌ No</button></div>`;
+  return st.esito === "si"
+    ? `<div class="vx ok"><b>✅ Visita fatta · reminder “da sentire per opinione sulla visita” per ${esc(xDay(st.data))} nella lista del gestionale</b><button type="button" class="ch" data-vs-open="${esc(a.id)}">📝 Scheda visita</button><button type="button" class="ch" data-a="vxreset">Cambia</button></div>`
+    : `<div class="vx ko"><b>❌ Non fatta · da segnare come annullata e reminder “sentire cliente per rifissare” ${esc(xDay(st.data))} alle 10:00 nella lista del gestionale</b><button type="button" class="ch" data-a="vxreset">Cambia</button></div>`;
+};
+function vxDropPending(keys){ for (const it of gqColl.all()) if (keys.includes(it.key) && it.stato !== "fatto") gqColl.remove(it.id); }
+window.vxAnswer = (a, done) => {
+  crm.vx = crm.vx || {};
+  const visitISO = xISO(new Date(a.startISO)), when = new Date(a.startISO).toLocaleString("it-IT", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+  const base = { cliente: a.clientName, tel: a.phoneDisplay || a.phone || "", link: a.boLink || "", fonte: "Centro Messaggi · visita" + (a.dvCode ? " " + a.dvCode : "") };
+  if (done) {
+    const today = xISO(Date.now());
+    let dFinal = vxNextMonday(visitISO);
+    if (dFinal < today) dFinal = new Date(today + "T12:00").getDay() === 1 ? today : vxNextMonday(today);
+    vxDropPending(["vxa:" + a.id]);
+    gqAdd(Object.assign({ key: "vx:" + a.id, tipo: "Reminder", data: dFinal, ora: "10:00", testo: "da sentire per opinione sulla visita" }, base));
+    crm.vx[a.id] = { esito: "si", data: dFinal, at: Date.now() };
+    toast("✅ Reminder per " + xDay(dFinal) + " aggiunto alla lista del gestionale");
+  } else {
+    const d = vxDayAfter(visitISO);
+    gqAdd(Object.assign({ key: "vxa:" + a.id, tipo: "Annulla visita", data: "", ora: "", testo: `Segnare come ANNULLATA la visita di ${when}${a.dvCode ? " (" + a.dvCode + ")" : ""}` }, base));
+    gqAdd(Object.assign({ key: "vx:" + a.id, tipo: "Reminder", data: d, ora: "10:00", testo: "sentire cliente per rifissare" }, base));
+    crm.vx[a.id] = { esito: "no", data: d, at: Date.now() };
+    toast("❌ Visita da annullare e reminder " + xDay(d) + " alle 10:00 aggiunti alla lista del gestionale");
+  }
+  saveCrm();
+};
+window.vxReset = a => { if (crm.vx) delete crm.vx[a.id]; vxDropPending(["vx:" + a.id, "vxa:" + a.id]); saveCrm(); };
+window.vxWaSent = (a, type, text) => {
+  if (!window.gqAdd) return;
+  gqAdd({ key: "wa:" + a.id + ":" + type, tipo: "Azione", cliente: a.clientName, tel: a.phoneDisplay || a.phone || "", link: a.boLink || "", testo: "inviato WA " + String(text || "").trim(), fonte: "Centro Messaggi · " + (MSG_LBL[type] || "messaggio") }, "wa");
+};
+function vxPending(){ const seen = new Set(); return [...(typeof overview !== "undefined" ? overview : []), ...(typeof appts !== "undefined" ? appts : [])].filter(a => { if (seen.has(a.id)) return false; seen.add(a.id); return vxAsk(a) && !vxState(a); }); }
+window.vxPending = vxPending;
+const _renderListVx = renderList;
+renderList = function(){
+  _renderListVx.apply(this, arguments);
+  const n = vxPending().length, list = $("m-list"); if (!list || !n) return;
+  const shown = [...list.querySelectorAll(".vx:not(.ok):not(.ko)")].length;
+  if (shown >= n) return;
+  list.insertAdjacentHTML("afterbegin", `<div class="vx-banner"><span>🏠 <b>${n}</b> ${n === 1 ? "visita passata da confermare" : "visite passate da confermare"}: è stata fatta?</span><button type="button" data-vx-show>Mostra</button></div>`);
+};
+document.addEventListener("click", e => { if (e.target.closest("[data-vx-show]")) { mui.range = "passati"; mui.kind = "tutti"; try { lsSet(M_UI, mui); } catch {} watchRange(); mRender(); } });
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "clienti", "messaggi", "visite", "match", "modelli", "preq", "desc", "calc", "foto", "obiettivi", "utilita"] : ["zona"];
+const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "agenda", "clienti", "messaggi", "gestionale", "visite", "match", "modelli", "preq", "desc", "brochure", "prezzi", "calc", "consegna", "foto", "obiettivi", "utilita"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "home";
