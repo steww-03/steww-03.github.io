@@ -696,6 +696,41 @@ a{color:inherit}
 .auto-lates a{min-height:80px;border-radius:16px;background:#b45309;color:#fff;font-size:22px;font-weight:800;display:grid;place-items:center;text-decoration:none}
 @media (min-width:900px){ .auto-grid{grid-template-columns:repeat(4,1fr);flex:0} .auto{padding-inline:max(16px,calc((100vw - 1200px)/2))} }
 @media (orientation:landscape) and (max-height:500px){ .auto-grid{grid-template-columns:repeat(4,1fr)} .auto-grid a,.auto-grid button{min-height:100px} .auto-clock{font-size:28px} }
+/* ---------- HOME ---------- */
+.dd-home{margin-bottom:4px}
+.view .hm-top{position:relative;top:auto;padding-bottom:22px;flex-direction:column!important;align-items:stretch!important}
+.hm-top .top-row{justify-content:space-between}
+.hm-hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:6px 0 4px}
+.hm-logo{width:68px;height:68px;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.25);display:grid;place-items:center;font-size:40px;background:rgba(255,255,255,.12)}
+.hm-logo img{width:100%;height:100%;display:block}
+.hm-name{margin:4px 0 0;font-family:var(--display);font-size:34px!important;font-weight:800;letter-spacing:-.01em;color:#fff;line-height:1.05}
+.hm-hello{margin:0;font-size:14px;color:rgba(255,255,255,.85);text-transform:capitalize}
+.hm-main{width:100%;max-width:1180px;margin:0 auto;padding:18px var(--gut) 48px;display:flex;flex-direction:column;gap:18px;position:relative}
+.hm-groups{display:flex;flex-direction:column;gap:22px}
+#hm-resume:empty,#hm-today:empty{display:none}
+.hm-resume{display:flex;align-items:center;gap:14px;background:var(--surface);border:2px solid var(--accent);border-radius:18px;padding:14px 16px;text-align:left;width:100%;cursor:pointer;box-shadow:var(--shadow)}
+.hm-resume .ic{font-size:30px;width:52px;height:52px;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;flex-shrink:0}
+.hm-resume .tx{flex:1;min-width:0}
+.hm-resume small{display:block;font-size:11.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.hm-resume b{display:block;font-size:17px;color:var(--ink)}
+.hm-resume .go{font-size:26px;color:var(--accent);font-weight:800}
+.hm-today{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.hm-today button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+.hm-today button b{color:var(--hot)}
+.hm-group h2{margin:0 0 8px 4px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.hm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hm-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:14px;min-height:118px;text-align:left;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .12s ease;min-width:0}
+.hm-tile:active{transform:scale(.97)}
+@media (hover:hover){ .hm-tile:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(21,32,51,.12);border-color:var(--accent)} }
+.hm-tile .ic{font-size:30px;line-height:1}
+.hm-tile b{font-size:15px;line-height:1.2;color:var(--ink)}
+.hm-tile small{font-size:12px;line-height:1.3;color:var(--ink-3)}
+.hm-tile .nb{position:absolute;top:10px;right:10px}
+.hm-acc{text-align:center;font-size:12.5px;color:var(--ink-3)}
+@media (min-width:600px){ .hm-grid{grid-template-columns:repeat(3,minmax(0,1fr))} .hm-name{font-size:40px!important} }
+@media (min-width:1000px){ .hm-grid{grid-template-columns:repeat(4,minmax(0,1fr))} .hm-tile{min-height:132px;padding:16px} .hm-tile .ic{font-size:34px} .hm-hero{padding-top:0} .hm-logo{width:80px;height:80px} .hm-name{font-size:46px!important} }
+@media (min-width:1900px){ .hm-main{max-width:2200px} .hm-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px;align-items:start} .hm-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (min-width:2400px){ .hm-groups{grid-template-columns:repeat(4,minmax(0,1fr))} .hm-grid{grid-template-columns:repeat(2,minmax(0,1fr))} .hm-main{max-width:2500px} }
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
 .list-head span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .list{padding:8px var(--gut) 28px;display:grid;grid-template-columns:1fr;gap:8px;align-content:start}
@@ -1221,6 +1256,25 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
   </main>
 </div>
 <div id="pq-print-area" aria-hidden="true"></div>
+<div class="view" id="view-home" hidden>
+  <header class="top hm-top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <span class="sync" id="hm-sync">Locale</span>
+    </div>
+    <div class="hm-hero">
+      <div class="hm-logo" aria-hidden="true"><img src="icon-192.png" alt="" onerror="this.replaceWith(document.createTextNode('🏡'))"></div>
+      <h1 class="hm-name">Agente Pro</h1>
+      <p class="hm-hello" id="hm-hello"></p>
+    </div>
+  </header>
+  <main class="hm-main">
+    <div id="hm-resume"></div>
+    <div id="hm-today"></div>
+    <div class="hm-groups" id="hm-groups"></div>
+    <div id="hm-acc"></div>
+  </main>
+</div>
 <div class="view" id="view-clienti" hidden>
   <header class="top">
     <div class="top-row">
@@ -1586,6 +1640,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
   </main>
 </div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
+  <button class="dd-item dd-home" role="menuitemradio" data-view="home"><span class="dd-i">🏠</span><span class="dd-t"><b>Home</b><small>Tutte le sezioni</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
   <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti utili</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da completare e inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio dal foglio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto e foglio acquirente</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e strumenti</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, modalità auto, backup</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
@@ -5427,7 +5482,8 @@ function utSetHtml(){
   return `<section class="ut-set" style="grid-column:1/-1;max-width:900px">
     <div class="x-card"><h3>🎨 Aspetto</h3>
       <div class="ut-row"><span>Tema</span>${seg("theme", [["auto", "Automatico"], ["light", "☀️ Chiaro"], ["dark", "🌙 Scuro"]], L.theme)}</div>
-      <div class="ut-row"><span>Dimensione del testo</span>${seg("size", [["n", "Normale"], ["l", "Grande"], ["xl", "Molto grande"]], L.size)}</div></div>
+      <div class="ut-row"><span>Dimensione del testo</span>${seg("size", [["n", "Normale"], ["l", "Grande"], ["xl", "Molto grande"]], L.size)}</div>
+      <div class="ut-row"><span>Quando apro l'app</span>${seg("open", [["home", "🏠 Home"], ["last", "↩ Ultima pagina"]], L.open || "home")}</div></div>
     <div class="x-card"><h3>📲 Installa l'app sul telefono</h3>
       ${xStandalone() ? `<p class="x-note" style="font-size:14px">✅ Stai già usando l'app installata.</p>` : xCanInstall() ? `<p class="x-note" style="font-size:14px">Aggiungi l'icona alla schermata Home: si apre a schermo intero e funziona anche senza campo.</p><button type="button" class="x-act call" id="ut-install">📲 Installa l'app</button>`
         : ios ? `<p class="x-note" style="font-size:14px">Su iPhone e iPad: apri il sito con <b>Safari</b>, tocca il pulsante <b>Condividi</b> (il quadrato con la freccia) e scegli <b>“Aggiungi alla schermata Home”</b>.</p>` : `<p class="x-note" style="font-size:14px">Apri il sito con Chrome e dal menu ⋮ scegli <b>“Installa app”</b> o <b>“Aggiungi a schermata Home”</b>.</p>`}
@@ -5579,14 +5635,50 @@ async function calcBuyerPdf(){
 }
 $("view-calc").addEventListener("click", e => { if (e.target.closest("#calc-bpdf")) calcBuyerPdf(); });
 
+
+/* ===================== HOME ===================== */
+const HOME_GROUPS = [
+  ["Sul campo", [["zona", "🗺️", "Ricerca Zona", "Vie e civici"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite"]]],
+  ["Clienti", [["clienti", "👥", "Clienti", "Venditori e acquirenti"], ["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp"], ["visite", "🏠", "Visite", "Schede e report"], ["match", "🔗", "Incrocio", "Domanda e offerta"], ["modelli", "✉️", "Modelli", "Messaggi pronti"]]],
+  ["Schede e calcoli", [["preq", "📝", "Prequalifica", "Dati e valutazione"], ["desc", "✍️", "Descrizione", "Testo per l'annuncio"], ["calc", "🧮", "Calcolatori", "Mutuo e costi"], ["foto", "📸", "Fotografo", "Servizi fotografici"]]],
+  ["Risultati e strumenti", [["obiettivi", "📊", "Obiettivi", "Il mese in numeri"], ["utilita", "🧰", "Utilità", "Rubrica, scadenze, impostazioni"]]]
+];
+const HOME_INFO = Object.fromEntries(HOME_GROUPS.flatMap(g => g[1]).map(x => [x[0], x]));
+window.homeOpenLast = () => { try { return (lookDoc && lookDoc.data.open) === "last"; } catch { return false; } };
+function homeBadges(){
+  const b = {};
+  try { const n = overview.filter(a => isSameDay(a.startISO, 0) && !isContacted(a)).length + overview.filter(a => needsFollow(a) && !isContacted(a)).length; if (n) b.messaggi = n; } catch {}
+  try { const n = clients.all().filter(clDue).length; if (n) b.clienti = n; } catch {}
+  try { const n = vsPending(); if (n) b.visite = n; } catch {}
+  try { const d = aqDueCount(); if (d.cart + d.sv) b.acq = d.cart + d.sv; } catch {}
+  return b;
+}
+function homeRender(){
+  const h = new Date().getHours(), saluto = h < 13 ? "Buongiorno" : h < 18 ? "Buon pomeriggio" : "Buonasera";
+  $("hm-hello").textContent = `${saluto} · ${new Date().toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" })}`;
+  $("hm-sync").textContent = xLogged() ? "Google" : "Locale";
+  const last = lsGet("app_view"), L = HOME_INFO[last];
+  $("hm-resume").innerHTML = L ? `<button type="button" class="hm-resume" data-home-go="${esc(last)}"><span class="ic">${L[1]}</span><span class="tx"><small>Riprendi da dove eri</small><b>${esc(L[2])}</b></span><span class="go" aria-hidden="true">›</span></button>` : "";
+  const B = homeBadges(), chips = [];
+  if (B.clienti) chips.push(["clienti", "🔔", `<b>${B.clienti}</b> da richiamare`]);
+  if (B.visite) chips.push(["visite", "📝", `<b>${B.visite}</b> ${B.visite === 1 ? "scheda visita" : "schede visita"} da compilare`]);
+  if (B.messaggi) chips.push(["messaggi", "💬", `<b>${B.messaggi}</b> messaggi da inviare`]);
+  if (B.acq) chips.push(["acq", "🪧", `<b>${B.acq}</b> da ricontattare`]);
+  $("hm-today").innerHTML = chips.length ? `<div class="hm-today">${chips.map(([v, i, t]) => `<button type="button" data-home-go="${v}">${i} ${t}</button>`).join("")}</div>` : "";
+  $("hm-groups").innerHTML = HOME_GROUPS.map(([g, items]) => `<section class="hm-group"><h2>${esc(g)}</h2><div class="hm-grid">${items.filter(x => APPS.includes(x[0])).map(([v, i, t, s]) => `<button type="button" class="hm-tile" data-home-go="${v}"><span class="ic" aria-hidden="true">${i}</span><b>${esc(t)}</b><small>${esc(s)}</small>${B[v] ? `<span class="nb">${B[v] > 99 ? "99+" : B[v]}</span>` : ""}</button>`).join("")}</div></section>`).join("");
+  $("hm-acc").innerHTML = `<div class="hm-acc">${tok && tok.email ? `Collegato come <b>${esc(tok.email)}</b>` : knownEmail() ? "Sessione Google da riprendere: tocca una sezione e si riprende da sola" : "Non hai ancora fatto l'accesso con Google (Menu → Centro Messaggi)"}</div>`;
+}
+XVIEWS.home = homeRender;
+$("view-home").addEventListener("click", e => { const b = e.target.closest("[data-home-go]"); if (b) showView(b.dataset.homeGo); });
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["zona", "acq", "giro", "clienti", "messaggi", "visite", "match", "modelli", "preq", "desc", "calc", "foto", "obiettivi", "utilita"] : ["zona"];
+const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "clienti", "messaggi", "visite", "match", "modelli", "preq", "desc", "calc", "foto", "obiettivi", "utilita"] : ["zona"];
 let ddFrom = null;
 function showView(v){
-  if (!APPS.includes(v)) v = "zona";
+  if (!APPS.includes(v)) v = "home";
   $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) { pqRender(); setTimeout(() => pdfLoad().catch(() => {}), 400); } xCur = v; for (const n of Object.keys(XVIEWS)) $("view-" + n).hidden = v !== n; if (XVIEWS[v]) XVIEWS[v]();
   document.querySelectorAll(".dd-item").forEach(b => b.setAttribute("aria-checked", b.dataset.view === v));
-  lsSet("app_view", v);
+  if (v !== "home") lsSet("app_view", v);
   try { history.replaceState(null, "", "#" + v); } catch {}
   window.scrollTo(0, 0);
   if (v === "messaggi") mRender();
@@ -5627,7 +5719,7 @@ buildControls();
 render();
 initCloud();
 mInit(); renderAcc(); if (tok) startWeb(); else authExpired();
-showView(((location.hash || "").slice(1)) || lsGet("app_view") || "zona");
+showView(((location.hash || "").slice(1)) || (window.homeOpenLast && homeOpenLast() && lsGet("app_view")) || "home");
 })();
 </script>
 
