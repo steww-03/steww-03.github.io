@@ -6746,12 +6746,28 @@ async function ctPdfText0(blob){
   try { const lib = await ctPdfjs(); const pdf = await lib.getDocument({ data: new Uint8Array(await blob.arrayBuffer()) }).promise; let out = ""; for (let i = 1; i <= Math.min(pdf.numPages, 4); i++) { const pg = await pdf.getPage(i); const tc = await pg.getTextContent(); out += tc.items.map(x => x.str + (x.hasEOL ? "\n" : " ")).join("") + "\n"; } return out; } catch { return ""; }
 }
 /* chi è: cerca il cliente nel calendario e tra i Clienti */
+/* chi non può essere il cliente: il titolare dell'account e il fotografo */
+function ctIsSelf(nome, tel){
+  const me = ((typeof tok !== "undefined" && tok && tok.email) || "").split("@")[0].replace(/[._-]+/g, " ");
+  const n = ctNorm(nome), d = xDigits(tel || "").slice(-9);
+  return (me && n && (n === ctNorm(me) || n === ctNorm(me.split(" ").reverse().join(" ")))) || n === "stefano piccioli" || (d && (d === "913009425" || (typeof FOTO_TEL !== "undefined" && d === FOTO_TEL.slice(-9))));
+}
+/* proforma / fattura: dal nome del file, oppure oggetto + testo del PDF (mai solo dal testo della mail) */
+const CT_NEG = /recesso|ricevut|visur|estratt|catast|docfa|planimetr|contratt|incaric|preliminar|rogit|identit|delega|mandat|matrimon|certificat|\bape\b|atto/i;
+function ctKindOf(fn, subject, pdfText){
+  if (/pro[\s\-_]?forma/i.test(fn)) return "proforma";
+  if (/fattur|invoice/i.test(fn)) return "fattura";
+  if (CT_NEG.test(fn)) return "";
+  if (/pro[\s\-]?forma/i.test(subject) && /pro[\s\-]?forma/i.test(pdfText)) return "proforma";
+  if (/fattur|invoice/i.test(subject) && /fattura|invoice/i.test(pdfText)) return "fattura";
+  return "";
+}
 async function ctWho(text, dv){
   const hay = ctNorm(text), digits = String(text).replace(/[\s.\-\/]/g, "").match(/\d{9,13}/g) || [], k9 = new Set(digits.map(d => d.slice(-9)));
   const cands = [];
   let evs = null; try { evs = await pvEvents(); } catch {}
-  for (const ev of evs || []) { const a = parseEvent(ev); if (!a || !a.clientName) continue; cands.push({ nome: a.clientName, tel: a.phoneDisplay || a.phone || "", dv: a.dvCode || ctDv(ev.summary), src: "calendario", link: ((ev.description || "").match(/https:\/\/backoffice\.dove\.it\/\S+/i) || [""])[0].replace(/[).,]+$/, "") }); }
-  try { for (const c of clients.all()) cands.push({ nome: c.nome, tel: c.tel || "", dv: ctDv((c.note || "") + " " + (c.immobile || "")), src: "clienti", link: "" }); } catch {}
+  for (const ev of evs || []) { if (/servizio fotografico|📸/i.test(ev.summary || "")) continue; const a = parseEvent(ev); if (!a || !a.clientName || ctIsSelf(a.clientName, a.phone)) continue; cands.push({ nome: a.clientName, tel: a.phoneDisplay || a.phone || "", dv: a.dvCode || ctDv(ev.summary), src: "calendario", link: ((ev.description || "").match(/https:\/\/backoffice\.dove\.it\/\S+/i) || [""])[0].replace(/[).,]+$/, "") }); }
+  try { for (const c of clients.all()) if (!ctIsSelf(c.nome, c.tel)) cands.push({ nome: c.nome, tel: c.tel || "", dv: ctDv((c.note || "") + " " + (c.immobile || "")), src: "clienti", link: "" }); } catch {}
   const byTel = cands.find(c => c.tel && k9.has(xDigits(c.tel).slice(-9)));
   if (byTel) return byTel;
   const byName = cands.filter(c => ctIn(hay, c.nome));
@@ -6791,7 +6807,11 @@ async function ctTryDrive(r){
 async function ctBlob(id){
   if (ctBlobs[id]) return ctBlobs[id];
   const r = ctColl.get(id);
-  if (r && r.msgId && r.attId) { const a = await api(GM + "/" + r.msgId + "/attachments/" + r.attId); return (ctBlobs[id] = ctB64ToBlob(a.data)); }
+  if (r && r.msgId && r.attId) {
+    let a = null; try { a = await api(GM + "/" + r.msgId + "/attachments/" + r.attId); } catch (e) { if (e instanceof AuthErr) throw e; }
+    if (!a || !a.data) { const f = await api(GM + "/" + r.msgId + "?format=full"); let part = null; (function walk(p){ if (!p || part) return; if (p.filename === r.filename && p.body && p.body.attachmentId) part = p; (p.parts || []).forEach(walk); })(f.payload); if (!part) throw new Error("allegato non trovato nella mail"); r.attId = part.body.attachmentId; ctColl.put(r); a = await api(GM + "/" + r.msgId + "/attachments/" + r.attId); }
+    return (ctBlobs[id] = ctB64ToBlob(a.data));
+  }
   const loc = await aqPhotoGet("doc:" + id); if (loc) return (ctBlobs[id] = loc instanceof Blob ? loc : ctB64ToBlob(String(loc).split(",").pop()));
   throw new Error("documento non trovato");
 }
@@ -6832,11 +6852,29 @@ async function ctSendWa(r, text){
   done("link");
 }
 /* ---------- controllo della posta ---------- */
+async function ctCleanup(){
+  if (ctCfg.data.v2) return;
+  const dropQ = id => { if (typeof gqColl === "undefined") return; for (const q of gqColl.all()) if ((q.key === "ct:" + id || q.key === "wa:ct:" + id) && q.stato !== "fatto") gqColl.remove(q.id); };
+  const seenFile = new Set(); let tolti = 0;
+  for (const r of ctColl.all().filter(x => x.msgId).sort((a, b) => String(a.date).localeCompare(String(b.date)))) {
+    let kind = ctKindOf(r.filename, r.subject || "", "");
+    if (!kind && /pro[\s\-_]?forma|fattur|invoice/i.test(r.subject || "") && !CT_NEG.test(r.filename)) { try { kind = ctKindOf(r.filename, r.subject || "", await ctPdfText(await ctBlob(r.id))); } catch (e) { if (e instanceof AuthErr) throw e; } }
+    const dup = seenFile.has(r.msgId + "|" + r.filename); seenFile.add(r.msgId + "|" + r.filename);
+    if (!kind || dup) { ctColl.remove(r.id); dropQ(r.id); tolti++; continue; }
+    if (r.kind !== kind) r.kind = kind;
+    if (ctIsSelf(r.nome, r.tel)) { r.nome = ""; r.tel = ""; r.trovato = ""; r.link = ""; }
+    ctColl.put(r); if (typeof gqColl !== "undefined" && gqColl.all().some(q => q.key === "ct:" + r.id && q.stato !== "fatto")) ctQueue(r);
+  }
+  ctCfg.data.v2 = true; ctCfg.save();
+  if (tolti) ctStatus(`🧹 Tolti ${tolti} documenti che non erano proforma o fatture (restano nella posta; le copie su Drive puoi cancellarle dalla cartella “${CT_ROOT}”).`);
+  if (typeof gqRender === "function") try { gqBadge(); } catch {}
+}
 async function ctScan(manual){
   if (ctBusy) return; if (typeof tok === "undefined" || !tok) { if (manual) toast("Accedi con Google per leggere la posta"); ctRender(); return; }
   ctBusy = true; ctLastScan = Date.now(); ctRender();
   let nuovi = 0;
   try {
+    await ctCleanup();
     const q = 'newer_than:120d has:attachment filename:pdf {proforma "pro forma" "pro-forma" fattura fatture invoice}';
     const l = await api(GM + "?" + new URLSearchParams({ q, maxResults: "50" }));
     const seen = new Set(ctCfg.data.seen || []);
@@ -6846,24 +6884,25 @@ async function ctScan(manual){
       ((f.payload && f.payload.headers) || []).forEach(x => h[x.name.toLowerCase()] = x.value);
       const body = bodyText(f.payload).slice(0, 8000), atts = [];
       (function walk(p){ if (!p) return; if (p.filename && /\.pdf$/i.test(p.filename) && p.body && p.body.attachmentId) atts.push(p); (p.parts || []).forEach(walk); })(f.payload);
-      for (const p of atts) {
+      for (const [ai, p] of atts.entries()) {
         const base = `${h.subject || ""}\n${p.filename}\n${body}`;
-        const kind = /pro[\s\-]?forma/i.test(base) ? "proforma" : /fattur|invoice/i.test(base) ? "fattura" : "";
-        if (!kind) continue;
-        const id = "ct-" + m.id + "-" + p.body.attachmentId.slice(-8);
+        if (!/pro[\s\-_]?forma|fattur|invoice/i.test(`${h.subject || ""}\n${p.filename}`)) continue;
+        const id = "ct-" + m.id + "-" + ai;
         if (ctColl.get(id)) continue;
         const a = await api(GM + "/" + m.id + "/attachments/" + p.body.attachmentId), blob = ctB64ToBlob(a.data);
+        if (ctColl.all().some(x => x.filename === p.filename && x.size === blob.size)) continue;
+        const pdfText = await ctPdfText(blob), all = base + "\n" + pdfText, kind = ctKindOf(p.filename, h.subject || "", pdfText);
+        if (!kind) continue;
         ctBlobs[id] = blob;
-        const pdfText = await ctPdfText(blob), all = base + "\n" + pdfText;
         const dv = ctDv(h.subject) || ctDv(p.filename) || ctDv(pdfText) || ctDv(body);
         const who = await ctWho(all, dv);
-        const r = { id, kind, msgId: m.id, attId: p.body.attachmentId, filename: p.filename, subject: h.subject || "", from: (h.from || "").replace(/<.*>/, "").trim(), date: new Date(Number(f.internalDate)).toISOString(), dv: dv || (who && who.dv) || "", nome: who ? who.nome : ctNameGuess(pdfText), tel: who ? who.tel : "", trovato: who ? who.src : "", link: who ? who.link : "", created: Date.now(), gmail: "https://mail.google.com/mail/u/0/#all/" + m.id };
+        const r = { id, kind, size: blob.size, msgId: m.id, attId: p.body.attachmentId, filename: p.filename, subject: h.subject || "", from: (h.from || "").replace(/<.*>/, "").trim(), date: new Date(Number(f.internalDate)).toISOString(), dv: dv || (who && who.dv) || "", nome: who ? who.nome : ctNameGuess(pdfText), tel: who ? who.tel : "", trovato: who ? who.src : "", link: who ? who.link : "", created: Date.now(), gmail: "https://mail.google.com/mail/u/0/#all/" + m.id };
         ctColl.put(r); nuovi++;
         await ctTryDrive(r);
         ctQueue(r);
         if (kind === "proforma" && r.tel && window.Notification && Notification.permission === "granted") { try { new Notification("🧾 Nota proforma arrivata", { body: `${r.nome} · ${r.dv || ""}: messaggio WhatsApp pronto` }); } catch {} }
       }
-      seen.add(m.id);
+      seen.add(m.id); ctCfg.data.seen = [...seen].slice(-400); ctCfg.save();
     }
     ctCfg.data.seen = [...seen].slice(-400); ctCfg.save();
     ctStatus(nuovi ? `✅ ${nuovi} ${nuovi === 1 ? "documento nuovo" : "documenti nuovi"} dalla posta.` : "Nessuna proforma o fattura nuova.");
