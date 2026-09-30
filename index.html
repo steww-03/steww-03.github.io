@@ -817,6 +817,57 @@ a{color:inherit}
 .pv-box.found{background:var(--done-soft)}
 .pv-box.new{background:var(--todo-soft)}
 .pv-box b{font-weight:800}
+.ct-wrap{display:flex;flex-direction:column;gap:12px}
+.ct-top{flex-direction:row!important;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ct-top-t{flex:1;min-width:220px}
+.ct-list{display:flex;flex-direction:column;gap:12px}
+.ct-folder{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;overflow:hidden}
+.ct-folder>summary{list-style:none;cursor:pointer;padding:12px 14px;font-weight:800;display:flex;align-items:center;gap:8px;min-height:48px}
+.ct-folder>summary::-webkit-details-marker{display:none}
+.ct-folder>summary .n{margin-left:auto;font-size:12px;color:var(--ink-3);font-weight:700}
+.ct-item{border-top:1px solid var(--line-2);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.ct-item h4{margin:0;font-size:14.5px;overflow-wrap:anywhere}
+.ct-meta{font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere}
+.ct-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ct-chip{font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 9px;background:var(--line-2);color:var(--ink-2)}
+.ct-chip.ok{background:var(--done-soft);color:var(--done)}
+.ct-chip.todo{background:var(--todo-soft);color:var(--todo-bar)}
+.ct-chip.warn{background:var(--hot-soft);color:var(--hot)}
+.ct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.ct-wa textarea{width:100%;min-height:70px}
+@media (min-width:1400px){ .ct-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start} }
+.fe-wrap{max-width:1100px;margin:0 auto;width:100%}
+.fe-app{display:flex;flex-direction:column;gap:12px}
+.fe-step h3{margin:0 0 6px}
+.fe-entry{flex-direction:row!important;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:2px solid var(--accent)!important}
+.fe-entry h2{margin:0 0 4px}
+.fe-dv{display:flex;align-items:center;gap:6px;max-width:260px}
+.fe-dv-pre{font-weight:800;font-size:20px}
+.fe-dv input{font-size:20px;font-weight:700;letter-spacing:.04em}
+.fe-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;min-height:170px;border:2px dashed var(--accent);border-radius:16px;padding:18px;cursor:pointer;background:var(--accent-soft);transition:background .15s}
+.fe-drop .big{font-size:40px}
+.fe-drop small{color:var(--ink-2);font-size:12.5px;max-width:520px}
+.fe-drop[aria-disabled="true"]{opacity:.55;cursor:not-allowed;border-color:var(--line)}
+.fe-drop.over{background:var(--done-soft);border-color:var(--done)}
+.fe-opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:end;margin-top:10px}
+.fe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.fe-it{background:var(--surface);border:1px solid var(--line-2);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.fe-it .ph{position:relative;aspect-ratio:4/3;background:#111}
+.fe-it canvas{width:100%;height:100%;object-fit:cover;display:block}
+.fe-it .tag{position:absolute;left:6px;top:6px;font-size:11px;font-weight:800;background:rgba(0,0,0,.6);color:#fff;border-radius:999px;padding:2px 8px}
+.fe-it .st{position:absolute;right:6px;top:6px;font-size:14px}
+.fe-it .ctl{padding:6px 8px;display:flex;flex-direction:column;gap:4px;font-size:12px}
+.fe-it .ctl input[type=range]{width:100%}
+.fe-it .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+.fe-it .row{display:flex;gap:6px;align-items:center;justify-content:space-between}
+.fe-it .row button{border:1px solid var(--line);background:none;border-radius:8px;min-height:30px;padding:0 8px;font-size:12px;cursor:pointer;color:var(--ink)}
+.fe-bar{height:10px;border-radius:999px;background:var(--line-2);overflow:hidden;margin-top:10px}
+.fe-bar-in{height:100%;width:0;background:var(--accent);transition:width .2s}
+.fe-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.fe-rec{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px solid var(--line-2);border-radius:12px;padding:10px 12px}
+.fe-rec b{font-size:15px}
+.fe-rec small{display:block;color:var(--ink-2);font-size:12.5px}
+@media (min-width:1000px){ .fe-app{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start} .fe-app>.fe-step:nth-child(1){grid-column:1;grid-row:1} .fe-app>.fe-step:nth-child(2){grid-column:1;grid-row:2} .fe-app>.fe-step:nth-child(3){grid-column:2;grid-row:1 / span 2} }
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -1315,6 +1366,10 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
       <a class="act call f-call-btn" href="tel:+393913009425">📞 Chiama</a>
     </section>
 
+    <section class="f-card fe-entry" id="fe-entry" hidden>
+      <div><h2>🪄 Modifica e impacchettamento foto</h2><p class="hint">Trascini le foto, sistemo la luminosità e le salvo su Drive nella cartella “Foto DV-…”.</p></div>
+      <button type="button" class="act call" data-fe-open>Apri</button>
+    </section>
     <section class="f-card f-stats" id="f-stats" hidden aria-labelledby="f-stats-t">
       <div class="f-stats-h"><button type="button" class="chip" data-fm="-1" aria-label="Mese precedente">‹</button><h2 id="f-stats-t">📊 Servizi del mese</h2><button type="button" class="chip" data-fm="1" aria-label="Mese successivo">›</button></div>
       <div id="f-stats-body"></div>
@@ -1952,9 +2007,76 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     </div>
   </main>
 </div>
+<div class="view" id="view-conta" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🧾 Contabilità</h1><p class="sub">Proforma e fatture dalla posta, pronte da inviare e archiviare</p></div>
+      <span class="sync" id="ct-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide">
+    <div class="ct-wrap">
+      <div class="x-card ct-top">
+        <div class="ct-top-t"><b>🧾 Proforma e fatture dalla tua posta</b><div class="x-note" id="ct-status">Controllo la posta quando apri questa pagina e ogni 30 minuti.</div></div>
+        <div class="x-row"><button type="button" class="x-act call" id="ct-scan">📥 Controlla la posta</button><button type="button" class="x-act" id="ct-drive-perm" hidden>🔑 Consenti le cartelle su Drive</button></div>
+      </div>
+      <div class="x-pills" id="ct-tabs"></div>
+      <div class="ct-list" id="ct-list"></div>
+      <details class="x-card ct-help"><summary>Come funziona</summary><div class="x-note">
+        <p><b>Proforma</b>: quando arriva una mail con la nota proforma in PDF, cerco il cliente e l'immobile (DV) nel calendario e tra i Clienti. Se lo trovo preparo il messaggio WhatsApp con il PDF allegato e la scadenza a una settimana. Il PDF va nella cartella Drive <i>Agente Pro - Contabilità / Proforma / Nome - DV</i>.</p>
+        <p><b>Fatture</b>: il PDF va nella cartella Drive <i>Agente Pro - Contabilità / Fatture</i>.</p>
+        <p>Ogni proforma e fattura entra anche nella lista <b>Da fare nel gestionale</b>, per caricarla in Documenti → Altri documenti del DV.</p>
+        <p>Se nome, telefono o DV non sono giusti puoi correggerli nella scheda.</p></div></details>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-fotoedit" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>🪄 Modifica e impacchettamento foto</h1><p class="sub">Luminosità automatica e cartella Drive per DV</p></div>
+      <span class="sync" id="fe-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main">
+    <div class="fe-wrap">
+      <div class="fe-lock x-card" id="fe-lock" hidden>🔒 Questa sezione è riservata all'account <b>stefano.piccioli@dove.it</b>. Accedi con quell'account Google per usarla.</div>
+      <div id="fe-app" class="fe-app">
+        <section class="x-card fe-step">
+          <div class="x-row fe-back-row"><button type="button" class="x-act" data-fe-back>← Fotografo</button></div>
+          <h3>1 · Numero dell'immobile</h3>
+          <div class="fe-dv"><span class="fe-dv-pre">DV-</span><input class="inp" id="fe-dv" inputmode="numeric" pattern="[0-9]*" placeholder="Es. 14201" autocomplete="off" aria-label="Numero DV"></div>
+          <div class="x-note" id="fe-dv-note">Le foto andranno nella cartella Drive <b>Foto DV-…</b></div>
+        </section>
+        <section class="x-card fe-step">
+          <h3>2 · Trascina qui le foto</h3>
+          <label class="fe-drop" id="fe-drop" aria-disabled="true">
+            <input type="file" id="fe-file" multiple accept="image/*,.heic,.heif,.dng,.cr2,.cr3,.nef,.nrw,.arw,.srf,.sr2,.raf,.orf,.rw2,.pef,.srw,.raw,.jpg,.jpeg,.png,.webp,.avif" hidden>
+            <span class="big">🖼️</span><b id="fe-drop-t">Prima scrivi il numero DV</b><small>JPG, PNG, HEIC, WebP e file RAW delle fotocamere (DNG, CR2, CR3, NEF, ARW, RAF, ORF, RW2…)</small>
+          </label>
+          <div class="fe-opts">
+            <label class="x-f"><span>Formato di uscita</span><select class="inp" id="fe-fmt"><option value="jpeg">JPEG qualità massima (consigliato)</option><option value="png">PNG senza perdita (file molto grandi)</option></select></label>
+            <label class="calc-chk"><input type="checkbox" id="fe-auto" checked> Correggi la luminosità in automatico</label>
+          </div>
+          <div class="fe-grid" id="fe-grid"></div>
+          <div class="fe-bar" id="fe-bar" hidden><div class="fe-bar-in" id="fe-bar-in"></div></div>
+          <div class="x-note" id="fe-msg" role="status"></div>
+          <div class="x-row fe-go-row"><button type="button" class="x-act call" id="fe-go" disabled>✨ Elabora e salva su Drive</button><button type="button" class="x-act" id="fe-clear" hidden>Svuota</button><button type="button" class="x-act" id="fe-perm" hidden>🔑 Consenti Drive</button><a class="x-act" id="fe-folder-now" target="_blank" rel="noopener" hidden>📁 Cartella Drive</a></div>
+        </section>
+        <section class="x-card fe-step">
+          <h3>📁 Servizi salvati</h3>
+          <input class="inp" id="fe-search" placeholder="Cerca per DV" inputmode="numeric">
+          <div class="fe-list" id="fe-list"></div>
+          <div class="x-note">Le foto sono salvate solo su Google Drive: qui resta l'elenco con data e cartella.</div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
   <button class="dd-item dd-home" role="menuitemradio" data-view="home"><span class="dd-i">🏠</span><span class="dd-t"><b>Home</b><small>Tutte le sezioni</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
-  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti utili</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi da proporre</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Reminder e note da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da completare e inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio dal foglio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="brochure"><span class="dd-i">📄</span><span class="dd-t"><b>Brochure immobile</b><small>PDF con foto e descrizione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto e foglio acquirente</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale firmato</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e strumenti</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, modalità auto, backup</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
+  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti utili</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi da proporre</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Reminder e note da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da completare e inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio dal foglio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="brochure"><span class="dd-i">📄</span><span class="dd-t"><b>Brochure immobile</b><small>PDF con foto e descrizione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto e foglio acquirente</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale firmato</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e strumenti</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="conta"><span class="dd-i">🧾</span><span class="dd-t"><b>Contabilità <span class="nb" data-ct-badge hidden></span></b><small>Proforma e fatture dalla posta</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, modalità auto, backup</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -2997,7 +3119,7 @@ async function initGas(){
 
 /* ===================== GOOGLE (accesso diretto dal browser) ===================== */
 const CLIENT_ID = "940180007208-v8e085pua5f93ucfcstrnleqrgfg6dbj.apps.googleusercontent.com";
-const SCOPES = "openid email https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/drive.appdata";
+const SCOPES = "openid email https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file";
 const DATA_FILE = "ricerca-zona-dati.json";
 let tok = null, tokenClient = null, loginWait = null, webStarted = false, loggingIn = false;
 try { const s = JSON.parse(localStorage.getItem("rz_tok") || "null"); if (s && s.exp > Date.now() + 60000) tok = s; } catch {}
@@ -4072,7 +4194,7 @@ function clRenderDetail(){
   <div class="cl-dhead">
     <div class="cl-dtitle"><button type="button" class="x-act x-back" data-cl-back aria-label="Torna alla lista">‹ Lista</button><span class="cl-av" style="background:${st[2]}">${esc(clInitials(r))}</span><h2 id="cl-title">${esc(clName(r))}</h2></div>
     <div class="x-acts">
-      ${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}">📞 Chiama</a><a class="x-act wa" href="${esc(xWa(r.tel, waTxt))}" target="_blank" rel="noopener">💬 WhatsApp</a>` : `<span class="x-note">Aggiungi il telefono per chiamare o scrivere su WhatsApp.</span>`}
+      ${r.tel ? `<a class="x-act" href="https://backoffice.dove.it/contacts/search?q=${encodeURIComponent(xDigits(r.tel).slice(-10))}" target="_blank" rel="noopener">🔗 Gestionale</a>` : ""}${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}">📞 Chiama</a><a class="x-act wa" href="${esc(xWa(r.tel, waTxt))}" target="_blank" rel="noopener">💬 WhatsApp</a>` : `<span class="x-note">Aggiungi il telefono per chiamare o scrivere su WhatsApp.</span>`}
       ${r.email ? `<a class="x-act" href="mailto:${esc(r.email)}">✉️ Email</a>` : ""}
       <button type="button" class="x-act danger${clDelArm ? " armed" : ""}" data-cl-del>${clDelArm ? "Conferma eliminazione" : "🗑️"}</button>
     </div>
@@ -6277,6 +6399,7 @@ async function csPdf(){
     if (c.note) { y += 2; h2("Note"); const lines = doc.splitTextToSize(pdfTxt(c.note), W - 2 * M); need(lines.length * 5); doc.text(lines, M, y); y += lines.length * 5 + 4; }
     need(52); y += 4; const sw = (W - 2 * M - 12) / 3;
     [["vend", "Il venditore"], ["acq", "L'acquirente"], ["ag", "L'agente"]].forEach(([k, l], i) => { const x = M + i * (sw + 6), s = csSigs[c.id + ":" + k]; if (s) { try { doc.addImage(s, "PNG", x, y, sw, sw * 220 / 600); } catch {} } doc.setDrawColor(150, 150, 150); doc.line(x, y + 22, x + sw, y + 22); doc.setFontSize(9.5); doc.text(l, x, y + 27); });
+    { const vb = doc.output("blob"), vn = `Verbale_consegna_${pdfTxt(c.imm || "immobile").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]+/g, "_").slice(0, 40)}_${c.data}.pdf`; if (window.ctQueueLocal) ctQueueLocal("cs:" + c.id, vb, vn, c.imm || "", "Verbale di consegna", "consegna"); }
     await xDownload(doc.output("blob"), `Verbale_consegna_${pdfTxt(c.imm || "immobile").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "_").slice(0, 40)}_${c.data}.pdf`);
     c.fatto = true; csColl.put(c); csDrawList();
   } catch (e) { toast("Verbale non creato: " + ((e && e.message) || e)); }
@@ -6305,8 +6428,8 @@ $("view-consegna").addEventListener("change", async e => {
 
 /* ===================== DA FARE NEL GESTIONALE ===================== */
 const gqColl = xColl("rz_gestionale_v1", "gestionale");
-const gqCfg = xDoc("rz_gestionale_cfg_v1", "gestionale_cfg", { visite: true, reminder: true, stato: true, chiamate: true, civici: true, wa: true, enrico: true, preq: true });
-const GQ_AUTO = [["preq", "Prequalifiche salvate → valutazione nel gestionale con il PDF"], ["enrico", "Invita enrico.rosani@dove.it ai promemoria “ric con enrico” nel calendario Google"], ["wa", "Messaggi WhatsApp inviati dal Centro Messaggi (“inviato WA …”)"], ["visite", "Esito delle schede visita"], ["reminder", "Prossime azioni dei Clienti (reminder)"], ["stato", "Cambi di stato dei Clienti"], ["chiamate", "Chiamate registrate in Acquisizione"], ["civici", "Civici caldi trasformati in clienti"]];
+const gqCfg = xDoc("rz_gestionale_cfg_v1", "gestionale_cfg", { visite: true, reminder: true, stato: true, chiamate: true, civici: true, wa: true, enrico: true, preq: true, conta: true, consegna: true });
+const GQ_AUTO = [["conta", "Proforma e fatture → Altri documenti del DV"], ["consegna", "Verbali di consegna → Altri documenti del DV"], ["preq", "Prequalifiche salvate → valutazione nel gestionale con il PDF"], ["enrico", "Invita enrico.rosani@dove.it ai promemoria “ric con enrico” nel calendario Google"], ["wa", "Messaggi WhatsApp inviati dal Centro Messaggi (“inviato WA …”)"], ["visite", "Esito delle schede visita"], ["reminder", "Prossime azioni dei Clienti (reminder)"], ["stato", "Cambi di stato dei Clienti"], ["chiamate", "Chiamate registrate in Acquisizione"], ["civici", "Civici caldi trasformati in clienti"]];
 let gqFilter = "todo";
 const gqLinkRe = /https:\/\/backoffice\.dove\.it\/\S+/i;
 function gqFindLink(name, tel){
@@ -6325,7 +6448,7 @@ window.gqAdd = function(o, cfgKey){
   return it;
 };
 function gqWhen(it){ return it.data ? `${new Date(it.data + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" })}${it.ora ? " ore " + it.ora : ""}` : ""; }
-function gqLine(it, n){ const P = rgPlan(it); return `${n}. [${it.tipo}] ${[it.cliente, it.tel ? "tel " + it.tel : "", gqWhen(it)].filter(Boolean).join(" · ")}${it.testo ? `\n   Testo: ${it.testo.replace(/\n/g, " / ")}` : ""}${P ? `\n   Promemoria in Calendario: ${P.quando} · "${P.testo}"${P.invito ? " · poi invitare " + P.invito + " all'evento Google" : ""}` : ""}${it.pq ? `\n   Prequalifica: ${it.pq} (PDF da caricare in Documenti → Report di valutazione)` : ""}\n   ${it.link ? "Scheda: " + it.link : "Scheda: da cercare nel gestionale per nome o telefono"}`; }
+function gqLine(it, n){ const P = rgPlan(it); return `${n}. [${it.tipo}] ${[it.cliente, it.tel ? "tel " + it.tel : "", gqWhen(it)].filter(Boolean).join(" · ")}${it.testo ? `\n   Testo: ${it.testo.replace(/\n/g, " / ")}` : ""}${P ? `\n   Promemoria in Calendario: ${P.quando} · "${P.testo}"${P.invito ? " · poi invitare " + P.invito + " all'evento Google" : ""}` : ""}${it.doc ? `\n   Documento: ${it.doc} (PDF da caricare in Documenti → Altri documenti)` : ""}${it.pq ? `\n   Prequalifica: ${it.pq} (PDF da caricare in Documenti → Report di valutazione)` : ""}\n   ${it.link ? "Scheda: " + it.link : "Scheda: da cercare nel gestionale per nome o telefono"}`; }
 function gqTodo(){ return gqColl.all().filter(x => x.stato !== "fatto").sort((a, b) => (a.created || 0) - (b.created || 0)); }
 function gqBadge(){ const n = gqTodo().length; document.querySelectorAll("[data-gq-badge]").forEach(el => { el.hidden = !n; el.textContent = n; }); }
 function gqRender(){
@@ -6335,7 +6458,7 @@ function gqRender(){
   const list = gqFilter === "todo" ? todo : done;
   $("gq-list").innerHTML = list.length ? list.map((it, i) => `<div class="gq-item${it.stato === "fatto" ? " done" : ""}"><span class="gq-n">${it.stato === "fatto" ? "✓" : i + 1}</span>
       <div><b><span class="tp">${esc(it.tipo)}</span>${esc(it.cliente || "Senza nome")}</b>${it.tel || it.data ? `<small>${esc([it.tel, gqWhen(it)].filter(Boolean).join(" · "))}</small>` : ""}${it.testo ? `<div class="tx">${esc(it.testo)}</div>` : ""}${(P => P ? `<div class="gq-plan">⏰ Promemoria: ${esc(P.quando)} · “${esc(P.testo)}”${P.invito ? ` · 👥 ${esc(P.invito)}` : ""}</div>` : "")(rgPlan(it))}<div class="gq-src">${esc(it.fonte || "Aggiunta a mano")} · ${esc(new Date(it.created).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}${it.stato === "fatto" && it.done ? " · fatta il " + esc(new Date(it.done).toLocaleDateString("it-IT", { day: "numeric", month: "short" })) : ""}</div></div>
-      <div class="x-acts">${it.link ? `<a class="x-act" href="${esc(it.link)}" target="_blank" rel="noopener">🔗 Apri la scheda</a>` : ""}${it.pq ? `<button type="button" class="x-act" data-pv-open="${esc(it.id)}">🤖 Apri per Claude</button><button type="button" class="x-act" data-pv-pdf="${esc(it.pq)}">📄 PDF</button>` : ""}<button type="button" class="x-act" data-gq-copy="${esc(it.id)}">📋 Copia</button>${it.stato === "fatto" ? `<button type="button" class="x-act" data-gq-undo="${esc(it.id)}">Rimetti da fare</button>` : `<button type="button" class="x-act call" data-gq-done="${esc(it.id)}">✓ Fatto</button>`}<button type="button" class="x-act danger" data-gq-del="${esc(it.id)}">🗑️</button></div></div>`).join("")
+      <div class="x-acts">${it.link ? `<a class="x-act" href="${esc(it.link)}" target="_blank" rel="noopener">🔗 Apri la scheda</a>` : ""}${it.doc ? `<button type="button" class="x-act" data-pv-open="${esc(it.id)}">🤖 Apri per Claude</button><button type="button" class="x-act" data-ct-doc="${esc(it.doc)}">📄 PDF</button>` : ""}${it.pq ? `<button type="button" class="x-act" data-pv-open="${esc(it.id)}">🤖 Apri per Claude</button><button type="button" class="x-act" data-pv-pdf="${esc(it.pq)}">📄 PDF</button>` : ""}<button type="button" class="x-act" data-gq-copy="${esc(it.id)}">📋 Copia</button>${it.stato === "fatto" ? `<button type="button" class="x-act" data-gq-undo="${esc(it.id)}">Rimetti da fare</button>` : `<button type="button" class="x-act call" data-gq-done="${esc(it.id)}">✓ Fatto</button>`}<button type="button" class="x-act danger" data-gq-del="${esc(it.id)}">🗑️</button></div></div>`).join("")
     : `<div class="x-empty">${gqFilter === "todo" ? "✅ Niente da riportare nel gestionale." : "Ancora nessuna voce fatta."}</div>`;
   const evs = [...(typeof vsEvents !== "undefined" && vsEvents || []), ...(typeof grEvents !== "undefined" && grEvents || []), ...(typeof agEvents !== "undefined" && agEvents || [])].filter(ev => (ev.description || "").match(gqLinkRe));
   const seen = new Set(), opts = [];
@@ -6376,7 +6499,7 @@ const HOME_GROUPS = [
   ["Sul campo", [["zona", "🗺️", "Ricerca Zona", "Vie e civici"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite"], ["agenda", "📅", "Agenda", "Settimana e orari liberi"]]],
   ["Clienti", [["clienti", "👥", "Clienti", "Venditori e acquirenti"], ["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp"], ["gestionale", "📋", "Da fare nel gestionale", "Da riportare nel backoffice"], ["visite", "🏠", "Visite", "Schede e report"], ["match", "🔗", "Incrocio", "Domanda e offerta"], ["modelli", "✉️", "Modelli", "Messaggi pronti"]]],
   ["Schede e calcoli", [["preq", "📝", "Prequalifica", "Dati e valutazione"], ["desc", "✍️", "Descrizione", "Testo per l'annuncio"], ["brochure", "📄", "Brochure", "PDF con foto"], ["prezzi", "📈", "Prezzi di zona", "€/m² dei comuni"], ["calc", "🧮", "Calcolatori", "Mutuo e costi"], ["consegna", "🔑", "Consegna", "Contatori e verbale"], ["foto", "📸", "Fotografo", "Servizi fotografici"]]],
-  ["Risultati e strumenti", [["obiettivi", "📊", "Obiettivi", "Il mese in numeri"], ["utilita", "🧰", "Utilità", "Rubrica, scadenze, impostazioni"]]]
+  ["Risultati e strumenti", [["obiettivi", "📊", "Obiettivi", "Il mese in numeri"], ["conta", "🧾", "Contabilità", "Proforma e fatture"], ["utilita", "🧰", "Utilità", "Rubrica, scadenze, impostazioni"]]]
 ];
 const HOME_INFO = Object.fromEntries(HOME_GROUPS.flatMap(g => g[1]).map(x => [x[0], x]));
 window.homeOpenLast = () => { try { return (lookDoc && lookDoc.data.open) === "last"; } catch { return false; } };
@@ -6387,6 +6510,7 @@ function homeBadges(){
   try { const n = vsPending(); if (n) b.visite = n; } catch {}
   try { const d = aqDueCount(); if (d.cart + d.sv) b.acq = d.cart + d.sv; } catch {}
   try { const n = gqTodo().length; if (n) b.gestionale = n; } catch {}
+  try { const n = ctTodo(); if (n) b.conta = n; } catch {}
   return b;
 }
 function homeRender(){
@@ -6401,6 +6525,7 @@ function homeRender(){
   if (B.messaggi) chips.push(["messaggi", "💬", `<b>${B.messaggi}</b> messaggi da inviare`]);
   if (B.acq) chips.push(["acq", "🪧", `<b>${B.acq}</b> da ricontattare`]);
   if (B.gestionale) chips.push(["gestionale", "📋", `<b>${B.gestionale}</b> da riportare nel gestionale`]);
+  if (B.conta) chips.push(["conta", "🧾", `<b>${B.conta}</b> ${B.conta === 1 ? "proforma da inviare" : "proforme da inviare"}`]);
   try { const n = vxPending().length; if (n) chips.unshift(["messaggi", "🏠", `<b>${n}</b> ${n === 1 ? "visita da confermare" : "visite da confermare"}`]); } catch {}
   $("hm-today").innerHTML = chips.length ? `<div class="hm-today">${chips.map(([v, i, t]) => `<button type="button" data-home-go="${v}">${i} ${t}</button>`).join("")}</div>` : "";
   $("hm-groups").innerHTML = HOME_GROUPS.map(([g, items]) => `<section class="hm-group"><h2>${esc(g)}</h2><div class="hm-grid">${items.filter(x => APPS.includes(x[0])).map(([v, i, t, s]) => `<button type="button" class="hm-tile" data-home-go="${v}"><span class="ic" aria-hidden="true">${i}</span><b>${esc(t)}</b><small>${esc(s)}</small>${B[v] ? `<span class="nb">${B[v] > 99 ? "99+" : B[v]}</span>` : ""}</button>`).join("")}</div></section>`).join("");
@@ -6466,7 +6591,7 @@ document.addEventListener("click", e => { if (e.target.closest("[data-vx-show]")
 
 /* ===================== REGOLE GESTIONALE ===================== */
 const RG_ENRICO = "enrico.rosani@dove.it";
-const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza).";
+const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza). [Documento] (proforma, fatture, verbali): PDF con await rzDocBase64('id') nella scheda dell'app, da caricare nella pagina dell'immobile /properties/<numero DV> in Documenti → Altri documenti.";
 function rgNextMonday(iso){ let d = xAddDays(iso, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
 /* visita fatta con esito diverso da "non interessato" */
 window.rgVisitaOpinione = function(id, sc){
@@ -6595,8 +6720,411 @@ $("view-gestionale").addEventListener("click", async e => {
   if (p) { try { const { name, blob } = await rzPdfBlob(p.dataset.pvPdf); xDownload(blob, name); } catch (err) { toast("PDF non disponibile: " + (err.message || err)); } }
 });
 
+
+/* ===================== CONTABILITÀ ===================== */
+const ctColl = xColl("rz_conta_v1", "conta");
+const ctCfg = xDoc("rz_conta_cfg_v1", "conta_cfg", { seen: [], folders: {} });
+const CT_ROOT = "Agente Pro - Contabilità", CT_FOLDER_MIME = "application/vnd.google-apps.folder";
+const CT_PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", CT_PDFJS_W = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+let ctTab = "proforma", ctBusy = false, ctNeedPerm = false, ctLastScan = 0;
+const ctBlobs = {};   /* PDF in memoria per id */
+const ctKind = k => k === "proforma" ? "Nota proforma" : k === "fattura" ? "Fattura" : "Documento";
+window.ctTodo = () => ctColl.all().filter(r => r.kind === "proforma" && r.tel && !r.waAt && !r.pagata).length;
+function ctBadge(){ const n = ctTodo(); document.querySelectorAll("[data-ct-badge]").forEach(el => { el.hidden = !n; el.textContent = n; }); }
+const ctDv = s => { const m = String(s || "").match(/\bDV[\s\-_.]*(\d{3,6})\b/i); return m ? "DV-" + m[1] : ""; };
+const ctNorm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+const ctIn = (hay, name) => { const n = ctNorm(name), p = n.split(" ").filter(x => x.length > 1); if (p.length < 2) return false; const h = " " + hay + " "; return h.includes(" " + n + " ") || h.includes(" " + p.slice().reverse().join(" ") + " "); };
+function ctB64ToBlob(b64u, type){ const bin = atob(String(b64u).replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return new Blob([u], { type: type || "application/pdf" }); }
+let ctPdfjsP = null;
+function ctPdfjs(){
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if (!ctPdfjsP) ctPdfjsP = new Promise((res, rej) => { const s = document.createElement("script"); s.src = CT_PDFJS; s.onload = () => { if (window.pdfjsLib) { window.pdfjsLib.GlobalWorkerOptions.workerSrc = CT_PDFJS_W; res(window.pdfjsLib); } else rej(new Error("pdf.js")); }; s.onerror = () => { ctPdfjsP = null; rej(new Error("pdf.js non disponibile")); }; document.head.appendChild(s); });
+  return ctPdfjsP;
+}
+async function ctPdfText(blob){ return Promise.race([ctPdfText0(blob), new Promise(r => setTimeout(() => r(""), 12000))]); }
+async function ctPdfText0(blob){
+  try { const lib = await ctPdfjs(); const pdf = await lib.getDocument({ data: new Uint8Array(await blob.arrayBuffer()) }).promise; let out = ""; for (let i = 1; i <= Math.min(pdf.numPages, 4); i++) { const pg = await pdf.getPage(i); const tc = await pg.getTextContent(); out += tc.items.map(x => x.str + (x.hasEOL ? "\n" : " ")).join("") + "\n"; } return out; } catch { return ""; }
+}
+/* chi è: cerca il cliente nel calendario e tra i Clienti */
+async function ctWho(text, dv){
+  const hay = ctNorm(text), digits = String(text).replace(/[\s.\-\/]/g, "").match(/\d{9,13}/g) || [], k9 = new Set(digits.map(d => d.slice(-9)));
+  const cands = [];
+  let evs = null; try { evs = await pvEvents(); } catch {}
+  for (const ev of evs || []) { const a = parseEvent(ev); if (!a || !a.clientName) continue; cands.push({ nome: a.clientName, tel: a.phoneDisplay || a.phone || "", dv: a.dvCode || ctDv(ev.summary), src: "calendario", link: ((ev.description || "").match(/https:\/\/backoffice\.dove\.it\/\S+/i) || [""])[0].replace(/[).,]+$/, "") }); }
+  try { for (const c of clients.all()) cands.push({ nome: c.nome, tel: c.tel || "", dv: ctDv((c.note || "") + " " + (c.immobile || "")), src: "clienti", link: "" }); } catch {}
+  const byTel = cands.find(c => c.tel && k9.has(xDigits(c.tel).slice(-9)));
+  if (byTel) return byTel;
+  const byName = cands.filter(c => ctIn(hay, c.nome));
+  if (byName.length) return byName.find(c => dv && c.dv === dv) || byName.find(c => c.tel) || byName[0];
+  return null;
+}
+function ctNameGuess(text){
+  const m = String(text).match(/(?:Spett\.?le|Spettabile|Gentile|Egr\.?|Intestat[oa]rio|Cliente|Destinatario|Committente)\s*[:\-]?\s*(?:Sig\.?r?a?\.?\s*)?([A-ZÀ-Ý][A-Za-zÀ-ÿ'’]+(?:[ \t]+[A-ZÀ-Ý][A-Za-zÀ-ÿ'’]+){1,3})/);
+  return m ? m[1].trim() : "";
+}
+/* ---------- Google Drive: cartelle ---------- */
+async function ctFolder(name, parent){
+  const key = (parent || "root") + "/" + name;
+  if (ctCfg.data.folders[key]) return ctCfg.data.folders[key];
+  const q = `name='${name.replace(/'/g, "\\'")}' and mimeType='${CT_FOLDER_MIME}' and trashed=false` + (parent ? ` and '${parent}' in parents` : "");
+  const l = await api(DRV + "?" + new URLSearchParams({ q, fields: "files(id)", spaces: "drive" }));
+  let id = l.files && l.files[0] && l.files[0].id;
+  if (!id) { const r = await api(DRV + "?fields=id", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, mimeType: CT_FOLDER_MIME, parents: parent ? [parent] : undefined }) }); id = r.id; }
+  ctCfg.data.folders[key] = id; ctCfg.save(); return id;
+}
+const ctFolderName = r => r.kind === "proforma" ? `${(r.nome || "Senza nome").trim()} - ${r.dv || "DV da definire"}` : "";
+async function ctSaveDrive(r){
+  const blob = await ctBlob(r.id);
+  const root = await ctFolder(CT_ROOT), sub = await ctFolder(r.kind === "fattura" ? "Fatture" : r.kind === "proforma" ? "Proforma" : "Altri documenti", root);
+  const dest = r.kind === "proforma" ? await ctFolder(ctFolderName(r), sub) : sub;
+  if (r.driveId && r.driveFolder === dest) return;
+  if (r.driveId) { await api(DRV + "/" + r.driveId + "?" + new URLSearchParams({ addParents: dest, removeParents: r.driveFolder || "", fields: "id" }), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: "{}" }); }
+  else { const fd = new FormData(); fd.append("metadata", new Blob([JSON.stringify({ name: r.filename, parents: [dest] })], { type: "application/json" })); fd.append("file", blob); const up = await api(DRVU + "?uploadType=multipart&fields=id,webViewLink", { method: "POST", body: fd }); r.driveId = up.id; r.driveLink = up.webViewLink || ""; }
+  r.driveFolder = dest; r.drivePath = [CT_ROOT, r.kind === "fattura" ? "Fatture" : r.kind === "proforma" ? "Proforma" : "Altri documenti", ctFolderName(r)].filter(Boolean).join(" / ");
+  ctColl.put(r);
+}
+async function ctTryDrive(r){
+  try { await ctSaveDrive(r); ctNeedPerm = false; return true; }
+  catch (e) { if (e instanceof AuthErr) throw e; if (/40[13]|insufficient|permission|scope/i.test(String(e && e.message || e))) ctNeedPerm = true; r.driveErr = String(e && e.message || e).slice(0, 120); ctColl.put(r); return false; }
+}
+/* ---------- PDF ---------- */
+async function ctBlob(id){
+  if (ctBlobs[id]) return ctBlobs[id];
+  const r = ctColl.get(id);
+  if (r && r.msgId && r.attId) { const a = await api(GM + "/" + r.msgId + "/attachments/" + r.attId); return (ctBlobs[id] = ctB64ToBlob(a.data)); }
+  const loc = await aqPhotoGet("doc:" + id); if (loc) return (ctBlobs[id] = loc instanceof Blob ? loc : ctB64ToBlob(String(loc).split(",").pop()));
+  throw new Error("documento non trovato");
+}
+window.rzDocBlob = async id => { const r = ctColl.get(id); if (!r) throw new Error("documento non trovato: " + id); return { name: r.filename, blob: await ctBlob(id) }; };
+window.rzDocBase64 = async id => { const { name, blob } = await rzDocBlob(id); const b = new Uint8Array(await blob.arrayBuffer()); let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return { name, b64: btoa(s) }; };
+window.addEventListener("message", async e => {
+  if (e.origin !== "https://backoffice.dove.it" || !e.data || e.data.rz !== "doc" || !e.source) return;
+  try { const { name, blob } = await rzDocBlob(e.data.id); e.source.postMessage({ rz: "doc", id: e.data.id, name, blob }, e.origin); }
+  catch (err) { e.source.postMessage({ rz: "doc", id: e.data.id, error: String(err && err.message || err) }, e.origin); }
+});
+/* ---------- lista del gestionale ---------- */
+function ctQueue(r){
+  if (!window.gqAdd) return;
+  const num = (r.dv || "").replace(/\D/g, "");
+  gqAdd({ key: "ct:" + r.id, tipo: "Documento", doc: r.id, cliente: r.nome || "", tel: r.tel || "", link: num ? "https://backoffice.dove.it/properties/" + num : "", testo: `Caricare ${ctKind(r.kind).toLowerCase()} "${r.filename}" in Documenti → Altri documenti ${r.dv ? "dell'immobile " + r.dv : "(DV da trovare: cercare il cliente nel gestionale)"}`, fonte: "Contabilità" }, r.src === "consegna" ? "consegna" : "conta");
+}
+/* documenti creati nell'app (es. verbale di consegna) */
+window.ctQueueLocal = async function(key, blob, name, text, label, cfgKey){
+  if (!gqCfg.data[cfgKey]) return;
+  let r = ctColl.all().find(x => x.key === key);
+  r = Object.assign(r || { id: xId("ct"), key, created: Date.now() }, { kind: "altro", label, filename: name, dv: ctDv(text) || (r && r.dv) || "", nome: (r && r.nome) || "", src: cfgKey, date: new Date().toISOString() });
+  ctBlobs[r.id] = blob; try { await aqPhotoSet("doc:" + r.id, blob); } catch {}
+  ctColl.put(r); ctQueue(r);
+};
+/* ---------- messaggio WhatsApp ---------- */
+function ctScad(){ const d = new Date(); d.setDate(d.getDate() + 7); return d.toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" }); }
+function ctWaText(r){ return r.waText || `Chiedo pagamento della nota proforma entro ${ctScad()} grazie mille e buona serata.`; }
+async function ctSendWa(r, text){
+  const blob = ctBlobs[r.id];
+  const file = blob ? new File([blob], r.filename, { type: "application/pdf" }) : null;
+  const done = how => { r.waAt = Date.now(); r.waText = text; r.waHow = how; ctColl.put(r); if (window.gqAdd) gqAdd({ key: "wa:ct:" + r.id, tipo: "Azione", cliente: r.nome, tel: r.tel, link: r.link || "", testo: "inviato WA " + text, fonte: "Contabilità · proforma" }, "wa"); ctRender(); };
+  if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], text }); done("condivisione"); return; } catch (e) { if (e && e.name === "AbortError") return; }
+  }
+  if (blob) await xDownload(blob, r.filename);
+  window.open(xWa(r.tel, text), "_blank", "noopener");
+  toast("📎 PDF scaricato: allegalo nella chat di WhatsApp che si è aperta");
+  done("link");
+}
+/* ---------- controllo della posta ---------- */
+async function ctScan(manual){
+  if (ctBusy) return; if (typeof tok === "undefined" || !tok) { if (manual) toast("Accedi con Google per leggere la posta"); ctRender(); return; }
+  ctBusy = true; ctLastScan = Date.now(); ctRender();
+  let nuovi = 0;
+  try {
+    const q = 'newer_than:120d has:attachment filename:pdf {proforma "pro forma" "pro-forma" fattura fatture invoice}';
+    const l = await api(GM + "?" + new URLSearchParams({ q, maxResults: "50" }));
+    const seen = new Set(ctCfg.data.seen || []);
+    for (const m of l.messages || []) {
+      if (seen.has(m.id)) continue;
+      const f = await api(GM + "/" + m.id + "?format=full"), h = {};
+      ((f.payload && f.payload.headers) || []).forEach(x => h[x.name.toLowerCase()] = x.value);
+      const body = bodyText(f.payload).slice(0, 8000), atts = [];
+      (function walk(p){ if (!p) return; if (p.filename && /\.pdf$/i.test(p.filename) && p.body && p.body.attachmentId) atts.push(p); (p.parts || []).forEach(walk); })(f.payload);
+      for (const p of atts) {
+        const base = `${h.subject || ""}\n${p.filename}\n${body}`;
+        const kind = /pro[\s\-]?forma/i.test(base) ? "proforma" : /fattur|invoice/i.test(base) ? "fattura" : "";
+        if (!kind) continue;
+        const id = "ct-" + m.id + "-" + p.body.attachmentId.slice(-8);
+        if (ctColl.get(id)) continue;
+        const a = await api(GM + "/" + m.id + "/attachments/" + p.body.attachmentId), blob = ctB64ToBlob(a.data);
+        ctBlobs[id] = blob;
+        const pdfText = await ctPdfText(blob), all = base + "\n" + pdfText;
+        const dv = ctDv(h.subject) || ctDv(p.filename) || ctDv(pdfText) || ctDv(body);
+        const who = await ctWho(all, dv);
+        const r = { id, kind, msgId: m.id, attId: p.body.attachmentId, filename: p.filename, subject: h.subject || "", from: (h.from || "").replace(/<.*>/, "").trim(), date: new Date(Number(f.internalDate)).toISOString(), dv: dv || (who && who.dv) || "", nome: who ? who.nome : ctNameGuess(pdfText), tel: who ? who.tel : "", trovato: who ? who.src : "", link: who ? who.link : "", created: Date.now(), gmail: "https://mail.google.com/mail/u/0/#all/" + m.id };
+        ctColl.put(r); nuovi++;
+        await ctTryDrive(r);
+        ctQueue(r);
+        if (kind === "proforma" && r.tel && window.Notification && Notification.permission === "granted") { try { new Notification("🧾 Nota proforma arrivata", { body: `${r.nome} · ${r.dv || ""}: messaggio WhatsApp pronto` }); } catch {} }
+      }
+      seen.add(m.id);
+    }
+    ctCfg.data.seen = [...seen].slice(-400); ctCfg.save();
+    ctStatus(nuovi ? `✅ ${nuovi} ${nuovi === 1 ? "documento nuovo" : "documenti nuovi"} dalla posta.` : "Nessuna proforma o fattura nuova.");
+  } catch (e) { ctStatus("Non riesco a leggere la posta: " + (e && e.message || e)); }
+  finally { ctBusy = false; ctRender(); ctBadge(); }
+}
+let ctMsg = "";
+function ctStatus(t){ ctMsg = t; const el = $("ct-status"); if (el) el.textContent = t; }
+/* ---------- pagina ---------- */
+function ctCard(r){
+  const chips = [];
+  chips.push(r.trovato ? `<span class="ct-chip ok">✓ Trovato ${r.trovato === "calendario" ? "nel calendario" : "tra i Clienti"}</span>` : `<span class="ct-chip warn">Cliente non trovato: controlla nome e telefono</span>`);
+  chips.push(r.driveId ? `<span class="ct-chip ok">📁 ${esc(r.drivePath || "Su Drive")}</span>` : `<span class="ct-chip todo">📁 Non ancora su Drive</span>`);
+  const q = typeof gqColl !== "undefined" ? gqColl.all().find(x => x.key === "ct:" + r.id) : null;
+  chips.push(q && q.stato === "fatto" ? `<span class="ct-chip ok">✓ Nel gestionale</span>` : `<span class="ct-chip todo">📋 Da caricare nel gestionale</span>`);
+  if (r.kind === "proforma") chips.push(r.pagata ? `<span class="ct-chip ok">💶 Pagata</span>` : r.waAt ? `<span class="ct-chip ok">💬 Inviata il ${esc(new Date(r.waAt).toLocaleDateString("it-IT", { day: "numeric", month: "short" }))}</span>` : `<span class="ct-chip todo">💬 Da inviare</span>`);
+  return `<div class="ct-item" data-ct="${esc(r.id)}">
+    <h4>${r.kind === "fattura" ? "🧾" : r.kind === "proforma" ? "📄" : "📎"} ${esc(r.filename)}</h4>
+    <div class="ct-meta">${esc(r.label || ctKind(r.kind))} · ${esc(new Date(r.date).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }))}${r.from ? " · da " + esc(r.from) : ""}${r.subject ? "<br>" + esc(r.subject) : ""}</div>
+    <div class="ct-chips">${chips.join("")}</div>
+    <div class="ct-grid"><label class="x-f"><span>Cliente</span><input class="inp" data-ct-f="nome" value="${esc(r.nome || "")}"></label><label class="x-f"><span>Telefono</span><input class="inp" data-ct-f="tel" type="tel" value="${esc(r.tel || "")}"></label><label class="x-f"><span>Immobile</span><input class="inp" data-ct-f="dv" value="${esc(r.dv || "")}" placeholder="DV-12345"></label></div>
+    ${r.kind === "proforma" && !r.pagata ? `<div class="ct-wa"><label class="x-f"><span>Messaggio WhatsApp</span><textarea class="inp" data-ct-f="waText">${esc(ctWaText(r))}</textarea></label></div>` : ""}
+    <div class="x-acts">${r.kind === "proforma" && !r.pagata ? `<button type="button" class="x-act wa" data-ct-a="wa"${r.tel ? "" : " disabled"}>💬 Invia su WhatsApp con PDF</button>` : ""}<button type="button" class="x-act" data-ct-a="pdf">📄 Apri PDF</button>${r.driveLink ? `<a class="x-act" href="${esc(r.driveLink)}" target="_blank" rel="noopener">📁 Drive</a>` : `<button type="button" class="x-act" data-ct-a="drive">📁 Salva su Drive</button>`}${r.gmail ? `<a class="x-act" href="${esc(r.gmail)}" target="_blank" rel="noopener">✉️ Mail</a>` : ""}${r.dv ? `<a class="x-act" href="https://backoffice.dove.it/properties/${esc(r.dv.replace(/\D/g, ""))}" target="_blank" rel="noopener">🔗 ${esc(r.dv)} nel gestionale</a>` : ""}${r.kind === "proforma" ? `<button type="button" class="x-act" data-ct-a="paid">${r.pagata ? "Rimetti da pagare" : "💶 Segna pagata"}</button>` : ""}</div>
+  </div>`;
+}
+function ctRender(){
+  if (!$("ct-list")) return;
+  xSync("ct-sync");
+  const all = ctColl.all().sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const n = k => all.filter(r => r.kind === k).length;
+  $("ct-tabs").innerHTML = [["proforma", "📄 Proforma", n("proforma")], ["fattura", "🧾 Fatture", n("fattura")], ["altro", "📎 Altri documenti", n("altro")]].filter(x => x[0] !== "altro" || x[2]).map(([v, l, c]) => `<button type="button" class="x-pill" data-ct-tab="${v}" aria-pressed="${ctTab === v}">${l} <span class="n">${c}</span></button>`).join("");
+  const list = all.filter(r => r.kind === ctTab);
+  let html = "";
+  if (ctTab === "proforma") {
+    const groups = {}; for (const r of list) (groups[ctFolderName(r)] = groups[ctFolderName(r)] || []).push(r);
+    html = Object.entries(groups).map(([g, rs]) => `<details class="ct-folder" open><summary>📁 ${esc(g)} <span class="n">${rs.length}</span></summary>${rs.map(ctCard).join("")}</details>`).join("");
+  } else if (list.length) html = `<details class="ct-folder" open><summary>📁 ${ctTab === "fattura" ? "Fatture" : "Altri documenti"} <span class="n">${list.length}</span></summary>${list.map(ctCard).join("")}</details>`;
+  $("ct-list").innerHTML = html || `<div class="x-empty">${ctBusy ? "Controllo la posta…" : ctTab === "fattura" ? "Nessuna fattura arrivata per ora." : ctTab === "proforma" ? "Nessuna nota proforma arrivata per ora." : "Nessun documento."}</div>`;
+  $("ct-scan").disabled = ctBusy; $("ct-scan").textContent = ctBusy ? "Controllo…" : "📥 Controlla la posta";
+  $("ct-drive-perm").hidden = !ctNeedPerm;
+  if (ctMsg) $("ct-status").textContent = ctMsg;
+  else if (typeof tok === "undefined" || !tok) $("ct-status").textContent = "Accedi con Google per leggere la posta.";
+  ctBadge();
+}
+XVIEWS.conta = () => { ctRender(); if (Date.now() - ctLastScan > 5 * 60e3) ctScan(false); };
+$("view-conta").addEventListener("click", async e => {
+  const t = e.target.closest("[data-ct-tab]"); if (t) { ctTab = t.dataset.ctTab; ctRender(); return; }
+  if (e.target.closest("#ct-scan")) { ctScan(true); return; }
+  if (e.target.closest("#ct-drive-perm")) { doLogin(true); return; }
+  const b = e.target.closest("[data-ct-a]"); if (!b) return;
+  const card = b.closest("[data-ct]"), r = ctColl.get(card.dataset.ct); if (!r) return;
+  const a = b.dataset.ctA;
+  if (a === "wa") { const ta = card.querySelector('[data-ct-f="waText"]'); await ctSendWa(r, (ta && ta.value.trim()) || ctWaText(r)); }
+  else if (a === "pdf") { try { const blob = await ctBlob(r.id); const u = URL.createObjectURL(blob); window.open(u, "_blank", "noopener") || xDownload(blob, r.filename); } catch (err) { toast("PDF non disponibile: " + (err.message || err)); } }
+  else if (a === "drive") { b.disabled = true; b.textContent = "Salvo…"; const ok = await ctTryDrive(r); toast(ok ? "📁 Salvato su Drive" : "Non riesco a salvarlo su Drive"); ctRender(); }
+  else if (a === "paid") { r.pagata = !r.pagata; ctColl.put(r); ctRender(); }
+});
+$("view-conta").addEventListener("change", async e => {
+  const f = e.target.dataset.ctF; if (!f) return;
+  const card = e.target.closest("[data-ct]"), r = ctColl.get(card.dataset.ct); if (!r) return;
+  const v = e.target.value.trim();
+  if (f === "dv") r.dv = ctDv(v) || v; else r[f] = v;
+  ctColl.put(r);
+  if ((f === "nome" || f === "dv") && r.driveId) await ctTryDrive(r);
+  if (f !== "waText") ctQueue(r);
+  ctRender();
+});
+/* nelle schede "Da fare nel gestionale" */
+$("view-gestionale").addEventListener("click", async e => { const p = e.target.closest("[data-ct-doc]"); if (!p) return; try { const { name, blob } = await rzDocBlob(p.dataset.ctDoc); xDownload(blob, name); } catch (err) { toast("PDF non disponibile: " + (err.message || err)); } });
+/* controllo automatico ogni 30 minuti (se hai fatto l'accesso) */
+setTimeout(() => { if (typeof tok !== "undefined" && tok) ctScan(false); }, 15000);
+setInterval(() => { if (typeof tok !== "undefined" && tok && navigator.onLine) ctScan(false); }, 30 * 60e3);
+setTimeout(ctBadge, 800);
+window.ctPdfText = ctPdfText; window.ctDv = ctDv; window.ctNameGuess = ctNameGuess;
+
+
+/* ===================== MODIFICA E IMPACCHETTAMENTO FOTO ===================== */
+const feColl = xColl("rz_fotoedit_v1", "fotoedit");
+const FE_HEIC = "https://cdnjs.cloudflare.com/ajax/libs/heic2any/0.0.4/heic2any.min.js";
+const FE_MAXPX = 16.7e6;   /* limite dei browser (iPhone) per una singola immagine */
+let feItems = [], feBusy = false, feSeq = 0;
+const feDv = () => ($("fe-dv").value || "").replace(/\D/g, "");
+const feFolderUrl = id => "https://drive.google.com/drive/folders/" + id;
+/* ---------- lettura dei file ---------- */
+function feIsRaw(f){ return /\.(dng|cr2|cr3|nef|nrw|arw|srf|sr2|raf|orf|rw2|pef|srw|raw|tif|tiff)$/i.test(f.name); }
+function feIsHeic(f){ return /\.(heic|heif)$/i.test(f.name) || /heic|heif/i.test(f.type); }
+/* i file RAW contengono un JPEG a piena risoluzione: lo estraggo (il più grande) */
+function feJpegFromRaw(buf){
+  const b = new Uint8Array(buf); let best = null;
+  for (let i = 0; i < b.length - 4; i++) {
+    if (b[i] !== 0xFF || b[i + 1] !== 0xD8 || b[i + 2] !== 0xFF) continue;
+    let p = i + 2, ok = false;
+    while (p < b.length - 4) {
+      if (b[p] !== 0xFF) break;
+      const m = b[p + 1];
+      if (m === 0xD8 || (m >= 0xD0 && m <= 0xD7) || m === 0x01 || m === 0xFF) { p += (m === 0xFF ? 1 : 2); continue; }
+      const len = (b[p + 2] << 8) | b[p + 3];
+      if (m === 0xDA) { p += 2 + len; while (p < b.length - 1) { if (b[p] === 0xFF && b[p + 1] !== 0x00 && !(b[p + 1] >= 0xD0 && b[p + 1] <= 0xD7)) { if (b[p + 1] === 0xD9) { ok = true; p += 2; } break; } p++; } break; }
+      p += 2 + len;
+    }
+    if (ok && p - i > 20000 && (!best || p - i > best[1] - best[0])) best = [i, p];
+    if (ok) i = p - 1;
+  }
+  return best ? new Blob([b.subarray(best[0], best[1])], { type: "image/jpeg" }) : null;
+}
+let feHeicP = null;
+function feHeicLib(){ if (window.heic2any) return Promise.resolve(window.heic2any); if (!feHeicP) feHeicP = new Promise((res, rej) => { const s = document.createElement("script"); s.src = FE_HEIC; s.onload = () => window.heic2any ? res(window.heic2any) : rej(new Error("HEIC")); s.onerror = () => { feHeicP = null; rej(new Error("serve internet per leggere le foto HEIC")); }; document.head.appendChild(s); }); return feHeicP; }
+async function feBitmap(file){
+  let src = file;
+  if (feIsRaw(file)) { src = feJpegFromRaw(await file.arrayBuffer()); if (!src) throw new Error("file RAW senza anteprima leggibile"); }
+  try { return await createImageBitmap(src, { imageOrientation: "from-image" }); }
+  catch (e) {
+    if (feIsHeic(file)) { const lib = await feHeicLib(); const out = await lib({ blob: file, toType: "image/jpeg", quality: 1 }); return createImageBitmap(Array.isArray(out) ? out[0] : out, { imageOrientation: "from-image" }); }
+    const img = new Image(), u = URL.createObjectURL(src);
+    try { await new Promise((res, rej) => { img.onload = res; img.onerror = () => rej(new Error("formato non supportato")); img.src = u; }); return await createImageBitmap(img); } finally { URL.revokeObjectURL(u); }
+  }
+}
+/* ---------- luminosità automatica ---------- */
+function feAnalyze(bmp){
+  const s = Math.min(1, 400 / Math.max(bmp.width, bmp.height)), w = Math.max(1, Math.round(bmp.width * s)), h = Math.max(1, Math.round(bmp.height * s));
+  const c = document.createElement("canvas"); c.width = w; c.height = h; const x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(bmp, 0, 0, w, h);
+  const d = x.getImageData(0, 0, w, h).data, hist = new Uint32Array(256); let n = 0;
+  for (let i = 0; i < d.length; i += 4) { hist[Math.round(0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2])]++; n++; }
+  const pct = q => { let acc = 0; const t = q * n; for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc >= t) return v; } return 255; };
+  let bp = Math.min(pct(0.002), 25), wp = Math.max(pct(0.995), 110);
+  if (wp - bp < 80) { wp = Math.min(255, bp + 80); }
+  const med = pct(0.5);
+  return { bp, wp, med, thumb: c };
+}
+function feLut(a, off){
+  const target = Math.min(0.7, Math.max(0.3, 0.5 + (off || 0) * 0.06));
+  const m = Math.min(0.97, Math.max(0.03, (a.med - a.bp) / (a.wp - a.bp)));
+  const g = Math.min(1.6, Math.max(0.4, Math.log(target) / Math.log(m)));
+  const lut = new Uint8ClampedArray(256);
+  for (let v = 0; v < 256; v++) { let t = (v - a.bp) / (a.wp - a.bp); t = t <= 0 ? 0 : t >= 1 ? 1 : Math.pow(t, g); const s = t * t * (3 - 2 * t); lut[v] = Math.round(255 * (t * 0.85 + s * 0.15)); }
+  return lut;
+}
+function feApply(ctx, w, h, lut){
+  /* curva sulla luminosità, colori proporzionali (niente dominanti) */
+  const k = new Float32Array(256); for (let y = 0; y < 256; y++) k[y] = y ? lut[y] / y : 0;
+  const band = Math.max(1, Math.floor(4e6 / w));
+  for (let y0 = 0; y0 < h; y0 += band) { const hh = Math.min(band, h - y0), im = ctx.getImageData(0, y0, w, hh), d = im.data;
+    for (let i = 0; i < d.length; i += 4) { const r = d[i], g = d[i + 1], b = d[i + 2], Y = (54 * r + 183 * g + 19 * b) >> 8; if (!Y) { d[i] = d[i + 1] = d[i + 2] = lut[0]; continue; } const f = k[Y]; d[i] = r * f; d[i + 1] = g * f; d[i + 2] = b * f; }
+    ctx.putImageData(im, 0, y0); }
+}
+function feDrawThumb(it){
+  const cv = document.querySelector(`[data-fe-id="${it.id}"] canvas`); if (!cv || !it.a) return;
+  const t = it.a.thumb; cv.width = t.width; cv.height = t.height; const x = cv.getContext("2d"); x.drawImage(t, 0, 0);
+  if ($("fe-auto").checked && !it.orig) feApply(x, t.width, t.height, feLut(it.a, it.off));
+}
+/* ---------- Drive ---------- */
+async function feUpload(blob, name, parent){
+  if (!tok || tok.exp < Date.now()) { tok = null; authExpired(); throw new AuthErr("Sessione Google scaduta: accedi di nuovo"); }
+  const init = await fetch(DRVU + "?uploadType=resumable&fields=id", { method: "POST", headers: { Authorization: "Bearer " + tok.access_token, "Content-Type": "application/json; charset=UTF-8", "X-Upload-Content-Type": blob.type, "X-Upload-Content-Length": String(blob.size) }, body: JSON.stringify({ name, parents: [parent] }) });
+  if (init.status === 401) { tok = null; authExpired(); throw new AuthErr("Sessione Google scaduta: accedi di nuovo"); }
+  if (!init.ok) throw new Error("Drive " + init.status + " " + (await init.text()).slice(0, 120));
+  const loc = init.headers.get("Location"); if (!loc) throw new Error("Drive: indirizzo di caricamento mancante");
+  const up = await fetch(loc, { method: "PUT", headers: { "Content-Type": blob.type }, body: blob });
+  if (!up.ok) throw new Error("Drive " + up.status);
+  return up.json();
+}
+/* ---------- pagina ---------- */
+function feOk(){ return typeof isStefano === "function" && isStefano(); }
+function feRenderList(){
+  const q = ($("fe-search").value || "").replace(/\D/g, "");
+  const rs = feColl.all().filter(r => !q || r.dv.includes(q)).sort((a, b) => (b.at || 0) - (a.at || 0));
+  $("fe-list").innerHTML = rs.length ? rs.map(r => `<div class="fe-rec"><div><b>📸 Foto DV-${esc(r.dv)}</b><small>${esc(new Date(r.at).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }))} · ${r.n} ${r.n === 1 ? "foto" : "foto"}${r.fmt === "png" ? " · PNG" : ""}</small></div><div class="x-acts"><a class="x-act call" href="${esc(feFolderUrl(r.folder))}" target="_blank" rel="noopener">📁 Cartella Drive</a><a class="x-act" href="https://backoffice.dove.it/properties/${esc(r.dv)}" target="_blank" rel="noopener">🔗 DV</a></div></div>`).join("")
+    : `<div class="x-empty">${q ? "Nessun servizio per questo DV." : "Ancora nessuna foto salvata."}</div>`;
+}
+function feRenderGrid(){
+  $("fe-grid").innerHTML = feItems.map((it, i) => `<div class="fe-it" data-fe-id="${it.id}"><div class="ph"><canvas></canvas><span class="tag">${i + 1}</span><span class="st">${it.done ? "✅" : it.err ? "⚠️" : it.a ? "" : "⏳"}</span></div><div class="ctl"><div class="nm" title="${esc(it.file.name)}">${esc(it.file.name)}${it.err ? " · " + esc(it.err) : ""}</div>${it.a ? `<div class="row"><span>☀️ ${it.off > 0 ? "+" : ""}${it.off}</span><button type="button" data-fe-orig>${it.orig ? "Mostra corretta" : "Originale"}</button><button type="button" data-fe-del aria-label="Togli">✕</button></div><input type="range" min="-3" max="3" step="1" value="${it.off}" data-fe-off aria-label="Luminosità">` : `<div class="row"><span>${it.err ? "Non leggibile" : "Leggo…"}</span><button type="button" data-fe-del aria-label="Togli">✕</button></div>`}</div></div>`).join("");
+  feItems.forEach(feDrawThumb);
+  const ready = feItems.filter(x => x.a && !x.done).length;
+  $("fe-go").disabled = feBusy || !ready || !feDv(); $("fe-go").textContent = feBusy ? "Elaboro…" : `✨ Elabora e salva su Drive${ready ? " (" + ready + ")" : ""}`;
+  $("fe-clear").hidden = !feItems.length || feBusy;
+}
+function feRender(){
+  const ok = feOk();
+  $("fe-lock").hidden = ok; $("fe-app").hidden = !ok;
+  if (!ok) return;
+  const dv = feDv(), drop = $("fe-drop");
+  drop.setAttribute("aria-disabled", dv ? "false" : "true");
+  $("fe-drop-t").textContent = dv ? "Trascina qui le foto o tocca per sceglierle" : "Prima scrivi il numero DV";
+  $("fe-dv-note").innerHTML = dv ? `Le foto andranno nella cartella Drive <b>Foto DV-${esc(dv)}</b>` : "Le foto andranno nella cartella Drive <b>Foto DV-…</b>";
+  xSync("fe-sync"); feRenderGrid(); feRenderList();
+}
+XVIEWS.fotoedit = feRender;
+async function feAdd(files){
+  if (!feDv()) { toast("Prima scrivi il numero DV"); $("fe-dv").focus(); return; }
+  for (const file of files) { const it = { id: "fe" + (++feSeq), file, off: 0 }; feItems.push(it); }
+  feRenderGrid();
+  for (const it of feItems.filter(x => !x.a && !x.err)) {
+    try { const bmp = await feBitmap(it.file); it.w = bmp.width; it.h = bmp.height; it.a = feAnalyze(bmp); bmp.close && bmp.close(); }
+    catch (e) { it.err = String(e && e.message || e).slice(0, 60); }
+    feRenderGrid();
+  }
+}
+async function feGo(){
+  const dv = feDv(); if (!dv || feBusy) return;
+  const todo = feItems.filter(x => x.a && !x.done); if (!todo.length) return;
+  feBusy = true; $("fe-bar").hidden = false; $("fe-perm").hidden = true; feRenderGrid();
+  const fmt = $("fe-fmt").value, type = fmt === "png" ? "image/png" : "image/jpeg", ext = fmt === "png" ? "png" : "jpg";
+  const prev = feColl.all().filter(r => r.dv === dv).reduce((s, r) => s + (r.n || 0), 0);
+  let folder, n = 0, idx = prev;
+  const msg = t => { $("fe-msg").textContent = t; };
+  try {
+    msg("Preparo la cartella su Drive…");
+    folder = await ctFolder("Foto DV-" + dv);
+    $("fe-folder-now").href = feFolderUrl(folder); $("fe-folder-now").hidden = false;
+    for (const it of todo) {
+      msg(`Elaboro ${n + 1} di ${todo.length}: ${it.file.name}`);
+      const bmp = await feBitmap(it.file);
+      let w = bmp.width, h = bmp.height; if (w * h > FE_MAXPX) { const s = Math.sqrt(FE_MAXPX / (w * h)); w = Math.floor(w * s); h = Math.floor(h * s); }
+      const c = document.createElement("canvas"); c.width = w; c.height = h; const x = c.getContext("2d", { willReadFrequently: true });
+      x.drawImage(bmp, 0, 0, w, h); bmp.close && bmp.close();
+      if ($("fe-auto").checked) feApply(x, w, h, feLut(it.a, it.off));
+      const blob = await new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error("immagine troppo grande")), type, fmt === "png" ? undefined : 0.97));
+      c.width = c.height = 1;
+      idx++; const name = `DV-${dv}_${xISO(Date.now())}_${String(idx).padStart(2, "0")}.${ext}`;
+      msg(`Carico su Drive ${n + 1} di ${todo.length} (${(blob.size / 1048576).toFixed(1)} MB)…`);
+      await feUpload(blob, name, folder);
+      it.done = true; n++; $("fe-bar-in").style.width = Math.round(n / todo.length * 100) + "%"; feRenderGrid();
+    }
+    msg(`✅ ${n} ${n === 1 ? "foto salvata" : "foto salvate"} in “Foto DV-${dv}”.`);
+  } catch (e) {
+    if (/40[13]|insufficient|permission|scope/i.test(String(e && e.message || e))) $("fe-perm").hidden = false;
+    msg(`⚠️ ${n ? n + " foto salvate, poi " : ""}errore: ${(e && e.message) || e}`);
+  } finally {
+    if (n && folder) feColl.put({ id: xId("fe"), dv, folder, n, at: Date.now(), fmt });
+    feBusy = false; feRender();
+  }
+}
+$("view-fotoedit").addEventListener("input", e => {
+  if (e.target.id === "fe-dv") { const v = e.target.value.replace(/\D/g, ""); if (v !== e.target.value) e.target.value = v; feRender(); return; }
+  if (e.target.id === "fe-search") { feRenderList(); return; }
+  if (e.target.matches("[data-fe-off]")) { const it = feItems.find(x => x.id === e.target.closest("[data-fe-id]").dataset.feId); if (it) { it.off = +e.target.value; it.orig = false; const lab = e.target.closest(".ctl").querySelector(".row span"); if (lab) lab.textContent = "☀️ " + (it.off > 0 ? "+" : "") + it.off; feDrawThumb(it); } }
+});
+$("view-fotoedit").addEventListener("change", e => { if (e.target.id === "fe-file") { feAdd([...e.target.files]); e.target.value = ""; } else if (e.target.id === "fe-auto") feItems.forEach(feDrawThumb); });
+$("view-fotoedit").addEventListener("click", e => {
+  if (e.target.closest("[data-fe-back]")) { showView("foto"); return; }
+  if (e.target.closest("#fe-drop") && !feDv()) { e.preventDefault(); toast("Prima scrivi il numero DV"); $("fe-dv").focus(); return; }
+  if (e.target.closest("#fe-go")) { feGo(); return; }
+  if (e.target.closest("#fe-perm")) { doLogin(true); return; }
+  if (e.target.closest("#fe-clear")) { feItems = []; $("fe-bar").hidden = true; $("fe-bar-in").style.width = "0"; $("fe-msg").textContent = ""; $("fe-folder-now").hidden = true; feRenderGrid(); return; }
+  const card = e.target.closest("[data-fe-id]"); if (!card) return;
+  const it = feItems.find(x => x.id === card.dataset.feId); if (!it) return;
+  if (e.target.closest("[data-fe-del]")) { feItems = feItems.filter(x => x !== it); feRenderGrid(); }
+  else if (e.target.closest("[data-fe-orig]")) { it.orig = !it.orig; feRenderGrid(); }
+});
+const feDrop = $("fe-drop");
+["dragenter", "dragover"].forEach(ev => feDrop.addEventListener(ev, e => { e.preventDefault(); if (feDv()) feDrop.classList.add("over"); }));
+["dragleave", "drop"].forEach(ev => feDrop.addEventListener(ev, e => { e.preventDefault(); feDrop.classList.remove("over"); }));
+feDrop.addEventListener("drop", e => { const fs = [...(e.dataTransfer && e.dataTransfer.files || [])]; if (fs.length) feAdd(fs); });
+/* ingresso dalla pagina Fotografo */
+const _fotoRenderFe = window.fotoRender;
+window.fotoRender = fotoRender = function(){ const r = _fotoRenderFe.apply(this, arguments); const b = $("fe-entry"); if (b) b.hidden = !feOk(); return r; };
+document.addEventListener("click", e => { if (e.target.closest("[data-fe-open]")) showView("fotoedit"); });
+window.feJpegFromRaw = feJpegFromRaw; window.feLut = feLut;
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "agenda", "clienti", "messaggi", "gestionale", "visite", "match", "modelli", "preq", "desc", "brochure", "prezzi", "calc", "consegna", "foto", "obiettivi", "utilita"] : ["zona"];
+const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "agenda", "clienti", "messaggi", "gestionale", "visite", "match", "modelli", "preq", "desc", "brochure", "prezzi", "calc", "consegna", "foto", "fotoedit", "obiettivi", "conta", "utilita"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "home";
