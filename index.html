@@ -868,6 +868,110 @@ a{color:inherit}
 .fe-rec b{font-size:15px}
 .fe-rec small{display:block;color:var(--ink-2);font-size:12.5px}
 @media (min-width:1000px){ .fe-app{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start} .fe-app>.fe-step:nth-child(1){grid-column:1;grid-row:1} .fe-app>.fe-step:nth-child(2){grid-column:1;grid-row:2} .fe-app>.fe-step:nth-child(3){grid-column:2;grid-row:1 / span 2} }
+/* ---------- NOTIZIE ---------- */
+.nt-wrap,.mnd-wrap{display:flex;flex-direction:column;gap:12px;max-width:1000px;margin:0 auto;width:100%}
+.nt-bar{gap:10px!important}
+.nt-list,.mnd-list{display:flex;flex-direction:column;gap:8px}
+.nt-it,.mnd-it{background:var(--surface);border:1px solid var(--line-2);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.nt-it .t,.mnd-it .t{flex:1;min-width:200px}
+.nt-it b,.mnd-it b{font-size:15px;overflow-wrap:anywhere}
+.nt-it small,.mnd-it small{display:block;color:var(--ink-2);font-size:12.5px;overflow-wrap:anywhere}
+.nt-tag{font-size:11px;font-weight:800;border-radius:999px;padding:2px 8px;background:var(--line-2);color:var(--ink-2);margin-left:6px}
+.nt-tag.due{background:var(--hot-soft);color:var(--hot)}
+.nt-tag.ok{background:var(--done-soft);color:var(--done)}
+.nt-sess{background:var(--surface);border:2px solid var(--accent);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.nt-sess .pr{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+.nt-sess h2{margin:0;font-size:20px;overflow-wrap:anywhere}
+.nt-sess .who{font-size:15px}
+.nt-sess .ann{font-size:13px;color:var(--ink-2);max-height:4.5em;overflow:hidden}
+.nt-call{display:flex;gap:8px;flex-wrap:wrap}
+.nt-call a,.nt-call button{min-height:52px;font-size:16px;flex:1;min-width:140px;justify-content:center}
+.nt-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.nt-out button{min-height:56px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-weight:800;font-size:14.5px;cursor:pointer;padding:6px 10px}
+.nt-out button:hover{border-color:var(--accent)}
+.nt-out .no{border-color:var(--hot)}
+.nt-out .ap{background:var(--done-soft);border-color:var(--done-bar)}
+.nt-extra{display:flex;flex-direction:column;gap:8px}
+.nt-log{font-size:12.5px;color:var(--ink-2)}
+/* ---------- RIBASSO ---------- */
+.rb-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+@media (min-width:1100px){ .rb-wrap{grid-template-columns:minmax(340px,420px) minmax(0,1fr);align-items:start} .rb-pick{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
+.rb-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.rb-kpi div{background:var(--bg);border:1px solid var(--line-2);border-radius:12px;padding:10px}
+.rb-kpi b{display:block;font-size:22px}
+.rb-kpi small{color:var(--ink-2);font-size:12px}
+.rb-bars{display:flex;flex-direction:column;gap:6px}
+.rb-bar{display:grid;grid-template-columns:130px minmax(0,1fr) 40px;gap:8px;align-items:center;font-size:13px}
+.rb-bar i{display:block;height:10px;border-radius:999px;background:var(--accent)}
+.rb-bar .tr{background:var(--line-2);border-radius:999px;overflow:hidden}
+.rb-sug{border:2px solid var(--done-bar);background:var(--done-soft);border-radius:12px;padding:12px}
+.rb-sug b{font-size:22px}
+/* ---------- MANDATI ---------- */
+.mnd-it.warn{border-color:var(--todo-bar)}
+.mnd-it.hot{border-color:var(--hot)}
+/* ---------- CONTROLLO ---------- */
+.rd-check{border:2px solid var(--todo-bar);background:var(--todo-soft);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.rd-check h3{margin:0;font-size:15px}
+.rd-check ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.rd-check a{font-weight:700}
+.rd-check small{color:var(--ink-2)}
+/* ---------- OBIETTIVI DOVE.IT ---------- */
+.od{display:flex;flex-direction:column;gap:10px}
+.od-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.od-it{background:var(--bg);border:1px solid var(--line-2);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.od-it .n{font-size:22px;font-weight:800}
+.od-it input{width:70px;min-height:32px;border:1px solid var(--line);border-radius:8px;padding:0 6px;background:var(--surface);color:var(--ink)}
+.od-need{font-size:12.5px;font-weight:700}
+.od-need.bad{color:var(--hot)}
+.od-need.ok{color:var(--done)}
+/* ---------- INCASSI ---------- */
+.ic{display:flex;flex-direction:column;gap:12px}
+.ic-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+.ic-sum div{background:var(--surface);border:1px solid var(--line-2);border-radius:12px;padding:10px 12px}
+.ic-sum b{display:block;font-size:22px}
+.ic-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line-2);padding:8px 0;font-size:14px}
+.ic-row .t{flex:1;min-width:200px}
+.ic-row small{display:block;color:var(--ink-2);font-size:12.5px}
+/* ---------- AVVISA TUTTI ---------- */
+.mt-bc{border:2px solid var(--accent);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--surface);margin-bottom:10px}
+.mt-bc textarea{width:100%;min-height:80px}
+/* ---------- RIORDINO ---------- */
+.dd-tools{display:flex;flex-direction:column;gap:8px;padding:8px 8px 4px}
+.dd-search{width:100%;min-height:42px;border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:15px;background:var(--bg);color:var(--ink)}
+.dd-search:focus{outline:2px solid var(--accent);outline-offset:1px}
+.dd-recent{display:flex;gap:6px;flex-wrap:wrap}
+.dd-recent:empty{display:none}
+.dd-recent button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;min-height:32px;padding:0 10px;font-size:12.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.dd-recent button:hover{border-color:var(--accent)}
+.dd-recent .lbl{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);align-self:center;margin-right:2px}
+.dd-g[hidden],.dd-item[hidden]{display:none!important}
+.dd-empty{padding:14px;font-size:13px;color:var(--ink-3);text-align:center}
+@media (min-width:1100px){ #dd.dd{width:min(900px,calc(100vw - 24px))} .dd-list{grid-template-columns:repeat(3,minmax(0,1fr))} .dd-list>.dd-g:nth-child(3){border-top:0;margin-top:0;padding-top:0} }
+@media (min-width:700px) and (max-width:1099px){ .dd-list{grid-template-columns:repeat(2,minmax(0,1fr))} #dd.dd{width:min(660px,calc(100vw - 24px))} }
+.hm-recent{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 6px}
+.hm-recent h2{margin:0 6px 0 0}
+.hm-recent button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;min-height:40px;padding:0 14px;font-size:14px;font-weight:700;cursor:pointer}
+.hm-recent button:hover{border-color:var(--accent)}
+/* titoli leggibili sul telefono */
+@media (max-width:699px){ .view .top h1{font-size:17px;white-space:normal;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden} }
+/* Centro Messaggi */
+.m-rangebar{margin-bottom:2px}
+.toolsep{flex:0 0 1px;align-self:stretch;background:var(--line);margin:0 4px}
+.m-settings{border:1px solid var(--line-2);border-radius:12px;padding:10px 12px;background:var(--surface);margin-top:8px}
+.m-settings>summary{cursor:pointer;font-weight:700;font-size:14px;min-height:32px;display:flex;align-items:center}
+.m-settings .sig{margin-top:10px}
+@media (min-width:700px){ #view-msg .ftoggle{display:inline-flex;align-items:center;gap:6px} #view-msg .m-filters:not(.open){display:none} }
+@media (max-width:699px){ #view-msg:not([hidden]){display:flex;flex-direction:column} #view-msg>.m-top{order:0} #view-msg>.m-main{order:1} #view-msg>.m-side{order:2} }
+/* Clienti: sul telefono prima la ricerca, poi i filtri */
+@media (max-width:899px){ .cl-wrap{display:flex;flex-direction:column} .cl-listcol{display:contents} .cl-listcol>.x-row{order:0} .cl-side{order:1} .cl-listmeta{order:2} .cl-list{order:3} .cl-detail{order:4} }
+/* schede richiudibili */
+.rd-det{display:block}
+.rd-det>summary{cursor:pointer;font-weight:800;font-size:15px;min-height:36px;display:flex;align-items:center;list-style:none}
+.rd-det>summary::-webkit-details-marker{display:none}
+.rd-det>summary::after{content:"▾";margin-left:auto;color:var(--ink-3);transition:transform .15s}
+.rd-det[open]>summary::after{transform:rotate(180deg)}
+.rd-det[open]>summary{margin-bottom:10px}
+.rd-det>*+*{margin-top:10px}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -1329,17 +1433,16 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
 
   <main class="m-main">
     <div class="toolrow">
-      <button class="tool" id="m-tpl">📝 Testi</button>
       <button class="tool" id="m-agenda" aria-pressed="false">📆 Agenda di oggi</button>
-      <button class="tool" id="m-csv" hidden>📤 Esporta</button>
-      <button class="tool" id="m-bc">📢 Broadcast</button>
       <button class="tool" id="m-reload">🔄 Aggiorna</button>
+      <span class="toolsep" aria-hidden="true"></span>
+      <button class="tool" id="m-tpl">📝 Testi</button>
+      <button class="tool" id="m-bc">📢 Broadcast</button>
+      <button class="tool" id="m-csv" hidden>📤 Esporta</button>
     </div>
-    <div class="sig"><label for="m-sig">Firma nei messaggi</label><input class="inp" id="m-sig" placeholder="Es. Stefano Piccioli — Dove.it"></div>
-    <div class="sig"><label for="m-sender">Mittente email visite</label><input class="inp" id="m-sender" type="email" placeholder="Es. noreply@dove.it (vuoto = tutte le non lette)"></div>
 
+    <div class="tabs2 m-rangebar" id="m-range"></div>
     <div class="m-filters" id="m-filters">
-      <div class="tabs2" id="m-range"></div>
       <div class="fgroup"><span class="chips-lbl">Tipo</span><div class="chips" id="m-kinds"></div></div>
       <div class="fgroup"><span class="chips-lbl">Priorità</span><div class="chips" id="m-prio"></div></div>
       <div class="fgroup"><span class="chips-lbl">Raggruppa</span><div class="chips" id="m-group"></div></div>
@@ -1349,6 +1452,10 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     <div id="m-status"></div>
     <div id="m-list"></div>
     <p class="foot" style="padding:0">💡 “Apri su WhatsApp” apre la chat con il messaggio già scritto: ti basta premere invio.</p>
+    <details class="m-settings"><summary>⚙️ Impostazioni messaggi (firma e mittente email)</summary>
+      <div class="sig"><label for="m-sig">Firma nei messaggi</label><input class="inp" id="m-sig" placeholder="Es. Stefano Piccioli — Dove.it"></div>
+      <div class="sig"><label for="m-sender">Mittente email visite</label><input class="inp" id="m-sender" type="email" placeholder="Es. noreply@dove.it (vuoto = tutte le non lette)"></div>
+    </details>
   </main>
 </div>
 <div class="view" id="view-foto" hidden>
@@ -1678,6 +1785,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
       <div class="ob-days" id="ob-days"></div>
       <div class="x-bar ob-monthbar"><i id="ob-monthbar"></i></div>
     </div>
+    <div id="od-card"></div>
     <div id="ob-login"></div>
     <div class="ob-grid" id="ob-grid"></div>
     <div class="x-note" id="ob-note">Tocca il numero dell'obiettivo per cambiarlo. I conteggi arrivano da Clienti, Prequalifiche, Ricerca Zona, Centro Messaggi e dal tuo calendario Google. Ognuno vede solo i propri numeri.</div>
@@ -1981,12 +2089,13 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
           <div><b>🤖 Vuoi che le inserisca io?</b><div class="x-note" style="font-size:13px">Apri il gestionale nel browser, fai l'accesso e scrivimi <b>“svuota la lista”</b>. Poi tocca qui e incolla la lista nella chat: le inserisco una per una e ti chiedo conferma prima di salvare ognuna.</div></div>
           <button type="button" class="x-act call" id="gq-copyall">📋 Copia la lista per Claude</button>
         </div>
+        <div id="rd-check"></div>
         <div class="x-pills" id="gq-filter"></div>
         <div class="gq-list" id="gq-list"></div>
       </section>
       <section class="gq-side">
-        <div class="x-card">
-          <h3>＋ Aggiungi a mano</h3>
+        <details class="x-card rd-det" id="gq-add-det">
+          <summary>＋ Aggiungi a mano</summary>
           <div class="x-grid">
             <label class="x-f"><span>Cosa</span><select class="inp" id="gq-tipo"><option>Reminder</option><option>Nota</option><option>Nuova notizia</option><option>Cambio stato</option><option>Altro</option></select></label>
             <label class="x-f"><span>Da un appuntamento</span><select class="inp" id="gq-from"></select></label>
@@ -1998,11 +2107,11 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
             <label class="x-f x-full"><span>Link alla scheda (facoltativo)</span><input class="inp" id="gq-link" placeholder="https://backoffice.dove.it/…"></label>
           </div>
           <button type="button" class="x-act call" id="gq-add">Aggiungi alla lista</button>
-        </div>
-        <div class="x-card">
-          <h3>⚙️ Aggiungi in automatico</h3>
+        </details>
+        <details class="x-card rd-det">
+          <summary>⚙️ Cosa aggiungo in automatico</summary>
           <div id="gq-auto"></div>
-        </div>
+        </details>
       </section>
     </div>
   </main>
@@ -2074,9 +2183,98 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     </div>
   </main>
 </div>
+<div class="view" id="view-notizie" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📞 Sessione chiamate notizie</h1><p class="sub">Chiama le notizie una dopo l'altra: l'esito va da solo nel gestionale</p></div>
+      <span class="sync" id="nt-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main">
+    <div class="nt-wrap">
+      <div class="nt-bar x-card">
+        <div class="x-pills" id="nt-filter"></div>
+        <div class="x-row nt-actions"><input class="inp x-grow" id="nt-q" type="search" placeholder="Cerca indirizzo, nome o telefono" autocomplete="off"><button type="button" class="x-act call" id="nt-start">▶️ Inizia a chiamare</button></div>
+      </div>
+      <div id="nt-session" hidden></div>
+      <div class="nt-list" id="nt-list"></div>
+      <details class="x-card rd-det"><summary>＋ Aggiungi notizie</summary>
+        <div class="x-grid">
+          <label class="x-f x-full"><span>Indirizzo</span><input class="inp" id="nt-addr" placeholder="Via Roma 12, Seriate"></label>
+          <label class="x-f"><span>Nome</span><input class="inp" id="nt-nome"></label>
+          <label class="x-f"><span>Telefono</span><input class="inp" id="nt-tel" type="tel" inputmode="tel"></label>
+          <label class="x-f x-full"><span>Link alla notizia nel gestionale (facoltativo)</span><input class="inp" id="nt-link" placeholder="https://backoffice.dove.it/rumors/…"></label>
+        </div>
+        <button type="button" class="x-act call" id="nt-add">Aggiungi</button>
+        <label class="x-f x-full" style="margin-top:12px"><span>Oppure incolla un elenco (una notizia per riga: indirizzo · nome · telefono)</span><textarea class="inp" id="nt-paste" rows="4" placeholder="Via San Bernardino 25, Bergamo · Mario Rossi · 3331234567"></textarea></label>
+        <button type="button" class="x-act" id="nt-paste-go">📋 Aggiungi l'elenco</button>
+        <div class="x-note">Le notizie del gestionale posso importarle io: apri il gestionale e l'app nel browser di Claude e scrivimi “importa le notizie”.</div>
+      </details>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-ribasso" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📉 Proposta di ribasso</h1><p class="sub">I dati delle visite e dei prezzi di zona per parlare di prezzo col proprietario</p></div>
+      <span class="sync" id="rb-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide">
+    <div class="rb-wrap">
+      <section class="x-card rb-pick">
+        <h3>1 · Immobile</h3>
+        <div class="x-grid">
+          <label class="x-f"><span>Immobile (DV)</span><select class="inp" id="rb-dv"></select></label>
+          <label class="x-f"><span>Comune</span><input class="inp" id="rb-comune" list="rb-comuni" placeholder="Es. Stezzano"></label>
+          <label class="x-f"><span>Prezzo attuale €</span><input class="inp" id="rb-prezzo" inputmode="numeric" placeholder="165000"></label>
+          <label class="x-f"><span>Prezzo minimo €</span><input class="inp" id="rb-minimo" inputmode="numeric" placeholder="155000"></label>
+          <label class="x-f"><span>Superficie m²</span><input class="inp" id="rb-mq" inputmode="numeric" placeholder="94"></label>
+          <label class="x-f"><span>In vendita da (mesi)</span><input class="inp" id="rb-mesi" inputmode="numeric" placeholder="2"></label>
+          <label class="x-f"><span>Proprietario</span><input class="inp" id="rb-own" placeholder="Nome e cognome"></label>
+          <label class="x-f"><span>Telefono proprietario</span><input class="inp" id="rb-tel" type="tel" inputmode="tel"></label>
+        </div>
+        <datalist id="rb-comuni"></datalist>
+      </section>
+      <section class="x-card rb-out" id="rb-out"></section>
+    </div>
+  </main>
+</div>
+<div class="view" id="view-mandati" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📆 Mandati e rogiti</h1><p class="sub">Scadenze dei mandati da rinnovare e rogiti da confermare</p></div>
+      <span class="sync" id="mnd-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main">
+    <div class="mnd-wrap">
+      <div class="x-pills" id="mnd-filter"></div>
+      <div class="mnd-list" id="mnd-list"></div>
+      <details class="x-card rd-det" id="mnd-add-det"><summary>＋ Aggiungi mandato</summary>
+        <div class="x-grid">
+          <label class="x-f"><span>Immobile (DV)</span><input class="inp" id="mnd-dv" placeholder="DV-14201"></label>
+          <label class="x-f x-full"><span>Indirizzo</span><input class="inp" id="mnd-addr"></label>
+          <label class="x-f"><span>Proprietario</span><input class="inp" id="mnd-own"></label>
+          <label class="x-f"><span>Telefono</span><input class="inp" id="mnd-tel" type="tel"></label>
+          <label class="x-f"><span>Scadenza mandato</span><input class="inp" id="mnd-scad" type="date"></label>
+          <label class="x-f"><span>Rogito previsto</span><input class="inp" id="mnd-rog" type="date"></label>
+          <label class="calc-chk"><input type="checkbox" id="mnd-escl" checked> In esclusiva</label>
+          <label class="calc-chk"><input type="checkbox" id="mnd-rogok"> Rogito confermato</label>
+        </div>
+        <button type="button" class="x-act call" id="mnd-add">Salva</button>
+        <div class="x-note">Mandati e rogiti del gestionale posso importarli io dalle pagine degli immobili: scrivimi “importa i mandati”.</div>
+      </details>
+    </div>
+  </main>
+</div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
   <button class="dd-item dd-home" role="menuitemradio" data-view="home"><span class="dd-i">🏠</span><span class="dd-t"><b>Home</b><small>Tutte le sezioni</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
-  <div class="dd-list"><div class="dd-g"><div class="dd-h">Sul campo</div><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti utili</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi da proporre</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e messaggi WhatsApp</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Reminder e note da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da completare e inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Schede e calcoli</div><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio dal foglio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="brochure"><span class="dd-i">📄</span><span class="dd-t"><b>Brochure immobile</b><small>PDF con foto e descrizione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto e foglio acquirente</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale firmato</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici con invito a Stefano</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e strumenti</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Contatti, incarichi, visite e altro</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="conta"><span class="dd-i">🧾</span><span class="dd-t"><b>Contabilità <span class="nb" data-ct-badge hidden></span></b><small>Proforma e fatture dalla posta</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, modalità auto, backup</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
+  <div class="dd-tools"><input class="dd-search" id="dd-search" type="search" placeholder="Cerca una sezione…  (Ctrl+K)" autocomplete="off" enterkeyhint="go" aria-label="Cerca una sezione"><div class="dd-recent" id="dd-recent"></div></div>
+  <div class="dd-list"><div class="dd-g"><div class="dd-h">Oggi</div><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e WhatsApp da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti e visite</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Acquisizione</div><button class="dd-item" role="menuitemradio" data-view="notizie"><span class="dd-i">📞</span><span class="dd-t"><b>Sessione chiamate notizie</b><small>Chiama le notizie una dopo l'altra</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Immobile e marketing</div><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="brochure"><span class="dd-i">📄</span><span class="dd-t"><b>Brochure immobile</b><small>PDF con foto e descrizione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici e foto su Drive</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="ribasso"><span class="dd-i">📉</span><span class="dd-t"><b>Proposta di ribasso</b><small>Dati delle visite per il proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Chiusura e amministrazione</div><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto venditore</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="mandati"><span class="dd-i">📆</span><span class="dd-t"><b>Mandati e rogiti</b><small>Scadenze, rinnovi e rogiti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="conta"><span class="dd-i">🧾</span><span class="dd-t"><b>Contabilità <span class="nb" data-ct-badge hidden></span></b><small>Proforma, fatture e incassi</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e impostazioni</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Il mese in numeri</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, backup, tema</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -4461,7 +4659,7 @@ function mtRender(){
       ? `<button type="button" class="mt-item" data-mt-sel="${esc(x.id)}" aria-current="${mtUi.sel === x.id}"><b>${esc(x.title)} · ${esc(x.comune || "comune?")}</b><small>${esc(x.addr || "")}</small><small>${x.mq ? x.mq + " m² · " : ""}${x.prezzo ? (x.stimato ? "stima " : "") + xEuro(x.prezzo) : "prezzo da definire"}</small><span class="x-badge mt-n${n ? " has" : ""}">${n} ${n === 1 ? "acquirente" : "acquirenti"}</span></button>`
       : `<button type="button" class="mt-item" data-mt-sel="${esc(x.id)}" aria-current="${mtUi.sel === x.id}"><b>${esc(clName(x))}</b><small>${esc([(x.rich.tipi || []).slice(0, 2).join(", "), x.rich.zone].filter(Boolean).join(" · ") || "—")}</small><small>${xMoney(x.rich.max) ? "fino a " + xEuro(xMoney(x.rich.max)) : "budget ?"}${xMoney(x.rich.mq) ? " · da " + xMoney(x.rich.mq) + " m²" : ""}</small><span class="x-badge mt-n${n ? " has" : ""}">${n} ${n === 1 ? "immobile" : "immobili"}</span></button>`; }).join("");
   const sel = src.find(x => x.id === mtUi.sel);
-  const tplBtn = `<button type="button" class="x-act" id="mt-tplbtn">✏️ Modifica messaggio</button>`;
+  const tplBtn = `<button type="button" class="x-act" id="mt-tplbtn">✏️ Modifica messaggio</button>` + (mtUi.mode === "imm" ? `<button type="button" class="x-act call" id="mt-bcast">📢 Avvisa tutti gli interessati</button>` : "");
   if (!sel) { $("mt-res").innerHTML = src.length ? "" : `<div class="x-card"><h3>Come funziona</h3><p class="x-note" style="font-size:13.5px">Ogni <b>Foglio prequalifica</b> salvato è un immobile in offerta (comune, tipologia, m², prezzo o stima). Ogni cliente <b>Acquirente</b> con “Cosa cerca” compilato è una domanda. Qui vedi subito chi chiamare, con punteggio e messaggio pronto.</p></div>`; return; }
   let rows;
   if (mtUi.mode === "imm") rows = buyers.map(b => ({ b, o: sel, r: mtPairs(sel, b) })).filter(x => x.r);
@@ -6495,12 +6693,7 @@ setTimeout(gqBadge, 500);
 
 
 /* ===================== HOME ===================== */
-const HOME_GROUPS = [
-  ["Sul campo", [["zona", "🗺️", "Ricerca Zona", "Vie e civici"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite"], ["agenda", "📅", "Agenda", "Settimana e orari liberi"]]],
-  ["Clienti", [["clienti", "👥", "Clienti", "Venditori e acquirenti"], ["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp"], ["gestionale", "📋", "Da fare nel gestionale", "Da riportare nel backoffice"], ["visite", "🏠", "Visite", "Schede e report"], ["match", "🔗", "Incrocio", "Domanda e offerta"], ["modelli", "✉️", "Modelli", "Messaggi pronti"]]],
-  ["Schede e calcoli", [["preq", "📝", "Prequalifica", "Dati e valutazione"], ["desc", "✍️", "Descrizione", "Testo per l'annuncio"], ["brochure", "📄", "Brochure", "PDF con foto"], ["prezzi", "📈", "Prezzi di zona", "€/m² dei comuni"], ["calc", "🧮", "Calcolatori", "Mutuo e costi"], ["consegna", "🔑", "Consegna", "Contatori e verbale"], ["foto", "📸", "Fotografo", "Servizi fotografici"]]],
-  ["Risultati e strumenti", [["obiettivi", "📊", "Obiettivi", "Il mese in numeri"], ["conta", "🧾", "Contabilità", "Proforma e fatture"], ["utilita", "🧰", "Utilità", "Rubrica, scadenze, impostazioni"]]]
-];
+const HOME_GROUPS = [["Oggi", [["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp da inviare"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite con il percorso"], ["agenda", "📅", "Agenda settimanale", "La settimana e gli orari liberi"], ["gestionale", "📋", "Da fare nel gestionale", "Da riportare nel backoffice"]]], ["Clienti e visite", [["clienti", "👥", "Clienti", "Venditori, acquirenti e storico"], ["visite", "🏠", "Visite", "Schede visita e report al proprietario"], ["match", "🔗", "Incrocio domanda-offerta", "Chi chiamare per ogni immobile"], ["modelli", "✉️", "Modelli di messaggi", "Messaggi pronti da inviare"]]], ["Acquisizione", [["notizie", "📞", "Sessione chiamate notizie", "Chiama le notizie una dopo l'altra"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini, contatti"], ["zona", "🗺️", "Ricerca Zona", "Vie e civici di Bergamo e Brescia"], ["preq", "📝", "Foglio prequalifica", "Dati, documenti e valutazione"], ["prezzi", "📈", "Prezzi di zona", "Prezzi medi al m² dei comuni"]]], ["Immobile e marketing", [["desc", "✍️", "Generatore descrizione", "Testo per l'annuncio"], ["brochure", "📄", "Brochure immobile", "PDF con foto e descrizione"], ["foto", "📸", "Fotografo", "Servizi fotografici e foto su Drive"], ["ribasso", "📉", "Proposta di ribasso", "Dati delle visite per il proprietario"]]], ["Chiusura e amministrazione", [["calc", "🧮", "Calcolatori", "Mutuo, costi, netto venditore"], ["mandati", "📆", "Mandati e rogiti", "Scadenze, rinnovi e rogiti"], ["consegna", "🔑", "Consegna immobile", "Contatori, chiavi e verbale"], ["conta", "🧾", "Contabilità", "Proforma, fatture e incassi"]]], ["Risultati e impostazioni", [["obiettivi", "📊", "Obiettivi del mese", "Il mese in numeri"], ["utilita", "🧰", "Utilità e impostazioni", "Rubrica, scadenze, backup, tema"]]]];
 const HOME_INFO = Object.fromEntries(HOME_GROUPS.flatMap(g => g[1]).map(x => [x[0], x]));
 window.homeOpenLast = () => { try { return (lookDoc && lookDoc.data.open) === "last"; } catch { return false; } };
 function homeBadges(){
@@ -6511,6 +6704,8 @@ function homeBadges(){
   try { const d = aqDueCount(); if (d.cart + d.sv) b.acq = d.cart + d.sv; } catch {}
   try { const n = gqTodo().length; if (n) b.gestionale = n; } catch {}
   try { const n = ctTodo(); if (n) b.conta = n; } catch {}
+  try { const n = ntDue().length; if (n) b.notizie = n; } catch {}
+  try { const n = mndAlerts().length; if (n) b.mandati = n; } catch {}
   return b;
 }
 function homeRender(){
@@ -6525,10 +6720,13 @@ function homeRender(){
   if (B.messaggi) chips.push(["messaggi", "💬", `<b>${B.messaggi}</b> messaggi da inviare`]);
   if (B.acq) chips.push(["acq", "🪧", `<b>${B.acq}</b> da ricontattare`]);
   if (B.gestionale) chips.push(["gestionale", "📋", `<b>${B.gestionale}</b> da riportare nel gestionale`]);
+  try { const c = rdCheckItems().length; if (c) chips.unshift(["gestionale", "🔎", `<b>${c}</b> ${c === 1 ? "cosa aperta" : "cose aperte"} nel gestionale`]); } catch {}
+  try { const n = ntDue().length; if (n) chips.push(["notizie", "📞", `<b>${n}</b> ${n === 1 ? "notizia da chiamare" : "notizie da chiamare"} oggi`]); } catch {}
+  try { const m = mndAlerts().length; if (m) chips.push(["mandati", "📆", `<b>${m}</b> ${m === 1 ? "mandato o rogito" : "mandati o rogiti"} da seguire`]); } catch {}
   if (B.conta) chips.push(["conta", "🧾", `<b>${B.conta}</b> ${B.conta === 1 ? "proforma da inviare" : "proforme da inviare"}`]);
   try { const n = vxPending().length; if (n) chips.unshift(["messaggi", "🏠", `<b>${n}</b> ${n === 1 ? "visita da confermare" : "visite da confermare"}`]); } catch {}
   $("hm-today").innerHTML = chips.length ? `<div class="hm-today">${chips.map(([v, i, t]) => `<button type="button" data-home-go="${v}">${i} ${t}</button>`).join("")}</div>` : "";
-  $("hm-groups").innerHTML = HOME_GROUPS.map(([g, items]) => `<section class="hm-group"><h2>${esc(g)}</h2><div class="hm-grid">${items.filter(x => APPS.includes(x[0])).map(([v, i, t, s]) => `<button type="button" class="hm-tile" data-home-go="${v}"><span class="ic" aria-hidden="true">${i}</span><b>${esc(t)}</b><small>${esc(s)}</small>${B[v] ? `<span class="nb">${B[v] > 99 ? "99+" : B[v]}</span>` : ""}</button>`).join("")}</div></section>`).join("");
+  $("hm-groups").innerHTML = rdRecentHome() + HOME_GROUPS.map(([g, items]) => `<section class="hm-group"><h2>${esc(g)}</h2><div class="hm-grid">${items.filter(x => APPS.includes(x[0])).map(([v, i, t, s]) => `<button type="button" class="hm-tile" data-home-go="${v}"><span class="ic" aria-hidden="true">${i}</span><b>${esc(t)}</b><small>${esc(s)}</small>${B[v] ? `<span class="nb">${B[v] > 99 ? "99+" : B[v]}</span>` : ""}</button>`).join("")}</div></section>`).join("");
   $("hm-acc").innerHTML = `<div class="hm-acc">${tok && tok.email ? `Collegato come <b>${esc(tok.email)}</b>` : knownEmail() ? "Sessione Google da riprendere: tocca una sezione e si riprende da sola" : "Non hai ancora fatto l'accesso con Google (Menu → Centro Messaggi)"}</div>`;
 }
 XVIEWS.home = homeRender;
@@ -6591,7 +6789,7 @@ document.addEventListener("click", e => { if (e.target.closest("[data-vx-show]")
 
 /* ===================== REGOLE GESTIONALE ===================== */
 const RG_ENRICO = "enrico.rosani@dove.it";
-const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza). [Documento] (proforma, fatture, verbali): PDF con await rzDocBase64('id') nella scheda dell'app, da caricare nella pagina dell'immobile /properties/<numero DV> in Documenti → Altri documenti.";
+const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza). [Notizia]: la nota va come promemoria nel Calendario della scheda /rumors/<id>. [Documento] (proforma, fatture, verbali): PDF da scaricare dall'app (DV davanti al nome) e da far scegliere nella finestra dei file, da caricare nella pagina dell'immobile /properties/<numero DV> in Documenti → Altri documenti.";
 function rgNextMonday(iso){ let d = xAddDays(iso, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
 /* visita fatta con esito diverso da "non interessato" */
 window.rgVisitaOpinione = function(id, sc){
@@ -6605,7 +6803,7 @@ window.rgVisitaOpinione = function(id, sc){
 };
 /* promemoria da mettere per una notizia, dalla nota scritta */
 function rgPlan(it){
-  if (!it || it.tipo !== "Nuova notizia") return null;
+  if (!it || (it.tipo !== "Nuova notizia" && it.tipo !== "Notizia")) return null;
   const nota = String(it.nota || "").trim(); if (!nota) return null;
   if (/no\s*risp\w*\s*ris?c/i.test(nota)) { const d = xAddDays(xISO(it.created || Date.now()), 1); return { quando: new Date(d + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" }) + " ore 10:00", testo: "ric" }; }
   return { quando: "oggi, all'ora di inserimento + 5 minuti", testo: nota, invito: /ric\w*\s+con\s+enrico/i.test(nota) ? RG_ENRICO : "" };
@@ -6925,7 +7123,7 @@ function ctCard(r){
     <div class="ct-chips">${chips.join("")}</div>
     <div class="ct-grid"><label class="x-f"><span>Cliente</span><input class="inp" data-ct-f="nome" value="${esc(r.nome || "")}"></label><label class="x-f"><span>Telefono</span><input class="inp" data-ct-f="tel" type="tel" value="${esc(r.tel || "")}"></label><label class="x-f"><span>Immobile</span><input class="inp" data-ct-f="dv" value="${esc(r.dv || "")}" placeholder="DV-12345"></label></div>
     ${r.kind === "proforma" && !r.pagata ? `<div class="ct-wa"><label class="x-f"><span>Messaggio WhatsApp</span><textarea class="inp" data-ct-f="waText">${esc(ctWaText(r))}</textarea></label></div>` : ""}
-    <div class="x-acts">${r.kind === "proforma" && !r.pagata ? `<button type="button" class="x-act wa" data-ct-a="wa"${r.tel ? "" : " disabled"}>💬 Invia su WhatsApp con PDF</button>` : ""}<button type="button" class="x-act" data-ct-a="pdf">📄 Apri PDF</button>${r.driveLink ? `<a class="x-act" href="${esc(r.driveLink)}" target="_blank" rel="noopener">📁 Drive</a>` : `<button type="button" class="x-act" data-ct-a="drive">📁 Salva su Drive</button>`}${r.gmail ? `<a class="x-act" href="${esc(r.gmail)}" target="_blank" rel="noopener">✉️ Mail</a>` : ""}${r.dv ? `<a class="x-act" href="https://backoffice.dove.it/properties/${esc(r.dv.replace(/\D/g, ""))}" target="_blank" rel="noopener">🔗 ${esc(r.dv)} nel gestionale</a>` : ""}${r.kind === "proforma" ? `<button type="button" class="x-act" data-ct-a="paid">${r.pagata ? "Rimetti da pagare" : "💶 Segna pagata"}</button>` : ""}</div>
+    <div class="x-acts">${r.kind === "proforma" && !r.pagata ? `<button type="button" class="x-act wa" data-ct-a="wa"${r.tel ? "" : " disabled"}>💬 Invia su WhatsApp con PDF</button>` : ""}<button type="button" class="x-act" data-ct-a="pdf">📄 Apri PDF</button>${r.driveLink ? `<a class="x-act" href="${esc(r.driveLink)}" target="_blank" rel="noopener">📁 Drive</a>` : `<button type="button" class="x-act" data-ct-a="drive">📁 Salva su Drive</button>`}${r.gmail ? `<a class="x-act" href="${esc(r.gmail)}" target="_blank" rel="noopener">✉️ Mail</a>` : ""}${r.dv ? `<a class="x-act" href="https://backoffice.dove.it/properties/${esc(r.dv.replace(/\D/g, ""))}" target="_blank" rel="noopener">🔗 ${esc(r.dv)} nel gestionale</a>` : ""}${r.kind === "proforma" && r.pagata ? `<button type="button" class="x-act" data-ic-from="${esc(r.id)}">💶 Registra incasso</button>` : ""}${r.kind === "proforma" ? `<button type="button" class="x-act" data-ct-a="paid">${r.pagata ? "Rimetti da pagare" : "💶 Segna pagata"}</button>` : ""}</div>
   </div>`;
 }
 function ctRender(){
@@ -6933,7 +7131,8 @@ function ctRender(){
   xSync("ct-sync");
   const all = ctColl.all().sort((a, b) => String(b.date).localeCompare(String(a.date)));
   const n = k => all.filter(r => r.kind === k).length;
-  $("ct-tabs").innerHTML = [["proforma", "📄 Proforma", n("proforma")], ["fattura", "🧾 Fatture", n("fattura")], ["altro", "📎 Altri documenti", n("altro")]].filter(x => x[0] !== "altro" || x[2]).map(([v, l, c]) => `<button type="button" class="x-pill" data-ct-tab="${v}" aria-pressed="${ctTab === v}">${l} <span class="n">${c}</span></button>`).join("");
+  $("ct-tabs").innerHTML = [["proforma", "📄 Proforma", n("proforma")], ["fattura", "🧾 Fatture", n("fattura")], ["incassi", "💶 Incassi", icColl.all().length], ["altro", "📎 Altri documenti", n("altro")]].filter(x => x[0] !== "altro" || x[2]).map(([v, l, c]) => `<button type="button" class="x-pill" data-ct-tab="${v}" aria-pressed="${ctTab === v}">${l} <span class="n">${c}</span></button>`).join("");
+  if (ctTab === "incassi") { $("ct-list").innerHTML = icHtml(); $("ct-scan").disabled = ctBusy; ctBadge(); return; }
   const list = all.filter(r => r.kind === ctTab);
   let html = "";
   if (ctTab === "proforma") {
@@ -7162,14 +7361,324 @@ window.fotoRender = fotoRender = function(){ const r = _fotoRenderFe.apply(this,
 document.addEventListener("click", e => { if (e.target.closest("[data-fe-open]")) showView("fotoedit"); });
 window.feJpegFromRaw = feJpegFromRaw; window.feLut = feLut;
 
+
+/* ===================== FUNZIONI INTEGRATE COL GESTIONALE ===================== */
+const BO = "https://backoffice.dove.it";
+const rdNowPlus5 = () => { const d = new Date(Date.now() + 5 * 60e3); return d.toTimeString().slice(0, 5); };
+const rdFmtDT = (d, t) => new Date(d + "T12:00").toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short" }) + (t ? " ore " + t : "");
+const rdNum = s => { const n = parseInt(String(s || "").replace(/[^\d]/g, ""), 10); return isNaN(n) ? 0 : n; };
+
+/* ---------- 1 · SESSIONE CHIAMATE NOTIZIE ---------- */
+const ntColl = xColl("rz_notizie_v1", "notizie");
+let ntFilter = "oggi", ntSess = null;
+const NT_ST = { da_chiamare: "Da chiamare", richiamare: "Da richiamare", appuntamento: "Appuntamento", non_interessato: "Non interessato", fatto: "Fatto" };
+const ntOpen = r => !["appuntamento", "non_interessato", "fatto"].includes(r.stato);
+const ntIsDue = r => ntOpen(r) && (!r.prossima || r.prossima <= xISO(Date.now()));
+window.ntDue = () => ntColl.all().filter(ntIsDue);
+const ntLink = r => r.boId ? BO + "/rumors/" + r.boId : (r.link || "");
+function ntSorted(list){ return list.slice().sort((a, b) => (a.prossima || "0000").localeCompare(b.prossima || "0000") || (a.created || 0) - (b.created || 0)); }
+function ntList(){
+  const q = ($("nt-q").value || "").toLowerCase().trim(), all = ntColl.all();
+  let L = ntFilter === "oggi" ? all.filter(ntIsDue) : ntFilter === "aperte" ? all.filter(ntOpen) : ntFilter === "chiuse" ? all.filter(r => !ntOpen(r)) : all;
+  if (q) L = L.filter(r => (r.addr + " " + (r.nome || "") + " " + (r.tel || "")).toLowerCase().includes(q) || xDigits(r.tel).includes(q.replace(/\D/g, "") || "#"));
+  return ntSorted(L);
+}
+function ntRender(){
+  xSync("nt-sync");
+  const all = ntColl.all(), c = { oggi: all.filter(ntIsDue).length, aperte: all.filter(ntOpen).length, chiuse: all.filter(r => !ntOpen(r)).length, tutte: all.length };
+  $("nt-filter").innerHTML = [["oggi", "📞 Da chiamare oggi"], ["aperte", "Aperte"], ["chiuse", "Chiuse"], ["tutte", "Tutte"]].map(([v, l]) => `<button type="button" class="x-pill" data-nt-f="${v}" aria-pressed="${ntFilter === v}">${l} <span class="n">${c[v]}</span></button>`).join("");
+  const L = ntList();
+  $("nt-start").disabled = !all.filter(ntIsDue).length; $("nt-start").textContent = `▶️ Inizia a chiamare (${all.filter(ntIsDue).length})`;
+  $("nt-list").innerHTML = L.length ? L.map(r => `<div class="nt-it"><div class="t"><b>${esc(r.addr || "Senza indirizzo")}</b><span class="nt-tag${ntIsDue(r) ? " due" : ntOpen(r) ? "" : " ok"}">${esc(NT_ST[r.stato] || r.stato)}${r.prossima && ntOpen(r) ? " · " + esc(rdFmtDT(r.prossima, r.ora)) : ""}</span><small>${esc([r.nome, r.tel].filter(Boolean).join(" · "))}${r.log && r.log.length ? " · ultimo: " + esc(r.log[r.log.length - 1].esito) : ""}</small></div><div class="x-acts">${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}" data-nt-dial="${esc(r.id)}">📞</a>` : ""}<button type="button" class="x-act" data-nt-one="${esc(r.id)}">Esito</button>${ntLink(r) ? `<a class="x-act" href="${esc(ntLink(r))}" target="_blank" rel="noopener">🔗</a>` : ""}</div></div>`).join("")
+    : `<div class="x-empty">${all.length ? "Nessuna notizia in questo filtro." : "Nessuna notizia: aggiungile qui sotto o chiedimi di importarle dal gestionale."}</div>`;
+  ntDrawSess();
+}
+XVIEWS.notizie = ntRender;
+function ntDrawSess(){
+  const box = $("nt-session"); if (!ntSess) { box.hidden = true; box.innerHTML = ""; return; }
+  const r = ntColl.get(ntSess.ids[ntSess.i]);
+  if (!r) { box.hidden = false; box.innerHTML = `<div class="nt-sess"><div class="pr">Sessione finita</div><h2>✅ ${ntSess.done} ${ntSess.done === 1 ? "chiamata registrata" : "chiamate registrate"}</h2><div class="x-note">Gli esiti sono nella lista “Da fare nel gestionale”: copiala e incollala a Claude.</div><div class="x-row"><button type="button" class="x-act call" data-nt-end>Chiudi</button><button type="button" class="x-act" data-home-go="gestionale">📋 Vai alla lista</button></div></div>`; return; }
+  box.hidden = false;
+  box.innerHTML = `<div class="nt-sess" data-nt-cur="${esc(r.id)}">
+    <div class="pr">Notizia ${ntSess.i + 1} di ${ntSess.ids.length}</div>
+    <h2>${esc(r.addr || "Senza indirizzo")}</h2>
+    <div class="who">${esc(r.nome || "Nome non indicato")}${r.tel ? " · " + esc(r.tel) : ""}</div>
+    ${r.annuncio ? `<div class="ann">${esc(r.annuncio)}</div>` : ""}
+    ${r.log && r.log.length ? `<div class="nt-log">Ultime volte: ${r.log.slice(-3).map(l => esc(new Date(l.at).toLocaleDateString("it-IT", { day: "numeric", month: "short" }) + " " + l.esito)).join(" · ")}</div>` : ""}
+    <div class="nt-call">${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}">📞 Chiama</a><a class="x-act wa" href="${esc(xWa(r.tel, ""))}" target="_blank" rel="noopener">💬 WhatsApp</a>` : `<span class="x-note">Nessun telefono: cercalo nella notizia.</span>`}${ntLink(r) ? `<a class="x-act" href="${esc(ntLink(r))}" target="_blank" rel="noopener">🔗 Notizia nel gestionale</a>` : ""}</div>
+    <div class="nt-out">
+      <button type="button" data-nt-out="norisp">📵 Non risponde</button>
+      <button type="button" data-nt-out="enrico">👥 Richiamare con Enrico</button>
+      <button type="button" class="ap" data-nt-out="app">📅 Appuntamento di valutazione</button>
+      <button type="button" data-nt-out="nota">📝 Nota e richiamo</button>
+      <button type="button" class="no" data-nt-out="noint">🚫 Non interessato</button>
+      <button type="button" data-nt-out="skip">⏭️ Salta</button>
+    </div>
+    <div class="nt-extra" id="nt-extra"></div>
+    <div class="x-row"><button type="button" class="x-act" data-nt-end>Fine sessione</button></div>
+  </div>`;
+  box.scrollIntoView && box.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function ntQueue(r, tipo, extra){
+  if (!window.gqAdd) return;
+  gqAdd(Object.assign({ key: "nt:" + r.id + ":" + Date.now(), tipo, cliente: r.nome || r.addr || "", tel: r.tel || "", link: ntLink(r), fonte: "Sessione chiamate notizie" }, extra));
+}
+function ntOutcome(r, kind, data){
+  r.log = r.log || []; const today = xISO(Date.now()), tomorrow = xAddDays(today, 1);
+  if (kind === "norisp") { r.stato = "richiamare"; r.prossima = tomorrow; r.ora = "10:00"; r.log.push({ at: Date.now(), esito: "non risponde" }); ntQueue(r, "Notizia", { nota: "no risp risc", testo: `${r.addr}: non risponde, richiamare` }); }
+  else if (kind === "enrico") { r.stato = "richiamare"; r.prossima = tomorrow; r.ora = "10:00"; r.log.push({ at: Date.now(), esito: "richiamare con Enrico" }); ntQueue(r, "Notizia", { nota: "ric con enrico", testo: `${r.addr}: richiamare con Enrico` }); }
+  else if (kind === "nota") { r.stato = "richiamare"; r.prossima = data.giorno || tomorrow; r.ora = data.ora || "10:00"; r.log.push({ at: Date.now(), esito: "nota: " + data.testo }); ntQueue(r, "Notizia", { nota: data.testo, testo: `${r.addr}: ${data.testo}` }); if (data.giorno) ntQueue(r, "Reminder", { data: data.giorno, ora: data.ora || "10:00", testo: data.testo }); }
+  else if (kind === "app") { r.stato = "appuntamento"; r.app = data.giorno + " " + data.ora; r.log.push({ at: Date.now(), esito: "appuntamento " + rdFmtDT(data.giorno, data.ora) }); ntQueue(r, "Valutazione", { data: data.giorno, ora: data.ora, testo: `Dalla notizia ${r.addr}: stato → Aggiungi appuntamento (valutazione) il ${rdFmtDT(data.giorno, data.ora)}${data.virtual ? " in videochiamata" : ""}${data.note ? ". Note: " + data.note : ""}` }); }
+  else if (kind === "noint") { r.stato = "non_interessato"; r.log.push({ at: Date.now(), esito: "non interessato" }); ntQueue(r, "Nota", { testo: `Notizia ${r.addr}: non interessato${data && data.motivo ? " (" + data.motivo + ")" : ""}` }); }
+  ntColl.put(r);
+}
+function ntExtra(kind){
+  const X = $("nt-extra"), tom = xAddDays(xISO(Date.now()), 1);
+  if (kind === "app") X.innerHTML = `<div class="x-grid"><label class="x-f"><span>Giorno</span><input class="inp" type="date" id="nt-x-d" value="${tom}"></label><label class="x-f"><span>Ora</span><input class="inp" type="time" id="nt-x-t" value="10:00"></label><label class="calc-chk"><input type="checkbox" id="nt-x-v"> Videochiamata</label><label class="x-f x-full"><span>Note</span><input class="inp" id="nt-x-n"></label></div><button type="button" class="x-act call" data-nt-ok="app">Salva appuntamento</button>`;
+  else if (kind === "nota") X.innerHTML = `<label class="x-f"><span>Nota (diventa il promemoria nel gestionale)</span><textarea class="inp" id="nt-x-n" rows="2" placeholder="Es. vende a febbraio, richiamare dopo le 18"></textarea></label><div class="x-grid"><label class="x-f"><span>Richiamare il</span><input class="inp" type="date" id="nt-x-d" value="${tom}"></label><label class="x-f"><span>Ora</span><input class="inp" type="time" id="nt-x-t" value="10:00"></label></div><button type="button" class="x-act call" data-nt-ok="nota">Salva nota</button>`;
+  else if (kind === "noint") X.innerHTML = `<label class="x-f"><span>Motivo (facoltativo)</span><input class="inp" id="nt-x-n" placeholder="Es. ha già un'agenzia"></label><button type="button" class="x-act call" data-nt-ok="noint">Conferma</button>`;
+  const f = X.querySelector("input,textarea"); f && f.focus();
+}
+function ntNext(done){ if (done) ntSess.done++; ntSess.i++; ntRender(); }
+$("view-notizie").addEventListener("click", e => {
+  const f = e.target.closest("[data-nt-f]"); if (f) { ntFilter = f.dataset.ntF; ntRender(); return; }
+  if (e.target.closest("#nt-start")) { ntSess = { ids: ntSorted(ntColl.all().filter(ntIsDue)).map(r => r.id), i: 0, done: 0 }; ntRender(); return; }
+  const one = e.target.closest("[data-nt-one]"); if (one) { ntSess = { ids: [one.dataset.ntOne], i: 0, done: 0 }; ntRender(); return; }
+  if (e.target.closest("[data-nt-end]")) { ntSess = null; ntRender(); return; }
+  const cur = e.target.closest("[data-nt-cur]"), r = cur && ntColl.get(cur.dataset.ntCur);
+  const o = e.target.closest("[data-nt-out]");
+  if (o && r) { const k = o.dataset.ntOut; if (k === "skip") return ntNext(false); if (["app", "nota", "noint"].includes(k)) return ntExtra(k); ntOutcome(r, k); toast(k === "norisp" ? "📵 Richiamo domani alle 10 · promemoria “ric” in lista" : "👥 Promemoria con invito a Enrico in lista"); return ntNext(true); }
+  const ok = e.target.closest("[data-nt-ok]");
+  if (ok && r) { const k = ok.dataset.ntOk, d = $("nt-x-d") && $("nt-x-d").value, t = $("nt-x-t") && $("nt-x-t").value, n = ($("nt-x-n") && $("nt-x-n").value.trim()) || "";
+    if (k === "app") { if (!d || !t) return toast("Scegli giorno e ora"); ntOutcome(r, "app", { giorno: d, ora: t, virtual: $("nt-x-v").checked, note: n }); toast("📅 Appuntamento in lista per il gestionale"); }
+    else if (k === "nota") { if (!n) return toast("Scrivi la nota"); ntOutcome(r, "nota", { testo: n, giorno: d, ora: t }); toast("📝 Nota e richiamo in lista"); }
+    else ntOutcome(r, "noint", { motivo: n });
+    return ntNext(true); }
+  if (e.target.closest("#nt-add")) { const a = $("nt-addr").value.trim(); if (!a && !$("nt-tel").value.trim()) return toast("Scrivi almeno indirizzo o telefono"); const link = $("nt-link").value.trim(), m = link.match(/rumors\/(\d+)/); ntColl.put({ id: xId("nt"), addr: a, nome: $("nt-nome").value.trim(), tel: $("nt-tel").value.trim(), boId: m ? m[1] : "", link: m ? "" : link, stato: "da_chiamare", created: Date.now(), src: "mano" }); ["nt-addr", "nt-nome", "nt-tel", "nt-link"].forEach(id => $(id).value = ""); toast("Notizia aggiunta"); ntRender(); return; }
+  if (e.target.closest("#nt-paste-go")) { const n = ntImportText($("nt-paste").value); $("nt-paste").value = ""; toast(n ? `${n} notizie aggiunte` : "Nessuna riga valida"); ntRender(); return; }
+});
+$("view-notizie").addEventListener("input", e => { if (e.target.id === "nt-q") ntRender(); });
+function ntImportText(txt){
+  let n = 0;
+  for (const line of String(txt || "").split(/\n+/)) { const s = line.trim(); if (!s) continue; const tel = (s.match(/(\+?\d[\d\s.\-]{7,}\d)/) || [""])[0].trim(); const parts = s.replace(tel, "").split(/\s*[·|;\t]\s*/).map(x => x.trim()).filter(Boolean); ntColl.put({ id: xId("nt"), addr: parts[0] || "", nome: parts[1] || "", tel, stato: "da_chiamare", created: Date.now(), src: "elenco" }); n++; }
+  return n;
+}
+
+/* ---------- 2 · PROPOSTA DI RIBASSO ---------- */
+const rbDoc = xDoc("rz_ribasso_v1", "ribasso", { imm: {} });
+let rbSel = "";
+function rbDvs(){ const m = {}; for (const it of vsItems()) { if (!it.dv || it.dv === "Senza codice") continue; (m[it.dv] = m[it.dv] || []).push(it); } for (const dv of Object.keys(rbDoc.data.imm)) m[dv] = m[dv] || []; return m; }
+function rbStats(dv){
+  const its = (rbDvs()[dv] || []).filter(it => it.s <= Date.now()), sc = its.map(it => vsDoc.data.schede[it.id] || {}).filter(s => s.esito);
+  const es = {}; VS_ESITI.forEach(([k]) => es[k] = 0); sc.forEach(s => es[s.esito] = (es[s.esito] || 0) + 1);
+  const alto = sc.filter(s => s.prezzo === "alto" || (s.non || []).includes("Prezzo alto")).length, giusto = sc.filter(s => s.prezzo === "giusto").length;
+  const offerte = sc.filter(s => s.prezzo === "offerta" || s.passo === "Farà una proposta").map(s => xMoney(s.offerta)).filter(Boolean);
+  const cnt = key => { const c = {}; sc.forEach(s => (s[key] || []).forEach(v => c[v] = (c[v] || 0) + 1)); return Object.entries(c).sort((a, b) => b[1] - a[1]); };
+  return { visite: its.length, schede: sc.length, es, alto, giusto, offerte, piace: cnt("piace"), non: cnt("non"), addr: (its[0] && its[0].loc) || "" };
+}
+function rbCalc(dv){
+  const I = rbDoc.data.imm[dv] || {}, st = rbStats(dv), prezzo = rdNum(I.prezzo), minimo = rdNum(I.minimo), mq = rdNum(I.mq), mesi = rdNum(I.mesi);
+  const com = I.comune || (st.addr ? pqFindComune(st.addr) : "") || "", zmq = com && PQ_PREZZI[com] ? PQ_PREZZI[com][1] : 0, zona = zmq && mq ? zmq * mq : 0;
+  const pAlto = st.schede ? st.alto / st.schede : 0, noInt = st.schede ? (st.es.no || 0) / st.schede : 0;
+  let k = 0; const why = [];
+  if (st.schede >= 3 && pAlto >= 0.5) { k += 0.05; why.push(`${Math.round(pAlto * 100)}% dei visitatori trova il prezzo alto`); } else if (st.schede >= 3 && pAlto >= 0.3) { k += 0.03; why.push(`${Math.round(pAlto * 100)}% dei visitatori trova il prezzo alto`); }
+  if (st.schede >= 4 && noInt >= 0.6) { k += 0.02; why.push(`${Math.round(noInt * 100)}% delle visite senza interesse`); }
+  if (st.visite >= 5 && !st.offerte.length) { k += 0.02; why.push(`${st.visite} visite e nessuna proposta`); }
+  if (mesi >= 3) { k += 0.02; why.push(`in vendita da ${mesi} mesi`); }
+  if (zona && prezzo > zona * 1.1) { k += 0.02; why.push(`prezzo sopra la media di zona (${xEuro(Math.round(zona))})`); }
+  k = Math.min(k, 0.12);
+  let sug = prezzo ? Math.round(prezzo * (1 - k) / 1000) * 1000 : 0; if (minimo && sug < minimo) sug = minimo;
+  return { I, st, prezzo, minimo, mq, com, zmq, zona, k, sug, why };
+}
+function rbMsg(dv, C){
+  const own = (C.I.own || "").split(" ")[0] || "", firma = (typeof crm !== "undefined" && crm.signature) || DEFAULT_SIG;
+  const top = C.st.non.slice(0, 2).map(x => x[0].toLowerCase()).join(" e ");
+  return `Buongiorno${own ? " " + own : ""}, le aggiorno sull'immobile ${dv}${C.st.addr ? " di " + C.st.addr : ""}. Finora abbiamo fatto ${C.st.visite} visite${C.st.schede ? ": " + C.st.schede + " visitatori ci hanno dato un parere" : ""}${C.st.alto ? ", e " + C.st.alto + " hanno indicato il prezzo come principale ostacolo" : ""}${top ? " (cosa non convince: " + top + ")" : ""}.${C.zona ? " Il prezzo medio richiesto nella zona per questa metratura è intorno a " + xEuro(Math.round(C.zona)) + "." : ""}${C.sug && C.sug < C.prezzo ? " Per trasformare l'interesse in proposte le suggerirei di portare il prezzo a " + xEuro(C.sug) + "." : ""} Quando le va di sentirci per parlarne? ${firma}`;
+}
+function rbRender(){
+  xSync("rb-sync");
+  const dvs = rbDvs(), keys = Object.keys(dvs).sort((a, b) => dvs[b].length - dvs[a].length);
+  if (!rbSel || !keys.includes(rbSel)) rbSel = keys[0] || "";
+  $("rb-dv").innerHTML = keys.length ? keys.map(k => `<option value="${esc(k)}"${k === rbSel ? " selected" : ""}>${esc(k)} · ${dvs[k].length} ${dvs[k].length === 1 ? "visita" : "visite"}</option>`).join("") : `<option value="">Nessuna visita registrata</option>`;
+  if (!$("rb-comuni").children.length) $("rb-comuni").innerHTML = Object.keys(PQ_PREZZI).map(c => `<option value="${esc(c)}">`).join("");
+  if (!rbSel) { $("rb-out").innerHTML = `<div class="x-empty">Qui compaiono gli immobili con visite nel calendario ([DV-…]). Compila le schede in <b>Visite</b> per avere i pareri.</div>`; return; }
+  const I = rbDoc.data.imm[rbSel] || {}, st0 = rbStats(rbSel);
+  const setv = (id, v) => { if (document.activeElement !== $(id)) $(id).value = v || ""; };
+  setv("rb-comune", I.comune || (st0.addr ? pqFindComune(st0.addr) : "")); setv("rb-prezzo", I.prezzo); setv("rb-minimo", I.minimo); setv("rb-mq", I.mq); setv("rb-mesi", I.mesi);
+  setv("rb-own", I.own || ((vsDoc.data.imm[rbSel] || {}).own)); setv("rb-tel", I.tel);
+  const C = rbCalc(rbSel), st = C.st, bar = (l, n, tot) => `<div class="rb-bar"><span>${esc(l)}</span><div class="tr"><i style="width:${tot ? Math.round(n / tot * 100) : 0}%"></i></div><b>${n}</b></div>`;
+  const msg = I.msg || rbMsg(rbSel, C);
+  $("rb-out").innerHTML = `<h3>2 · Cosa dicono le visite · ${esc(rbSel)}</h3>
+    <div class="rb-kpi"><div><b>${st.visite}</b><small>visite fatte</small></div><div><b>${st.schede}</b><small>schede compilate</small></div><div><b>${st.alto}</b><small>“prezzo alto”</small></div><div><b>${st.offerte.length}</b><small>proposte / offerte</small></div>${C.zona ? `<div><b>${xEuro(Math.round(C.zona))}</b><small>media zona (${xEuro(C.zmq)}/m²)</small></div>` : ""}</div>
+    <div class="rb-bars">${VS_ESITI.map(([k, ic, l]) => bar(ic + " " + l, st.es[k] || 0, st.schede)).join("")}</div>
+    ${st.non.length ? `<div class="x-note"><b>Non è piaciuto:</b> ${st.non.slice(0, 5).map(([v, n]) => esc(v) + " (" + n + ")").join(" · ")}</div>` : ""}
+    ${st.piace.length ? `<div class="x-note"><b>È piaciuto:</b> ${st.piace.slice(0, 5).map(([v, n]) => esc(v) + " (" + n + ")").join(" · ")}</div>` : ""}
+    <h3>3 · Proposta</h3>
+    ${C.prezzo ? `<div class="rb-sug">${C.sug < C.prezzo ? `Prezzo suggerito <b>${xEuro(C.sug)}</b> (−${Math.round((1 - C.sug / C.prezzo) * 100)}% da ${xEuro(C.prezzo)})${C.minimo && C.sug === C.minimo ? " · è il prezzo minimo" : ""}` : `<b>Prezzo in linea</b>: i dati non suggeriscono un ribasso`}${C.why.length ? `<div class="x-note" style="margin-top:6px">Perché: ${C.why.map(esc).join(" · ")}</div>` : ""}</div>` : `<div class="x-note">Scrivi il prezzo attuale per avere la proposta.</div>`}
+    <label class="x-f"><span>Messaggio al proprietario</span><textarea class="inp" id="rb-msg" rows="6">${esc(msg)}</textarea></label>
+    <div class="x-acts">${I.tel ? `<a class="x-act wa" href="${esc(xWa(I.tel, msg))}" target="_blank" rel="noopener" data-rb-wa>💬 WhatsApp</a>` : ""}<button type="button" class="x-act call" data-rb-pdf>📄 PDF per il proprietario</button><button type="button" class="x-act" data-rb-copy>📋 Copia</button><button type="button" class="x-act" data-rb-gq>📋 Nota nel gestionale</button><button type="button" class="x-act" data-rb-reset>↺ Rigenera testo</button><a class="x-act" href="${BO}/properties/${esc(rbSel.replace(/\D/g, ""))}" target="_blank" rel="noopener">🔗 ${esc(rbSel)}</a></div>`;
+}
+XVIEWS.ribasso = rbRender;
+function rbSave(){ const I = rbDoc.data.imm[rbSel] = rbDoc.data.imm[rbSel] || {}; I.comune = $("rb-comune").value.trim(); I.prezzo = $("rb-prezzo").value.trim(); I.minimo = $("rb-minimo").value.trim(); I.mq = $("rb-mq").value.trim(); I.mesi = $("rb-mesi").value.trim(); I.own = $("rb-own").value.trim(); I.tel = $("rb-tel").value.trim(); rbDoc.save(); }
+$("view-ribasso").addEventListener("change", e => { if (e.target.id === "rb-dv") { rbSel = e.target.value; rbRender(); return; } if (e.target.closest(".rb-pick") && rbSel) { rbSave(); const I = rbDoc.data.imm[rbSel]; delete I.msg; rbDoc.save(); rbRender(); } });
+$("view-ribasso").addEventListener("input", e => { if (e.target.id === "rb-msg" && rbSel) { (rbDoc.data.imm[rbSel] = rbDoc.data.imm[rbSel] || {}).msg = e.target.value; rbDoc.save(); } });
+$("view-ribasso").addEventListener("click", async e => {
+  if (!rbSel) return; const C = rbCalc(rbSel), msg = $("rb-msg") ? $("rb-msg").value : "";
+  if (e.target.closest("[data-rb-copy]")) return xCopy(msg);
+  if (e.target.closest("[data-rb-reset]")) { delete (rbDoc.data.imm[rbSel] || {}).msg; rbDoc.save(); return rbRender(); }
+  if (e.target.closest("[data-rb-gq]")) { if (window.gqAdd) gqAdd({ key: "rb:" + rbSel, tipo: "Nota", cliente: C.I.own || rbSel, tel: C.I.tel || "", link: BO + "/properties/" + rbSel.replace(/\D/g, ""), testo: `Andamento ${rbSel}: ${C.st.visite} visite, ${C.st.alto} “prezzo alto”, ${C.st.offerte.length} proposte.${C.sug && C.sug < C.prezzo ? " Proposto al proprietario di passare da " + xEuro(C.prezzo) + " a " + xEuro(C.sug) + "." : ""}`, fonte: "Proposta di ribasso" }); return toast("📋 Nota in lista per il gestionale"); }
+  if (e.target.closest("[data-rb-pdf]")) {
+    try { const jsPDF = await pdfLoad(), doc = new jsPDF({ unit: "mm", format: "a4", compress: true }), W = 210, M = 16; let y = 16;
+      doc.setFillColor(29, 78, 216); doc.rect(0, 0, W, 24, "F"); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.text(pdfTxt("Andamento delle visite - " + rbSel), M, 11); doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.text(pdfTxt((C.st.addr || "") + "  -  " + new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })), M, 18);
+      doc.setTextColor(21, 32, 51); y = 34; const line = (l, v) => { doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.text(pdfTxt(l), M, y); doc.setFont("helvetica", "normal"); doc.text(pdfTxt(String(v)), M + 70, y); y += 7; };
+      line("Visite fatte", C.st.visite); line("Pareri raccolti", C.st.schede); VS_ESITI.forEach(([k, , l]) => line("  " + l, C.st.es[k] || 0)); line("Hanno trovato il prezzo alto", C.st.alto); line("Proposte / offerte", C.st.offerte.length ? C.st.offerte.map(xEuro).join(", ") : C.st.offerte.length);
+      if (C.st.non.length) line("Cosa non ha convinto", C.st.non.slice(0, 4).map(x => x[0]).join(", ")); if (C.st.piace.length) line("Cosa e piaciuto", C.st.piace.slice(0, 4).map(x => x[0]).join(", "));
+      if (C.zona) line("Media richiesta in zona", xEuro(Math.round(C.zona)) + " (" + xEuro(C.zmq) + "/mq)"); if (C.prezzo) line("Prezzo attuale", xEuro(C.prezzo)); if (C.sug && C.sug < C.prezzo) line("Prezzo proposto", xEuro(C.sug));
+      y += 4; doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); const L = doc.splitTextToSize(pdfTxt(msg), W - 2 * M); doc.text(L, M, y);
+      await xDownload(doc.output("blob"), `Andamento_${rbSel}_${xISO(Date.now())}.pdf`);
+    } catch (err) { toast("PDF non creato: " + (err.message || err)); }
+  }
+});
+
+/* ---------- 3 · CONTROLLO DEL GESTIONALE (ogni mattina) ---------- */
+const bcDoc = xDoc("rz_bocheck_v1", "bocheck", { at: 0, items: [] });
+window.rdCheckItems = function(){
+  const out = [];
+  try { for (const a of vxPending()) out.push({ ic: "🏠", t: `Visita da esitare: ${a.clientName}${a.dvCode ? " (" + a.dvCode + ")" : ""}`, link: a.boLink || "", go: "messaggi" }); } catch {}
+  try { for (const r of ntColl.all().filter(r => ntOpen(r) && r.prossima && r.prossima < xISO(Date.now()))) out.push({ ic: "📞", t: `Notizia da richiamare (in ritardo): ${r.addr}`, link: ntLink(r), go: "notizie" }); } catch {}
+  for (const it of bcDoc.data.items || []) out.push({ ic: it.ic || "🔎", t: it.t, link: it.link || "" });
+  return out;
+};
+function rdCheckRender(){
+  const el = $("rd-check"); if (!el) return; const L = rdCheckItems();
+  el.innerHTML = L.length ? `<div class="rd-check"><h3>🔎 Controllo del gestionale · ${L.length} ${L.length === 1 ? "cosa aperta" : "cose aperte"}</h3><ul>${L.slice(0, 12).map(x => `<li>${x.ic} ${esc(x.t)}${x.link ? ` · <a href="${esc(x.link)}" target="_blank" rel="noopener">apri</a>` : ""}${x.go ? ` · <a href="#" data-home-go="${x.go}">vai</a>` : ""}</li>`).join("")}</ul>${L.length > 12 ? `<small>…e altre ${L.length - 12}</small>` : ""}<small>${bcDoc.data.at ? "Dal gestionale aggiornato il " + esc(new Date(bcDoc.data.at).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })) + "." : "Per i promemoria scaduti e le notizie senza prossima azione scrivimi “controlla il gestionale”: li porto qui."}</small></div>` : "";
+}
+const _gqRenderRd = gqRender; gqRender = function(){ _gqRenderRd.apply(this, arguments); rdCheckRender(); };
+XVIEWS.gestionale = gqRender;
+
+/* ---------- 4 · MANDATI E ROGITI ---------- */
+const mndColl = xColl("rz_mandati_v1", "mandati");
+let mndFilter = "allerta";
+const mndDays = iso => iso ? Math.round((new Date(iso + "T12:00") - new Date(xISO(Date.now()) + "T12:00")) / 864e5) : null;
+function mndState(r){ const d = mndDays(r.scad), g = mndDays(r.rog); const a = []; if (d !== null && d <= 60) a.push({ lv: d <= 30 ? "hot" : "warn", t: d < 0 ? `mandato scaduto da ${-d} giorni` : `mandato scade tra ${d} giorni` }); if (g !== null && !r.rogok && g <= 30) a.push({ lv: g <= 10 ? "hot" : "warn", t: g < 0 ? `rogito del ${xDay(r.rog)} da confermare` : `rogito tra ${g} giorni non ancora confermato` }); return a; }
+window.mndAlerts = () => mndColl.all().filter(r => mndState(r).length);
+function mndRender(){
+  xSync("mnd-sync");
+  const all = mndColl.all(), al = all.filter(r => mndState(r).length);
+  $("mnd-filter").innerHTML = [["allerta", "⚠️ Da seguire", al.length], ["tutti", "Tutti", all.length]].map(([v, l, n]) => `<button type="button" class="x-pill" data-mnd-f="${v}" aria-pressed="${mndFilter === v}">${l} <span class="n">${n}</span></button>`).join("");
+  const L = (mndFilter === "allerta" ? al : all).slice().sort((a, b) => (a.scad || "9999").localeCompare(b.scad || "9999"));
+  $("mnd-list").innerHTML = L.length ? L.map(r => { const S = mndState(r), lv = S.some(s => s.lv === "hot") ? "hot" : S.length ? "warn" : ""; return `<div class="mnd-it ${lv}"><div class="t"><b>${esc(r.dv || "")} · ${esc(r.addr || "")}</b><small>${esc([r.own, r.tel].filter(Boolean).join(" · "))}</small><small>Mandato: ${r.scad ? esc(xDay(r.scad)) : "—"}${r.escl ? " · esclusiva" : ""}${r.rog ? " · Rogito: " + esc(xDay(r.rog)) + (r.rogok ? " ✓" : " (da confermare)") : ""}</small>${S.map(s => `<small style="font-weight:800;color:${s.lv === "hot" ? "var(--hot)" : "var(--todo-bar)"}">⚠️ ${esc(s.t)}</small>`).join("")}</div><div class="x-acts">${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}">📞</a>` : ""}${r.scad ? `<button type="button" class="x-act" data-mnd-rem="${esc(r.id)}">⏰ Promemoria rinnovo</button>` : ""}${r.rog && !r.rogok ? `<button type="button" class="x-act" data-mnd-ok="${esc(r.id)}">✓ Rogito confermato</button>` : ""}<a class="x-act" href="${BO}/properties/${esc((r.dv || "").replace(/\D/g, ""))}" target="_blank" rel="noopener">🔗</a><button type="button" class="x-act danger" data-mnd-del="${esc(r.id)}">🗑️</button></div></div>`; }).join("")
+    : `<div class="x-empty">${all.length ? "Niente in scadenza nei prossimi 60 giorni." : "Nessun mandato: aggiungilo qui sotto o chiedimi di importarli dal gestionale."}</div>`;
+}
+XVIEWS.mandati = mndRender;
+$("view-mandati").addEventListener("click", e => {
+  const f = e.target.closest("[data-mnd-f]"); if (f) { mndFilter = f.dataset.mndF; mndRender(); return; }
+  const rm = e.target.closest("[data-mnd-rem]"); if (rm) { const r = mndColl.get(rm.dataset.mndRem); let d = xAddDays(r.scad, -60); if (d < xISO(Date.now())) d = xAddDays(xISO(Date.now()), 1); if (window.gqAdd) gqAdd({ key: "mdrem:" + r.id, tipo: "Reminder", cliente: r.own || r.dv, tel: r.tel || "", link: BO + "/properties/" + (r.dv || "").replace(/\D/g, ""), data: xWorkday(d), ora: "10:00", testo: `rinnovo mandato ${r.dv} (scade il ${xDay(r.scad)})`, fonte: "Mandati e rogiti" }); return toast("⏰ Promemoria di rinnovo in lista per il gestionale"); }
+  const ok = e.target.closest("[data-mnd-ok]"); if (ok) { const r = mndColl.get(ok.dataset.mndOk); r.rogok = true; mndColl.put(r); return mndRender(); }
+  const dl = e.target.closest("[data-mnd-del]"); if (dl) { if (!dl.classList.contains("armed")) { dl.classList.add("armed"); dl.textContent = "Conferma"; return; } mndColl.remove(dl.dataset.mndDel); return mndRender(); }
+  if (e.target.closest("#mnd-add")) { const dv = $("mnd-dv").value.trim().toUpperCase().replace(/^(\d)/, "DV-$1"); if (!dv) return toast("Scrivi il DV"); mndColl.put({ id: xId("md"), dv, addr: $("mnd-addr").value.trim(), own: $("mnd-own").value.trim(), tel: $("mnd-tel").value.trim(), scad: $("mnd-scad").value, rog: $("mnd-rog").value, escl: $("mnd-escl").checked, rogok: $("mnd-rogok").checked, created: Date.now() }); ["mnd-dv", "mnd-addr", "mnd-own", "mnd-tel", "mnd-scad", "mnd-rog"].forEach(id => $(id).value = ""); toast("Mandato salvato"); mndRender(); }
+});
+
+/* ---------- 5 · INCASSI E OBIETTIVO DI GUADAGNO (in Contabilità) ---------- */
+const icColl = xColl("rz_incassi_v1", "incassi");
+const odDoc = xDoc("rz_obdove_v1", "obdove", { year: 2026, guadagno: 40000, at: "2026-09-30", notizie: [168, 290], valutazioni: [28, 145], mandati: [12, 36], vendite: [7, 13] });
+let icForm = null;
+function icHtml(){
+  const y = new Date().getFullYear(), L = icColl.all().sort((a, b) => String(b.data).localeCompare(String(a.data))), yr = L.filter(r => String(r.data).startsWith(String(y)));
+  const tot = yr.reduce((s, r) => s + (rdNum(r.comm) || Math.round(rdNum(r.importo) * (rdNum(r.quota) || 0) / 100)), 0), goal = odDoc.data.guadagno || 0;
+  const monthsLeft = 12 - new Date().getMonth(), need = goal > tot ? Math.ceil((goal - tot) / monthsLeft) : 0;
+  const F = icForm || {};
+  return `<div class="ic"><div class="ic-sum"><div><b>${xEuro(tot)}</b><small>tue provvigioni ${y}</small></div><div><b>${xEuro(goal)}</b><small>obiettivo di guadagno</small></div><div><b>${goal ? Math.round(tot / goal * 100) : 0}%</b><small>raggiunto</small></div><div><b>${need ? xEuro(need) : "✓"}</b><small>${need ? "al mese per arrivarci" : "obiettivo raggiunto"}</small></div></div>
+    <details class="x-card rd-det"${icForm ? " open" : ""}><summary>＋ Registra un incasso</summary><div class="x-grid">
+      <label class="x-f"><span>Immobile (DV)</span><input class="inp" id="ic-dv" value="${esc(F.dv || "")}"></label><label class="x-f"><span>Cliente</span><input class="inp" id="ic-cli" value="${esc(F.cliente || "")}"></label>
+      <label class="x-f"><span>Tipo</span><select class="inp" id="ic-tipo">${["Mediazione", "Pacchetti Extra", "Altro"].map(t => `<option${F.tipo === t ? " selected" : ""}>${t}</option>`).join("")}</select></label><label class="x-f"><span>Data incasso</span><input class="inp" id="ic-data" type="date" value="${esc(F.data || xISO(Date.now()))}"></label>
+      <label class="x-f"><span>Importo incassato €</span><input class="inp" id="ic-imp" inputmode="numeric" value="${esc(F.importo || "")}"></label><label class="x-f"><span>Tua quota %</span><input class="inp" id="ic-q" inputmode="numeric" value="${esc(F.quota || "50")}"></label>
+      <label class="x-f"><span>Tua provvigione € (se diversa)</span><input class="inp" id="ic-c" inputmode="numeric" value="${esc(F.comm || "")}"></label><label class="x-f"><span>Rif. fattura</span><input class="inp" id="ic-rif" value="${esc(F.rif || "")}"></label>
+    </div><button type="button" class="x-act call" id="ic-save">Salva incasso</button></details>
+    <div class="x-card">${L.length ? L.map(r => `<div class="ic-row"><div class="t"><b>${esc(r.cliente || "—")} · ${esc(r.dv || "")}</b><small>${esc(r.tipo || "")} · ${esc(xDay(r.data))}${r.rif ? " · fatt. " + esc(r.rif) : ""}</small></div><div><b>${xEuro(rdNum(r.comm) || Math.round(rdNum(r.importo) * (rdNum(r.quota) || 0) / 100))}</b><small>su ${xEuro(rdNum(r.importo))}</small></div><button type="button" class="x-act danger" data-ic-del="${esc(r.id)}">🗑️</button></div>`).join("") : `<div class="x-empty">Nessun incasso registrato. I pagamenti del gestionale posso importarli io: scrivimi “importa gli incassi”.</div>`}</div></div>`;
+}
+$("view-conta").addEventListener("click", e => {
+  const fr = e.target.closest("[data-ic-from]"); if (fr) { const r = ctColl.get(fr.dataset.icFrom); icForm = { dv: r.dv, cliente: r.nome, tipo: "Mediazione" }; ctTab = "incassi"; ctRender(); return; }
+  if (e.target.closest("#ic-save")) { const imp = $("ic-imp").value.trim(); if (!imp) return toast("Scrivi l'importo"); icColl.put({ id: xId("ic"), dv: $("ic-dv").value.trim(), cliente: $("ic-cli").value.trim(), tipo: $("ic-tipo").value, data: $("ic-data").value, importo: imp, quota: $("ic-q").value.trim(), comm: $("ic-c").value.trim(), rif: $("ic-rif").value.trim() }); icForm = null; toast("💶 Incasso salvato"); ctRender(); return; }
+  const dl = e.target.closest("[data-ic-del]"); if (dl) { if (!dl.classList.contains("armed")) { dl.classList.add("armed"); dl.textContent = "Conferma"; return; } icColl.remove(dl.dataset.icDel); ctRender(); }
+});
+
+/* ---------- 6 · OBIETTIVI DOVE.IT (anno) ---------- */
+function odRender(){
+  const el = $("od-card"); if (!el) return; const D = odDoc.data, now = new Date(), end = new Date(now.getFullYear(), 11, 31), weeks = Math.max(1, Math.ceil((end - now) / (7 * 864e5)));
+  const y = now.getFullYear(), earned = icColl.all().filter(r => String(r.data).startsWith(String(y))).reduce((s, r) => s + (rdNum(r.comm) || Math.round(rdNum(r.importo) * (rdNum(r.quota) || 0) / 100)), 0);
+  const item = (k, ic, l) => { const [f, p] = D[k] || [0, 0], left = Math.max(0, p - f), pw = left / weeks, pct = p ? Math.round(f / p * 100) : 0, yearPct = Math.round((now - new Date(y, 0, 1)) / (end - new Date(y, 0, 1)) * 100);
+    return `<div class="od-it"><span>${ic} <b>${l}</b></span><span class="n">${f} / ${p}</span><div class="x-bar"><i style="width:${Math.min(100, pct)}%"></i></div><span class="od-need ${pct >= yearPct ? "ok" : "bad"}">${left ? `${pw >= 1 ? Math.ceil(pw) : pw.toFixed(1).replace(".", ",")} a settimana per arrivarci` : "✓ obiettivo raggiunto"} · ${pct}% (anno al ${yearPct}%)</span><span class="x-note">Fatti <input type="number" min="0" data-od="${k}" data-od-i="0" value="${f}"> di <input type="number" min="0" data-od="${k}" data-od-i="1" value="${p}"></span></div>`; };
+  el.innerHTML = `<div class="x-card od"><h3>🎯 Obiettivi Dove.it ${y}</h3><div class="od-grid">${item("notizie", "📰", "Notizie")}${item("valutazioni", "📐", "Valutazioni")}${item("mandati", "✍️", "Mandati")}${item("vendite", "🤝", "Vendite")}<div class="od-it"><span>💶 <b>Guadagno</b></span><span class="n">${xEuro(earned)} / ${xEuro(D.guadagno || 0)}</span><div class="x-bar"><i style="width:${D.guadagno ? Math.min(100, Math.round(earned / D.guadagno * 100)) : 0}%"></i></div><span class="x-note">Dagli incassi in Contabilità · obiettivo <input type="number" min="0" step="1000" data-od="guadagno" value="${D.guadagno || 0}"></span></div></div><div class="x-note">Numeri del gestionale aggiornati al ${esc(xDay(D.at))}. Li aggiorno io dalla Dashboard quando mi scrivi “aggiorna gli obiettivi”, oppure li correggi qui.</div></div>`;
+}
+const _obRenderOd = obRender; obRender = function(){ const r = _obRenderOd.apply(this, arguments); odRender(); return r; };
+XVIEWS.obiettivi = obRender;
+$("view-obiettivi").addEventListener("change", e => { const k = e.target.dataset.od; if (!k) return; const v = Math.max(0, parseInt(e.target.value, 10) || 0); if (k === "guadagno") odDoc.data.guadagno = v; else { const a = (odDoc.data[k] || [0, 0]).slice(); a[+e.target.dataset.odI] = v; odDoc.data[k] = a; } odDoc.data.at = xISO(Date.now()); odDoc.save(); odRender(); });
+
+/* ---------- 7 · AVVISA TUTTI GLI ACQUIRENTI INTERESSATI (Incrocio) ---------- */
+let mtBc = null;
+function mtBcDraw(){
+  const box = $("mt-bcbox"); if (!box) return; if (!mtBc) { box.remove(); return; }
+  const cur = mtBc.rows[mtBc.i];
+  if (!cur) { box.innerHTML = `<b>✅ Fatto: ${mtBc.sent} ${mtBc.sent === 1 ? "messaggio inviato" : "messaggi inviati"}</b><div class="x-row"><button type="button" class="x-act" data-mtbc-end>Chiudi</button></div>`; return; }
+  box.innerHTML = `<b>📢 ${mtBc.i + 1} di ${mtBc.rows.length} · ${esc(clName(cur.b))} (${cur.r.pct}%)</b><textarea class="inp" id="mt-bc-msg">${esc(mtMsg(cur.o, cur.b))}</textarea><div class="x-row"><button type="button" class="x-act wa" data-mtbc-send>💬 Apri WhatsApp e vai al prossimo</button><button type="button" class="x-act" data-mtbc-skip>⏭️ Salta</button><button type="button" class="x-act" data-mtbc-end>Fine</button></div>`;
+}
+document.addEventListener("click", e => {
+  if (e.target.closest("#mt-bcast")) { const offers = mtOffers(), sel = offers.find(o => o.id === mtUi.sel); if (!sel) return; const rows = mtBuyers().map(b => ({ b, o: sel, r: mtPairs(sel, b) })).filter(x => x.r && x.b.tel).sort((a, b) => b.r.pct - a.r.pct); if (!rows.length) return toast("Nessun acquirente interessato con telefono"); mtBc = { rows, i: 0, sent: 0 }; let box = $("mt-bcbox"); if (!box) { box = document.createElement("div"); box.id = "mt-bcbox"; box.className = "mt-bc"; const h = document.querySelector("#mt-res .mt-head"); if (h) h.after(box); else $("mt-res").prepend(box); } mtBcDraw(); return; }
+  if (!mtBc) return;
+  if (e.target.closest("[data-mtbc-send]")) { const cur = mtBc.rows[mtBc.i], msg = $("mt-bc-msg").value.trim(); window.open(xWa(cur.b.tel, msg), "_blank", "noopener"); if (window.gqAdd) gqAdd({ key: "wa:mt:" + cur.b.id + ":" + cur.o.id, tipo: "Azione", cliente: clName(cur.b), tel: cur.b.tel, testo: "inviato WA " + msg, fonte: "Incrocio · avvisa tutti" }, "wa"); try { (cur.b.log = cur.b.log || []).push({ at: Date.now(), t: "wa", txt: "Proposto immobile: " + (cur.o.addr || cur.o.title) }); clients.put(cur.b); } catch {} mtBc.sent++; mtBc.i++; mtBcDraw(); return; }
+  if (e.target.closest("[data-mtbc-skip]")) { mtBc.i++; mtBcDraw(); return; }
+  if (e.target.closest("[data-mtbc-end]")) { mtBc = null; mtBcDraw(); }
+});
+
+/* ---------- IMPORTAZIONE DAL GESTIONALE (la usa Claude dal browser) ---------- */
+window.rdImport = function(o){
+  const res = {};
+  if (o.notizie) { let n = 0; for (const x of o.notizie) { const id = x.boId ? "nt-bo-" + x.boId : xId("nt"); const old = ntColl.get(id); ntColl.put(Object.assign({ id, stato: "da_chiamare", created: Date.now(), src: "gestionale" }, old || {}, { addr: x.addr || (old && old.addr) || "", nome: x.nome || (old && old.nome) || "", tel: x.tel || (old && old.tel) || "", boId: x.boId || "", annuncio: (x.annuncio || "").slice(0, 300), boStato: x.stato || "", boProm: x.promemoria || "" }, old ? {} : { prossima: x.prossima || "" })); n++; } res.notizie = n; }
+  if (o.mandati) { let n = 0; for (const x of o.mandati) { const id = "mnd-" + String(x.dv || "").replace(/\W/g, ""); mndColl.put(Object.assign({ id, created: Date.now() }, mndColl.get(id) || {}, x)); n++; } res.mandati = n; }
+  if (o.incassi) { let n = 0; for (const x of o.incassi) { const id = "ic-" + (x.rif || (x.dv + x.data)).replace(/\W/g, ""); icColl.put(Object.assign({ id, quota: "50" }, icColl.get(id) || {}, x)); n++; } res.incassi = n; }
+  if (o.obiettivi) { Object.assign(odDoc.data, o.obiettivi, { at: xISO(Date.now()) }); odDoc.save(); res.obiettivi = true; }
+  if (o.controllo) { bcDoc.data = { at: Date.now(), items: o.controllo }; bcDoc.save(); res.controllo = o.controllo.length; }
+  try { if (XVIEWS[xCur]) XVIEWS[xCur](); } catch {}
+  return res;
+};
+
+
+/* ===================== RIORDINO: ricerca nel menù, recenti ===================== */
+const RD_INFO = {}; document.querySelectorAll("#dd .dd-item[data-view]").forEach(b => { const i = b.querySelector(".dd-i"), n = b.querySelector(".dd-t b"); RD_INFO[b.dataset.view] = [(i && i.textContent) || "", n ? n.childNodes[0].textContent.trim() : b.dataset.view]; });
+const rdRecent = () => { try { return (lsGet("rz_recent") || []).filter(v => RD_INFO[v] && APPS.includes(v)); } catch { return []; } };
+window.rdRecentMenu = function(){ const el = $("dd-recent"); if (!el) return; const sq = $("dd-search"); if (sq && sq.value) { sq.value = ""; rdFilter(""); } const r = rdRecent().slice(0, 4); el.innerHTML = r.length ? `<span class="lbl">Recenti</span>` + r.map(v => `<button type="button" data-rd-go="${v}">${RD_INFO[v][0]} ${esc(RD_INFO[v][1])}</button>`).join("") : ""; };
+window.rdRecentHome = function(){ const r = rdRecent().slice(0, 5); return r.length ? `<section class="hm-group"><div class="hm-recent"><h2>Usate di recente</h2>${r.map(v => `<button type="button" data-home-go="${v}">${RD_INFO[v][0]} ${esc(RD_INFO[v][1])}</button>`).join("")}</div></section>` : ""; };
+const rdNorm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+function rdFilter(q){
+  q = rdNorm(q).trim(); let first = null, n = 0;
+  document.querySelectorAll("#dd .dd-g").forEach(g => { let any = false; g.querySelectorAll(".dd-item").forEach(it => { const ok = !q || rdNorm(it.textContent + " " + it.dataset.view).includes(q); it.hidden = !ok; if (ok) { any = true; n++; if (!first) first = it; } }); g.hidden = !any; });
+  const home = document.querySelector("#dd .dd-home"); if (home) home.hidden = !!q && !rdNorm("home tutte le sezioni").includes(q);
+  $("dd-recent").hidden = !!q;
+  let em = document.querySelector("#dd .dd-empty"); if (!n && q) { if (!em) { em = document.createElement("div"); em.className = "dd-empty"; document.querySelector("#dd .dd-list").after(em); } em.textContent = "Nessuna sezione trovata."; em.hidden = false; } else if (em) em.hidden = true;
+  return first;
+}
+document.addEventListener("input", e => { if (e.target.id === "dd-search") rdFilter(e.target.value); });
+document.addEventListener("keydown", e => {
+  if (e.target.id === "dd-search" && e.key === "Enter") { const f = rdFilter(e.target.value); if (f) { e.preventDefault(); f.click(); } return; }
+  if ((e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K")) { e.preventDefault(); const dd = $("dd"); const open = dd && !dd.hidden && dd.offsetParent !== null; if (!open) { const m = document.querySelector(".view:not([hidden]) [data-menu]"); if (m) m.click(); } setTimeout(() => { const s = $("dd-search"); if (s) { s.focus(); s.select(); } }, 60); }
+});
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-rd-go]"); if (g) { e.preventDefault(); const it = document.querySelector(`#dd .dd-item[data-view="${g.dataset.rdGo}"]`); if (it) it.click(); return; }
+  if (e.target.closest("[data-menu]")) { const s = $("dd-search"); if (s && s.value) { s.value = ""; rdFilter(""); } rdRecentMenu(); if (window.matchMedia && matchMedia("(pointer:fine)").matches) setTimeout(() => { const d = $("dd"); if (d && !d.hidden) $("dd-search").focus(); }, 80); }
+});
+setTimeout(rdRecentMenu, 0);
+/* Da fare nel gestionale: su PC il modulo "Aggiungi a mano" resta aperto */
+try { if (window.matchMedia && matchMedia("(min-width:1000px)").matches && $("gq-add-det")) $("gq-add-det").open = true; } catch {}
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "agenda", "clienti", "messaggi", "gestionale", "visite", "match", "modelli", "preq", "desc", "brochure", "prezzi", "calc", "consegna", "foto", "fotoedit", "obiettivi", "conta", "utilita"] : ["zona"];
+const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "home";
   $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) { pqRender(); setTimeout(() => pdfLoad().catch(() => {}), 400); } xCur = v; for (const n of Object.keys(XVIEWS)) $("view-" + n).hidden = v !== n; if (XVIEWS[v]) XVIEWS[v]();
   document.querySelectorAll(".dd-item").forEach(b => b.setAttribute("aria-checked", b.dataset.view === v));
-  if (v !== "home") lsSet("app_view", v);
+  if (v !== "home") { lsSet("app_view", v); try { const r = (lsGet("rz_recent") || []).filter(x => x !== v && x !== "home"); r.unshift(v); lsSet("rz_recent", r.slice(0, 6)); } catch {} } if (window.rdRecentMenu) rdRecentMenu();
   try { history.replaceState(null, "", "#" + v); } catch {}
   window.scrollTo(0, 0);
   if (v === "messaggi") mRender();
