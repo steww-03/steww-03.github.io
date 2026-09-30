@@ -1,5 +1,5 @@
 /* Agente Pro – service worker: app disponibile anche senza rete */
-const VERSION = "v1-202609301733";
+const VERSION = "v1-202609301917";
 const APP = "app-" + VERSION, LIBS = "libs-v1", TILES = "tiles-v1";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png"];
 const LIB_URLS = ["https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css", "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"];
@@ -10,7 +10,7 @@ self.addEventListener("fetch", e => {
   const req = e.request; if (req.method !== "GET") return;
   const u = new URL(req.url);
   if (req.mode === "navigate" || (u.origin === location.origin && /\/(index\.html)?$/.test(u.pathname))) {
-    e.respondWith((async () => { try { const r = await fetch(req); const c = await caches.open(APP); c.put("./index.html", r.clone()); return r; } catch { return (await caches.match("./index.html")) || (await caches.match("./")) || Response.error(); } })());
+    e.respondWith((async () => { try { const r = await fetch(req.url, { cache: "no-cache", credentials: "same-origin" }); if (r.ok) { const c = await caches.open(APP); c.put("./index.html", r.clone()); } return r; } catch { return (await caches.match("./index.html")) || (await caches.match("./")) || Response.error(); } })());
     return;
   }
   if (u.origin === location.origin || u.hostname === "cdnjs.cloudflare.com" || u.hostname === "fonts.googleapis.com" || u.hostname === "fonts.gstatic.com") {

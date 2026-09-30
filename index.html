@@ -993,14 +993,24 @@ a{color:inherit}
 .ux-tip h3{margin:0;font-size:18px}
 .ux-tip ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.4}
 .ux-tip button{align-self:flex-end;min-height:42px;border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink,#fff);font-weight:800;padding:0 18px;cursor:pointer}
-/* barra in basso sul telefono */
-.ux-nav{display:none}
+/* barra in basso: telefono, iPad e PC */
+@media print{.ux-nav,.ux-home,.ux-help{display:none!important}}
+.ux-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:80;display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:0 10px 30px rgba(10,20,50,.18)}
+.ux-nav button{position:relative;border:0;background:none;color:var(--ink-2);display:flex;align-items:center;gap:7px;font-size:14px;font-weight:700;min-height:44px;padding:0 16px;border-radius:999px;cursor:pointer}
+.ux-nav button .i{font-size:19px}
+.ux-nav button:hover{background:var(--bg)}
+.ux-nav button[aria-current="true"]{color:var(--accent);background:var(--accent-soft)}
+.ux-nav .nb{position:absolute;top:2px;right:4px}
+body{padding-bottom:84px}
+.toast{bottom:88px!important}
 @media (max-width:699px){
-  .ux-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--surface);border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.08)}
-  .ux-nav button{position:relative;border:0;background:none;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10.5px;font-weight:700;min-height:52px;cursor:pointer;border-radius:10px}
+  .ux-nav{left:0;right:0;transform:none;bottom:0;border-radius:0;border-width:1px 0 0;gap:0;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+  .ux-nav button{flex:1;padding:0;gap:1px}
+  .ux-nav{display:flex;padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px))}
+  .ux-nav button{flex-direction:column;justify-content:center;font-size:10.5px;min-height:52px;border-radius:10px}
   .ux-nav button .i{font-size:21px;line-height:1.2}
   .ux-nav button[aria-current="true"]{color:var(--accent);background:var(--accent-soft)}
-  .ux-nav .nb{position:absolute;top:2px;right:calc(50% - 22px)}
+  .ux-nav .nb{top:2px;right:calc(50% - 22px)}
   body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
   .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))!important}
   .ux-home{display:none}
@@ -5994,6 +6004,21 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 /* app installabile + funzionamento offline */
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
+const APP_VER = "v1-202609301917";
+async function uxCheckUpdate(){
+  try {
+    const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
+    const m = (await r.text()).match(/VERSION = "([^"]+)"/); if (!m || m[1] === APP_VER) return;
+    const k = "rz_upd_" + m[1]; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, "1");
+    try { const reg = await navigator.serviceWorker.getRegistration(); if (reg) await reg.update(); } catch {}
+    await fetch("./?t=" + Date.now(), { cache: "reload" }).catch(() => {});
+    const busy = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) && document.activeElement.value;
+    if (busy) { toast("È disponibile una nuova versione: ricarica la pagina quando hai finito."); return; }
+    location.reload();
+  } catch {}
+}
+if (location.protocol === "https:") { window.addEventListener("load", () => setTimeout(uxCheckUpdate, 1500)); document.addEventListener("visibilitychange", () => { if (!document.hidden) uxCheckUpdate(); }); }
 window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); xInstallEvt = e; if (xCur === "utilita" && window.utRender) utRender(); });
 window.xStandalone = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
 window.xInstall = async () => { if (!xInstallEvt) return false; xInstallEvt.prompt(); try { await xInstallEvt.userChoice; } catch {} xInstallEvt = null; return true; };
