@@ -972,6 +972,46 @@ a{color:inherit}
 .rd-det[open]>summary::after{transform:rotate(180deg)}
 .rd-det[open]>summary{margin-bottom:10px}
 .rd-det>*+*{margin-top:10px}
+/* ---------- UX ---------- */
+#hm-today{order:-1}
+.hm-todo{background:var(--surface);border:2px solid var(--accent);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
+.hm-todo h2{margin:0 0 2px;font-size:16px;font-weight:800;color:var(--ink)}
+.hm-todo-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line-2);background:var(--bg);border-radius:12px;padding:10px 12px;min-height:54px;cursor:pointer;color:var(--ink);font-size:15px}
+.hm-todo-row:hover{border-color:var(--accent)}
+.hm-todo-row .ic{font-size:22px;width:34px;text-align:center;flex-shrink:0}
+.hm-todo-row .tx{flex:1;min-width:0}
+.hm-todo-row .tx b{color:var(--hot);font-size:17px}
+.hm-todo-row .go{font-weight:800;color:var(--accent);white-space:nowrap}
+.hm-todo-ok{font-size:14.5px;color:var(--ink-2);padding:4px 2px}
+/* pulsanti Home e ? in ogni pagina */
+.ux-home,.ux-help{flex-shrink:0;min-height:40px;min-width:40px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;font-size:17px;font-weight:800;cursor:pointer;display:inline-grid;place-items:center;padding:0 8px}
+.ux-home:hover,.ux-help:hover{background:rgba(255,255,255,.22)}
+.ux-help{font-size:15px}
+.ux-tip{position:fixed;inset:0;z-index:300;background:rgba(10,15,30,.45);display:grid;place-items:center;padding:16px}
+.ux-tip[hidden]{display:none}
+.ux-tip .box{background:var(--surface);color:var(--ink);border-radius:16px;max-width:520px;width:100%;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:10px}
+.ux-tip h3{margin:0;font-size:18px}
+.ux-tip ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.4}
+.ux-tip button{align-self:flex-end;min-height:42px;border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink,#fff);font-weight:800;padding:0 18px;cursor:pointer}
+/* barra in basso sul telefono */
+.ux-nav{display:none}
+@media (max-width:699px){
+  .ux-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--surface);border-top:1px solid var(--line);padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+  .ux-nav button{position:relative;border:0;background:none;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10.5px;font-weight:700;min-height:52px;cursor:pointer;border-radius:10px}
+  .ux-nav button .i{font-size:21px;line-height:1.2}
+  .ux-nav button[aria-current="true"]{color:var(--accent);background:var(--accent-soft)}
+  .ux-nav .nb{position:absolute;top:2px;right:calc(50% - 22px)}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+  .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))!important}
+  .ux-home{display:none}
+}
+/* ricerca ovunque nel menù */
+.dd-found{display:flex;flex-direction:column;gap:4px;padding:0 8px 6px}
+.dd-found:empty{display:none}
+.dd-found .h{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding:6px 4px 2px}
+.dd-found button{display:flex;gap:10px;align-items:center;text-align:left;border:1px solid var(--line-2);background:var(--surface);border-radius:10px;padding:8px 10px;cursor:pointer;color:var(--ink)}
+.dd-found button:hover{border-color:var(--accent)}
+.dd-found small{display:block;color:var(--ink-3);font-size:12px}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -1021,6 +1061,17 @@ a{color:inherit}
 .vx.ko{background:var(--hot-soft);border-color:var(--hot)}
 .vx.ok b,.vx.ko b{font-weight:600;font-size:13px}
 .vx .ch{min-width:0;min-height:34px;background:none;border:1px solid var(--line);color:var(--ink-2);font-size:12.5px;font-weight:700;padding:0 10px}
+.vx-panel{border:2px solid var(--todo-bar);background:var(--todo-soft);border-radius:14px;padding:12px;margin-bottom:12px;display:flex;flex-direction:column;gap:8px}
+.vx-ph b{font-size:15px;display:block}
+.vx-ph small{font-size:12.5px;color:var(--ink-2)}
+.vx-row{display:flex;align-items:center;gap:8px;background:var(--surface);border-radius:10px;padding:8px 10px;flex-wrap:wrap}
+.vx-who{flex:1;min-width:150px}
+.vx-who b{display:block;font-size:14.5px}
+.vx-who small{font-size:12.5px;color:var(--ink-2)}
+.vx-row button{min-height:44px;min-width:84px;border:0;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer;color:#fff}
+.vx-row .si{background:var(--done)}
+.vx-row .no{background:var(--hot)}
+.vx-more{align-self:flex-start;min-height:38px;border:1px solid var(--todo-bar);background:none;border-radius:10px;padding:0 12px;font-weight:800;color:var(--ink);cursor:pointer}
 .vx-banner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--todo-soft);border:1px solid var(--todo-bar);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:14px}
 .vx-banner span{flex:1;min-width:180px}
 .vx-banner button{min-height:40px;border-radius:10px;border:0;background:var(--todo-bar);color:#fff;font-weight:800;padding:0 14px;cursor:pointer}
@@ -1413,7 +1464,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
   <header class="top m-top">
     <div class="top-row">
       <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
-      <div style="min-width:0;flex:1"><h1>Centro Messaggi Appuntamenti</h1><p class="sub">Appuntamenti dal calendario, messaggi pronti da inviare</p></div>
+      <div style="min-width:0;flex:1"><h1>Centro Messaggi</h1><p class="sub">Appuntamenti dal calendario, messaggi pronti da inviare</p></div>
       <span class="sync" id="m-sync">Calendario</span>
     </div>
     <div class="searchrow">
@@ -1436,8 +1487,8 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
       <button class="tool" id="m-agenda" aria-pressed="false">📆 Agenda di oggi</button>
       <button class="tool" id="m-reload">🔄 Aggiorna</button>
       <span class="toolsep" aria-hidden="true"></span>
-      <button class="tool" id="m-tpl">📝 Testi</button>
-      <button class="tool" id="m-bc">📢 Broadcast</button>
+      <button class="tool" id="m-tpl">✏️ Modifica testi</button>
+      <button class="tool" id="m-bc">📢 Messaggio a tutti</button>
       <button class="tool" id="m-csv" hidden>📤 Esporta</button>
     </div>
 
@@ -2273,7 +2324,8 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
 </div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
   <button class="dd-item dd-home" role="menuitemradio" data-view="home"><span class="dd-i">🏠</span><span class="dd-t"><b>Home</b><small>Tutte le sezioni</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
-  <div class="dd-tools"><input class="dd-search" id="dd-search" type="search" placeholder="Cerca una sezione…  (Ctrl+K)" autocomplete="off" enterkeyhint="go" aria-label="Cerca una sezione"><div class="dd-recent" id="dd-recent"></div></div>
+  <div class="dd-tools"><input class="dd-search" id="dd-search" type="search" placeholder="Cerca sezione, cliente, notizia…  (Ctrl+K)" autocomplete="off" enterkeyhint="go" aria-label="Cerca una sezione"><div class="dd-recent" id="dd-recent"></div></div>
+  <div class="dd-found" id="dd-found"></div>
   <div class="dd-list"><div class="dd-g"><div class="dd-h">Oggi</div><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e WhatsApp da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti e visite</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Acquisizione</div><button class="dd-item" role="menuitemradio" data-view="notizie"><span class="dd-i">📞</span><span class="dd-t"><b>Sessione chiamate notizie</b><small>Chiama le notizie una dopo l'altra</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Immobile e marketing</div><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="brochure"><span class="dd-i">📄</span><span class="dd-t"><b>Brochure immobile</b><small>PDF con foto e descrizione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici e foto su Drive</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="ribasso"><span class="dd-i">📉</span><span class="dd-t"><b>Proposta di ribasso</b><small>Dati delle visite per il proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Chiusura e amministrazione</div><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto venditore</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="mandati"><span class="dd-i">📆</span><span class="dd-t"><b>Mandati e rogiti</b><small>Scadenze, rinnovi e rogiti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="conta"><span class="dd-i">🧾</span><span class="dd-t"><b>Contabilità <span class="nb" data-ct-badge hidden></span></b><small>Proforma, fatture e incassi</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e impostazioni</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Il mese in numeri</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, backup, tema</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
@@ -3001,7 +3053,7 @@ function renderSide(){
   const parts = []; if (today.length) parts.push(`${today.length} ${today.length === 1 ? "appuntamento" : "appuntamenti"} oggi`); if (follow.length) parts.push(`${follow.length} follow-up`);
   $("m-hello").innerHTML = `<b class="h">${greeting()}! 🏡</b><span class="d">${esc(dayLong(new Date().toISOString()))}</span>
     <p>${parts.length ? `Oggi hai <strong>${esc(parts.join(" · "))}</strong>.` : "Nessun impegno urgente in agenda. 🎉"}</p>
-    <div class="row4"><div class="s"><b>${today.length}</b><span>📅 Oggi</span></div><div class="s"><b>${leads.filter(l => !isContacted(l)).length}</b><span>📥 Da contattare</span></div><div class="s"><b>${follow.length}</b><span>🔔 Follow-up</span></div><div class="s"><b>${wl.total}</b><span>💬 Contatti 7gg</span></div></div>`;
+    <div class="row4"><div class="s"><b>${today.length}</b><span>📅 Oggi</span></div><div class="s"><b>${leads.filter(l => !isContacted(l)).length}</b><span>📥 Da contattare</span></div><div class="s"><b>${follow.length}</b><span>🔔 Da ricontattare</span></div><div class="s"><b>${wl.total}</b><span>💬 Contatti 7gg</span></div></div>`;
 
   const rows = [["✅","var(--doing-bar)","Appuntamenti di oggi da confermare",today],["⏰","#0891b2","Promemoria per domani",tomorrow],["🔔","var(--todo-bar)","Da ricontattare (feedback visita)",follow],["📥","var(--market)","Visite da contattare (email)",leads.filter(l => !isContacted(l))]].filter(r => r[3].length);
   const tot = rows.reduce((s, r) => s + r[3].length, 0);
@@ -6725,7 +6777,8 @@ function homeRender(){
   try { const m = mndAlerts().length; if (m) chips.push(["mandati", "📆", `<b>${m}</b> ${m === 1 ? "mandato o rogito" : "mandati o rogiti"} da seguire`]); } catch {}
   if (B.conta) chips.push(["conta", "🧾", `<b>${B.conta}</b> ${B.conta === 1 ? "proforma da inviare" : "proforme da inviare"}`]);
   try { const n = vxPending().length; if (n) chips.unshift(["messaggi", "🏠", `<b>${n}</b> ${n === 1 ? "visita da confermare" : "visite da confermare"}`]); } catch {}
-  $("hm-today").innerHTML = chips.length ? `<div class="hm-today">${chips.map(([v, i, t]) => `<button type="button" data-home-go="${v}">${i} ${t}</button>`).join("")}</div>` : "";
+  try { const n = vxPending().length; if (n && !chips.some(c => c[1] === "🏠")) chips.unshift(["messaggi", "🏠", `<b>${n}</b> ${n === 1 ? "visita da confermare" : "visite da confermare"}`]); } catch {}
+  $("hm-today").innerHTML = `<section class="hm-todo"><h2>✅ Da fare adesso</h2>${chips.length ? chips.map(([v, i, t]) => `<button type="button" class="hm-todo-row" data-home-go="${v}"><span class="ic">${i}</span><span class="tx">${t}</span><span class="go">Apri ›</span></button>`).join("") : `<div class="hm-todo-ok">Tutto in ordine: niente di urgente. 👍</div>`}</section>`;
   $("hm-groups").innerHTML = rdRecentHome() + HOME_GROUPS.map(([g, items]) => `<section class="hm-group"><h2>${esc(g)}</h2><div class="hm-grid">${items.filter(x => APPS.includes(x[0])).map(([v, i, t, s]) => `<button type="button" class="hm-tile" data-home-go="${v}"><span class="ic" aria-hidden="true">${i}</span><b>${esc(t)}</b><small>${esc(s)}</small>${B[v] ? `<span class="nb">${B[v] > 99 ? "99+" : B[v]}</span>` : ""}</button>`).join("")}</div></section>`).join("");
   $("hm-acc").innerHTML = `<div class="hm-acc">${tok && tok.email ? `Collegato come <b>${esc(tok.email)}</b>` : knownEmail() ? "Sessione Google da riprendere: tocca una sezione e si riprende da sola" : "Non hai ancora fatto l'accesso con Google (Menu → Centro Messaggi)"}</div>`;
 }
@@ -6742,7 +6795,7 @@ function vxDayAfter(visitISO){ const t1 = xAddDays(xISO(Date.now()), 1); let d =
 window.vxBox = a => {
   if (!vxAsk(a)) return "";
   const st = vxState(a);
-  if (!st) return `<div class="vx"><b>🏠 La visita è stata fatta?</b><button type="button" class="si" data-a="vxsi">✅ Sì</button><button type="button" class="no" data-a="vxno">❌ No</button></div>`;
+  if (!st) return ""; /* la domanda è nel riquadro in cima alla lista */
   return st.esito === "si"
     ? `<div class="vx ok"><b>✅ Visita fatta · reminder “da sentire per opinione sulla visita” per ${esc(xDay(st.data))} nella lista del gestionale</b><button type="button" class="ch" data-vs-open="${esc(a.id)}">📝 Scheda visita</button><button type="button" class="ch" data-a="vxreset">Cambia</button></div>`
     : `<div class="vx ko"><b>❌ Non fatta · da segnare come annullata e reminder “sentire cliente per rifissare” ${esc(xDay(st.data))} alle 10:00 nella lista del gestionale</b><button type="button" class="ch" data-a="vxreset">Cambia</button></div>`;
@@ -6779,12 +6832,18 @@ window.vxPending = vxPending;
 const _renderListVx = renderList;
 renderList = function(){
   _renderListVx.apply(this, arguments);
-  const n = vxPending().length, list = $("m-list"); if (!list || !n) return;
-  const shown = [...list.querySelectorAll(".vx:not(.ok):not(.ko)")].length;
-  if (shown >= n) return;
-  list.insertAdjacentHTML("afterbegin", `<div class="vx-banner"><span>🏠 <b>${n}</b> ${n === 1 ? "visita passata da confermare" : "visite passate da confermare"}: è stata fatta?</span><button type="button" data-vx-show>Mostra</button></div>`);
+  const P = vxPending().sort((a, b) => new Date(b.startISO) - new Date(a.startISO)), list = $("m-list"); if (!list || !P.length) return;
+  const many = P.length > 4 && !window.__vxAll, rows = many ? P.slice(0, 4) : P;
+  list.insertAdjacentHTML("afterbegin", `<section class="vx-panel" aria-label="Visite da confermare"><div class="vx-ph"><b>🏠 ${P.length === 1 ? "1 visita passata" : P.length + " visite passate"}: è stata fatta?</b><small>Rispondi qui: al resto penso io (reminder e voci per il gestionale).</small></div>
+    ${rows.map(a => `<div class="vx-row" data-vxp="${esc(a.id)}"><div class="vx-who"><b>${esc(a.clientName || "Cliente")}</b><small>${esc(new Date(a.startISO).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}${a.dvCode ? " · " + esc(a.dvCode) : ""}</small></div><button type="button" class="si" data-vxp-a="si">✅ Sì</button><button type="button" class="no" data-vxp-a="no">❌ No</button></div>`).join("")}
+    ${many ? `<button type="button" class="vx-more" data-vxp-all>Mostra tutte (${P.length})</button>` : ""}</section>`);
 };
-document.addEventListener("click", e => { if (e.target.closest("[data-vx-show]")) { mui.range = "passati"; mui.kind = "tutti"; try { lsSet(M_UI, mui); } catch {} watchRange(); mRender(); } });
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-vxp-all]")) { window.__vxAll = true; renderList(); return; }
+  const b = e.target.closest("[data-vxp-a]"); if (!b) return;
+  const id = b.closest("[data-vxp]").dataset.vxp, a = [...(typeof overview !== "undefined" ? overview : []), ...(typeof appts !== "undefined" ? appts : [])].find(x => x.id === id);
+  if (!a) return; vxAnswer(a, b.dataset.vxpA === "si"); mRender();
+});
 
 
 /* ===================== REGOLE GESTIONALE ===================== */
@@ -7671,6 +7730,81 @@ setTimeout(rdRecentMenu, 0);
 /* Da fare nel gestionale: su PC il modulo "Aggiungi a mano" resta aperto */
 try { if (window.matchMedia && matchMedia("(min-width:1000px)").matches && $("gq-add-det")) $("gq-add-det").open = true; } catch {}
 
+
+/* ===================== APP PIÙ INTUITIVA ===================== */
+const UX_HELP = {
+  messaggi: ["Centro Messaggi", ["In alto rispondi alle visite passate: ✅ fatta o ❌ non fatta.", "Scegli il periodo (Oggi, Domani, 7 giorni) e scorri gli appuntamenti.", "Su ogni appuntamento tocca il messaggio suggerito (👉) e poi “Apri su WhatsApp”."]],
+  giro: ["Giro della giornata", ["Scrivi da dove parti la mattina.", "L'app mette in ordine valutazioni e visite e calcola gli orari.", "Tocca “Naviga” per il percorso su Google Maps o Mappe."]],
+  agenda: ["Agenda settimanale", ["Vedi la settimana a colpo d'occhio.", "In verde gli orari liberi da proporre ai clienti.", "“Orari di lavoro” per cambiare le tue fasce."]],
+  gestionale: ["Da fare nel gestionale", ["Qui finisce tutto quello da riportare nel backoffice Dove.it.", "Tocca “Copia la lista per Claude” e incollala nella chat: la inserisco io.", "Quando una voce è fatta, tocca “✓ Fatto”."]],
+  clienti: ["Clienti", ["Cerca per nome o telefono, oppure “＋ Nuovo”.", "Filtra per stato e ruolo con le pillole.", "Nella scheda: chiama, WhatsApp, prossima azione e storico."]],
+  visite: ["Visite", ["Dopo ogni visita apri la scheda e scegli com'è andata.", "Segna cosa è piaciuto e cosa no: servono per il report e per la proposta di ribasso.", "“Report al venditore” prepara il riepilogo per il proprietario."]],
+  match: ["Incrocio domanda-offerta", ["A sinistra gli immobili (dai fogli di prequalifica).", "Al centro gli acquirenti adatti, con punteggio.", "“📢 Avvisa tutti” scrive a tutti uno dopo l'altro."]],
+  modelli: ["Modelli di messaggi", ["Scegli un modello a sinistra.", "Compila nome, giorno e ora: il testo si completa da solo.", "Invia con WhatsApp o email, oppure copia."]],
+  notizie: ["Sessione chiamate notizie", ["Tocca “▶️ Inizia a chiamare”.", "Chiama e scegli l'esito: passa da solo alla notizia dopo.", "Gli esiti vanno nella lista del gestionale con le tue regole."]],
+  acq: ["Acquisizione", ["Registra le chiamate ricevute, i cartelli e i volantini.", "“Contatti utili” ti ricorda chi sentire (portinai, amministratori…).", "Le notizie nuove vanno anche nella lista del gestionale."]],
+  zona: ["Ricerca Zona", ["Scegli provincia e comune.", "Segna le vie fatte e i civici caldi.", "“Mappa” per vedere la zona."]],
+  preq: ["Foglio prequalifica", ["Compila i dati dell'immobile e del proprietario.", "Se il telefono è già nel calendario te lo dico sotto al campo.", "“Salva”: la valutazione e il PDF vanno nella lista del gestionale."]],
+  prezzi: ["Prezzi di zona", ["Cerca un comune per il prezzo medio al m².", "Scrivi i m² per la stima.", "“Confronta” per mettere più comuni a fianco."]],
+  desc: ["Generatore descrizione", ["Scegli un foglio di prequalifica.", "Aggiungi i punti di forza.", "“Genera” e poi modifica e copia il testo."]],
+  brochure: ["Brochure immobile", ["Scegli il foglio di prequalifica.", "Aggiungi le foto (la prima è la copertina).", "Scarica il PDF da inviare o stampare."]],
+  foto: ["Fotografo", ["Compila indirizzo, giorno e ora del servizio.", "L'evento va nel calendario con l'invito.", "“Modifica e impacchettamento foto” sistema la luce e salva su Drive."]],
+  fotoedit: ["Modifica foto", ["Scrivi il numero DV.", "Trascina le foto: la luce si corregge da sola.", "“Elabora e salva su Drive” e poi “📁 Cartella Drive”."]],
+  ribasso: ["Proposta di ribasso", ["Scegli l'immobile (DV) e scrivi prezzo e prezzo minimo.", "Vedi cosa dicono le visite e il prezzo suggerito.", "Manda il messaggio o il PDF al proprietario."]],
+  calc: ["Calcolatori", ["Rata del mutuo, costi di acquisto e netto per il venditore.", "Cambi i numeri e il risultato si aggiorna.", "“Invia su WhatsApp” manda il riepilogo al cliente."]],
+  mandati: ["Mandati e rogiti", ["In “Da seguire” i mandati che scadono entro 60 giorni e i rogiti da confermare.", "“⏰ Promemoria rinnovo” mette il promemoria nel gestionale.", "“✓ Rogito confermato” quando è sicuro."]],
+  consegna: ["Consegna immobile", ["“＋ Nuova consegna” il giorno del rogito.", "Foto dei contatori, chiavi e firme.", "Scarica il verbale PDF: va anche negli Altri documenti del DV."]],
+  conta: ["Contabilità", ["Le proforma e le fatture arrivano da sole dalla posta.", "Per la proforma tocca “Invia su WhatsApp con PDF”.", "In “Incassi” segni quanto hai incassato e vedi il tuo obiettivo."]],
+  obiettivi: ["Obiettivi", ["In alto gli obiettivi Dove.it dell'anno e quanto serve a settimana.", "Sotto gli obiettivi del mese, contati in automatico.", "Tocca un numero per cambiarlo."]],
+  utilita: ["Utilità e impostazioni", ["Rubrica dei professionisti e scadenze.", "Modalità auto con tasti grandi.", "Impostazioni: tema, testo, cosa aprire all'avvio e backup."]]
+};
+const UX_NAV = [["home", "🏠", "Home"], ["messaggi", "💬", "Messaggi"], ["notizie", "📞", "Chiamate"], ["clienti", "👥", "Clienti"], ["__menu", "☰", "Menu"]];
+(function uxSetup(){
+  /* Home e ? in ogni intestazione */
+  document.querySelectorAll(".view").forEach(v => {
+    const id = v.id.replace(/^view-/, ""), vid = id === "msg" ? "messaggi" : id, row = v.querySelector(".top-row"), mb = row && row.querySelector("[data-menu]");
+    if (!row || !mb || vid === "home") return;
+    if (!row.querySelector(".ux-home")) mb.insertAdjacentHTML("afterend", `<button type="button" class="ux-home" data-ux-go="home" aria-label="Torna alla Home" title="Home">🏠</button>`);
+    if (UX_HELP[vid] && !row.querySelector(".ux-help")) row.insertAdjacentHTML("beforeend", `<button type="button" class="ux-help" data-ux-help="${vid}" aria-label="Come funziona questa pagina" title="Come funziona">?</button>`);
+  });
+  /* finestra d'aiuto */
+  document.body.insertAdjacentHTML("beforeend", `<div class="ux-tip" id="ux-tip" hidden role="dialog" aria-modal="true"><div class="box"><h3 id="ux-tip-t"></h3><ol id="ux-tip-l"></ol><button type="button" data-ux-close>Ho capito</button></div></div>`);
+  /* barra in basso (telefono) */
+  document.body.insertAdjacentHTML("beforeend", `<nav class="ux-nav" id="ux-nav" aria-label="Sezioni principali">${UX_NAV.map(([v, i, l]) => `<button type="button" data-ux-go="${v}"><span class="i">${i}</span>${l}${v === "messaggi" ? `<span class="nb" data-badge hidden></span>` : ""}</button>`).join("")}</nav>`);
+})();
+window.uxNav = function(v){ document.querySelectorAll("#ux-nav [data-ux-go]").forEach(b => b.setAttribute("aria-current", b.dataset.uxGo === v)); };
+function uxHelp(v){ const H = UX_HELP[v]; if (!H) return; $("ux-tip-t").textContent = "Come funziona · " + H[0]; $("ux-tip-l").innerHTML = H[1].map(x => `<li>${esc(x)}</li>`).join(""); $("ux-tip").hidden = false; }
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-ux-go]");
+  if (g) { const v = g.dataset.uxGo; if (v === "__menu") { const m = document.querySelector(".view:not([hidden]) [data-menu]"); if (m) { window.scrollTo(0, 0); setTimeout(() => m.click(), 150); } return; } showView(v); window.scrollTo && window.scrollTo(0, 0); return; }
+  const h = e.target.closest("[data-ux-help]"); if (h) { uxHelp(h.dataset.uxHelp); return; }
+  if (e.target.closest("[data-ux-close]") || e.target.id === "ux-tip") { $("ux-tip").hidden = true; return; }
+  const f = e.target.closest("[data-ux-found]"); if (f) { e.preventDefault(); uxOpenFound(f.dataset.uxFound); }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("ux-tip").hidden) $("ux-tip").hidden = true; });
+/* ricerca ovunque: clienti, notizie, appuntamenti */
+let uxFoundMap = {};
+function uxSearch(q){
+  const box = $("dd-found"); if (!box) return; q = rdNorm(q).trim(); uxFoundMap = {};
+  if (q.length < 2) { box.innerHTML = ""; return; }
+  const dq = q.replace(/\D/g, ""), hit = (s, tel) => rdNorm(s).includes(q) || (dq.length >= 4 && xDigits(tel || "").includes(dq));
+  const out = []; let k = 0;
+  try { const C = clients.all().filter(c => hit(clName(c) + " " + (c.indirizzo || c.addr || ""), c.tel)).slice(0, 4); if (C.length) { out.push(`<div class="h">Clienti</div>`); C.forEach(c => { const id = "f" + (k++); uxFoundMap[id] = ["cl", c.id]; out.push(`<button type="button" data-ux-found="${id}">👥 <span><b>${esc(clName(c))}</b><small>${esc([c.tel, c.stato].filter(Boolean).join(" · "))}</small></span></button>`); }); } } catch {}
+  try { const N = ntColl.all().filter(n => hit((n.addr || "") + " " + (n.nome || ""), n.tel)).slice(0, 4); if (N.length) { out.push(`<div class="h">Notizie</div>`); N.forEach(n => { const id = "f" + (k++); uxFoundMap[id] = ["nt", n.id]; out.push(`<button type="button" data-ux-found="${id}">📞 <span><b>${esc(n.addr || "Notizia")}</b><small>${esc([n.nome, n.tel].filter(Boolean).join(" · "))}</small></span></button>`); }); } } catch {}
+  try { const seen = new Set(), A = [...(typeof overview !== "undefined" ? overview : []), ...(typeof appts !== "undefined" ? appts : [])].filter(a => { if (seen.has(a.id)) return false; seen.add(a.id); return hit((a.clientName || "") + " " + (a.dvCode || "") + " " + (a.address || a.location || ""), a.phone); }).slice(0, 4); if (A.length) { out.push(`<div class="h">Appuntamenti</div>`); A.forEach(a => { const id = "f" + (k++); uxFoundMap[id] = ["ap", a.clientName || ""]; out.push(`<button type="button" data-ux-found="${id}">📅 <span><b>${esc(a.clientName || "Appuntamento")}${a.dvCode ? " · " + esc(a.dvCode) : ""}</b><small>${esc(a.startISO ? new Date(a.startISO).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "")}</small></span></button>`); }); } } catch {}
+  box.innerHTML = out.join("");
+  const em = document.querySelector("#dd .dd-empty"); if (em && out.length) em.hidden = true;
+}
+function uxOpenFound(id){
+  const F = uxFoundMap[id]; if (!F) return; const s = $("dd-search"); if (s) { s.value = ""; rdFilter(""); } $("dd-found").innerHTML = "";
+  if (F[0] === "cl") { showView("clienti"); setTimeout(() => { try { clSelect(F[1], true); } catch {} }, 60); }
+  else if (F[0] === "nt") { showView("notizie"); setTimeout(() => { ntSess = { ids: [F[1]], i: 0, done: 0 }; ntRender(); }, 60); }
+  else if (F[0] === "ap") { showView("messaggi"); setTimeout(() => { const q = $("m-q"); if (q) { q.value = F[1]; q.dispatchEvent(new Event("input", { bubbles: true })); } }, 80); }
+}
+document.addEventListener("input", e => { if (e.target.id === "dd-search") uxSearch(e.target.value); });
+document.addEventListener("keydown", e => { if (e.target.id === "dd-search" && e.key === "Enter") { const q = e.target.value; if (!rdFilter(q)) { const f = document.querySelector("#dd-found [data-ux-found]"); if (f) { e.preventDefault(); e.stopImmediatePropagation(); f.click(); } } } }, true);
+setTimeout(() => { try { uxNav(xCur || "home"); } catch {} }, 0);
+
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
 let ddFrom = null;
@@ -7678,7 +7812,7 @@ function showView(v){
   if (!APPS.includes(v)) v = "home";
   $("view-zona").hidden = v !== "zona"; $("view-msg").hidden = v !== "messaggi"; $("view-foto").hidden = v !== "foto"; $("view-preq").hidden = v !== "preq"; if (v === "foto" && window.fotoRender) fotoRender(); if (v === "preq" && window.pqRender) { pqRender(); setTimeout(() => pdfLoad().catch(() => {}), 400); } xCur = v; for (const n of Object.keys(XVIEWS)) $("view-" + n).hidden = v !== n; if (XVIEWS[v]) XVIEWS[v]();
   document.querySelectorAll(".dd-item").forEach(b => b.setAttribute("aria-checked", b.dataset.view === v));
-  if (v !== "home") { lsSet("app_view", v); try { const r = (lsGet("rz_recent") || []).filter(x => x !== v && x !== "home"); r.unshift(v); lsSet("rz_recent", r.slice(0, 6)); } catch {} } if (window.rdRecentMenu) rdRecentMenu();
+  if (v !== "home") { lsSet("app_view", v); try { const r = (lsGet("rz_recent") || []).filter(x => x !== v && x !== "home"); r.unshift(v); lsSet("rz_recent", r.slice(0, 6)); } catch {} } if (window.rdRecentMenu) rdRecentMenu(); if (window.uxNav) uxNav(v);
   try { history.replaceState(null, "", "#" + v); } catch {}
   window.scrollTo(0, 0);
   if (v === "messaggi") mRender();
