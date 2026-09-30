@@ -813,6 +813,10 @@ a{color:inherit}
 .gq-item .tx{font-size:13.5px;margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
 .gq-item .x-acts{grid-column:1/-1;margin-top:6px}
 .gq-plan{font-size:13px;font-weight:700;color:var(--todo-bar);margin-top:4px;overflow-wrap:anywhere}
+.pv-box{margin-top:6px;font-size:13px;line-height:1.4;border-radius:10px;padding:8px 10px;background:var(--accent-soft);color:var(--ink);overflow-wrap:anywhere}
+.pv-box.found{background:var(--done-soft)}
+.pv-box.new{background:var(--todo-soft)}
+.pv-box b{font-weight:800}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -3635,7 +3639,7 @@ $("pq-form").addEventListener("submit", e => {
   rec.val = rec.valOn ? pqValuate(rec) : null;
   const i = pqList.findIndex(x => x.id === rec.id);
   if (i >= 0) pqList[i] = rec; else pqList.unshift(rec);
-  pqCur = rec; pqPersist(); if (window.clOnPreq) clOnPreq(rec);
+  pqCur = rec; pqPersist(); if (window.clOnPreq) clOnPreq(rec); if (window.pvOnSave) pvOnSave(rec);
   try { localStorage.removeItem(PQ_DRAFT); } catch {}
   $("pq-sync").textContent = "Salvato";
   pqMsg(`✅ Foglio di <b>${esc(rec.v.nome)}</b> salvato${store && store.gas ? " nel tuo Google" : " su questo dispositivo (accedi con Google per averlo anche sugli altri)"}.`);
@@ -5020,7 +5024,7 @@ function pdfLoad(){
 const pdfTxt = s => String(s == null ? "" : s).replace(/m²/g, "mq").replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/[–—]/g, "-")
   .replace(/[^\x09\x0A\x0D\x20-\x7E -ÿ€]/g, "").replace(/[ \t]+/g, " ").trim();
 function pdfBuild(jsPDF, rec){
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
   const W = 210, M = 15, CW = W - 2 * M, BOTTOM = 282;
   let y = M;
   const need = h => { if (y + h > BOTTOM) { doc.addPage(); y = M; } };
@@ -6301,8 +6305,8 @@ $("view-consegna").addEventListener("change", async e => {
 
 /* ===================== DA FARE NEL GESTIONALE ===================== */
 const gqColl = xColl("rz_gestionale_v1", "gestionale");
-const gqCfg = xDoc("rz_gestionale_cfg_v1", "gestionale_cfg", { visite: true, reminder: true, stato: true, chiamate: true, civici: true, wa: true, enrico: true });
-const GQ_AUTO = [["enrico", "Invita enrico.rosani@dove.it ai promemoria “ric con enrico” nel calendario Google"], ["wa", "Messaggi WhatsApp inviati dal Centro Messaggi (“inviato WA …”)"], ["visite", "Esito delle schede visita"], ["reminder", "Prossime azioni dei Clienti (reminder)"], ["stato", "Cambi di stato dei Clienti"], ["chiamate", "Chiamate registrate in Acquisizione"], ["civici", "Civici caldi trasformati in clienti"]];
+const gqCfg = xDoc("rz_gestionale_cfg_v1", "gestionale_cfg", { visite: true, reminder: true, stato: true, chiamate: true, civici: true, wa: true, enrico: true, preq: true });
+const GQ_AUTO = [["preq", "Prequalifiche salvate → valutazione nel gestionale con il PDF"], ["enrico", "Invita enrico.rosani@dove.it ai promemoria “ric con enrico” nel calendario Google"], ["wa", "Messaggi WhatsApp inviati dal Centro Messaggi (“inviato WA …”)"], ["visite", "Esito delle schede visita"], ["reminder", "Prossime azioni dei Clienti (reminder)"], ["stato", "Cambi di stato dei Clienti"], ["chiamate", "Chiamate registrate in Acquisizione"], ["civici", "Civici caldi trasformati in clienti"]];
 let gqFilter = "todo";
 const gqLinkRe = /https:\/\/backoffice\.dove\.it\/\S+/i;
 function gqFindLink(name, tel){
@@ -6321,7 +6325,7 @@ window.gqAdd = function(o, cfgKey){
   return it;
 };
 function gqWhen(it){ return it.data ? `${new Date(it.data + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" })}${it.ora ? " ore " + it.ora : ""}` : ""; }
-function gqLine(it, n){ const P = rgPlan(it); return `${n}. [${it.tipo}] ${[it.cliente, it.tel ? "tel " + it.tel : "", gqWhen(it)].filter(Boolean).join(" · ")}${it.testo ? `\n   Testo: ${it.testo.replace(/\n/g, " / ")}` : ""}${P ? `\n   Promemoria in Calendario: ${P.quando} · "${P.testo}"${P.invito ? " · poi invitare " + P.invito + " all'evento Google" : ""}` : ""}\n   ${it.link ? "Scheda: " + it.link : "Scheda: da cercare nel gestionale per nome o telefono"}`; }
+function gqLine(it, n){ const P = rgPlan(it); return `${n}. [${it.tipo}] ${[it.cliente, it.tel ? "tel " + it.tel : "", gqWhen(it)].filter(Boolean).join(" · ")}${it.testo ? `\n   Testo: ${it.testo.replace(/\n/g, " / ")}` : ""}${P ? `\n   Promemoria in Calendario: ${P.quando} · "${P.testo}"${P.invito ? " · poi invitare " + P.invito + " all'evento Google" : ""}` : ""}${it.pq ? `\n   Prequalifica: ${it.pq} (PDF da caricare in Documenti → Report di valutazione)` : ""}\n   ${it.link ? "Scheda: " + it.link : "Scheda: da cercare nel gestionale per nome o telefono"}`; }
 function gqTodo(){ return gqColl.all().filter(x => x.stato !== "fatto").sort((a, b) => (a.created || 0) - (b.created || 0)); }
 function gqBadge(){ const n = gqTodo().length; document.querySelectorAll("[data-gq-badge]").forEach(el => { el.hidden = !n; el.textContent = n; }); }
 function gqRender(){
@@ -6331,7 +6335,7 @@ function gqRender(){
   const list = gqFilter === "todo" ? todo : done;
   $("gq-list").innerHTML = list.length ? list.map((it, i) => `<div class="gq-item${it.stato === "fatto" ? " done" : ""}"><span class="gq-n">${it.stato === "fatto" ? "✓" : i + 1}</span>
       <div><b><span class="tp">${esc(it.tipo)}</span>${esc(it.cliente || "Senza nome")}</b>${it.tel || it.data ? `<small>${esc([it.tel, gqWhen(it)].filter(Boolean).join(" · "))}</small>` : ""}${it.testo ? `<div class="tx">${esc(it.testo)}</div>` : ""}${(P => P ? `<div class="gq-plan">⏰ Promemoria: ${esc(P.quando)} · “${esc(P.testo)}”${P.invito ? ` · 👥 ${esc(P.invito)}` : ""}</div>` : "")(rgPlan(it))}<div class="gq-src">${esc(it.fonte || "Aggiunta a mano")} · ${esc(new Date(it.created).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}${it.stato === "fatto" && it.done ? " · fatta il " + esc(new Date(it.done).toLocaleDateString("it-IT", { day: "numeric", month: "short" })) : ""}</div></div>
-      <div class="x-acts">${it.link ? `<a class="x-act" href="${esc(it.link)}" target="_blank" rel="noopener">🔗 Apri la scheda</a>` : ""}<button type="button" class="x-act" data-gq-copy="${esc(it.id)}">📋 Copia</button>${it.stato === "fatto" ? `<button type="button" class="x-act" data-gq-undo="${esc(it.id)}">Rimetti da fare</button>` : `<button type="button" class="x-act call" data-gq-done="${esc(it.id)}">✓ Fatto</button>`}<button type="button" class="x-act danger" data-gq-del="${esc(it.id)}">🗑️</button></div></div>`).join("")
+      <div class="x-acts">${it.link ? `<a class="x-act" href="${esc(it.link)}" target="_blank" rel="noopener">🔗 Apri la scheda</a>` : ""}${it.pq ? `<button type="button" class="x-act" data-pv-open="${esc(it.id)}">🤖 Apri per Claude</button><button type="button" class="x-act" data-pv-pdf="${esc(it.pq)}">📄 PDF</button>` : ""}<button type="button" class="x-act" data-gq-copy="${esc(it.id)}">📋 Copia</button>${it.stato === "fatto" ? `<button type="button" class="x-act" data-gq-undo="${esc(it.id)}">Rimetti da fare</button>` : `<button type="button" class="x-act call" data-gq-done="${esc(it.id)}">✓ Fatto</button>`}<button type="button" class="x-act danger" data-gq-del="${esc(it.id)}">🗑️</button></div></div>`).join("")
     : `<div class="x-empty">${gqFilter === "todo" ? "✅ Niente da riportare nel gestionale." : "Ancora nessuna voce fatta."}</div>`;
   const evs = [...(typeof vsEvents !== "undefined" && vsEvents || []), ...(typeof grEvents !== "undefined" && grEvents || []), ...(typeof agEvents !== "undefined" && agEvents || [])].filter(ev => (ev.description || "").match(gqLinkRe));
   const seen = new Set(), opts = [];
@@ -6462,7 +6466,7 @@ document.addEventListener("click", e => { if (e.target.closest("[data-vx-show]")
 
 /* ===================== REGOLE GESTIONALE ===================== */
 const RG_ENRICO = "enrico.rosani@dove.it";
-const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar.";
+const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza).";
 function rgNextMonday(iso){ let d = xAddDays(iso, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
 /* visita fatta con esito diverso da "non interessato" */
 window.rgVisitaOpinione = function(id, sc){
@@ -6508,6 +6512,88 @@ window.rgInviteEnrico = rgInviteEnrico;
 setTimeout(rgInviteEnrico, 8000);
 setInterval(rgInviteEnrico, 10 * 60e3);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(rgInviteEnrico, 3000); });
+
+
+/* ===================== PREQUALIFICA -> VALUTAZIONE NEL GESTIONALE ===================== */
+const PV_BO = "https://backoffice.dove.it", PV_APP = location.origin;
+let pvEvs = null, pvEvsAt = 0, pvEvsP = null;
+const pv9 = s => { const d = String(s || "").replace(/\D/g, ""); return d.length >= 9 ? d.slice(-9) : ""; };
+async function pvEvents(){
+  if (pvEvs && Date.now() - pvEvsAt < 10 * 60e3) return pvEvs;
+  if (typeof tok === "undefined" || !tok) return null;
+  if (!pvEvsP) pvEvsP = xCalList(Date.now() - 400 * 864e5, Date.now() + 120 * 864e5).then(evs => { pvEvs = evs; pvEvsAt = Date.now(); return evs; }).finally(() => { pvEvsP = null; });
+  return pvEvsP;
+}
+/* cerca il telefono negli eventi del calendario */
+function pvMatch(evs, phone){
+  const k = pv9(phone); if (!k || !evs) return null;
+  const hits = evs.filter(ev => ((ev.summary || "") + " " + (ev.description || "") + " " + (ev.location || "")).replace(/[\s.\-\/]/g, "").match(/\d{9,}/g)?.some(d => d.slice(-9) === k));
+  if (!hits.length) return null;
+  const linkOf = ev => (((ev.description || "").match(/https:\/\/backoffice\.dove\.it\/(prospects|rumors|intents)\/[\w-]+/i) || [""])[0]);
+  const score = ev => { const l = linkOf(ev); return (/\/prospects\//.test(l) ? 40 : /\/rumors\//.test(l) ? 30 : /\/intents\//.test(l) ? 5 : 0) + (/^\s*(🔴\s*)?\[VAL\]/i.test(ev.summary || "") ? 10 : 0); };
+  hits.sort((a, b) => score(b) - score(a) || String((b.start || {}).dateTime || (b.start || {}).date).localeCompare(String((a.start || {}).dateTime || (a.start || {}).date)));
+  const ev = hits[0], link = linkOf(ev), when = new Date((ev.start || {}).dateTime || ((ev.start || {}).date + "T09:00"));
+  const val = hits.find(e => /\[VAL\]/i.test(e.summary || ""));
+  return { ev, n: hits.length, link: /\/intents\//.test(link) ? "" : link, kind: /\/prospects\//.test(link) ? "valutazione" : /\/rumors\//.test(link) ? "notizia" : "calendario", when, valWhen: val ? new Date((val.start || {}).dateTime || ((val.start || {}).date + "T09:00")) : null, title: (ev.summary || "").replace(/^🔴\s*/, "") };
+}
+const pvFmt = d => d.toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" }) + " ore " + d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+/* dati per il modulo "Aggiungi notizia" del gestionale */
+function pvNotizia(rec){
+  const v = rec.v || {}, c = rec.c || {}, tip = (c.tipologia || [])[0] || "";
+  const TIP = { "Appartamento": "Appartamento", "Appartamento in villetta": "Appartamento", "Casa indipendente": "Casa indipendente", "Attico": "Attico", "Mansarda": "Mansarda", "Loft": "Loft", "Villa": "Villa", "Villetta a schiera": "Villetta a schiera", "Rustico / Casale": "Rustico/Casale", "Palazzo": "Palazzo" };
+  const ST = { "Nuovo": "Nuova costruzione", "Abitabile": "In buono stato / abitabile", "Da ristrutturare": "Da ristrutturare" };
+  const p = String(v.piano || "").trim().toLowerCase();
+  const piano = !p ? "" : /^(t|pt|terra|0)$/.test(p) ? "Terra" : /rialz/.test(p) ? "Rialzato" : /semint|^s$|^-1$/.test(p) ? "Seminterrato" : /^\d+$/.test(p) ? (+p > 10 ? "10+" : p) : "";
+  const desc = [tip, v.superficie ? v.superficie + " mq" : "", v.stanze_letto ? v.stanze_letto + " camere" : "", v.bagni ? v.bagni + " bagni" : "", (c.stato || [])[0] || "", v.note || ""].filter(Boolean).join(", ");
+  return [`Proprietario: ${v.nome || ""} · ${v.telefono || ""}`, `Indirizzo: ${String(v.indirizzo || "").replace(/\n/g, " ")}`, TIP[tip] ? "Tipologia: " + TIP[tip] : "", v.superficie ? "Superficie (mq): " + v.superficie : "", ST[(c.stato || [])[0]] ? "Stato immobile: " + ST[(c.stato || [])[0]] : "", piano ? "Piano: " + piano : "", desc ? "Descrizione: Prequalifica - " + desc : ""].filter(Boolean);
+}
+/* al salvataggio: metti in lista la valutazione per il gestionale */
+window.pvOnSave = async function(rec){
+  if (!window.gqAdd || !gqCfg.data.preq || !pv9(rec.v && rec.v.telefono)) return;
+  let m = null, checked = false;
+  try { const evs = await pvEvents(); if (evs) { checked = true; m = pvMatch(evs, rec.v.telefono); } } catch {}
+  const app = (m && m.valWhen) || new Date(rec.created || Date.now());
+  const righe = [];
+  if (m && m.kind === "valutazione") righe.push(`Nel calendario c'è già la valutazione (${m.title}, ${pvFmt(m.when)}): allegare la prequalifica PDF in Documenti → Report di valutazione.`);
+  else if (m) righe.push(`Trovato nel calendario: ${m.title} (${pvFmt(m.when)}). Nel gestionale: se c'è la notizia → stato → Aggiungi appuntamento (valutazione) il ${pvFmt(app)}; se c'è già la valutazione → solo il PDF. Poi allegare la prequalifica PDF in Documenti → Report di valutazione.`, "Se nel gestionale non c'è niente, creare la notizia coi dati qui sotto.");
+  else righe.push(`${checked ? "Non trovato nel calendario" : "Calendario non controllato (accesso Google mancante)"}: cercare il telefono nel gestionale; se non c'è, creare la notizia coi dati qui sotto, poi stato → Aggiungi appuntamento (valutazione) il ${pvFmt(app)} e allegare la prequalifica PDF in Documenti → Report di valutazione.`);
+  if (!(m && m.kind === "valutazione")) righe.push(...pvNotizia(rec));
+  gqAdd({ key: "pqv:" + rec.id, tipo: "Valutazione", pq: rec.id, cliente: rec.v.nome || "", tel: rec.v.telefono || "", link: (m && m.link) || "", testo: righe.join("\n"), fonte: "Prequalifica" });
+  toast(m && m.kind === "valutazione" ? "📋 Prequalifica da allegare alla valutazione: in lista per il gestionale" : m ? "📋 Trovato nel calendario: valutazione in lista per il gestionale" : "📋 Nuovo contatto: notizia + valutazione in lista per il gestionale");
+};
+/* riquadro sotto il telefono mentre scrivi */
+let pvT = null;
+async function pvShow(){
+  const inp = $("pq_telefono"); if (!inp) return;
+  let box = $("pv-box"); if (!box) { box = document.createElement("div"); box.id = "pv-box"; box.className = "pv-box"; box.setAttribute("aria-live", "polite"); (inp.closest("label") || inp.parentElement).appendChild(box); }
+  const k = pv9(inp.value); box.hidden = !k; if (!k) return;
+  box.className = "pv-box"; box.textContent = "Controllo nel calendario…";
+  let evs = null; try { evs = await pvEvents(); } catch {}
+  if (pv9(inp.value) !== k) return;
+  if (!evs) { box.innerHTML = "Accedi con Google per controllare se il numero è già nel calendario. Al salvataggio lo metto comunque nella lista del gestionale."; return; }
+  const m = pvMatch(evs, inp.value);
+  if (!m) { box.className = "pv-box new"; box.innerHTML = "🆕 <b>Numero non presente nel calendario.</b> Al salvataggio metto in lista: crea la notizia, poi la valutazione con la prequalifica PDF."; return; }
+  box.className = "pv-box found";
+  box.innerHTML = `📅 <b>Già nel calendario:</b> ${esc(m.title)} · ${esc(pvFmt(m.when))}${m.n > 1 ? ` (+${m.n - 1})` : ""}<br>${m.kind === "valutazione" ? "La valutazione c'è già: al salvataggio metto in lista di allegare la prequalifica PDF." : "Al salvataggio metto in lista di trasformarlo in valutazione con la prequalifica PDF."}`;
+}
+$("pq-form").addEventListener("input", e => { if (e.target && e.target.id === "pq_telefono") { clearTimeout(pvT); pvT = setTimeout(pvShow, 700); } });
+const _pqLoadPv = pqLoad; pqLoad = function(){ const r = _pqLoadPv.apply(this, arguments); setTimeout(pvShow, 50); return r; };
+/* PDF di una prequalifica salvata (per il gestionale) */
+function pvRec(id){ return pqList.find(x => x.id === id) || (pqCur && pqCur.id === id ? Object.assign({}, pqCur, pqRead()) : null); }
+window.rzPdfBlob = async function(id){ const rec = pvRec(id); if (!rec) throw new Error("prequalifica non trovata: " + id); const jsPDF = await pdfLoad(); return { name: pdfName(rec), blob: pdfBuild(jsPDF, rec).output("blob") }; };
+window.rzPdfBase64 = async function(id){ const { name, blob } = await rzPdfBlob(id); const b = new Uint8Array(await blob.arrayBuffer()); let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return { name, b64: btoa(s) }; };
+/* il gestionale (aperto con "Apri per Claude") può chiedere il PDF all'app */
+window.addEventListener("message", async e => {
+  if (e.origin !== PV_BO || !e.data || e.data.rz !== "pdf" || !e.source) return;
+  try { const { name, blob } = await rzPdfBlob(e.data.pq); e.source.postMessage({ rz: "pdf", pq: e.data.pq, name, blob }, PV_BO); }
+  catch (err) { e.source.postMessage({ rz: "pdf", pq: e.data.pq, error: String(err && err.message || err) }, PV_BO); }
+});
+$("view-gestionale").addEventListener("click", async e => {
+  const o = e.target.closest("[data-pv-open]");
+  if (o) { const it = gqColl.get(o.dataset.pvOpen); if (it) window.open(it.link || PV_BO + "/contacts/search?q=" + encodeURIComponent(xDigits(it.tel || "").slice(-10)), "rz_bo"); return; }
+  const p = e.target.closest("[data-pv-pdf]");
+  if (p) { try { const { name, blob } = await rzPdfBlob(p.dataset.pvPdf); xDownload(blob, name); } catch (err) { toast("PDF non disponibile: " + (err.message || err)); } }
+});
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "zona", "acq", "giro", "agenda", "clienti", "messaggi", "gestionale", "visite", "match", "modelli", "preq", "desc", "brochure", "prezzi", "calc", "consegna", "foto", "obiettivi", "utilita"] : ["zona"];
