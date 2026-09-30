@@ -1,5 +1,5 @@
 /* Agente Pro – service worker: app disponibile anche senza rete */
-const VERSION = "v1-202609301956";
+const VERSION = "v1-202610010026";
 const APP = "app-" + VERSION, LIBS = "libs-v1", TILES = "tiles-v1";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png"];
 const LIB_URLS = ["https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css", "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js", "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"];

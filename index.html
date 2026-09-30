@@ -1032,6 +1032,23 @@ body{padding-bottom:84px}
 .bo-nudge button{background:var(--bg);color:var(--ink);border:1px solid var(--line-2)}
 @media (max-width:699px){.bo-nudge{bottom:calc(72px + env(safe-area-inset-bottom,0px))}}
 .gq-live{font-size:12px;color:var(--ink-3)}
+/* ---------- notizie: sincronizzazione e promemoria ---------- */
+.nt-syncinfo{font-size:12.5px;color:var(--ink-3);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nt-syncinfo b{color:var(--ink-2)}
+.nt-prom{display:block;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.nt-prom.late{color:var(--hot)}
+.nt-remf{flex-basis:100%;display:flex;flex-direction:column;gap:8px;background:var(--bg);border:1px solid var(--line-2);border-radius:12px;padding:10px;margin-top:4px}
+.nt-remf .x-grid{margin:0}
+.nt-remf .row{display:flex;gap:8px;flex-wrap:wrap}
+.nt-remf .qk{display:flex;gap:6px;flex-wrap:wrap}
+.nt-remf .qk button{min-height:34px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:13px;font-weight:700;padding:0 12px;cursor:pointer}
+/* ---------- aggiorna lista notizie ---------- */
+.nt-upd{display:flex;flex-direction:column;gap:10px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:14px;padding:12px}
+.nt-upd ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.4}
+.nt-upd .bm{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--accent-ink,#fff);font-weight:800;border-radius:10px;padding:8px 14px;text-decoration:none;cursor:grab}
+.nt-upd .row{display:flex;gap:8px;flex-wrap:wrap}
+.nt-hist{font-size:12.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.nt-hist b{font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -6015,7 +6032,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202609301956";
+const APP_VER = "v1-202610010026";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -6883,7 +6900,7 @@ document.addEventListener("click", e => {
 
 /* ===================== REGOLE GESTIONALE ===================== */
 const RG_ENRICO = "enrico.rosani@dove.it";
-const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza). [Notizia]: la nota va come promemoria nel Calendario della scheda /rumors/<id>. [Documento] (proforma, fatture, verbali): PDF da scaricare dall'app (DV davanti al nome) e da far scegliere nella finestra dei file, da caricare nella pagina dell'immobile /properties/<numero DV> in Documenti → Altri documenti.";
+const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Notizia]/[Reminder] dalle chiamate: prima inserisci il nuovo promemoria (la nota: oggi, ora di inserimento + 5 minuti; il richiamo: giorno e ora indicati), poi RISOLVI con il tasto “Risolvi” (Calendario della notizia → “Azione per risolvere il promemoria”) tutti i promemoria precedenti ancora attivi di quella notizia. I vecchi promemoria non vanno MAI cancellati. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza). [Notizia]: la nota va come promemoria nel Calendario della scheda /rumors/<id>. [Documento] (proforma, fatture, verbali): PDF da scaricare dall'app (DV davanti al nome) e da far scegliere nella finestra dei file, da caricare nella pagina dell'immobile /properties/<numero DV> in Documenti → Altri documenti.";
 function rgNextMonday(iso){ let d = xAddDays(iso, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
 /* visita fatta con esito diverso da "non interessato" */
 window.rgVisitaOpinione = function(id, sc){
@@ -7466,11 +7483,11 @@ const rdNum = s => { const n = parseInt(String(s || "").replace(/[^\d]/g, ""), 1
 const ntColl = xColl("rz_notizie_v1", "notizie");
 let ntFilter = "oggi", ntSess = null;
 const NT_ST = { da_chiamare: "Da chiamare", richiamare: "Da richiamare", appuntamento: "Appuntamento", non_interessato: "Non interessato", fatto: "Fatto" };
-const ntOpen = r => !["appuntamento", "non_interessato", "fatto"].includes(r.stato);
+const ntOpen = r => !r.boGone && !["appuntamento", "non_interessato", "fatto"].includes(r.stato);
 const ntIsDue = r => ntOpen(r) && (!r.prossima || r.prossima <= xISO(Date.now()));
 window.ntDue = () => ntColl.all().filter(ntIsDue);
 const ntLink = r => r.boId ? BO + "/rumors/" + r.boId : (r.link || "");
-function ntSorted(list){ return list.slice().sort((a, b) => (Number(b.boId) || 0) - (Number(a.boId) || 0) || (b.created || 0) - (a.created || 0)); }
+function ntSorted(list){ const k = r => r.prossima ? r.prossima + " " + (r.ora || "00:00") : ""; return list.slice().sort((a, b) => k(b).localeCompare(k(a)) || (Number(b.boId) || 0) - (Number(a.boId) || 0) || (b.created || 0) - (a.created || 0)); }
 function ntList(){
   const q = ($("nt-q").value || "").toLowerCase().trim(), all = ntColl.all();
   let L = ntFilter === "oggi" ? all.filter(ntIsDue) : ntFilter === "aperte" ? all.filter(ntOpen) : ntFilter === "chiuse" ? all.filter(r => !ntOpen(r)) : all;
@@ -7480,10 +7497,10 @@ function ntList(){
 function ntRender(){
   xSync("nt-sync");
   const all = ntColl.all(), c = { oggi: all.filter(ntIsDue).length, aperte: all.filter(ntOpen).length, chiuse: all.filter(r => !ntOpen(r)).length, tutte: all.length };
-  $("nt-filter").innerHTML = [["oggi", "📞 Da chiamare oggi"], ["aperte", "Aperte"], ["chiuse", "Chiuse"], ["tutte", "Tutte"]].map(([v, l]) => `<button type="button" class="x-pill" data-nt-f="${v}" aria-pressed="${ntFilter === v}">${l} <span class="n">${c[v]}</span></button>`).join("");
+  $("nt-filter").innerHTML = [["oggi", "📞 Da chiamare"], ["aperte", "Aperte"], ["chiuse", "Chiuse"], ["tutte", "Tutte"]].map(([v, l]) => `<button type="button" class="x-pill" data-nt-f="${v}" aria-pressed="${ntFilter === v}">${l} <span class="n">${c[v]}</span></button>`).join("");
   const L = ntList();
   $("nt-start").disabled = !all.filter(ntIsDue).length; $("nt-start").textContent = `▶️ Inizia a chiamare (${all.filter(ntIsDue).length})`;
-  $("nt-list").innerHTML = L.length ? L.map(r => `<div class="nt-it"><div class="t"><b>${esc(r.addr || "Senza indirizzo")}</b><span class="nt-tag${ntIsDue(r) ? " due" : ntOpen(r) ? "" : " ok"}">${esc(NT_ST[r.stato] || r.stato)}${r.prossima && ntOpen(r) ? " · " + esc(rdFmtDT(r.prossima, r.ora)) : ""}</span><small>${esc([r.nome, r.tel].filter(Boolean).join(" · "))}${r.log && r.log.length ? " · ultimo: " + esc(r.log[r.log.length - 1].esito) : ""}</small></div><div class="x-acts">${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}" data-nt-dial="${esc(r.id)}">📞</a>` : ""}<button type="button" class="x-act" data-nt-one="${esc(r.id)}">Esito</button>${ntLink(r) ? `<a class="x-act" href="${esc(ntLink(r))}" target="_blank" rel="noopener">🔗</a>` : ""}</div></div>`).join("")
+  $("nt-list").innerHTML = L.length ? L.map(r => `<div class="nt-it"><div class="t"><b>${esc(r.addr || "Senza indirizzo")}</b><span class="nt-tag${ntIsDue(r) ? " due" : ntOpen(r) ? "" : " ok"}">${esc(NT_ST[r.stato] || r.stato)}${r.prossima && ntOpen(r) ? " · " + esc(rdFmtDT(r.prossima, r.ora)) : ""}</span><small>${esc([r.nome, r.tel].filter(Boolean).join(" · "))}${r.log && r.log.length ? " · ultimo: " + esc(r.log[r.log.length - 1].esito) : ""}</small></div><div class="x-acts">${r.tel ? `<a class="x-act call" href="${xTel(r.tel)}" data-nt-dial="${esc(r.id)}">📞</a>` : ""}<button type="button" class="x-act" data-nt-one="${esc(r.id)}">Esito</button><button type="button" class="x-act" data-nt-rem="${esc(r.id)}" title="Scrivi un promemoria">⏰</button>${ntLink(r) ? `<a class="x-act" href="${esc(ntLink(r))}" target="_blank" rel="noopener">🔗</a>` : ""}</div></div>`).join("")
     : `<div class="x-empty">${all.length ? "Nessuna notizia in questo filtro." : "Nessuna notizia: aggiungile qui sotto o chiedimi di importarle dal gestionale."}</div>`;
   ntDrawSess();
 }
@@ -7506,6 +7523,7 @@ function ntDrawSess(){
       <button type="button" class="ap" data-nt-out="app">📅 Appuntamento di valutazione</button>
       <button type="button" data-nt-out="nota">📝 Nota e richiamo</button>
       <button type="button" class="no" data-nt-out="noint">🚫 Non interessato</button>
+      <button type="button" data-nt-out="rem">⏰ Promemoria</button>
       <button type="button" data-nt-out="skip">⏭️ Salta</button>
     </div>
     <div class="nt-extra" id="nt-extra"></div>
@@ -7728,7 +7746,7 @@ document.addEventListener("click", e => {
 /* ---------- IMPORTAZIONE DAL GESTIONALE (la usa Claude dal browser) ---------- */
 window.rdImport = function(o){
   const res = {};
-  if (o.notizie) { let n = 0; for (const x of o.notizie) { const id = x.boId ? "nt-bo-" + x.boId : xId("nt"); const old = ntColl.get(id); ntColl.put(Object.assign({ id, stato: "da_chiamare", created: Date.now(), src: "gestionale" }, old || {}, { addr: x.addr || (old && old.addr) || "", nome: x.nome || (old && old.nome) || "", tel: x.tel || (old && old.tel) || "", boId: x.boId || "", annuncio: (x.annuncio || "").slice(0, 300), boStato: x.stato || "", boProm: x.promemoria || "" }, old ? {} : { prossima: x.prossima || "" })); n++; } res.notizie = n; }
+  if (o.notizie) { res.notizie = ntImport(o.notizie, !!o.notizieSync); } if (false) { let n = 0; for (const x of o.notizie) { const id = x.boId ? "nt-bo-" + x.boId : xId("nt"); const old = ntColl.get(id); ntColl.put(Object.assign({ id, stato: "da_chiamare", created: Date.now(), src: "gestionale" }, old || {}, { addr: x.addr || (old && old.addr) || "", nome: x.nome || (old && old.nome) || "", tel: x.tel || (old && old.tel) || "", boId: x.boId || "", annuncio: (x.annuncio || "").slice(0, 300), boStato: x.stato || "", boProm: x.promemoria || "" }, old ? {} : { prossima: x.prossima || "" })); n++; } res.notizie = n; }
   if (o.mandati) { let n = 0; for (const x of o.mandati) { const id = "mnd-" + String(x.dv || "").replace(/\W/g, ""); mndColl.put(Object.assign({ id, created: Date.now() }, mndColl.get(id) || {}, x)); n++; } res.mandati = n; }
   if (o.incassi) { let n = 0; for (const x of o.incassi) { const id = "ic-" + (x.rif || (x.dv + x.data)).replace(/\W/g, ""); icColl.put(Object.assign({ id, quota: "50" }, icColl.get(id) || {}, x)); n++; } res.incassi = n; }
   if (o.obiettivi) { Object.assign(odDoc.data, o.obiettivi, { at: xISO(Date.now()) }); odDoc.save(); res.obiettivi = true; }
@@ -7896,6 +7914,181 @@ setInterval(() => { if (LIVE_VIEWS.includes(xCur)) livePull(); }, 30000);
 const _gqRenderLive = gqRender;
 gqRender = function(){ _gqRenderLive.apply(this, arguments); let s = $("gq-live"); const h = document.querySelector("#view-gestionale #gq-filter"); if (!s && h) { h.insertAdjacentHTML("afterend", `<div class="gq-live" id="gq-live"></div>`); s = $("gq-live"); } if (s) s.textContent = "🔄 Si aggiorna da sola · ultimo controllo " + new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }); };
 XVIEWS.gestionale = gqRender;
+
+
+/* ===================== NOTIZIE DAL GESTIONALE ===================== */
+const ntSyncDoc = xDoc("rz_ntsync_v1", "ntsync", { at: 0, n: 0 });
+const ntLocalDate = iso => { try { return xISO(new Date(iso)); } catch { return ""; } };
+const ntLocalTime = iso => { try { return new Date(iso).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }); } catch { return ""; } };
+/* importa le notizie "da gestire" del gestionale; con sync=true quelle sparite dall'elenco escono dalle aperte */
+function ntImport(list, sync){
+  const seen = new Set(), now = Date.now(); let n = 0;
+  for (const x of list) {
+    const id = x.boId ? "nt-bo-" + x.boId : xId("nt"); seen.add(id);
+    const old = ntColl.get(id) || {};
+    const r = Object.assign({ id, stato: "da_chiamare", created: x.created ? new Date(x.created).getTime() : now, src: "gestionale" }, old, {
+      addr: x.addr || old.addr || "", nome: x.nome || old.nome || "", tel: x.tel || old.tel || "", boId: x.boId || old.boId || "",
+      annuncio: String(x.annuncio || old.annuncio || "").slice(0, 300), boStato: x.stato || "", boGone: false
+    });
+    if (x.prom !== undefined || x.promemoria !== undefined) {
+      const boDate = x.prom ? ntLocalDate(x.prom) : "", boTime = x.prom ? ntLocalTime(x.prom) : "";
+      r.boProm = boDate; r.boPromOra = boTime; r.boPromNote = x.promNote || ""; r.boProm0 = x.promemoria || "";
+      /* il promemoria scritto nell'app vale finché nel gestionale non compare uno uguale o più avanti (max 10 giorni) */
+      if (r.myProm && ((boDate && boDate >= r.myProm) || now - (r.myPromAt || 0) > 10 * 864e5)) { delete r.myProm; delete r.myPromOra; delete r.myPromAt; }
+      if (r.myProm) { r.prossima = r.myProm; r.ora = r.myPromOra || "10:00"; }
+      else if (boDate) { r.prossima = boDate; r.ora = boTime; }
+      else if (!old.id) { r.prossima = x.prossima || ""; }
+    } else if (!old.id) r.prossima = x.prossima || "";
+    ntColl.put(r); n++;
+  }
+  if (sync) {
+    for (const r of ntColl.all()) if (r.src === "gestionale" && !seen.has(r.id) && !r.boGone) { r.boGone = true; ntColl.put(r); }
+    ntSyncDoc.data.at = now; ntSyncDoc.data.n = list.length; ntSyncDoc.save();
+  }
+  return n;
+}
+window.ntImport = ntImport;
+/* gli esiti che fissano un richiamo valgono come promemoria dell'app */
+const _ntOutcomeS = ntOutcome;
+ntOutcome = function(r, kind, data){
+  const before = r.prossima + "|" + r.ora;
+  _ntOutcomeS.apply(this, arguments);
+  if (["norisp", "enrico", "nota"].includes(kind) && r.prossima && (r.prossima + "|" + r.ora) !== before) { r.myProm = r.prossima; r.myPromOra = r.ora; r.myPromAt = Date.now(); ntColl.put(r); }
+};
+/* ---------- promemoria scritto dalla sezione chiamate ---------- */
+function ntRemForm(r, inSess){
+  const tom = xWorkday(xAddDays(xISO(Date.now()), 1));
+  return `<div class="nt-remf" data-nt-remf="${esc(r.id)}"${inSess ? " data-sess" : ""}>
+    <b>⏰ Promemoria per ${esc(r.addr || r.nome || "la notizia")}</b>
+    <div class="qk"><button type="button" data-nt-qd="1">Domani</button><button type="button" data-nt-qd="2">Fra 2 giorni</button><button type="button" data-nt-qd="7">Fra una settimana</button><button type="button" data-nt-qd="30">Fra un mese</button></div>
+    <div class="x-grid"><label class="x-f"><span>Giorno</span><input class="inp" type="date" data-nt-rd value="${tom}"></label><label class="x-f"><span>Ora</span><input class="inp" type="time" data-nt-rt value="10:00"></label></div>
+    <label class="x-f"><span>Testo del promemoria</span><input class="inp" data-nt-rx value="ric" placeholder="Es. ric per sapere se vende"></label>
+    <div class="row"><button type="button" class="x-act call" data-nt-rsave>Salva: va nella lista del gestionale</button><button type="button" class="x-act" data-nt-rcancel>Annulla</button></div>
+  </div>`;
+}
+function ntRemSave(box){
+  const r = ntColl.get(box.dataset.ntRemf); if (!r) return;
+  const d = box.querySelector("[data-nt-rd]").value, t = box.querySelector("[data-nt-rt]").value || "10:00", tx = box.querySelector("[data-nt-rx]").value.trim() || "ric";
+  if (!d) return toast("Scegli il giorno");
+  if (window.gqAdd) gqAdd({ key: "ntrem:" + r.id + ":" + d + ":" + t, tipo: "Reminder", cliente: r.nome || r.addr || "", tel: r.tel || "", link: ntLink(r), data: d, ora: t, testo: tx, fonte: "Chiamate · promemoria" + (r.addr ? " " + r.addr : "") });
+  r.prossima = d; r.ora = t; r.myProm = d; r.myPromOra = t; r.myPromAt = Date.now();
+  if (r.stato === "da_chiamare") r.stato = "richiamare";
+  (r.log = r.log || []).push({ at: Date.now(), esito: "promemoria " + rdFmtDT(d, t) + ": " + tx });
+  ntColl.put(r);
+  toast("⏰ Promemoria " + rdFmtDT(d, t) + " nella lista del gestionale");
+  if (box.hasAttribute("data-sess") && ntSess) ntNext(true); else ntRender();
+}
+$("view-notizie").addEventListener("click", e => {
+  const rb = e.target.closest("[data-nt-rem]");
+  if (rb) { const r = ntColl.get(rb.dataset.ntRem), it = rb.closest(".nt-it"); if (!r || !it) return; const open = it.querySelector(".nt-remf"); document.querySelectorAll("#nt-list .nt-remf").forEach(x => x.remove()); if (!open) { it.insertAdjacentHTML("beforeend", ntRemForm(r, false)); const f = it.querySelector("[data-nt-rx]"); f && f.select(); } return; }
+  const out = e.target.closest('[data-nt-out="rem"]');
+  if (out) { e.stopImmediatePropagation(); const cur = out.closest("[data-nt-cur]"), r = cur && ntColl.get(cur.dataset.ntCur); if (r) { $("nt-extra").innerHTML = ntRemForm(r, true); const f = $("nt-extra").querySelector("[data-nt-rx]"); f && f.select(); } return; }
+  const box = e.target.closest("[data-nt-remf]"); if (!box) return;
+  const q = e.target.closest("[data-nt-qd]"); if (q) { box.querySelector("[data-nt-rd]").value = xWorkday(xAddDays(xISO(Date.now()), +q.dataset.ntQd)); return; }
+  if (e.target.closest("[data-nt-rsave]")) { ntRemSave(box); return; }
+  if (e.target.closest("[data-nt-rcancel]")) { box.remove(); return; }
+}, true);
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.matches && e.target.matches("[data-nt-rx]")) { e.preventDefault(); const b = e.target.closest("[data-nt-remf]"); b && ntRemSave(b); } });
+/* riga con il promemoria del gestionale e l'ora dell'ultimo aggiornamento */
+const _ntRenderS = ntRender;
+ntRender = function(){
+  _ntRenderS.apply(this, arguments);
+  const today = xISO(Date.now());
+  document.querySelectorAll("#nt-list .nt-it").forEach(it => {
+    const b = it.querySelector("[data-nt-rem]"), r = b && ntColl.get(b.dataset.ntRem); if (!r) return;
+    const t = it.querySelector(".t"); if (!t || t.querySelector(".nt-prom")) return;
+    const tg = t.querySelector(".nt-tag"); if (tg && r.prossima) tg.textContent = tg.textContent.split(" · ")[0];
+    const src = r.myProm ? "scritto nell'app, da inserire nel gestionale" : r.boPromNote ? "“" + r.boPromNote.trim() + "”" : "";
+    if (r.prossima) t.insertAdjacentHTML("beforeend", `<span class="nt-prom${r.prossima < today ? " late" : ""}">⏰ ${esc(r.prossima === today ? "Oggi" : new Date(r.prossima + "T12:00").toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" }))}${r.ora ? " " + esc(r.ora) : ""}${src ? " · " + esc(src) : ""}</span>`);
+  });
+  let s = $("nt-syncinfo"); const bar = document.querySelector("#view-notizie .nt-bar");
+  if (!s && bar) { bar.insertAdjacentHTML("beforeend", `<div class="nt-syncinfo" id="nt-syncinfo"></div>`); s = $("nt-syncinfo"); }
+  if (s) { const a = ntSyncDoc.data.at; s.innerHTML = a ? `🔄 Notizie da gestire del gestionale aggiornate <b>${esc(new Date(a).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}</b> (${ntSyncDoc.data.n}) · si aggiornano ogni mattina` : "🔄 Le notizie da gestire del gestionale arrivano qui ogni mattina."; }
+};
+XVIEWS.notizie = ntRender;
+if (typeof LIVE_VIEWS !== "undefined" && !LIVE_VIEWS.includes("notizie")) LIVE_VIEWS.push("notizie");
+
+
+/* ===================== NOTIZIE: AGGIORNA LISTA DAL GESTIONALE ===================== */
+/* segnalibro da premere sulla pagina Notizie del gestionale: legge le "da gestire" e le manda all'app */
+const NT_BM_SRC = `(async()=>{const w=m=>new Promise(r=>setTimeout(r,m));const say=(h,btn)=>{let d=document.getElementById('rz-bm');if(!d){d=document.createElement('div');d.id='rz-bm';d.style.cssText='position:fixed;z-index:2147483647;left:50%;top:20px;transform:translateX(-50%);background:#fff;color:#111;border:3px solid #1d4ed8;border-radius:14px;padding:14px 18px;font:15px system-ui;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:92vw';document.body.appendChild(d);}d.innerHTML=h;if(btn)d.appendChild(btn);};
+if(!/backoffice\\.dove\\.it$/.test(location.hostname)){alert('Apri il gestionale Dove.it (backoffice.dove.it) e premi di nuovo il segnalibro.');return;}
+say('⏳ Leggo le notizie da gestire…');
+const getR=el=>{const k=Object.keys(el).find(k=>k.startsWith('__reactFiber'));let f=el[k];for(let i=0;i<30&&f;i++){const p=f.memoizedProps;if(p){for(const v of Object.values(p)){if(v&&typeof v==='object'&&v.rumor&&v.rumor.id)return v;}if(p.rumor&&p.rumor.id)return p;}f=f.return;}return null;};
+const grab=()=>[...document.querySelectorAll('[aria-label="Visualizza notizia"]')].map(getR).filter(Boolean).map(x=>({boId:String(x.rumor.id),addr:x.rumor.propertyAddress||'',nome:(x.contact&&x.contact.name)||'',tel:(x.contact&&x.contact.phoneNumber)||'',annuncio:(x.rumor.description||'').replace(/\\s+/g,' ').slice(0,160),stato:x.rumor.status||'',prom:(x.reminder&&!x.reminder.resolved&&x.reminder.startDate)||'',promNote:((x.reminder&&x.reminder.notes)||'').slice(0,120),created:x.rumor.createdAt||''}));
+const all={};for(let p=1;p<=25;p++){history.pushState({},'','/rumors/explore?page='+p);dispatchEvent(new PopStateEvent('popstate'));await w(p===1?4500:3500);const g=grab();let a=0;for(const r of g){if(!all[r.boId]){all[r.boId]=r;a++;}}say('⏳ Leggo le notizie da gestire… '+Object.keys(all).length);if(!g.length||!a)break;}
+const list=Object.values(all),data={rz:'notizie',list,at:Date.now()},txt=JSON.stringify(data);let sent=false;
+window.addEventListener('message',e=>{if(e.origin==='https://steww-03.github.io'&&e.data&&e.data.rz==='notizie-ok')say('✅ '+e.data.n+' notizie arrivate in Agente Pro. Puoi tornare sull\\'app.');});
+if(window.opener){try{window.opener.postMessage(data,'https://steww-03.github.io');sent=true;}catch(e){}}
+const b=document.createElement('button');b.textContent='📋 Copia per Agente Pro';b.style.cssText='margin-left:10px;padding:8px 12px;border-radius:9px;border:0;background:#1d4ed8;color:#fff;font-weight:700;cursor:pointer';b.onclick=async()=>{try{await navigator.clipboard.writeText(txt);b.textContent='✓ Copiate: nell\\'app premi “Incolla”';}catch(e){prompt('Copia questo testo e incollalo nell\\'app:',txt);}};
+say((sent?'📤 Invio '+list.length+' notizie ad Agente Pro…':'✅ Lette '+list.length+' notizie.')+' ',b);})();`;
+const NT_BM = "javascript:" + encodeURIComponent(NT_BM_SRC.replace(/\n/g, ""));
+let ntBoWin = null;
+function ntUpdBox(){
+  const bar = document.querySelector("#view-notizie .nt-bar"); if (!bar) return;
+  let box = $("nt-upd"); if (box) { box.remove(); return; }
+  bar.insertAdjacentHTML("afterend", `<div class="nt-upd" id="nt-upd">
+    <b>🔄 Aggiorna la lista con le notizie da gestire di oggi</b>
+    <ol><li>Ho aperto il gestionale in un'altra scheda (pagina Notizie).</li><li>Lì premi il segnalibro <b>📥 Notizie → Agente Pro</b>.</li><li>Torna qui: la lista si aggiorna da sola, con tutte le notizie da gestire di oggi, quante che siano.</li></ol>
+    <div class="row"><a class="bm" href="${esc(NT_BM)}" draggable="true" data-nt-bm>📥 Notizie → Agente Pro</a><span class="x-note">Prima volta: <b>trascina</b> questo pulsante nella barra dei preferiti (Ctrl+Maiusc+B per mostrarla).</span></div>
+    <div class="row"><button type="button" class="x-act" data-nt-paste-bo>📋 Incolla (se le hai copiate)</button><button type="button" class="x-act" data-nt-reopen>🔗 Riapri il gestionale</button><button type="button" class="x-act" data-nt-updx>Chiudi</button></div>
+    <div class="x-note">Dal telefono o dall'iPad: scrivi a Claude “aggiorna le notizie”. In ogni caso la lista si aggiorna da sola ogni mattina.</div>
+  </div>`);
+}
+function ntBoOpen(){ try { ntBoWin = window.open("https://backoffice.dove.it/rumors/explore", "rz_bo"); } catch { ntBoWin = null; } }
+function ntTakeBo(list, src){
+  if (!Array.isArray(list)) return 0;
+  const clean = list.filter(x => x && x.boId && /^\d+$/.test(String(x.boId))).map(x => ({ boId: String(x.boId), addr: String(x.addr || "").slice(0, 200), nome: String(x.nome || "").slice(0, 120), tel: String(x.tel || "").slice(0, 30), annuncio: String(x.annuncio || "").slice(0, 300), stato: String(x.stato || "").slice(0, 30), prom: String(x.prom || "").slice(0, 40), promNote: String(x.promNote || "").slice(0, 200), created: String(x.created || "").slice(0, 40) }));
+  const n = ntImport(clean, true);
+  const u = $("nt-upd"); if (u) u.remove();
+  if (xCur === "notizie") ntRender();
+  toast(`🔄 Lista aggiornata: ${n} notizie da gestire`);
+  try { if (src) src.postMessage({ rz: "notizie-ok", n }, "https://backoffice.dove.it"); } catch {}
+  return n;
+}
+window.addEventListener("message", e => { if (e.origin !== "https://backoffice.dove.it" || !e.data || e.data.rz !== "notizie") return; ntTakeBo(e.data.list, e.source); });
+$("view-notizie").addEventListener("click", async e => {
+  if (e.target.closest("#nt-updbtn")) { ntBoOpen(); ntUpdBox(); if (!$("nt-upd")) ntUpdBox(); return; }
+  if (e.target.closest("[data-nt-bm]")) { e.preventDefault(); toast("Trascina questo pulsante nella barra dei preferiti del browser (solo la prima volta)"); return; }
+  if (e.target.closest("[data-nt-updx]")) { const u = $("nt-upd"); if (u) u.remove(); return; }
+  if (e.target.closest("[data-nt-reopen]")) { ntBoOpen(); return; }
+  if (e.target.closest("[data-nt-paste-bo]")) {
+    let txt = ""; try { txt = await navigator.clipboard.readText(); } catch {}
+    if (!txt) txt = prompt("Incolla qui il testo copiato dal gestionale:") || "";
+    try { const d = JSON.parse(txt); if (d && d.rz === "notizie") ntTakeBo(d.list); else toast("Negli appunti non ci sono le notizie del gestionale"); } catch { toast("Negli appunti non ci sono le notizie del gestionale"); }
+  }
+});
+/* ---------- storico dei promemoria: si aggiunge, non si cancella mai ---------- */
+function ntHistAdd(r, h){ r.promHist = r.promHist || []; const k = h.d + " " + (h.t || "") + " " + (h.x || ""); if (!r.promHist.some(p => p.d + " " + (p.t || "") + " " + (p.x || "") === k)) r.promHist.push(Object.assign({ at: Date.now() }, h)); }
+const _ntImportH = ntImport;
+ntImport = function(list, sync){
+  const n = _ntImportH.apply(this, arguments);
+  for (const x of list || []) { if (!x || !x.boId || !x.prom) continue; const r = ntColl.get("nt-bo-" + x.boId); if (!r) continue; const before = (r.promHist || []).length; ntHistAdd(r, { d: ntLocalDate(x.prom), t: ntLocalTime(x.prom), x: x.promNote || "", src: "gestionale" }); if ((r.promHist || []).length !== before) ntColl.put(r); }
+  return n;
+};
+window.ntImport = ntImport;
+const _ntOutcomeH = ntOutcome;
+ntOutcome = function(r, kind, data){ _ntOutcomeH.apply(this, arguments); if (["norisp", "enrico", "nota"].includes(kind) && r.prossima) { ntHistAdd(r, { d: r.prossima, t: r.ora || "10:00", x: kind === "nota" ? (data && data.testo) || "" : kind === "enrico" ? "ric con enrico" : "ric", src: "app" }); ntColl.put(r); } };
+const _ntRemSaveH = ntRemSave;
+ntRemSave = function(box){ const r = ntColl.get(box.dataset.ntRemf), d = box.querySelector("[data-nt-rd]").value, t = box.querySelector("[data-nt-rt]").value || "10:00", x = box.querySelector("[data-nt-rx]").value.trim() || "ric"; if (r && d) { ntHistAdd(r, { d, t, x, src: "app" }); ntColl.put(r); } return _ntRemSaveH.apply(this, arguments); };
+/* le voci della lista che nascono dalle chiamate: poi vanno risolti i promemoria precedenti */
+const _gqAddR = window.gqAdd;
+window.gqAdd = function(o, cfgKey){ if (o && /Sessione chiamate notizie|Chiamate · promemoria/.test(o.fonte || "") && /^(Notizia|Reminder|Nota)$/.test(o.tipo || "")) o.risolvi = true; return _gqAddR.call(this, o, cfgKey); };
+const _gqLineR = gqLine;
+gqLine = function(it, n){ const s = _gqLineR.apply(this, arguments); return it && it.risolvi ? s + "\n   Poi: RISOLVI (tasto “Risolvi”) i promemoria precedenti ancora attivi di questa notizia. Non cancellarli." : s; };
+/* pulsante e storico nella sezione chiamate */
+const _ntRenderB = ntRender;
+ntRender = function(){
+  _ntRenderB.apply(this, arguments);
+  const act = document.querySelector("#view-notizie .nt-actions");
+  if (act && !$("nt-updbtn")) act.insertAdjacentHTML("beforeend", `<button type="button" class="x-act" id="nt-updbtn">🔄 Aggiorna lista</button>`);
+  const cur = document.querySelector("#nt-session [data-nt-cur]"), r = cur && ntColl.get(cur.dataset.ntCur);
+  if (r && r.promHist && r.promHist.length && !cur.querySelector(".nt-hist")) {
+    const H = r.promHist.slice().sort((a, b) => (b.d + (b.t || "")).localeCompare(a.d + (a.t || ""))).slice(0, 6);
+    const who = cur.querySelector(".who"); if (who) who.insertAdjacentHTML("afterend", `<div class="nt-hist"><b>Promemoria (${r.promHist.length})</b>${H.map(h => `<span>⏰ ${esc(new Date(h.d + "T12:00").toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit", year: "2-digit" }))}${h.t ? " " + esc(h.t) : ""}${h.x ? " · " + esc(h.x) : ""}${h.src === "app" ? " · dall'app" : ""}</span>`).join("")}</div>`);
+  }
+};
+XVIEWS.notizie = ntRender;
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
