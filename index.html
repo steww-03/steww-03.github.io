@@ -1022,6 +1022,16 @@ body{padding-bottom:84px}
 .dd-found button{display:flex;gap:10px;align-items:center;text-align:left;border:1px solid var(--line-2);background:var(--surface);border-radius:10px;padding:8px 10px;cursor:pointer;color:var(--ink)}
 .dd-found button:hover{border-color:var(--accent)}
 .dd-found small{display:block;color:var(--ink-3);font-size:12px}
+/* ---------- avviso gestionale ---------- */
+.bo-nudge{position:fixed;left:50%;transform:translateX(-50%);bottom:96px;z-index:260;width:min(560px,calc(100% - 24px));background:var(--surface);color:var(--ink);border:2px solid var(--accent);border-radius:16px;box-shadow:0 16px 40px rgba(10,20,50,.28);padding:14px;display:flex;flex-direction:column;gap:10px}
+.bo-nudge b{font-size:15.5px}
+.bo-nudge small{color:var(--ink-2);font-size:13px;line-height:1.35}
+.bo-nudge .row{display:flex;gap:8px;flex-wrap:wrap}
+.bo-nudge a,.bo-nudge button{min-height:44px;border-radius:11px;font-weight:800;font-size:14.5px;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none}
+.bo-nudge a{flex:1;background:var(--accent);color:var(--accent-ink,#fff);border:0}
+.bo-nudge button{background:var(--bg);color:var(--ink);border:1px solid var(--line-2)}
+@media (max-width:699px){.bo-nudge{bottom:calc(72px + env(safe-area-inset-bottom,0px))}}
+.gq-live{font-size:12px;color:var(--ink-3)}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -2148,7 +2158,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
       <section class="gq-main">
         <div class="x-card gq-claude">
           <div><b>🤖 Vuoi che le inserisca io?</b><div class="x-note" style="font-size:13px">Apri il gestionale nel browser, fai l'accesso e scrivimi <b>“svuota la lista”</b>. Poi tocca qui e incolla la lista nella chat: le inserisco una per una e ti chiedo conferma prima di salvare ognuna.</div></div>
-          <button type="button" class="x-act call" id="gq-copyall">📋 Copia la lista per Claude</button>
+          <button type="button" class="x-act call" id="gq-copyall">📋 Copia la lista per Claude</button><button type="button" class="x-act danger" id="gq-clear">🗑️ Svuota la lista</button>
         </div>
         <div id="rd-check"></div>
         <div class="x-pills" id="gq-filter"></div>
@@ -6005,7 +6015,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202609301917";
+const APP_VER = "v1-202609301956";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -7460,7 +7470,7 @@ const ntOpen = r => !["appuntamento", "non_interessato", "fatto"].includes(r.sta
 const ntIsDue = r => ntOpen(r) && (!r.prossima || r.prossima <= xISO(Date.now()));
 window.ntDue = () => ntColl.all().filter(ntIsDue);
 const ntLink = r => r.boId ? BO + "/rumors/" + r.boId : (r.link || "");
-function ntSorted(list){ return list.slice().sort((a, b) => (a.prossima || "0000").localeCompare(b.prossima || "0000") || (a.created || 0) - (b.created || 0)); }
+function ntSorted(list){ return list.slice().sort((a, b) => (Number(b.boId) || 0) - (Number(a.boId) || 0) || (b.created || 0) - (a.created || 0)); }
 function ntList(){
   const q = ($("nt-q").value || "").toLowerCase().trim(), all = ntColl.all();
   let L = ntFilter === "oggi" ? all.filter(ntIsDue) : ntFilter === "aperte" ? all.filter(ntOpen) : ntFilter === "chiuse" ? all.filter(r => !ntOpen(r)) : all;
@@ -7829,6 +7839,63 @@ function uxOpenFound(id){
 document.addEventListener("input", e => { if (e.target.id === "dd-search") uxSearch(e.target.value); });
 document.addEventListener("keydown", e => { if (e.target.id === "dd-search" && e.key === "Enter") { const q = e.target.value; if (!rdFilter(q)) { const f = document.querySelector("#dd-found [data-ux-found]"); if (f) { e.preventDefault(); e.stopImmediatePropagation(); f.click(); } } } }, true);
 setTimeout(() => { try { uxNav(xCur || "home"); } catch {} }, 0);
+
+
+/* ===================== AVVISO: SEGNA LA VISITA ANCHE NEL GESTIONALE ===================== */
+function boLinkFor(a){ if (a.boLink) return a.boLink; const d = xDigits(a.phone || a.phoneDisplay || "").slice(-10); return d ? "https://backoffice.dove.it/contacts/search?q=" + d : "https://backoffice.dove.it/intents/explore"; }
+function boNudge(a, done){
+  let el = $("bo-nudge"); if (el) el.remove();
+  const when = a.startISO ? new Date(a.startISO).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
+  document.body.insertAdjacentHTML("beforeend", `<div class="bo-nudge" id="bo-nudge" role="alert">
+    <b>${done ? "✅ Ora segnala come fatta anche nel gestionale" : "❌ Ora segnala come annullata anche nel gestionale"}</b>
+    <small>${esc(a.clientName || "Cliente")}${when ? " · " + esc(when) : ""}${a.dvCode ? " · " + esc(a.dvCode) : ""}<br>Si apre la scheda: premi <b>“${done ? "Segna come fatto" : "Segna come annullato"}”</b> nel banner in alto.${a.boLink ? "" : " (Scheda non trovata: apro la ricerca col suo telefono.)"}</small>
+    <div class="row"><a href="${esc(boLinkFor(a))}" target="_blank" rel="noopener" data-bo-go>🔗 Apri nel gestionale</a><button type="button" data-bo-close>Dopo</button></div></div>`);
+  clearTimeout(boNudge.t); boNudge.t = setTimeout(() => { const n = $("bo-nudge"); if (n) n.remove(); }, 45000);
+}
+const _vxAnswerBo = window.vxAnswer;
+window.vxAnswer = function(a, done){ const r = _vxAnswerBo.apply(this, arguments); try { boNudge(a, done); } catch {} return r; };
+document.addEventListener("click", e => { if (e.target.closest("[data-bo-close]") || e.target.closest("[data-bo-go]")) { const n = $("bo-nudge"); if (n) setTimeout(() => n.remove(), 50); } });
+
+/* ===================== DA FARE NEL GESTIONALE: SVUOTA ===================== */
+$("view-gestionale").addEventListener("click", e => {
+  const b = e.target.closest("#gq-clear"); if (!b) return;
+  const todo = gqTodo(); if (!todo.length) { toast("La lista è già vuota"); return; }
+  if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = `Conferma: cancella ${todo.length} ${todo.length === 1 ? "voce" : "voci"}`; clearTimeout(b._t); b._t = setTimeout(() => { b.classList.remove("armed"); b.textContent = "🗑️ Svuota la lista"; }, 5000); return; }
+  clearTimeout(b._t); b.classList.remove("armed"); b.textContent = "🗑️ Svuota la lista";
+  for (const it of todo) gqColl.remove(it.id, ["key"]);
+  toast(`🗑️ Cancellate ${todo.length} voci dalla lista`); gqRender(); if (typeof homeRender === "function") try { homeRender(); } catch {}
+});
+
+/* ===================== AGGIORNAMENTO AUTOMATICO DEI DATI ===================== */
+/* la pagina si ridisegna da sola quando cambia la lista e ricarica i dati da Google (altri dispositivi) */
+const LIVE_VIEWS = ["gestionale", "home", "notizie", "mandati", "conta", "obiettivi", "clienti"];
+const liveTyping = () => { const a = document.activeElement; return a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.type !== "checkbox" && a.type !== "radio" && a.id !== "dd-search"; };
+let liveT = null;
+function liveRedraw(){ clearTimeout(liveT); liveT = setTimeout(() => { try { if (liveTyping()) return; if (xCur === "gestionale") gqRender(); else if (xCur === "home" && typeof homeRender === "function") homeRender(); gqBadge(); } catch {} }, 150); }
+["put", "remove"].forEach(fn => { const o = gqColl[fn]; gqColl[fn] = function(){ const r = o.apply(this, arguments); liveRedraw(); return r; }; });
+let livePulling = false, liveLast = 0;
+async function livePull(force){
+  if (livePulling || !tok || document.hidden) return; if (!force && Date.now() - liveLast < 20000) return;
+  if (driveTimer || driveSaving || !driveFileId) return;
+  livePulling = true; liveLast = Date.now();
+  try {
+    const txt = await api(DRV + "/" + driveFileId + "?alt=media");
+    if (driveTimer || driveSaving) return;
+    const remote = typeof txt === "string" ? JSON.parse(txt) : (txt || {});
+    const before = JSON.stringify(driveDoc);
+    Object.assign(driveDoc, remote);
+    if (JSON.stringify(driveDoc) === before) return;
+    XCOLLS.forEach(c => { c.merged = false; try { c.merge(); } catch {} });
+    if (!liveTyping() && LIVE_VIEWS.includes(xCur) && XVIEWS[xCur]) XVIEWS[xCur]();
+    gqBadge();
+  } catch {} finally { livePulling = false; }
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden) livePull(true); });
+window.addEventListener("focus", () => livePull());
+setInterval(() => { if (LIVE_VIEWS.includes(xCur)) livePull(); }, 30000);
+const _gqRenderLive = gqRender;
+gqRender = function(){ _gqRenderLive.apply(this, arguments); let s = $("gq-live"); const h = document.querySelector("#view-gestionale #gq-filter"); if (!s && h) { h.insertAdjacentHTML("afterend", `<div class="gq-live" id="gq-live"></div>`); s = $("gq-live"); } if (s) s.textContent = "🔄 Si aggiorna da sola · ultimo controllo " + new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }); };
+XVIEWS.gestionale = gqRender;
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
