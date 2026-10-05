@@ -1049,6 +1049,16 @@ body{padding-bottom:84px}
 .nt-upd .row{display:flex;gap:8px;flex-wrap:wrap}
 .nt-hist{font-size:12.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:2px;margin-top:6px}
 .nt-hist b{font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+/* ---------- gestionale: voci saltate ---------- */
+.gq-item.skip{opacity:.62;border-style:dashed}
+.gq-item .gq-skiptag{display:inline-block;font-size:11.5px;font-weight:800;color:var(--hot);margin-left:6px}
+.gq-bulk{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.gq-err{background:var(--surface);border:2px solid var(--hot);border-radius:12px;padding:12px;font-size:14px}
+/* ---------- accesso limitato ---------- */
+.rz-lim-ban{background:var(--accent-soft);border:1px solid var(--accent);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px}
+.rz-lim-ban b{flex:1;min-width:200px}
+.rz-lim-ban button{min-height:40px;border-radius:10px;border:0;background:var(--accent);color:var(--accent-ink,#fff);font-weight:800;padding:0 14px;cursor:pointer}
+body.rz-limited [data-rz-full]{display:none!important}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -3464,8 +3474,8 @@ document.addEventListener("click", e => {
   if (tok && tok.exp - Date.now() > 5 * 60000) return;
   if (Date.now() - (window.__lastAutoLogin || 0) < 90000) return;
   if ($("view-zona").hidden === false && !tok && !window.__zonaAuto) return;
+  if (e.target.closest("[data-login],[data-login-select],[data-logout],[data-menu],#dd,a[href],input,textarea,select,[data-rz-login]")) return;
   window.__lastAutoLogin = Date.now();
-  if (e.target.closest("[data-login],[data-login-select],[data-logout],[data-menu],#dd")) return;
   doLogin(false);
 }, true);
 function authExpired(){
@@ -3817,7 +3827,7 @@ function fotoSave(){
   if (store && store.gas) gs("saveData", "foto", JSON.stringify(fotoList));
 }
 let fotoMonth = 0; const fotoStatsCache = {}; let fotoStatsLoading = null;
-const isStefano = () => !!(tok && (tok.email || "").toLowerCase() === FOTO_INVITE);
+const isStefano = () => (((tok && tok.email) || knownEmail() || "") + "").toLowerCase() === FOTO_INVITE;
 function fotoMonthRange(off){ const s = new Date(); s.setDate(1); s.setHours(0, 0, 0, 0); s.setMonth(s.getMonth() + off); const e = new Date(s); e.setMonth(e.getMonth() + 1); return [s, e]; }
 async function fotoStats(force){
   const card = $("f-stats");
@@ -6032,11 +6042,11 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610010026";
+const APP_VER = "v1-202610051032";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
-    const m = (await r.text()).match(/VERSION = "([^"]+)"/); if (!m || m[1] === APP_VER) return;
+    const m = (await r.text()).match(/const VERSION = "(v\d+-\d{12})"/); if (!m || m[1] === APP_VER) return;
     const k = "rz_upd_" + m[1]; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, "1");
     try { const reg = await navigator.serviceWorker.getRegistration(); if (reg) await reg.update(); } catch {}
     await fetch("./?t=" + Date.now(), { cache: "reload" }).catch(() => {});
@@ -6900,7 +6910,7 @@ document.addEventListener("click", e => {
 
 /* ===================== REGOLE GESTIONALE ===================== */
 const RG_ENRICO = "enrico.rosani@dove.it";
-const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Notizia]/[Reminder] dalle chiamate: prima inserisci il nuovo promemoria (la nota: oggi, ora di inserimento + 5 minuti; il richiamo: giorno e ora indicati), poi RISOLVI con il tasto “Risolvi” (Calendario della notizia → “Azione per risolvere il promemoria”) tutti i promemoria precedenti ancora attivi di quella notizia. I vecchi promemoria non vanno MAI cancellati. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza). [Notizia]: la nota va come promemoria nel Calendario della scheda /rumors/<id>. [Documento] (proforma, fatture, verbali): PDF da scaricare dall'app (DV davanti al nome) e da far scegliere nella finestra dei file, da caricare nella pagina dell'immobile /properties/<numero DV> in Documenti → Altri documenti.";
+const RG_REGOLE = "Regole: le note delle notizie vanno messe come promemoria in Calendario nella scheda, per oggi, all'ora di inserimento + 5 minuti (prima non lo accetta). \"no risp risc\" = promemoria domani ore 10:00 \"ric\". \"ric con enrico\" = promemoria + invitare " + RG_ENRICO + " all'evento su Google Calendar. [Notizia]/[Reminder] dalle chiamate: prima inserisci il nuovo promemoria (la nota: oggi, ora di inserimento + 5 minuti; il richiamo: giorno e ora indicati), poi RISOLVI con il tasto “Risolvi” (Calendario della notizia → “Azione per risolvere il promemoria”) tutti i promemoria precedenti ancora attivi di quella notizia. I vecchi promemoria non vanno MAI cancellati. Se una voce non si riesce a fare (scheda non trovata, errore, blocco), saltala, annota il motivo e prosegui con le altre: alla fine elenca quelle non riuscite. [Valutazione] da prequalifica: cerca il telefono in /contacts/search?q=; se c'è la valutazione allega il PDF; se c'è la notizia crea l'appuntamento di valutazione e allega il PDF; se non c'è niente crea prima la notizia coi dati indicati. Il PDF va in Documenti → Report di valutazione (Salva bozza). [Notizia]: la nota va come promemoria nel Calendario della scheda /rumors/<id>. [Documento] (proforma, fatture, verbali): PDF da scaricare dall'app (DV davanti al nome) e da far scegliere nella finestra dei file, da caricare nella pagina dell'immobile /properties/<numero DV> in Documenti → Altri documenti.";
 function rgNextMonday(iso){ let d = xAddDays(iso, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
 /* visita fatta con esito diverso da "non interessato" */
 window.rgVisitaOpinione = function(id, sc){
@@ -7941,7 +7951,7 @@ function ntImport(list, sync){
     } else if (!old.id) r.prossima = x.prossima || "";
     ntColl.put(r); n++;
   }
-  if (sync) {
+  if (sync && list.length) {
     for (const r of ntColl.all()) if (r.src === "gestionale" && !seen.has(r.id) && !r.boGone) { r.boGone = true; ntColl.put(r); }
     ntSyncDoc.data.at = now; ntSyncDoc.data.n = list.length; ntSyncDoc.save();
   }
@@ -8015,9 +8025,9 @@ const NT_BM_SRC = `(async()=>{const w=m=>new Promise(r=>setTimeout(r,m));const s
 if(!/backoffice\\.dove\\.it$/.test(location.hostname)){alert('Apri il gestionale Dove.it (backoffice.dove.it) e premi di nuovo il segnalibro.');return;}
 say('⏳ Leggo le notizie da gestire…');
 const getR=el=>{const k=Object.keys(el).find(k=>k.startsWith('__reactFiber'));let f=el[k];for(let i=0;i<30&&f;i++){const p=f.memoizedProps;if(p){for(const v of Object.values(p)){if(v&&typeof v==='object'&&v.rumor&&v.rumor.id)return v;}if(p.rumor&&p.rumor.id)return p;}f=f.return;}return null;};
-const grab=()=>[...document.querySelectorAll('[aria-label="Visualizza notizia"]')].map(getR).filter(Boolean).map(x=>({boId:String(x.rumor.id),addr:x.rumor.propertyAddress||'',nome:(x.contact&&x.contact.name)||'',tel:(x.contact&&x.contact.phoneNumber)||'',annuncio:(x.rumor.description||'').replace(/\\s+/g,' ').slice(0,160),stato:x.rumor.status||'',prom:(x.reminder&&!x.reminder.resolved&&x.reminder.startDate)||'',promNote:((x.reminder&&x.reminder.notes)||'').slice(0,120),created:x.rumor.createdAt||''}));
-const all={};for(let p=1;p<=25;p++){history.pushState({},'','/rumors/explore?page='+p);dispatchEvent(new PopStateEvent('popstate'));await w(p===1?4500:3500);const g=grab();let a=0;for(const r of g){if(!all[r.boId]){all[r.boId]=r;a++;}}say('⏳ Leggo le notizie da gestire… '+Object.keys(all).length);if(!g.length||!a)break;}
-const list=Object.values(all),data={rz:'notizie',list,at:Date.now()},txt=JSON.stringify(data);let sent=false;
+const rows=()=>{let L=[...document.querySelectorAll('[aria-label="Visualizza notizia"]')].map(getR).filter(Boolean);if(!L.length){const seen={};for(const el of document.querySelectorAll('main *, [aria-label="Lista notizie"] *')){const k=Object.keys(el).find(k=>k.startsWith('__reactFiber'));const p=k&&el[k]&&el[k].memoizedProps;if(!p)continue;for(const v of Object.values(p)){if(v&&typeof v==='object'&&v.rumor&&v.rumor.id&&!seen[v.rumor.id]){seen[v.rumor.id]=1;L.push(v);}}}}return L;};const grab=()=>rows().map(x=>({boId:String(x.rumor.id),addr:x.rumor.propertyAddress||'',nome:(x.contact&&x.contact.name)||'',tel:(x.contact&&x.contact.phoneNumber)||'',annuncio:(x.rumor.description||'').replace(/\\s+/g,' ').slice(0,160),stato:x.rumor.status||'',prom:(x.reminder&&!x.reminder.resolved&&x.reminder.startDate)||'',promNote:((x.reminder&&x.reminder.notes)||'').slice(0,120),created:x.rumor.createdAt||''}));
+const all={};for(let p=1;p<=25;p++){history.pushState({},'','/rumors/explore?page='+p);dispatchEvent(new PopStateEvent('popstate'));await w(p===1?4500:3500);let g=grab();for(let t=0;p===1&&!g.length&&t<4;t++){await w(2500);g=grab();}let a=0;for(const r of g){if(!all[r.boId]){all[r.boId]=r;a++;}}say('⏳ Leggo le notizie da gestire… '+Object.keys(all).length);if(!g.length||!a)break;}
+if(!Object.keys(all).length){say('⚠️ Non ho trovato notizie. Apri Notizie → Da gestire nel gestionale, aspetta che compaia l\'elenco e premi di nuovo il segnalibro.');return;}const list=Object.values(all),data={rz:'notizie',list,at:Date.now()},txt=JSON.stringify(data);let sent=false;
 window.addEventListener('message',e=>{if(e.origin==='https://steww-03.github.io'&&e.data&&e.data.rz==='notizie-ok')say('✅ '+e.data.n+' notizie arrivate in Agente Pro. Puoi tornare sull\\'app.');});
 if(window.opener){try{window.opener.postMessage(data,'https://steww-03.github.io');sent=true;}catch(e){}}
 const b=document.createElement('button');b.textContent='📋 Copia per Agente Pro';b.style.cssText='margin-left:10px;padding:8px 12px;border-radius:9px;border:0;background:#1d4ed8;color:#fff;font-weight:700;cursor:pointer';b.onclick=async()=>{try{await navigator.clipboard.writeText(txt);b.textContent='✓ Copiate: nell\\'app premi “Incolla”';}catch(e){prompt('Copia questo testo e incollalo nell\\'app:',txt);}};
@@ -8039,6 +8049,7 @@ function ntBoOpen(){ try { ntBoWin = window.open("https://backoffice.dove.it/rum
 function ntTakeBo(list, src){
   if (!Array.isArray(list)) return 0;
   const clean = list.filter(x => x && x.boId && /^\d+$/.test(String(x.boId))).map(x => ({ boId: String(x.boId), addr: String(x.addr || "").slice(0, 200), nome: String(x.nome || "").slice(0, 120), tel: String(x.tel || "").slice(0, 30), annuncio: String(x.annuncio || "").slice(0, 300), stato: String(x.stato || "").slice(0, 30), prom: String(x.prom || "").slice(0, 40), promNote: String(x.promNote || "").slice(0, 200), created: String(x.created || "").slice(0, 40) }));
+  if (!clean.length) { toast("⚠️ Dal gestionale non è arrivata nessuna notizia: la lista resta com'era. Apri Notizie → Da gestire e riprova."); return 0; }
   const n = ntImport(clean, true);
   const u = $("nt-upd"); if (u) u.remove();
   if (xCur === "notizie") ntRender();
@@ -8089,6 +8100,113 @@ ntRender = function(){
   }
 };
 XVIEWS.notizie = ntRender;
+
+
+/* ===================== DA FARE NEL GESTIONALE: ROBUSTEZZA ===================== */
+const gqSafeLine = (it, n) => { try { return gqLine(it, n); } catch { try { return `${n}. [${it.tipo || "Voce"}] ${it.cliente || ""}${it.testo ? "\n   Testo: " + String(it.testo).replace(/\n/g, " / ") : ""}${it.link ? "\n   Scheda: " + it.link : ""}`; } catch { return `${n}. (voce non leggibile)`; } } };
+const _gqTodoF = gqTodo;
+gqTodo = function(){ let L = []; try { L = _gqTodoF.apply(this, arguments); } catch { try { L = gqColl.all().filter(x => x && x.stato !== "fatto"); } catch { L = []; } } return L.filter(Boolean).sort((a, b) => (a.skip ? 1 : 0) - (b.skip ? 1 : 0)); };
+function gqFallback(err){
+  const list = (() => { try { return gqColl.all().filter(x => x && x.stato !== "fatto"); } catch { return []; } })();
+  const box = $("gq-list"); if (!box) return;
+  box.innerHTML = `<div class="gq-err">⚠️ Una voce ha dato un problema nel disegnare la lista: te le mostro in forma semplice, puoi andare avanti lo stesso.</div>` + list.map((it, i) => { let t = ""; try { t = esc(gqSafeLine(it, i + 1)).replace(/\n/g, "<br>"); } catch { t = "(voce non leggibile)"; } return `<div class="gq-item"><span class="gq-n">${i + 1}</span><div><div class="tx">${t}</div></div><div class="x-acts"><button type="button" class="x-act call" data-gq-done="${esc(it.id)}">✓ Fatto</button><button type="button" class="x-act danger" data-gq-del="${esc(it.id)}">🗑️</button></div></div>`; }).join("");
+  try { console.warn("gqRender", err); } catch {}
+}
+const _gqRenderF = gqRender;
+gqRender = function(){
+  try { _gqRenderF.apply(this, arguments); } catch (err) { gqFallback(err); }
+  try {
+    /* segna le voci saltate e aggiunge i pulsanti Salta / Riprendi */
+    document.querySelectorAll("#gq-list .gq-item").forEach(el => {
+      const done = el.querySelector("[data-gq-done]"); if (!done) return;
+      const it = gqColl.get(done.dataset.gqDone); if (!it) return;
+      el.classList.toggle("skip", !!it.skip);
+      const b = el.querySelector("b"); if (it.skip && b && !b.querySelector(".gq-skiptag")) b.insertAdjacentHTML("beforeend", `<span class="gq-skiptag">⏭️ Saltata${it.skipWhy ? ": " + esc(it.skipWhy) : ""}</span>`);
+      if (!el.querySelector("[data-gq-skip]")) done.insertAdjacentHTML("afterend", `<button type="button" class="x-act" data-gq-skip="${esc(it.id)}">${it.skip ? "↩️ Riprendi" : "⏭️ Salta"}</button>`);
+    });
+    const tools = document.querySelector("#gq-copyall") && document.querySelector("#gq-copyall").parentElement;
+    if (tools && !$("gq-alldone")) tools.insertAdjacentHTML("beforeend", `<button type="button" class="x-act" id="gq-alldone">✓ Segna tutte come fatte</button>`);
+  } catch {}
+};
+XVIEWS.gestionale = gqRender;
+$("view-gestionale").addEventListener("click", e => {
+  /* copia sempre la lista, anche se una voce dà problemi; le voci saltate restano fuori */
+  if (e.target.closest("#gq-copyall")) {
+    e.stopImmediatePropagation();
+    const all = gqTodo(), todo = all.filter(x => !x.skip), sk = all.length - todo.length;
+    if (!todo.length) { toast(sk ? "Tutte le voci sono saltate: tocca “Riprendi” su quelle da fare" : "La lista è vuota"); return; }
+    let regole = ""; try { regole = RG_REGOLE; } catch {}
+    xCopy(`LISTA DA FARE NEL GESTIONALE DOVE.IT (${todo.length})\n${regole}\n\n` + todo.map((it, i) => gqSafeLine(it, i + 1)).join("\n\n") + (sk ? `\n\n(${sk} ${sk === 1 ? "voce saltata" : "voci saltate"} non incluse)` : ""));
+    return;
+  }
+  const s = e.target.closest("[data-gq-skip]");
+  if (s) { e.stopImmediatePropagation(); const it = gqColl.get(s.dataset.gqSkip); if (!it) return; if (it.skip) { delete it.skip; delete it.skipWhy; toast("↩️ Voce di nuovo da fare"); } else { it.skip = true; const w = prompt("Perché la salti? (facoltativo)", ""); if (w) it.skipWhy = w.slice(0, 120); toast("⏭️ Voce saltata: resta in fondo alla lista"); } gqColl.put(it); gqRender(); return; }
+  const a = e.target.closest("#gq-alldone");
+  if (a) {
+    e.stopImmediatePropagation();
+    const todo = gqTodo().filter(x => !x.skip); if (!todo.length) { toast("Niente da segnare"); return; }
+    if (!a.classList.contains("armed")) { a.classList.add("armed"); a.textContent = `Conferma: ${todo.length} fatte`; clearTimeout(a._t); a._t = setTimeout(() => { a.classList.remove("armed"); a.textContent = "✓ Segna tutte come fatte"; }, 5000); return; }
+    clearTimeout(a._t); const now = Date.now(); for (const it of todo) { it.stato = "fatto"; it.done = now; gqColl.put(it); }
+    toast(`✓ ${todo.length} voci segnate come fatte`); gqRender(); return;
+  }
+}, true);
+
+
+/* ===================== ACCESSO PER ACCOUNT ===================== */
+const RZ_FULL_EMAIL = "stefano.piccioli@dove.it";
+const RZ_LIMITED = ["home", "acq", "zona", "preq", "foto", "calc", "utilita"];
+let RZ_ALL = null, rzAccMode = null;
+const rzEmail = () => (((typeof tok !== "undefined" && tok && tok.email) || knownEmail() || "") + "").toLowerCase();
+const rzFull = () => rzEmail() === RZ_FULL_EMAIL;
+window.rzFull = rzFull;
+function rzApplyAccess(force){
+  try { APPS; } catch { return; }
+  if (!RZ_ALL) RZ_ALL = APPS.slice();
+  const full = rzFull(), mode = full ? "full" : "lim:" + rzEmail();
+  if (mode === rzAccMode && !force) return;
+  rzAccMode = mode;
+  const allow = full ? RZ_ALL : RZ_ALL.filter(v => RZ_LIMITED.includes(v));
+  APPS.splice(0, APPS.length, ...allow);
+  document.body.classList.toggle("rz-limited", !full);
+  document.querySelectorAll("#dd .dd-item[data-view]").forEach(b => { b.hidden = !APPS.includes(b.dataset.view); });
+  document.querySelectorAll("#dd .dd-g").forEach(g => { g.hidden = ![...g.querySelectorAll(".dd-item")].some(b => !b.hidden); });
+  const nav = $("ux-nav");
+  if (nav && !nav.querySelector("[data-rz-lim]")) { const m = nav.querySelector('[data-ux-go="__menu"]'); if (m) m.insertAdjacentHTML("beforebegin", [["acq", "🚪", "Acquisizione"], ["preq", "📝", "Prequalifica"], ["zona", "🗺️", "Zona"]].map(([v, i, l]) => `<button type="button" data-ux-go="${v}" data-rz-lim><span class="i">${i}</span>${l}</button>`).join("")); }
+  document.querySelectorAll("#ux-nav [data-ux-go]").forEach(b => { const v = b.dataset.uxGo; b.hidden = (v !== "__menu" && !APPS.includes(v)) || (b.hasAttribute("data-rz-lim") && full); });
+  if (!full) { const f = $("dd-found"); if (f) f.innerHTML = ""; }
+  try { if (typeof xCur !== "undefined" && xCur && !APPS.includes(xCur)) showView("home"); else if (xCur === "home" && typeof homeRender === "function") homeRender(); } catch {}
+}
+window.rzApplyAccess = rzApplyAccess;
+/* nessuna sezione riservata si apre, nemmeno da link o scorciatoie */
+const _showViewAcc = showView;
+showView = function(v){ rzApplyAccess(); if (RZ_ALL && !APPS.includes(v) && v !== "home") { if (RZ_ALL && RZ_ALL.includes(v) && performance.now() > 4000) toast("🔒 Sezione riservata all'account " + RZ_FULL_EMAIL); v = "home"; } return _showViewAcc.call(this, v); };
+/* Home: avviso e solo le voci consentite */
+const _homeRenderAcc = homeRender;
+homeRender = function(){
+  _homeRenderAcc.apply(this, arguments);
+  if (rzFull()) return;
+  document.querySelectorAll("#view-home [data-home-go]").forEach(b => { if (!APPS.includes(b.dataset.homeGo)) b.remove(); });
+  document.querySelectorAll("#view-home .hm-group").forEach(g => { if (!g.querySelector("[data-home-go]")) g.remove(); });
+  const todo = document.querySelector("#view-home .hm-todo"); if (todo && !todo.querySelector("[data-home-go]")) todo.remove();
+  const main = document.querySelector("#view-home .hm-main");
+  if (main && !$("rz-lim-ban")) { const em = rzEmail(); main.insertAdjacentHTML("afterbegin", `<div class="rz-lim-ban" id="rz-lim-ban"><b>${em ? "Account " + esc(em) + ": vedi le sezioni di acquisizione e gli strumenti." : "Accedi con Google per usare l'app."} Le altre sezioni sono solo per ${RZ_FULL_EMAIL}.</b><button type="button" data-rz-login>${em ? "Cambia account" : "Accedi con Google"}</button></div>`); }
+};
+XVIEWS.home = homeRender;
+document.addEventListener("click", e => { if (e.target.closest("[data-rz-login]")) { try { doLogin(true); } catch { try { doLogin(); } catch {} } } });
+/* con accesso limitato niente voci per il gestionale e niente ricerca di clienti/notizie */
+const _gqAddAcc = window.gqAdd;
+window.gqAdd = function(){ if (!rzFull()) return null; return _gqAddAcc.apply(this, arguments); };
+if (typeof uxSearch === "function") { const _uxS = uxSearch; uxSearch = function(q){ if (!rzFull()) { const f = $("dd-found"); if (f) f.innerHTML = ""; return; } return _uxS.apply(this, arguments); }; }
+setTimeout(() => rzApplyAccess(true), 0);
+setInterval(() => rzApplyAccess(), 1500);
+window.addEventListener("storage", e => { if (e.key === "rz_tok" || e.key === "rz_acct") rzApplyAccess(); });
+
+
+/* ===================== CORREZIONI ===================== */
+/* Centro Messaggi: i pulsanti del periodo (Oggi, Domani, 7 giorni…) stanno fuori dal riquadro filtri, quindi non rispondevano */
+(function(){ const R = $("m-range"); if (!R) return; R.addEventListener("click", e => { const b = e.target.closest("button[data-r]"); if (!b) return; if (mui.range !== b.dataset.r) { mui.range = b.dataset.r; try { watchRange(); } catch {} } try { mRender(); } catch {} }); })();
+/* i pulsanti "vai a…" (data-home-go) funzionano in tutte le sezioni, non solo nella Home */
+document.addEventListener("click", e => { const b = e.target.closest("[data-home-go]"); if (!b || b.closest("#view-home")) return; e.preventDefault(); if (b.closest("#nt-session") && typeof ntSess !== "undefined") { try { ntSess = null; } catch {} } showView(b.dataset.homeGo); });
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
