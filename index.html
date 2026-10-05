@@ -1097,6 +1097,15 @@ body{padding-bottom:84px}
 .zp-badge-vol{background:#e0f2fe!important;color:#075985!important}
 .zsplit #zmap{height:calc(100dvh - var(--ztop,120px) - 120px)}
 @media (max-width:699px){#zmap{height:min(62dvh,640px)}}
+/* ---------- comuni della provincia ---------- */
+.zc-tools{display:flex;flex-direction:column;gap:6px;margin:0 0 8px}
+.zc-tools input{width:100%;min-height:42px;border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:15px;background:var(--surface);color:var(--ink)}
+.zc-tools .zc-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2)}
+.zc-tools button{border:1px solid var(--line);background:var(--surface);border-radius:999px;min-height:32px;padding:0 12px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+.zc-load{padding:28px 16px;text-align:center;color:var(--ink-2);display:flex;flex-direction:column;gap:12px;align-items:center}
+.zc-load b{color:var(--ink);font-size:16px}
+.zc-load button{min-height:42px;border-radius:10px;border:0;background:var(--accent);color:var(--accent-ink,#fff);font-weight:800;padding:0 18px;cursor:pointer}
+.comune.zc-new::after{content:"↓";margin-left:4px;opacity:.45;font-size:.85em}
 /* ---------- gestionale: voci saltate ---------- */
 .gq-item.skip{opacity:.62;border-style:dashed}
 .gq-item .gq-skiptag{display:inline-block;font-size:11.5px;font-weight:800;color:var(--hot);margin-left:6px}
@@ -1107,6 +1116,14 @@ body{padding-bottom:84px}
 .rz-lim-ban b{flex:1;min-width:200px}
 .rz-lim-ban button{min-height:40px;border-radius:10px;border:0;background:var(--accent);color:var(--accent-ink,#fff);font-weight:800;padding:0 14px;cursor:pointer}
 body.rz-limited [data-rz-full]{display:none!important}
+@media (max-width:480px){.view .top-row .sub{display:none}.view .top-row h1{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
+/* ---------- obiettivi modificabili ---------- */
+.ob-edit-btn{min-height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:800;padding:0 14px;cursor:pointer;color:var(--ink)}
+.obm-grid{display:grid;grid-template-columns:1fr auto auto;gap:6px 10px;align-items:center}
+.obm-grid .h{font-size:11px;font-weight:800;color:var(--ink-3);text-transform:uppercase;letter-spacing:.04em}
+.obm-grid input{width:96px;min-height:40px;text-align:right;font-variant-numeric:tabular-nums}
+.obm-grid label{font-size:14px}
+.obm-grid small{display:block;color:var(--ink-3);font-size:11.5px}
 .gq-src{font-size:11px;color:var(--ink-3)}
 #gq-auto{display:flex;flex-direction:column;gap:4px}
 @media (min-width:1000px){ .gq-wrap{grid-template-columns:minmax(0,1fr) minmax(320px,400px)} .gq-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} }
@@ -1639,7 +1656,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         <div class="f-grid">
           <label class="f-field f-full"><span>Indirizzo immobile</span><input class="inp" id="f-ind" autocomplete="street-address" placeholder="Es. Via Roma 12, Seriate" required></label>
           <div class="f-field"><span>Consegna chiavi</span><div class="seg f-keys" role="group" aria-label="Consegna chiavi"><button type="button" data-k="si" aria-pressed="false">✅ Sì</button><button type="button" data-k="no" aria-pressed="false">❌ No</button></div></div>
-          <label class="f-field"><span>Metratura (m²)</span><input class="inp" id="f-mq" type="number" inputmode="numeric" min="1" max="100000" placeholder="Es. 85"></label>
+          <label class="f-field"><span>Metratura (m²)</span><input class="inp" id="f-mq" type="text" inputmode="numeric" autocomplete="off" min="1" max="100000" placeholder="Es. 85"></label>
           <label class="f-field"><span>Tipologia immobile</span><select class="inp" id="f-tipo">
             <option value="">Scegli…</option><option>Appartamento</option><option>Attico</option><option>Villa</option><option>Villetta a schiera</option><option>Rustico / Cascina</option><option>Loft</option><option>Box / Garage</option><option>Negozio</option><option>Ufficio</option><option>Capannone</option><option>Terreno</option><option>Altro</option>
           </select></label>
@@ -1932,7 +1949,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
   </header>
   <main class="x-main ob-main">
     <div class="ob-head x-card">
-      <div class="ob-nav"><button type="button" class="chip" data-ob-m="-1" aria-label="Mese precedente">‹</button><h2 id="ob-title">Obiettivi</h2><button type="button" class="chip" data-ob-m="1" aria-label="Mese successivo">›</button></div>
+      <div class="ob-nav"><button type="button" class="chip" data-ob-m="-1" aria-label="Mese precedente">‹</button><h2 id="ob-title">Obiettivi</h2><button type="button" class="chip" data-ob-m="1" aria-label="Mese successivo">›</button><button type="button" class="ob-edit-btn" id="ob-edit-all">✏️ Modifica obiettivi</button></div>
       <div class="ob-days" id="ob-days"></div>
       <div class="x-bar ob-monthbar"><i id="ob-monthbar"></i></div>
     </div>
@@ -2468,6 +2485,17 @@ const SORTS = [["alfabetico","A-Z"],["stato","Stato"],["civici","N. civici"],["p
 const PAGE = 200;
 
 const $ = id => document.getElementById(id);
+/* legge i numeri come li scrive un italiano: 40.000 · 1.830,50 · 3,5 · € 180.000 · 1 250 */
+function rzNum(v){
+  if (v == null) return null; if (typeof v === "number") return isFinite(v) ? v : null;
+  let s = String(v).trim().replace(/[€\s ']/g, "").replace(/[^\d.,\-]/g, ""); if (!s || !/\d/.test(s)) return null;
+  const neg = s.startsWith("-"); s = s.replace(/-/g, "");
+  const hasC = s.includes(","), hasD = s.includes(".");
+  if (hasC && hasD) { if (s.lastIndexOf(",") > s.lastIndexOf(".")) s = s.replace(/\./g, "").replace(",", "."); else s = s.replace(/,/g, ""); }
+  else if (hasC) { const parts = s.split(","); s = parts.length > 2 ? parts.join("") : parts[0] + "." + parts[1]; }
+  else if (hasD) { const parts = s.split("."); if (parts.length > 2 || (parts[1].length === 3 && parts[0].length >= 1)) s = parts.join(""); }
+  const x = parseFloat(s); return isFinite(x) ? (neg ? -x : x) : null;
+}
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const key = (c, v) => `${c}||${v}`;
 const today = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*6e4).toISOString().slice(0,10); };
@@ -3562,7 +3590,32 @@ async function api(url, opts = {}){
 const CAL = "https://www.googleapis.com/calendar/v3/calendars/primary/events";
 const GM = "https://gmail.googleapis.com/gmail/v1/users/me/messages";
 const DRV = "https://www.googleapis.com/drive/v3/files", DRVU = "https://www.googleapis.com/upload/drive/v3/files";
-let driveFileId = null, driveDoc = {}, driveTimer = null, driveSaving = false, driveAgain = false;
+let driveFileId = null, driveDoc = {}, driveTimer = null, driveSaving = false, driveAgain = false, driveDirty = new Set();
+function rzParse(v){ if (v == null) return v; if (typeof v !== "string") return v; try { return JSON.parse(v); } catch { return v; } }
+function rzMergeVal(remoteV, localV){
+  if (remoteV == null) return localV; if (localV == null) return remoteV;
+  const r = rzParse(remoteV), l = rzParse(localV), asStr = typeof localV === "string";
+  const out = v => asStr ? JSON.stringify(v) : v;
+  try {
+    if (Array.isArray(r) && Array.isArray(l) && l.every(x => x && typeof x === "object" && "id" in x)) {
+      const m = new Map(); for (const x of r) if (x && x.id != null) m.set(x.id, x);
+      for (const x of l) { const o = m.get(x.id); if (!o || (x.updated || 0) >= (o.updated || 0)) m.set(x.id, x); }
+      return out([...m.values()]);
+    }
+    if (r && l && typeof r === "object" && typeof l === "object" && r.vie && l.vie && typeof r.vie === "object") {
+      const vie = Object.assign({}, r.vie);
+      for (const [k, a] of Object.entries(l.vie)) { const b = vie[k]; if (!b || ((a && a.aggiornato) || 0) >= ((b && b.aggiornato) || 0)) vie[k] = a; }
+      return out(Object.assign({}, r, l, { vie }));
+    }
+    if (r && l && typeof r === "object" && typeof l === "object" && !Array.isArray(l) && ("updated" in r || "updated" in l)) return (r.updated || 0) > (l.updated || 0) ? remoteV : localV;
+  } catch {}
+  return localV;
+}
+function rzMergeDocs(remote, local, dirty){
+  const out = Object.assign({}, remote || {});
+  for (const k of Object.keys(local || {})) { if (dirty.has(k)) out[k] = rzMergeVal(out[k], local[k]); else if (!(k in out)) out[k] = local[k]; }
+  return out;
+}
 const stripHtml = s => String(s || "").replace(/<br\s*\/?>/gi, "\n").replace(/<\/(p|div|li)>/gi, "\n").replace(/<[^>]+>/g, "")
   .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&#39;/g, "'").replace(/&quot;/g, '"');
 function b64(d){ const bin = atob(d.replace(/-/g, "+").replace(/_/g, "/")); return new TextDecoder("utf-8").decode(Uint8Array.from(bin, c => c.charCodeAt(0))); }
@@ -3576,7 +3629,12 @@ function bodyText(p){
 async function driveSaveNow(){
   if (driveSaving) { driveAgain = true; return; }
   driveSaving = true;
+  const sending = new Set(driveDirty);
   try {
+    if (driveFileId) {
+      try { const txt = await api(DRV + "/" + driveFileId + "?alt=media"); const remote = typeof txt === "string" ? JSON.parse(txt) : (txt || {}); if (remote && typeof remote === "object") { driveDoc = rzMergeDocs(remote, driveDoc, sending); setTimeout(() => { try { window.rzApplyRemote && rzApplyRemote(); } catch {} }, 0); } }
+      catch (e) { if (e instanceof AuthErr) throw e; }
+    }
     const body = JSON.stringify(driveDoc);
     if (!driveFileId) {
       const fd = new FormData();
@@ -3587,6 +3645,7 @@ async function driveSaveNow(){
     } else {
       await api(DRVU + "/" + driveFileId + "?uploadType=media", { method: "PATCH", headers: { "Content-Type": "application/json" }, body });
     }
+    for (const k of sending) driveDirty.delete(k);
     setSync("Salvato nel tuo Google");
     window.__driveDirty = false;
   } catch (e) { setSync(e instanceof AuthErr ? "Accedi con Google" : "Salvato solo qui"); window.__driveDirty = true; }
@@ -3604,7 +3663,7 @@ const WEBAPI = {
     if (driveFileId) { const txt = await api(DRV + "/" + driveFileId + "?alt=media"); try { driveDoc = typeof txt === "string" ? JSON.parse(txt) : (txt || {}); } catch { driveDoc = {}; } }
     return { data: driveDoc, email: who.email || "" };
   },
-  async saveData(key, json){ driveDoc[key] = json; clearTimeout(driveTimer); driveTimer = setTimeout(() => { driveTimer = null; driveSaveNow(); }, 1200); return true; },
+  async saveData(key, json){ driveDoc[key] = json; driveDirty.add(key); clearTimeout(driveTimer); driveTimer = setTimeout(() => { driveTimer = null; driveSaveNow(); }, 1200); return true; },
   async listEvents(a, b){
     const r = await api(CAL + "?" + new URLSearchParams({ timeMin: a, timeMax: b, singleEvents: "true", orderBy: "startTime", maxResults: "250" }));
     return { events: (r.items || []).map(e => Object.assign({}, e, { description: stripHtml(e.description) })) };
@@ -4164,7 +4223,7 @@ function pqFindComune(text){
   return best ? best.c : "";
 }
 const euro = n => "€ " + Math.round(n).toLocaleString("it-IT");
-const num = v => { const x = parseFloat(String(v || "").replace(",", ".")); return isFinite(x) ? x : null; };
+const num = v => { const x = rzNum(v); return x == null ? null : x; };
 const roundPrice = v => { const step = v >= 300000 ? 5000 : 1000; return Math.round(v / step) * step; };
 function pqValuate(rec){
   const v = rec.v, c = rec.c, pick = g => c[g] || [];
@@ -4373,8 +4432,8 @@ const xAddDays = (iso, n) => { const d = new Date(iso + "T12:00:00"); d.setDate(
 const xDay = iso => new Date(iso + "T12:00:00").toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short" });
 const xHM = ms => new Date(ms).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
 const xDur = min => { min = Math.max(0, Math.round(min)); return min < 60 ? min + " min" : Math.floor(min / 60) + " h" + (min % 60 ? " " + String(min % 60).padStart(2, "0") : ""); };
-const xMoney = v => { const s = String(v == null ? "" : v).replace(/[^\d,]/g, "").replace(",", "."); const x = parseFloat(s); return isFinite(x) ? x : 0; };
-const xPct = v => { const x = parseFloat(String(v == null ? "" : v).replace(",", ".").replace(/[^\d.]/g, "")); return isFinite(x) ? x : 0; };
+const xMoney = v => { const x = rzNum(v); return x == null ? 0 : x; };
+const xPct = v => { const x = rzNum(v); return x == null ? 0 : x; };
 const xEuro = n => "€ " + Math.round(n || 0).toLocaleString("it-IT");
 const xNorm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[’`]/g, "'").replace(/\s+/g, " ").trim();
 const xLogged = () => !!(store && store.gas && tok);
@@ -5128,7 +5187,7 @@ $("view-giro").addEventListener("click", async e => {
     grRecalc(); return;
   }
   const xd = e.target.closest("[data-gr-xdel]"); if (xd) { const P = grPrefs.data; P.extra[grDate] = (P.extra[grDate] || []).filter(x => x.id !== xd.dataset.grXdel); grPrefs.save(); grRecalc(); return; }
-  const ls = e.target.closest("[data-gr-locsave]"); if (ls) { const inp = [...document.querySelectorAll("[data-gr-loc]")].find(x => x.dataset.grLoc === ls.dataset.grLocsave); const v = inp && inp.value.trim(); if (!v) return; grPrefs.data.locs[ls.dataset.grLocsave] = v; grPrefs.save(); grRecalc(); return; }
+  const ls = e.target.closest("[data-gr-locsave]"); if (ls) { const inp = [...document.querySelectorAll("[data-gr-loc]")].find(x => x.dataset.grLoc === ls.dataset.grLocsave); const v = inp && inp.value.trim(); if (!v) { toast("Scrivi l'indirizzo"); if (inp) inp.focus(); return; } grPrefs.data.locs[ls.dataset.grLocsave] = v; grPrefs.save(); toast("📍 Indirizzo salvato: ricalcolo il giro"); grRecalc(); return; }
   const ld = e.target.closest("[data-gr-locdel]"); if (ld) { delete grPrefs.data.locs[ld.dataset.grLocdel]; grPrefs.save(); grRecalc(); return; }
   if (e.target.closest("#gs-depcal")) { if (window.grDepToCal) grDepToCal(); return; }
   if (e.target.closest("#gs-share") && grPlan) {
@@ -5200,7 +5259,7 @@ function obRender(noFetch){
   const val = { ...loc, valut: Math.max(loc.valutStato, cal.valut || 0), visite: cal.visite, foto: cal.foto };
   const T = obDoc.data.targets;
   $("ob-grid").innerHTML = OB_DEF.map(([k, ic, lbl, def, src]) => {
-    const v = val[k], tgt = +T[k] || 0, needCal = ["visite", "foto"].includes(k);
+    const adjM = ((obDoc.data.adj || {})[String(s)] || {}), v = (val[k] == null && !adjM[k]) ? val[k] : Math.max(0, (val[k] || 0) + (+adjM[k] || 0)), tgt = +T[k] || 0, needCal = ["visite", "foto"].includes(k);
     const unknown = v == null, n = v || 0, pct = tgt ? Math.min(100, n / tgt * 100) : 0, hit = tgt && n >= tgt;
     const expected = tgt * frac, pace = expected ? n / expected : 1;
     const col = hit ? "var(--done-bar)" : !cur ? (pct >= 70 ? "var(--todo-bar)" : "var(--hot)") : pace >= 1 ? "var(--done-bar)" : pace >= 0.7 ? "var(--todo-bar)" : "var(--hot)";
@@ -5210,14 +5269,14 @@ function obRender(noFetch){
     else if (cur && tgt) { const fc = wdDone ? Math.round(n / wdDone * wdTot) : 0, left = tgt - n; proj = `${wdDone ? `Di questo passo: ~${fc} a fine mese. ` : ""}Mancano ${left}: ${wdLeft ? `${(left / wdLeft).toFixed(left / wdLeft < 1 ? 1 : 0).replace(".", ",")} al giorno` : "ultimo giorno"}.`; }
     else if (past && tgt) proj = `Mancati di ${tgt - n}`;
     return `<div class="ob-card${hit ? " hit" : ""}"><div class="ob-top"><span class="ic">${ic}</span><b>${lbl}</b></div>
-      <div class="ob-num"><strong>${unknown ? "—" : n}</strong><span>/</span>${obEdit === k ? `<input class="inp" type="number" min="0" inputmode="numeric" data-ob-in="${k}" value="${tgt}">` : `<button type="button" data-ob-edit="${k}" title="Cambia obiettivo">${tgt}</button>`}</div>
+      <div class="ob-num"><strong>${unknown ? "—" : n}</strong><span>/</span>${obEdit === k ? `<input class="inp" type="text" inputmode="numeric" autocomplete="off" data-ob-in="${k}" value="${tgt}">` : `<button type="button" data-ob-edit="${k}" title="Cambia obiettivo">${tgt}</button>`}</div>
       <div class="ob-bar"><i style="width:${pct}%;background:${col}"></i>${cur && tgt ? `<u style="left:${Math.min(100, frac * 100)}%" title="Dove dovresti essere oggi"></u>` : ""}</div>
       <div class="ob-proj">${esc(proj)}</div><div class="ob-src">${src}</div></div>`;
   }).join("");
   if (obEdit) { const i = document.querySelector(`[data-ob-in="${obEdit}"]`); if (i) { i.focus(); i.select(); } }
 }
 XVIEWS.obiettivi = () => obRender(false);
-function obCommit(k, v){ const n = Math.max(0, Math.round(+v || 0)); obDoc.data.targets = Object.assign({}, obDoc.data.targets, { [k]: n }); obDoc.save(); obEdit = null; obRender(true); }
+function obCommit(k, v){ const n = Math.max(0, Math.round(rzNum(v) || 0)); obDoc.data.targets = Object.assign({}, obDoc.data.targets, { [k]: n }); obDoc.save(); obEdit = null; obRender(true); }
 $("view-obiettivi").addEventListener("click", e => {
   const m = e.target.closest("[data-ob-m]"); if (m) { obOff = Math.min(0, obOff + +m.dataset.obM); obEdit = null; obRender(false); return; }
   const ed = e.target.closest("[data-ob-edit]"); if (ed) { obEdit = ed.dataset.obEdit; obRender(true); }
@@ -5995,7 +6054,7 @@ function aqVolHtml(){
     <div class="x-grid">
       <label class="x-f"><span>Giorno</span><input class="inp" id="aq-v-data" type="date" value="${today0()}"></label>
       <label class="x-f"><span>Comune</span><input class="inp" id="aq-v-com" list="aq-v-coms" placeholder="Es. Seriate"><datalist id="aq-v-coms">${coms.map(c => `<option value="${esc(c)}">`).join("")}</datalist></label>
-      <label class="x-f"><span>Quanti volantini</span><input class="inp" id="aq-v-qta" type="number" inputmode="numeric" min="0" placeholder="Es. 300"></label>
+      <label class="x-f"><span>Quanti volantini</span><input class="inp" id="aq-v-qta" type="text" inputmode="numeric" autocomplete="off" min="0" placeholder="Es. 300"></label>
     </div>
     <label class="x-f"><span>Vie</span><div class="x-row"><input class="inp x-grow" id="aq-v-via" list="aq-v-streets" placeholder="Scrivi la via e premi ＋"><datalist id="aq-v-streets"></datalist><button type="button" class="tool" id="aq-v-add">＋</button><button type="button" class="tool" id="aq-v-oggi" title="Le vie segnate oggi in Ricerca Zona">Da Ricerca Zona</button></div></label>
     <div class="aq-vie" id="aq-v-vie">${aqVie.map((v, i) => `<span>${esc(v)}<button type="button" data-aq-vdel="${i}" aria-label="Togli">×</button></span>`).join("")}</div>
@@ -6071,7 +6130,7 @@ $("view-acq").addEventListener("click", async e => {
   if (t.closest("#aq-v-add")) { const v = $("aq-v-via").value.trim(); if (v && !aqVie.includes(v)) aqVie.push(v); $("aq-v-via").value = ""; aqRefreshVie(); $("aq-v-via").focus(); return; }
   if (t.closest("#aq-v-oggi")) { const d = (typeof diary !== "undefined" && diary[today0()]) || null; const its = d ? Object.values(d.items || {}) : []; if (!its.length) { toast("Oggi non hai ancora segnato vie in Ricerca Zona"); return; } for (const i of its) if (!aqVie.includes(i.via)) aqVie.push(i.via); if (!$("aq-v-com").value && its[0]) $("aq-v-com").value = its[0].comune; aqRefreshVie(); return; }
   const vd = t.closest("[data-aq-vdel]"); if (vd) { aqVie.splice(+vd.dataset.aqVdel, 1); aqRefreshVie(); return; }
-  if (t.closest("#aq-v-save")) { const com = $("aq-v-com").value.trim(), qta = +$("aq-v-qta").value || 0; if (!com) { $("aq-v-com").classList.add("bad"); return; }
+  if (t.closest("#aq-v-save")) { const com = $("aq-v-com").value.trim(), qta = Math.round(rzNum($("aq-v-qta").value) || 0); if (!com) { $("aq-v-com").classList.add("bad"); return; }
     aqVol.put({ id: xId("vo"), data: $("aq-v-data").value || today0(), comune: com, qta, vie: aqVie.slice(), note: $("aq-v-note").value.trim() }); aqVie = []; toast("Volantinaggio salvato"); aqRender(); return; }
   if (t.closest("#aq-s-save")) { const nome = $("aq-s-nome").value.trim(); if (!nome) { $("aq-s-nome").classList.add("bad"); return; }
     const gg = +$("aq-s-gg").value || 30; aqSv.put({ id: xId("sv"), nome, ruolo: $("aq-s-ruolo").value, tel: $("aq-s-tel").value.trim(), zona: $("aq-s-zona").value.trim(), gg, last: "", due: today0(), log: [] }); toast("Contatto salvato"); aqRender(); return; }
@@ -6096,7 +6155,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610051115";
+const APP_VER = "v1-202610052106";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -6574,7 +6633,7 @@ function pzCard(){
   el.innerHTML = `<div class="pz-name">${esc(c)} <span class="x-badge">${prov === "BG" ? "Bergamo" : "Brescia"}</span></div>
     <div class="pz-big">${euro(p)} <small>/m²</small></div>
     <div class="pz-meta"><span class="${diff > 0 ? "up" : "dn"}">${diff > 0 ? "+" : ""}${diff}% sulla media della provincia (${euro(avg)})</span><span>${r}° su ${n} in provincia</span>${om ? `<span>OMI ${euro(om[0])}–${euro(om[1])}</span>` : ""}</div>
-    <div class="pz-est">Per <input class="inp" id="pz-mq" type="number" inputmode="numeric" value="${mq}" min="10"> m² ≈ <b>${pzK(p * mq * 0.9)} – ${pzK(p * mq * 1.1)}</b></div>
+    <div class="pz-est">Per <input class="inp" id="pz-mq" type="text" inputmode="numeric" autocomplete="off" value="${mq}" min="10"> m² ≈ <b>${pzK(p * mq * 0.9)} – ${pzK(p * mq * 1.1)}</b></div>
     <div class="x-acts" style="margin-top:10px"><button type="button" class="x-act" id="pz-add"${pzUi.cmp.includes(c) ? " disabled" : ""}>⚖️ Confronta</button><a class="x-act wa" href="${esc(xWa("", txt))}" target="_blank" rel="noopener">💬 Invia</a><button type="button" class="x-act" id="pz-copy">📋</button></div>`;
   el.dataset.txt = txt;
 }
@@ -6600,7 +6659,7 @@ XVIEWS.prezzi = pzRender;
 function pzPick(c){ pzUi.sel = c; pzSave(); pzCard(); pzRank(); if (innerWidth < 1000 && $("pz-card").scrollIntoView) $("pz-card").scrollIntoView({ behavior: "smooth", block: "center" }); }
 $("view-prezzi").addEventListener("input", e => {
   if (e.target.id === "pz-q") { const c = PQ_BYNORM[pqNorm(e.target.value)]; if (c) { pzPick(c); e.target.value = ""; e.target.blur(); } return; }
-  if (e.target.id === "pz-mq") { pzUi.mq = +e.target.value || 90; pzSave(); const pos = e.target.selectionStart; pzCard(); const m = $("pz-mq"); m.focus(); try { m.setSelectionRange(pos, pos); } catch {} }
+  if (e.target.id === "pz-mq") { pzUi.mq = Math.round(rzNum(e.target.value) || 0) || 90; pzSave(); const pos = e.target.selectionStart; pzCard(); const m = $("pz-mq"); m.focus(); try { m.setSelectionRange(pos, pos); } catch {} }
 });
 $("view-prezzi").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.id === "pz-q") { const q = pqNorm(e.target.value), c = PQ_COMUNI.find(x => pqNorm(x).startsWith(q)); if (c) { pzPick(c); e.target.value = ""; } } });
 $("view-prezzi").addEventListener("click", e => {
@@ -6913,7 +6972,7 @@ window.vxBox = a => {
   const st = vxState(a);
   if (!st) return ""; /* la domanda è nel riquadro in cima alla lista */
   return st.esito === "si"
-    ? `<div class="vx ok"><b>✅ Visita fatta · reminder “da sentire per opinione sulla visita” per ${esc(xDay(st.data))} nella lista del gestionale</b><button type="button" class="ch" data-vs-open="${esc(a.id)}">📝 Scheda visita</button><button type="button" class="ch" data-a="vxreset">Cambia</button></div>`
+    ? `<div class="vx ok"><b>✅ Visita fatta${st.data ? ` · reminder “da sentire per opinione sulla visita” per ${esc(xDay(st.data))} nella lista del gestionale` : " · nessun promemoria (il lunedì dopo era già passato)"}</b><button type="button" class="ch" data-vs-open="${esc(a.id)}">📝 Scheda visita</button><button type="button" class="ch" data-a="vxreset">Cambia</button></div>`
     : `<div class="vx ko"><b>❌ Non fatta · da segnare come annullata e reminder “sentire cliente per rifissare” ${esc(xDay(st.data))} alle 10:00 nella lista del gestionale</b><button type="button" class="ch" data-a="vxreset">Cambia</button></div>`;
 };
 function vxDropPending(keys){ for (const it of gqColl.all()) if (keys.includes(it.key) && it.stato !== "fatto") gqColl.remove(it.id); }
@@ -6923,12 +6982,11 @@ window.vxAnswer = (a, done) => {
   const base = { cliente: a.clientName, tel: a.phoneDisplay || a.phone || "", link: a.boLink || "", fonte: "Centro Messaggi · visita" + (a.dvCode ? " " + a.dvCode : "") };
   if (done) {
     const today = xISO(Date.now());
-    let dFinal = vxNextMonday(visitISO);
-    if (dFinal < today) dFinal = new Date(today + "T12:00").getDay() === 1 ? today : vxNextMonday(today);
+    const R = rzVisitReminder(visitISO), dFinal = R ? R.data : "";
     vxDropPending(["vxa:" + a.id]);
-    gqAdd(Object.assign({ key: "vx:" + a.id, tipo: "Reminder", data: dFinal, ora: "10:00", testo: "da sentire per opinione sulla visita" }, base));
+    if (R) gqAdd(Object.assign({ key: "vx:" + a.id, tipo: "Reminder", data: R.data, ora: R.ora, testo: "da sentire per opinione sulla visita" }, base));
     crm.vx[a.id] = { esito: "si", data: dFinal, at: Date.now() };
-    toast("✅ Reminder per " + xDay(dFinal) + " aggiunto alla lista del gestionale");
+    toast(R ? "✅ Reminder per " + xDay(R.data) + (R.ora !== "10:00" ? " alle " + R.ora : "") + " aggiunto alla lista del gestionale" : "✅ Visita segnata. Il lunedì dopo la visita è già passato: nessun promemoria");
   } else {
     const d = vxDayAfter(visitISO);
     gqAdd(Object.assign({ key: "vxa:" + a.id, tipo: "Annulla visita", data: "", ora: "", testo: `Segnare come ANNULLATA la visita di ${when}${a.dvCode ? " (" + a.dvCode + ")" : ""}` }, base));
@@ -6972,9 +7030,8 @@ window.rgVisitaOpinione = function(id, sc){
   for (const it of gqColl.all()) if (it.key === key && it.stato !== "fatto") gqColl.remove(it.id);
   if (sc.esito === "no" || !gqCfg.data.visite) { gqBadge(); return; }
   const today = xISO(Date.now()), visit = sc.ev && sc.ev.s ? xISO(new Date(sc.ev.s)) : today;
-  let d = rgNextMonday(visit);
-  if (d < today || (d === today && new Date().getHours() * 60 + new Date().getMinutes() > 9 * 60 + 50)) d = rgNextMonday(today);
-  gqAdd({ key, tipo: "Reminder", cliente: (sc.ev && sc.ev.cliente) || "", tel: (sc.ev && sc.ev.tel) || "", link: (sc.ev && sc.ev.link) || "", data: d, ora: "10:00", testo: "chiedere opinione immobile", fonte: "Scheda visita " + ((sc.ev && sc.ev.dv) || "") });
+  const R = rzVisitReminder(visit); if (!R) { gqBadge(); return; }
+  gqAdd({ key, tipo: "Reminder", cliente: (sc.ev && sc.ev.cliente) || "", tel: (sc.ev && sc.ev.tel) || "", link: (sc.ev && sc.ev.link) || "", data: R.data, ora: R.ora, testo: "chiedere opinione immobile", fonte: "Scheda visita " + ((sc.ev && sc.ev.dv) || "") });
 };
 /* promemoria da mettere per una notizia, dalla nota scritta */
 function rgPlan(it){
@@ -7541,7 +7598,7 @@ window.feJpegFromRaw = feJpegFromRaw; window.feLut = feLut;
 const BO = "https://backoffice.dove.it";
 const rdNowPlus5 = () => { const d = new Date(Date.now() + 5 * 60e3); return d.toTimeString().slice(0, 5); };
 const rdFmtDT = (d, t) => new Date(d + "T12:00").toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short" }) + (t ? " ore " + t : "");
-const rdNum = s => { const n = parseInt(String(s || "").replace(/[^\d]/g, ""), 10); return isNaN(n) ? 0 : n; };
+const rdNum = s => { const n = Math.round(rzNum(s) || 0); return isNaN(n) ? 0 : n; };
 
 /* ---------- 1 · SESSIONE CHIAMATE NOTIZIE ---------- */
 const ntColl = xColl("rz_notizie_v1", "notizie");
@@ -7784,12 +7841,12 @@ function odRender(){
   const el = $("od-card"); if (!el) return; const D = odDoc.data, now = new Date(), end = new Date(now.getFullYear(), 11, 31), weeks = Math.max(1, Math.ceil((end - now) / (7 * 864e5)));
   const y = now.getFullYear(), earned = icColl.all().filter(r => String(r.data).startsWith(String(y))).reduce((s, r) => s + (rdNum(r.comm) || Math.round(rdNum(r.importo) * (rdNum(r.quota) || 0) / 100)), 0);
   const item = (k, ic, l) => { const [f, p] = D[k] || [0, 0], left = Math.max(0, p - f), pw = left / weeks, pct = p ? Math.round(f / p * 100) : 0, yearPct = Math.round((now - new Date(y, 0, 1)) / (end - new Date(y, 0, 1)) * 100);
-    return `<div class="od-it"><span>${ic} <b>${l}</b></span><span class="n">${f} / ${p}</span><div class="x-bar"><i style="width:${Math.min(100, pct)}%"></i></div><span class="od-need ${pct >= yearPct ? "ok" : "bad"}">${left ? `${pw >= 1 ? Math.ceil(pw) : pw.toFixed(1).replace(".", ",")} a settimana per arrivarci` : "✓ obiettivo raggiunto"} · ${pct}% (anno al ${yearPct}%)</span><span class="x-note">Fatti <input type="number" min="0" data-od="${k}" data-od-i="0" value="${f}"> di <input type="number" min="0" data-od="${k}" data-od-i="1" value="${p}"></span></div>`; };
-  el.innerHTML = `<div class="x-card od"><h3>🎯 Obiettivi Dove.it ${y}</h3><div class="od-grid">${item("notizie", "📰", "Notizie")}${item("valutazioni", "📐", "Valutazioni")}${item("mandati", "✍️", "Mandati")}${item("vendite", "🤝", "Vendite")}<div class="od-it"><span>💶 <b>Guadagno</b></span><span class="n">${xEuro(earned)} / ${xEuro(D.guadagno || 0)}</span><div class="x-bar"><i style="width:${D.guadagno ? Math.min(100, Math.round(earned / D.guadagno * 100)) : 0}%"></i></div><span class="x-note">Dagli incassi in Contabilità · obiettivo <input type="number" min="0" step="1000" data-od="guadagno" value="${D.guadagno || 0}"></span></div></div><div class="x-note">Numeri del gestionale aggiornati al ${esc(xDay(D.at))}. Li aggiorno io dalla Dashboard quando mi scrivi “aggiorna gli obiettivi”, oppure li correggi qui.</div></div>`;
+    return `<div class="od-it"><span>${ic} <b>${l}</b></span><span class="n">${f} / ${p}</span><div class="x-bar"><i style="width:${Math.min(100, pct)}%"></i></div><span class="od-need ${pct >= yearPct ? "ok" : "bad"}">${left ? `${pw >= 1 ? Math.ceil(pw) : pw.toFixed(1).replace(".", ",")} a settimana per arrivarci` : "✓ obiettivo raggiunto"} · ${pct}% (anno al ${yearPct}%)</span><span class="x-note">Fatti <input type="text" inputmode="decimal" autocomplete="off" min="0" data-od="${k}" data-od-i="0" value="${f}"> di <input type="text" inputmode="decimal" autocomplete="off" min="0" data-od="${k}" data-od-i="1" value="${p}"></span></div>`; };
+  el.innerHTML = `<div class="x-card od"><h3>🎯 Obiettivi Dove.it ${y}</h3><div class="od-grid">${item("notizie", "📰", "Notizie")}${item("valutazioni", "📐", "Valutazioni")}${item("mandati", "✍️", "Mandati")}${item("vendite", "🤝", "Vendite")}<div class="od-it"><span>💶 <b>Guadagno</b></span><span class="n">${xEuro(earned)} / ${xEuro(D.guadagno || 0)}</span><div class="x-bar"><i style="width:${D.guadagno ? Math.min(100, Math.round(earned / D.guadagno * 100)) : 0}%"></i></div><span class="x-note">Dagli incassi in Contabilità · obiettivo <input type="text" inputmode="decimal" autocomplete="off" min="0" step="1000" data-od="guadagno" value="${D.guadagno || 0}"></span></div></div><div class="x-note">Numeri del gestionale aggiornati al ${esc(xDay(D.at))}. Li aggiorno io dalla Dashboard quando mi scrivi “aggiorna gli obiettivi”, oppure li correggi qui.</div></div>`;
 }
 const _obRenderOd = obRender; obRender = function(){ const r = _obRenderOd.apply(this, arguments); odRender(); return r; };
 XVIEWS.obiettivi = obRender;
-$("view-obiettivi").addEventListener("change", e => { const k = e.target.dataset.od; if (!k) return; const v = Math.max(0, parseInt(e.target.value, 10) || 0); if (k === "guadagno") odDoc.data.guadagno = v; else { const a = (odDoc.data[k] || [0, 0]).slice(); a[+e.target.dataset.odI] = v; odDoc.data[k] = a; } odDoc.data.at = xISO(Date.now()); odDoc.save(); odRender(); });
+$("view-obiettivi").addEventListener("change", e => { const k = e.target.dataset.od; if (!k) return; const v = Math.max(0, Math.round(rzNum(e.target.value) || 0)); if (k === "guadagno") odDoc.data.guadagno = v; else { const a = (odDoc.data[k] || [0, 0]).slice(); a[+e.target.dataset.odI] = v; odDoc.data[k] = a; } odDoc.data.at = xISO(Date.now()); odDoc.save(); odRender(); });
 
 /* ---------- 7 · AVVISA TUTTI GLI ACQUIRENTI INTERESSATI (Incrocio) ---------- */
 let mtBc = null;
@@ -7950,7 +8007,16 @@ $("view-gestionale").addEventListener("click", e => {
 
 /* ===================== AGGIORNAMENTO AUTOMATICO DEI DATI ===================== */
 /* la pagina si ridisegna da sola quando cambia la lista e ricarica i dati da Google (altri dispositivi) */
-const LIVE_VIEWS = ["gestionale", "home", "notizie", "mandati", "conta", "obiettivi", "clienti"];
+const LIVE_VIEWS = ["gestionale", "home", "notizie", "mandati", "conta", "obiettivi", "clienti", "zona"];
+function rzApplyRemote(){
+  let changed = false;
+  XCOLLS.forEach(c => { c.merged = false; try { if (c.merge()) changed = true; } catch {} });
+  try { for (const [k, v] of Object.entries(driveDoc)) { if (!k.startsWith("z_")) continue; const b = JSON.parse(v); for (const [via, a] of Object.entries((b && b.vie) || {})) { const kk = key(b.comune, via), x = ann[kk]; if (sheet && sheet.via === via && (sheet.comune || ui.comune) === b.comune) continue; if (a && (!x || (a.aggiornato || 0) > (x.aggiornato || 0))) { ann[kk] = a; changed = true; } } } if (changed) lsSet(LS_KEY, ann); } catch {}
+  if (changed) { try { if (xCur === "zona") render(); else if (!liveTyping() && LIVE_VIEWS.includes(xCur) && XVIEWS[xCur]) XVIEWS[xCur](); } catch {} }
+  try { gqBadge(); } catch {}
+  return changed;
+}
+window.rzApplyRemote = rzApplyRemote;
 const liveTyping = () => { const a = document.activeElement; return a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.type !== "checkbox" && a.type !== "radio" && a.id !== "dd-search"; };
 let liveT = null;
 function liveRedraw(){ clearTimeout(liveT); liveT = setTimeout(() => { try { if (liveTyping()) return; if (xCur === "gestionale") gqRender(); else if (xCur === "home" && typeof homeRender === "function") homeRender(); gqBadge(); } catch {} }, 150); }
@@ -7965,11 +8031,8 @@ async function livePull(force){
     if (driveTimer || driveSaving) return;
     const remote = typeof txt === "string" ? JSON.parse(txt) : (txt || {});
     const before = JSON.stringify(driveDoc);
-    Object.assign(driveDoc, remote);
-    if (JSON.stringify(driveDoc) === before) return;
-    XCOLLS.forEach(c => { c.merged = false; try { c.merge(); } catch {} });
-    if (!liveTyping() && LIVE_VIEWS.includes(xCur) && XVIEWS[xCur]) XVIEWS[xCur]();
-    gqBadge();
+    for (const k of Object.keys(remote)) if (!driveDirty.has(k)) driveDoc[k] = remote[k];
+    rzApplyRemote();
   } catch {} finally { livePulling = false; }
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden) livePull(true); });
@@ -8067,7 +8130,7 @@ ntRender = function(){
   });
   let s = $("nt-syncinfo"); const bar = document.querySelector("#view-notizie .nt-bar");
   if (!s && bar) { bar.insertAdjacentHTML("beforeend", `<div class="nt-syncinfo" id="nt-syncinfo"></div>`); s = $("nt-syncinfo"); }
-  if (s) { const a = ntSyncDoc.data.at; s.innerHTML = a ? `🔄 Notizie da gestire del gestionale aggiornate <b>${esc(new Date(a).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}</b> (${ntSyncDoc.data.n}) · si aggiornano ogni mattina` : "🔄 Le notizie da gestire del gestionale arrivano qui ogni mattina."; }
+  if (s) { const a = ntSyncDoc.data.at; s.innerHTML = a ? `🔄 Notizie da gestire del gestionale aggiornate <b>${esc(new Date(a).toLocaleString("it-IT", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}</b> (${ntSyncDoc.data.n}) · per aggiornarle tocca 🔄 Aggiorna lista` : "🔄 Tocca “🔄 Aggiorna lista” per portare qui le notizie da gestire del gestionale."; }
 };
 XVIEWS.notizie = ntRender;
 if (typeof LIVE_VIEWS !== "undefined" && !LIVE_VIEWS.includes("notizie")) LIVE_VIEWS.push("notizie");
@@ -8079,7 +8142,7 @@ const NT_BM_SRC = `(async()=>{const w=m=>new Promise(r=>setTimeout(r,m));const s
 if(!/backoffice\\.dove\\.it$/.test(location.hostname)){alert('Apri il gestionale Dove.it (backoffice.dove.it) e premi di nuovo il segnalibro.');return;}
 say('⏳ Leggo le notizie da gestire…');
 const getR=el=>{const k=Object.keys(el).find(k=>k.startsWith('__reactFiber'));let f=el[k];for(let i=0;i<30&&f;i++){const p=f.memoizedProps;if(p){for(const v of Object.values(p)){if(v&&typeof v==='object'&&v.rumor&&v.rumor.id)return v;}if(p.rumor&&p.rumor.id)return p;}f=f.return;}return null;};
-const rows=()=>{let L=[...document.querySelectorAll('[aria-label="Visualizza notizia"]')].map(getR).filter(Boolean);if(!L.length){const seen={};for(const el of document.querySelectorAll('main *, [aria-label="Lista notizie"] *')){const k=Object.keys(el).find(k=>k.startsWith('__reactFiber'));const p=k&&el[k]&&el[k].memoizedProps;if(!p)continue;for(const v of Object.values(p)){if(v&&typeof v==='object'&&v.rumor&&v.rumor.id&&!seen[v.rumor.id]){seen[v.rumor.id]=1;L.push(v);}}}}return L;};const grab=()=>rows().map(x=>({boId:String(x.rumor.id),addr:x.rumor.propertyAddress||'',nome:(x.contact&&x.contact.name)||'',tel:(x.contact&&x.contact.phoneNumber)||'',annuncio:(x.rumor.description||'').replace(/\\s+/g,' ').slice(0,160),stato:x.rumor.status||'',prom:(x.reminder&&!x.reminder.resolved&&x.reminder.startDate)||'',promNote:((x.reminder&&x.reminder.notes)||'').slice(0,120),created:x.rumor.createdAt||''}));
+const rows=()=>{const seen={},L=[];const add=v=>{if(v&&typeof v==='object'&&v.rumor&&v.rumor.id&&!seen[v.rumor.id]){seen[v.rumor.id]=1;L.push(v);}};for(const el of document.querySelectorAll('body *')){const k=Object.keys(el).find(k=>k.startsWith('__reactFiber'));const p=k&&el[k]&&el[k].memoizedProps;if(!p)continue;for(const v of Object.values(p)){if(Array.isArray(v)){for(const x of v)add(x);}else add(v);}}if(!L.length){for(const el of document.querySelectorAll('[aria-label="Visualizza notizia"],[aria-label="Vai alla pagina della notizia"],[aria-label="simple-table-row"]'))add(getR(el));}return L;};const grab=()=>rows().map(x=>({boId:String(x.rumor.id),addr:x.rumor.propertyAddress||'',nome:(x.contact&&x.contact.name)||'',tel:(x.contact&&x.contact.phoneNumber)||'',annuncio:(x.rumor.description||'').replace(/\\s+/g,' ').slice(0,160),stato:x.rumor.status||'',prom:(x.reminder&&!x.reminder.resolved&&x.reminder.startDate)||'',promNote:((x.reminder&&x.reminder.notes)||'').slice(0,120),created:x.rumor.createdAt||''}));
 const all={};for(let p=1;p<=25;p++){history.pushState({},'','/rumors/explore?page='+p);dispatchEvent(new PopStateEvent('popstate'));await w(p===1?4500:3500);let g=grab();for(let t=0;p===1&&!g.length&&t<4;t++){await w(2500);g=grab();}let a=0;for(const r of g){if(!all[r.boId]){all[r.boId]=r;a++;}}say('⏳ Leggo le notizie da gestire… '+Object.keys(all).length);if(!g.length||!a)break;}
 if(!Object.keys(all).length){say('⚠️ Non ho trovato notizie. Apri Notizie → Da gestire nel gestionale, aspetta che compaia l\'elenco e premi di nuovo il segnalibro.');return;}const list=Object.values(all),data={rz:'notizie',list,at:Date.now()},txt=JSON.stringify(data);let sent=false;
 window.addEventListener('message',e=>{if(e.origin==='https://steww-03.github.io'&&e.data&&e.data.rz==='notizie-ok')say('✅ '+e.data.n+' notizie arrivate in Agente Pro. Puoi tornare sull\\'app.');});
@@ -8096,7 +8159,7 @@ function ntUpdBox(){
     <ol><li>Ho aperto il gestionale in un'altra scheda (pagina Notizie).</li><li>Lì premi il segnalibro <b>📥 Notizie → Agente Pro</b>.</li><li>Torna qui: la lista si aggiorna da sola, con tutte le notizie da gestire di oggi, quante che siano.</li></ol>
     <div class="row"><a class="bm" href="${esc(NT_BM)}" draggable="true" data-nt-bm>📥 Notizie → Agente Pro</a><span class="x-note">Prima volta: <b>trascina</b> questo pulsante nella barra dei preferiti (Ctrl+Maiusc+B per mostrarla).</span></div>
     <div class="row"><button type="button" class="x-act" data-nt-paste-bo>📋 Incolla (se le hai copiate)</button><button type="button" class="x-act" data-nt-reopen>🔗 Riapri il gestionale</button><button type="button" class="x-act" data-nt-updx>Chiudi</button></div>
-    <div class="x-note">Dal telefono o dall'iPad: scrivi a Claude “aggiorna le notizie”. In ogni caso la lista si aggiorna da sola ogni mattina.</div>
+    <div class="x-note">Dal telefono o dall'iPad: scrivi a Claude “aggiorna le notizie”.</div>
   </div>`);
 }
 function ntBoOpen(){ try { ntBoWin = window.open("https://backoffice.dove.it/rumors/explore", "rz_bo"); } catch { ntBoWin = null; } }
@@ -8253,7 +8316,7 @@ drawSheet = function(){
   const ags = {}; for (const c of S.civici) for (const e of c.esiti || []) if (e.e === "cartello") ags[e.ag || "Agenzia"] = (ags[e.ag || "Agenzia"] || 0) + 1;
   const html = `<div class="zp-box"><div class="row"><b>🔔 Ripassa dopo</b><select class="inp" id="zp-rip" style="width:auto">${[[0, "60 giorni (normale)"], [30, "1 mese"], [90, "3 mesi"], [180, "6 mesi"], [365, "1 anno"]].map(([v, l]) => `<option value="${v}"${(+S.ripassoGiorni || 0) === v ? " selected" : ""}>${l}</option>`).join("")}</select></div></div>
     <div class="zp-box"><div class="row"><b>📬 Volantini</b><small>${vols.length ? `ultimo ${esc(fmtDate(vols[0].data))} · ${vols.length} ${vols.length === 1 ? "volta" : "volte"} · ${qta} volantini · ${calls.length} ${calls.length === 1 ? "chiamata" : "chiamate"}` : "mai lasciati in questa via"}</small></div>
-      <div class="row"><input class="inp" id="zp-vq" type="number" inputmode="numeric" min="0" placeholder="Quanti" style="max-width:110px"><button type="button" class="btn" data-zp-vol>Segna volantinaggio di oggi</button></div></div>
+      <div class="row"><input class="inp" id="zp-vq" type="text" inputmode="numeric" autocomplete="off" min="0" placeholder="Quanti" style="max-width:110px"><button type="button" class="btn" data-zp-vol>Segna volantinaggio di oggi</button></div></div>
     ${Object.keys(ags).length ? `<div class="zp-box"><b>🏷️ Agenzie in questa via</b><div class="zp-chips">${Object.entries(ags).map(([a, n]) => `<span>${esc(a)} · ${n}</span>`).join("")}</div></div>` : ""}`;
   if (anchor) anchor.insertAdjacentHTML("afterend", html); else body.insertAdjacentHTML("beforeend", html);
   /* esiti su ogni civico */
@@ -8269,7 +8332,7 @@ document.addEventListener("click", e => {
   const st = e.target.closest("[data-zp-step]"); if (st) { const i = $("zp-num"), n = parseInt(i.value, 10); i.value = isNaN(n) ? "" : String(Math.max(1, n + +st.dataset.zpStep)); i.focus(); return; }
   const ce = e.target.closest("[data-zp-cesito]"); if (ce) { const civ = ce.closest("[data-i]"), c = civ && sheet.civici[+civ.dataset.i]; if (!c) return; const i = $("zp-num"); if (i) i.value = c.numero; if (ce.dataset.zpCesito === "cartello") { const a = prompt("Nome dell'agenzia del cartello:", c.agenzia || ""); if (a === null) return; zpAgOpen = true; zpRedraw(c.numero, "zp-num"); const ag = $("zp-ag"); if (ag) ag.value = a; } zpEsito(ce.dataset.zpCesito); return; }
   if (e.target.closest("[data-zp-vol]")) {
-    const q = +($("zp-vq").value || 0); if (!q) { toast("Scrivi quanti volantini hai lasciato"); $("zp-vq").focus(); return; }
+    const q = Math.round(rzNum($("zp-vq").value) || 0); if (!q) { toast("Scrivi quanti volantini hai lasciato"); $("zp-vq").focus(); return; }
     try { aqVol.put({ id: xId("vo"), data: zpToday(), comune: ui.comune, qta: q, vie: [sheet.via], note: "Dalla Ricerca Zona" }); } catch { toast("Non riesco a salvare il volantinaggio"); return; }
     try { readTexts(); } catch {} if (!sheet.ultimoPassaggio) sheet.ultimoPassaggio = zpToday(); zpSaveQuiet(); toast(`📬 ${q} volantini segnati in ${sheet.via}`); zpRedraw(); return;
   }
@@ -8301,6 +8364,7 @@ async function zpHere(){
   if (!com) { for (const c of [...new Set([zmapComune, ui.comune].filter(Boolean))]) { try { await loadGeo(c); } catch { continue; } if (zpNearest(c, pos)) { com = c; break; } } }
   if (!com) { toast(city ? `${city} non è tra i comuni dello stradario` : "Non riesco a capire in che comune sei"); return; }
   zpSetComune(com);
+  try { if (window.zcLoad) await zcLoad(com); } catch {}
   let via = zpMatchStreet(com, street);
   if (!via) { try { await loadGeo(com); via = zpNearest(com, pos); } catch {} }
   if (!via) { toast(`Sei a ${com}${street ? ", " + street : ""}: non trovo la via nello stradario`); return; }
@@ -8520,6 +8584,85 @@ setTimeout(zpGiroBar, 0);
 window.zpEsito = zpEsito;
 
 
+/* ===================== RICERCA ZONA: TUTTI I COMUNI DI BERGAMO ===================== */
+const ZC_BG = (() => { try { return Object.keys(PQ_PREZZI).filter(k => PQ_PREZZI[k][0] === "BG"); } catch { return []; } })();
+const ZC_BUILTIN = new Set(Object.keys(STREETS).filter(c => (STREETS[c] || []).length));
+(function(){
+  const pBG = PROVINCE.find(p => p.sigla === "BG"); if (!pBG) return;
+  for (const c of ZC_BG) { if (!pBG.comuni.includes(c)) pBG.comuni.push(c); PROV_OF[c] = pBG; if (!COMUNI.includes(c)) COMUNI.push(c); }
+  pBG.comuni.sort((a, b) => a === pBG.nome ? -1 : b === pBG.nome ? 1 : a.localeCompare(b, "it"));
+})();
+const zcType = n => { const w = String(n || "").trim().split(/\s+/)[0] || ""; const t = TYPES.find(x => x.toLowerCase() === w.toLowerCase()); return t || (/^loc\.?$/i.test(w) ? "Località" : "Altro"); };
+const zcLoading = {}, zcErr = {};
+/* una sola richiesta alla volta per comune (mappa e lista delle vie la condividono) */
+const _zcLoadGeo = loadGeo, zcGeoP = {};
+loadGeo = function(c){ if (zgeo[c]) return Promise.resolve(zgeo[c]); if (!zcGeoP[c]) zcGeoP[c] = _zcLoadGeo(c).finally(() => { delete zcGeoP[c]; }); return zcGeoP[c]; };
+async function zcFetchGeo(c){
+  try { return await loadGeo(c); } catch (e1) {
+    /* seconda prova: nome del comune senza distinzione di maiuscole e accenti */
+    const iso = PROV_ISO[(PROV_OF[c] || {}).sigla] || "IT-BG", rx = c.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/'/g, ".").replace(/"/g, '\\"');
+    const q = `[out:json][timeout:120];area["ISO3166-2"="${iso}"]->.p;rel(area.p)["boundary"="administrative"]["admin_level"="8"]["name"~"^${rx}$",i];map_to_area->.a;way(area.a)["highway"]["name"];out tags geom;`;
+    for (const url of OVERPASS) {
+      try {
+        const r = await fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } });
+        if (!r.ok) continue; const j = await r.json(), by = {};
+        for (const el of j.elements || []) { if (!el.geometry || !el.tags || !el.tags.name) continue; (by[el.tags.name] = by[el.tags.name] || []).push(el.geometry.map(p => [Math.round(p.lat * 1e5) / 1e5, Math.round(p.lon * 1e5) / 1e5])); }
+        if (Object.keys(by).length) { zgeo[c] = by; idbSet("v1:" + c, by); return by; }
+      } catch {}
+    }
+    throw e1;
+  }
+}
+async function zcLoad(c){
+  if (!c || (STREETS[c] && STREETS[c].length)) return true;
+  if (zcLoading[c]) return zcLoading[c];
+  zcLoading[c] = (async () => {
+    try { const geo = await zcFetchGeo(c); STREETS[c] = Object.keys(geo).map(n => ({ n, t: zcType(n) })).sort((a, b) => a.n.localeCompare(b.n, "it")); delete zcErr[c]; return true; }
+    catch (e) { zcErr[c] = (e && e.message) || "errore"; return false; }
+    finally { delete zcLoading[c]; }
+  })();
+  return zcLoading[c];
+}
+window.zcLoad = zcLoad;
+let zcShowAll = false, zcQ = "";
+const _zcRender = render;
+render = function(){
+  _zcRender.apply(this, arguments);
+  const c = ui.comune;
+  /* filtro dei comuni: per default i comuni con vie già pronte o segnate, più quello aperto */
+  const used = new Set(Object.keys(ann).map(k => k.slice(0, k.indexOf("||"))));
+  const box = $("comuni");
+  if (box && !$("zc-tools")) box.insertAdjacentHTML("afterbegin", `<div class="zc-tools" id="zc-tools"><input id="zc-q" type="search" placeholder="Cerca un comune (${PROVINCE.find(p => p.sigla === "BG").comuni.length} in provincia di Bergamo)…" autocomplete="off"><div class="zc-row"><span id="zc-info"></span><button type="button" id="zc-all"></button></div></div>`);
+  const q = zpNorm(zcQ);
+  let shownN = 0;
+  document.querySelectorAll("#comuni [data-c]").forEach(b => {
+    const n = b.dataset.c, has = ZC_BUILTIN.has(n) || (STREETS[n] || []).length || used.has(n), bg = (PROV_OF[n] || {}).sigla === "BG";
+    const vis = q ? zpNorm(n).includes(q) : (!bg || zcShowAll || has || n === c);
+    b.hidden = !vis; b.classList.toggle("zc-new", !has); if (vis) shownN++;
+  });
+  const inf = $("zc-info"), all = $("zc-all"), tot = PROVINCE.find(p => p.sigla === "BG").comuni.length;
+  const shownBG = [...document.querySelectorAll("#comuni .prov[data-prov='BG'] [data-c]")].filter(x => !x.hidden).length;
+  if (inf) inf.textContent = q ? `${shownN} comuni trovati` : zcShowAll ? `Bergamo: tutti i ${tot} comuni` : `Bergamo: ${shownBG} comuni con vie pronte o segnate`;
+  if (all) { all.textContent = zcShowAll ? "Mostra solo i miei" : `Mostra tutti i ${tot}`; all.hidden = !!q; }
+  /* vie non ancora scaricate per il comune aperto */
+  if (!(STREETS[c] || []).length && PROV_OF[c]) {
+    const list = $("list");
+    if (zcErr[c]) list.innerHTML = `<div class="zc-load"><b>Non riesco a scaricare le vie di ${esc(c)}</b><span>${esc(zcErr[c])}. Il server delle mappe a volte è occupato: riprova tra un minuto.</span><button type="button" id="zc-retry">🔄 Riprova</button></div>`;
+    else {
+      list.innerHTML = `<div class="zc-load"><b>⏳ Scarico le vie di ${esc(c)}…</b><span>Solo la prima volta: poi restano salvate su questo dispositivo.</span></div>`;
+      $("l-count").textContent = "";
+      zcLoad(c).then(ok => { if (ui.comune === c) render(); if (ok && window.zmapAfterRender) setTimeout(zmapAfterRender, 0); });
+    }
+  }
+};
+document.addEventListener("input", e => { if (e.target.id === "zc-q") { zcQ = e.target.value; render(); } });
+document.addEventListener("click", e => {
+  if (e.target.closest("#zc-all")) { zcShowAll = !zcShowAll; render(); return; }
+  if (e.target.closest("#zc-retry")) { delete zcErr[ui.comune]; render(); return; }
+  const b = e.target.closest("#comuni [data-c]"); if (b && zcQ) { zcQ = ""; const q = $("zc-q"); if (q) q.value = ""; setTimeout(render, 0); }
+});
+
+
 /* ===================== DA FARE NEL GESTIONALE: ROBUSTEZZA ===================== */
 const gqSafeLine = (it, n) => { try { return gqLine(it, n); } catch { try { return `${n}. [${it.tipo || "Voce"}] ${it.cliente || ""}${it.testo ? "\n   Testo: " + String(it.testo).replace(/\n/g, " / ") : ""}${it.link ? "\n   Scheda: " + it.link : ""}`; } catch { return `${n}. (voce non leggibile)`; } } };
 const _gqTodoF = gqTodo;
@@ -8625,6 +8768,148 @@ window.addEventListener("storage", e => { if (e.key === "rz_tok" || e.key === "r
 (function(){ const R = $("m-range"); if (!R) return; R.addEventListener("click", e => { const b = e.target.closest("button[data-r]"); if (!b) return; if (mui.range !== b.dataset.r) { mui.range = b.dataset.r; try { watchRange(); } catch {} } try { mRender(); } catch {} }); })();
 /* i pulsanti "vai a…" (data-home-go) funzionano in tutte le sezioni, non solo nella Home */
 document.addEventListener("click", e => { const b = e.target.closest("[data-home-go]"); if (!b || b.closest("#view-home")) return; e.preventDefault(); if (b.closest("#nt-session") && typeof ntSess !== "undefined") { try { ntSess = null; } catch {} } showView(b.dataset.homeGo); });
+
+/* tasto Indietro del telefono/browser: torna alla sezione precedente (e prima chiude le finestre aperte) invece di uscire dall'app */
+let rzNavPop = false;
+const _svNav = showView;
+showView = function(v){
+  const prev = (location.hash || "").slice(1), r = _svNav.apply(this, arguments);
+  try { const now = (location.hash || "").slice(1); if (!rzNavPop && prev && now && prev !== now) { history.replaceState(null, "", "#" + prev); history.pushState(null, "", "#" + now); } } catch {}
+  return r;
+};
+window.addEventListener("popstate", () => {
+  const ov = $("overlay"), tip = $("ux-tip"), dd = $("dd"), cur = typeof xCur !== "undefined" ? xCur : "";
+  if ((ov && !ov.hidden) || (tip && !tip.hidden) || (dd && !dd.hidden)) {
+    try { if (ov && !ov.hidden) { if (typeof modalHandlers !== "undefined" && modalHandlers) closeModal(); else if (typeof sheet !== "undefined" && sheet) closeSheet(); else ov.hidden = true; } } catch {}
+    if (tip) tip.hidden = true; try { if (dd && !dd.hidden) closeDd(); } catch {}
+    try { history.pushState(null, "", "#" + (cur || "home")); } catch {}
+    return;
+  }
+  const v = (location.hash || "").slice(1) || "home";
+  if (v === cur) return;
+  rzNavPop = true; try { showView(v); } catch {} finally { rzNavPop = false; }
+});
+/* telefono: intestazioni più pulite (il sottotitolo c'è nella guida "?") e scritta di accesso corta */
+const _setSyncS = setSync;
+setSync = function(t){ _setSyncS.apply(this, arguments); try { const el = $("sync"); if (el && innerWidth < 520 && /^Accedi con Google$/.test(el.textContent)) el.textContent = "Accedi"; } catch {} };
+
+/* Contabilità: "Controlla la posta" dice sempre com'è andata, anche se non c'è niente di nuovo */
+const _ctScanT = ctScan;
+ctScan = async function(manual){ try { if (manual && ctBusy) { toast("Sto già controllando la posta…"); return; } } catch {} const r = await _ctScanT.apply(this, arguments); try { if (manual && typeof ctMsg !== "undefined" && ctMsg) toast(ctMsg); } catch {} return r; };
+
+
+/* ===================== PROMEMORIA DELLE VISITE: SOLO IL LUNEDÌ DOPO LA VISITA ===================== */
+function rzMondayAfter(iso){ let d = xAddDays(iso, 1); while (new Date(d + "T12:00").getDay() !== 1) d = xAddDays(d, 1); return d; }
+function rzSoon(){ const t = new Date(Date.now() + 10 * 6e4); return String(t.getHours()).padStart(2, "0") + ":" + String(t.getMinutes()).padStart(2, "0"); }
+/* restituisce {data, ora} per il lunedì dopo la visita, oppure null se quel lunedì è già passato */
+function rzVisitReminder(visitISO){
+  const today = xISO(Date.now()), d = rzMondayAfter(visitISO);
+  if (d < today) return null;
+  if (d === today) { const now = new Date(); if (now.getHours() * 60 + now.getMinutes() > 9 * 60 + 50) return now.getHours() >= 20 ? null : { data: d, ora: rzSoon() }; }
+  return { data: d, ora: "10:00" };
+}
+window.rzVisitReminder = rzVisitReminder;
+/* sistema i promemoria "opinione sulla visita" già in lista che erano stati spostati alle settimane successive */
+function rzFixVisitReminders(){
+  let fixed = 0, removed = 0;
+  try {
+    const A = [...(typeof overview !== "undefined" ? overview : []), ...(typeof appts !== "undefined" ? appts : [])];
+    for (const it of gqColl.all()) {
+      if (it.stato === "fatto" || it.tipo !== "Reminder" || !/opinione/i.test(it.testo || "")) continue;
+      let visit = null;
+      if (/^vx:/.test(it.key || "")) { const a = A.find(x => "vx:" + x.id === it.key); if (a && a.startISO) visit = xISO(new Date(a.startISO)); }
+      else if (/^visop:/.test(it.key || "")) { try { const sc = vsDoc.data.schede[it.key.slice(6)]; if (sc && sc.ev && sc.ev.s) visit = xISO(new Date(sc.ev.s)); } catch {} }
+      if (!visit) continue;
+      const r = rzVisitReminder(visit);
+      if (!r) { gqColl.remove(it.id, ["key"]); removed++; continue; }
+      if (it.data !== r.data) { it.data = r.data; it.ora = it.ora && it.data === r.data ? it.ora : r.ora; gqColl.put(it); fixed++; }
+    }
+  } catch {}
+  if (fixed || removed) { try { gqBadge(); if (xCur === "gestionale") gqRender(); } catch {} }
+  return { fixed, removed };
+}
+window.rzFixVisitReminders = rzFixVisitReminders;
+setTimeout(rzFixVisitReminders, 4000); setInterval(rzFixVisitReminders, 5 * 60e3);
+
+
+/* ===================== OBIETTIVI: FINESTRA DI MODIFICA ===================== */
+function obmOpen(){
+  const [s] = obRange(obOff), mk = String(s), T = obDoc.data.targets || {}, adj = ((obDoc.data.adj || {})[mk]) || {}, D = odDoc.data, y = new Date().getFullYear();
+  const mese = new Date(s).toLocaleDateString("it-IT", { month: "long", year: "numeric" });
+  const f = (id, v) => `<input class="inp" id="${id}" type="text" inputmode="numeric" autocomplete="off" value="${esc(v == null ? "" : String(v))}">`;
+  openModal(`<div class="sheet-head"><div style="flex:1"><div class="sheet-title">✏️ Modifica obiettivi</div><div class="sheet-sub">Scrivi i numeri come vuoi: 40000 o 40.000</div></div><button class="x" data-m="close" aria-label="Chiudi">✕</button></div>
+    <div class="sheet-body">
+      <div class="lbl">Obiettivi di ${esc(mese)}</div>
+      <div class="obm-grid"><span class="h">Voce</span><span class="h">Obiettivo</span><span class="h">Correzione fatti</span>
+      ${OB_DEF.map(([k, ic, l, def, src]) => `<label for="obm-t-${k}">${ic} ${esc(l)}<small>${esc(src)}</small></label>${f("obm-t-" + k, T[k] != null ? T[k] : def)}${f("obm-a-" + k, adj[k] || 0)}`).join("")}</div>
+      <div class="hint">“Correzione fatti” aggiunge (o toglie, con il meno) al numero contato in automatico: serve per le cose fatte fuori dall'app.</div>
+      <div class="lbl">Obiettivi Dove.it ${y}</div>
+      <div class="obm-grid"><span class="h">Voce</span><span class="h">Fatti</span><span class="h">Obiettivo</span>
+      ${[["notizie", "📰 Notizie"], ["valutazioni", "📐 Valutazioni"], ["mandati", "✍️ Mandati"], ["vendite", "🤝 Vendite"]].map(([k, l]) => { const a = D[k] || [0, 0]; return `<label>${l}</label>${f("obm-d0-" + k, a[0])}${f("obm-d1-" + k, a[1])}`; }).join("")}
+      <label>💶 Guadagno (€)</label><span></span>${f("obm-g", D.guadagno || 0)}</div>
+    </div>
+    <div class="sheet-foot"><button class="btn muted" data-m="close">Annulla</button><button class="btn" data-m="save">💾 Salva</button></div>`, b => {
+    if (b.dataset.m === "close") return closeModal();
+    if (b.dataset.m !== "save") return;
+    const rd = id => { const el = $(id); const x = el ? rzNum(el.value) : null; return x == null ? null : Math.round(x); };
+    const T2 = Object.assign({}, obDoc.data.targets), A2 = {};
+    for (const [k] of OB_DEF) { const t = rd("obm-t-" + k); if (t != null) T2[k] = Math.max(0, t); const a = rd("obm-a-" + k); if (a) A2[k] = a; }
+    obDoc.data.targets = T2; obDoc.data.adj = Object.assign({}, obDoc.data.adj || {}, { [mk]: A2 }); obDoc.save();
+    for (const k of ["notizie", "valutazioni", "mandati", "vendite"]) { const a0 = rd("obm-d0-" + k), a1 = rd("obm-d1-" + k); const old = odDoc.data[k] || [0, 0]; odDoc.data[k] = [Math.max(0, a0 == null ? old[0] : a0), Math.max(0, a1 == null ? old[1] : a1)]; }
+    const g = rd("obm-g"); if (g != null) odDoc.data.guadagno = Math.max(0, g);
+    odDoc.data.at = xISO(Date.now()); odDoc.save();
+    closeModal(); obEdit = null; obRender(true); toast("💾 Obiettivi salvati");
+  });
+  setTimeout(() => { const i = $("obm-t-" + OB_DEF[0][0]); if (i) i.focus(); }, 60);
+}
+document.addEventListener("click", e => { if (e.target.closest("#ob-edit-all")) obmOpen(); });
+/* niente ridisegni mentre scrivi negli obiettivi: si aggiorna appena esci dal campo */
+const _obRenderG = obRender;
+let obPending = false;
+obRender = function(){
+  const a = document.activeElement, v = $("view-obiettivi");
+  if (v && a && v.contains(a) && /INPUT|TEXTAREA/.test(a.tagName)) {
+    const k = a.dataset && a.dataset.obIn;
+    const committing = k && obEdit !== k, justOpened = k && obEdit === k && !a.__rzTyped;
+    if (!committing && !justOpened) { obPending = true; return; }
+  }
+  obPending = false; return _obRenderG.apply(this, arguments);
+};
+XVIEWS.obiettivi = obRender;
+document.addEventListener("input", e => { if (e.target.dataset && (e.target.dataset.obIn || e.target.dataset.od)) e.target.__rzTyped = true; });
+/* Obiettivi Dove.it: passando da un campo all'altro (Tab) il cursore resta nel campo nuovo */
+const _odRenderG = odRender;
+let odDeferred = false;
+odRender = function(){
+  /* chiamato mentre il cursore sta passando al campo successivo: aspetta che ci arrivi */
+  if (!odDeferred && (!document.activeElement || document.activeElement === document.body)) { odDeferred = true; setTimeout(() => { odRender(); }, 0); return; }
+  odDeferred = false;
+  const a = document.activeElement, card = $("od-card");
+  const keep = card && a && card.contains(a) && a.dataset && a.dataset.od ? { k: a.dataset.od, i: a.dataset.odI || "", typed: a.__rzTyped, val: a.value, pos: a.selectionStart } : null;
+  if (keep && keep.typed) { obPending = true; return; }
+  _odRenderG.apply(this, arguments);
+  if (keep) { const n = [...document.querySelectorAll("#od-card [data-od]")].find(x => x.dataset.od === keep.k && (x.dataset.odI || "") === keep.i); if (n) { n.focus(); try { n.select(); } catch {} } }
+};
+document.addEventListener("focusout", e => { if (obPending && e.target.closest && e.target.closest("#view-obiettivi")) setTimeout(() => { if (obPending) obRender(true); }, 50); });
+
+
+/* ===================== NIENTE RIDISEGNI MENTRE SCRIVI ===================== */
+/* gli aggiornamenti che arrivano da soli (posta, calendario, Drive, timer) aspettano che tu esca dal campo */
+function rzTypingIn(viewId){ const a = document.activeElement, v = $(viewId); return !!(v && a && v.contains(a) && (a.tagName === "TEXTAREA" || (a.tagName === "INPUT" && !/^(checkbox|radio|button|submit|file|range|color)$/.test(a.type)))); }
+function rzWrap(fn, viewId){
+  if (typeof fn !== "function") return fn;
+  let pend = false;
+  const w = function(){ if (!window.event && rzTypingIn(viewId)) { pend = true; return; } pend = false; return fn.apply(this, arguments); };
+  document.addEventListener("focusout", e => { const v = $(viewId); if (!pend || !v || !v.contains(e.target)) return; setTimeout(() => { if (pend && !rzTypingIn(viewId)) w(); }, 80); });
+  return w;
+}
+ctRender = rzWrap(ctRender, "view-conta"); mndRender = rzWrap(mndRender, "view-mandati"); rbRender = rzWrap(rbRender, "view-ribasso");
+ntRender = rzWrap(ntRender, "view-notizie"); gqRender = rzWrap(gqRender, "view-gestionale"); aqRender = rzWrap(aqRender, "view-acq");
+mtRender = rzWrap(mtRender, "view-match"); vsRender = rzWrap(vsRender, "view-visite"); clRender = rzWrap(clRender, "view-clienti");
+clRenderSide = rzWrap(clRenderSide, "view-clienti"); clRenderDetail = rzWrap(clRenderDetail, "view-clienti"); pzRender = rzWrap(pzRender, "view-prezzi");
+agRender = rzWrap(agRender, "view-agenda"); grRender = rzWrap(grRender, "view-giro"); fotoRender = rzWrap(fotoRender, "view-foto"); window.fotoRender = fotoRender;
+pqRender = rzWrap(pqRender, "view-preq"); window.pqRender = pqRender; csRender = rzWrap(csRender, "view-consegna"); utRender = rzWrap(utRender, "view-utilita");
+dsRender = rzWrap(dsRender, "view-desc"); brRender = rzWrap(brRender, "view-brochure"); mdRender = rzWrap(mdRender, "view-modelli"); calcRender = rzWrap(calcRender, "view-calc");
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
