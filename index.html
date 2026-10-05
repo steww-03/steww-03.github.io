@@ -1049,6 +1049,54 @@ body{padding-bottom:84px}
 .nt-upd .row{display:flex;gap:8px;flex-wrap:wrap}
 .nt-hist{font-size:12.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:2px;margin-top:6px}
 .nt-hist b{font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+/* ---------- RICERCA ZONA PLUS ---------- */
+.zp-tools .tool.primary{font-weight:800}
+.zp-quick{background:var(--accent-soft,#e8f0ff);border:2px solid var(--accent,#1d4ed8);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
+.zp-qh{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800;font-size:15px}
+.zp-qh small{font-weight:600;color:var(--ink-2,#555);font-size:12px}
+.zp-qrow{display:flex;gap:8px;flex-wrap:wrap}
+.zp-qrow .zp-num{font-size:22px;font-weight:800;max-width:140px;text-align:center;min-height:52px}
+.zp-qrow #zp-ag{flex:1;min-width:150px;min-height:52px}
+.zp-step{display:flex;gap:6px}
+.zp-step button{min-width:52px;min-height:52px;border-radius:12px;border:1px solid var(--line,#ccc);background:var(--surface,#fff);font-size:18px;font-weight:800;cursor:pointer}
+.zp-btns{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+@media (max-width:560px){.zp-btns{grid-template-columns:repeat(3,1fr)}}
+.zp-btns button{min-height:68px;border-radius:14px;border:1px solid var(--line,#ccc);background:var(--surface,#fff);font-size:24px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink,#111)}
+.zp-btns button span{font-size:12.5px;font-weight:800}
+.zp-btns button[data-zp-esito="vende"]{background:#dcfce7;border-color:#16a34a}
+.zp-btns button[data-zp-esito="cartello"]{background:#fef3c7;border-color:#d97706}
+.zp-btns button:active{transform:scale(.97)}
+.zp-last{font-size:12.5px;color:var(--ink-2,#555);display:flex;flex-wrap:wrap;gap:6px}
+.zp-last span{background:var(--surface,#fff);border:1px solid var(--line,#ddd);border-radius:999px;padding:2px 8px}
+.zp-civ{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;margin-top:6px}
+.zp-civ button{min-height:34px;min-width:40px;border-radius:9px;border:1px solid var(--line,#ccc);background:var(--surface,#fff);font-size:16px;cursor:pointer}
+.zp-civ .h{color:var(--ink-2,#555)}
+.zp-box{border:1px solid var(--line,#ddd);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;background:var(--surface-2,#f7f8fb)}
+.zp-box .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.zp-box small{color:var(--ink-2,#555)}
+.zp-giro-bar{background:#fff7ed;border:2px solid #ea580c;border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.zp-giro-bar[hidden]{display:none}
+.zp-giro-bar b{font-size:15px}
+.zp-giro-bar .row{display:flex;gap:8px;flex-wrap:wrap}
+.zp-list{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto}
+.zp-it{display:flex;gap:8px;align-items:center;border:1px solid var(--line,#ddd);border-radius:10px;padding:8px 10px;background:var(--surface,#fff)}
+.zp-it .t{flex:1;min-width:0}
+.zp-it .t small{display:block;color:var(--ink-2,#555);font-size:12px}
+.zp-it .n{font-weight:800;color:var(--accent,#1d4ed8);min-width:22px}
+.zp-it button{min-height:34px;border-radius:9px;border:1px solid var(--line,#ccc);background:var(--surface,#fff);cursor:pointer;padding:0 10px}
+.zp-it.late{border-color:#dc2626;background:#fef2f2}
+.zp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.zp-kpis div{background:var(--surface-2,#f3f4f6);border-radius:12px;padding:10px;text-align:center}
+.zp-kpis b{display:block;font-size:22px}
+.zp-kpis span{font-size:12px;color:var(--ink-2,#555)}
+.zp-chips{display:flex;flex-wrap:wrap;gap:6px}
+.zp-chips span{display:inline-flex;align-items:center;gap:4px;background:var(--surface-2,#eef2ff);border-radius:999px;padding:4px 10px;font-size:13px}
+.zp-chips button{border:0;background:none;font-size:15px;cursor:pointer;padding:0 2px}
+.zp-layers{display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:4px}
+.zp-layers label{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;background:var(--surface,#fff);border:1px solid var(--line,#ddd);border-radius:999px;padding:3px 9px;cursor:pointer}
+.zp-badge-vol{background:#e0f2fe!important;color:#075985!important}
+.zsplit #zmap{height:calc(100dvh - var(--ztop,120px) - 120px)}
+@media (max-width:699px){#zmap{height:min(62dvh,640px)}}
 /* ---------- gestionale: voci saltate ---------- */
 .gq-item.skip{opacity:.62;border-style:dashed}
 .gq-item .gq-skiptag{display:inline-block;font-size:11.5px;font-weight:800;color:var(--hot);margin-left:6px}
@@ -1477,9 +1525,14 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     </section>
 
     <button class="banner" id="banner" hidden></button>
+    <div class="zp-giro-bar" id="zp-giro-bar" hidden></div>
     <div class="diary-note" id="diary-note" hidden></div>
 
-    <section class="tools hscroll">
+    <section class="tools hscroll zp-tools">
+      <button class="tool primary" id="zp-here">📍 Sono qui</button>
+      <button class="tool" id="zp-giro">🚶 Giro porta a porta</button>
+      <button class="tool" id="zp-vol">📬 Volantini</button>
+      <button class="tool" id="zp-conc">🏷️ Concorrenza</button>
       <a class="tool map" id="t-map" target="_blank" rel="noopener">🗺️ Mappa</a>
       <button class="tool primary" id="t-csv" hidden>📤 Esporta CSV</button>
       <button class="tool" id="t-backup" hidden>💾 Backup</button>
@@ -2423,7 +2476,7 @@ function daRipassare(a, now = new Date()){
   if (!a.ultimoPassaggio) return false;
   const d = new Date(a.ultimoPassaggio + "T00:00:00");
   if (isNaN(d.getTime())) return false;
-  d.setMonth(d.getMonth() + RIPASSO_MESI);
+  d.setDate(d.getDate() + (+a.ripassoGiorni || 60));
   return now >= d;
 }
 function lsGet(k){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch { return null; } }
@@ -2604,7 +2657,7 @@ function render(){
   $("p-val").textContent = `${done}/${base.length} vie · ${perc}%`;
   $("p-bar").style.width = perc + "%";
   $("banner").hidden = !(due > 0 && !ui.due);
-  $("banner").innerHTML = `🔔 <strong>${due}</strong> ${due === 1 ? "via da ripassare" : "vie da ripassare"} a ${esc(c)} (ultimo passaggio oltre ${RIPASSO_MESI} mesi fa). Tocca per vederle.`;
+  $("banner").innerHTML = `🔔 <strong>${due}</strong> ${due === 1 ? "via da ripassare" : "vie da ripassare"} a ${esc(c)} (è passato il periodo di ripasso). Tocca per vederle.`;
   $("t-map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(c + ", Italia");
   $("t-map").textContent = "🗺️ Mappa di " + c;
   $("l-title").textContent = c;
@@ -5886,6 +5939,7 @@ function aqCallHtml(){
       <label class="x-f"><span>Nome</span><input class="inp" id="aq-c-nome" placeholder="Facoltativo"></label>
       <label class="x-f"><span>Comune / zona</span><input class="inp" id="aq-c-com" list="cl-comuni" placeholder="Es. Seriate"></label>
       <label class="x-f"><span>Come ci ha trovato</span><select class="inp" id="aq-c-fonte"><option value="">—</option>${AQ_FONTI.map(f => `<option>${f}</option>`).join("")}</select></label>
+      <label class="x-f" id="aq-c-via-w" hidden><span>Da quale via (volantino)?</span><input class="inp" id="aq-c-via" list="aq-c-vias" placeholder="Es. Via Roma"><datalist id="aq-c-vias">${zpVolVie().map(v => `<option value="${esc(v)}">`).join("")}</datalist></label>
     </div>
     <div class="x-f"><span>Motivo</span><div class="aq-motivi">${AQ_MOTIVI.map(m => `<button type="button" class="x-pill" data-aq-motivo="${m}" aria-pressed="${aqMotivo === m}">${m}</button>`).join("")}</div></div>
     <label class="x-f"><span>Note</span><textarea class="inp" id="aq-c-note" rows="2" placeholder="Es. trilocale ereditato, vuole vendere entro l'anno"></textarea></label>
@@ -5896,7 +5950,7 @@ function aqCallHtml(){
 function aqCallText(c){ return [c.nome || "Contatto", c.tel, c.motivo, c.comune, c.fonte ? "Fonte: " + c.fonte : "", c.note, new Date(c.created).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })].filter(Boolean).join(" · "); }
 function aqCallSave(openCl){
   const tel = $("aq-c-tel").value.trim(); if (!xDigits(tel)) { $("aq-c-tel").classList.add("bad"); $("aq-c-tel").focus(); return; }
-  const c = { id: xId("ch"), tel, nome: $("aq-c-nome").value.trim(), comune: $("aq-c-com").value.trim(), fonte: $("aq-c-fonte").value, motivo: aqMotivo, note: $("aq-c-note").value.trim() };
+  const c = { id: xId("ch"), tel, nome: $("aq-c-nome").value.trim(), comune: $("aq-c-com").value.trim(), fonte: $("aq-c-fonte").value, motivo: aqMotivo, note: $("aq-c-note").value.trim(), via: ($("aq-c-fonte").value === "Volantino" && $("aq-c-via")) ? $("aq-c-via").value.trim() : "" };
   aqCall.put(c); aqMotivo = ""; if (window.gqAdd) gqAdd({ key: "call:" + c.id, tipo: c.motivo === "Vende" || c.motivo === "Valutazione" ? "Nuova notizia" : "Nota", cliente: c.nome || "", tel: c.tel, testo: [c.motivo ? "Motivo: " + c.motivo : "", c.comune ? "Zona: " + c.comune : "", c.fonte ? "Fonte: " + c.fonte : "", c.note].filter(Boolean).join("\n"), nota: c.note || "", fonte: "Chiamata registrata" }, "chiamate");
   if (openCl) aqToClient(c); else { toast("Chiamata salvata"); aqRender(); }
 }
@@ -6042,7 +6096,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610051032";
+const APP_VER = "v1-202610051115";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -8100,6 +8154,370 @@ ntRender = function(){
   }
 };
 XVIEWS.notizie = ntRender;
+
+
+/* ===================== RICERCA ZONA PLUS ===================== */
+const ZP_ESITI = [["assente", "🚪", "Nessuno"], ["parlato", "💬", "Parlato"], ["vende", "🏡", "Vende"], ["venduto", "✅", "Venduto"], ["cartello", "🪧", "Cartello"]];
+const ZP_LBL = Object.fromEntries(ZP_ESITI.map(([k, i, l]) => [k, i + " " + l]));
+const zpNorm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+const zpFull = () => (typeof window.rzFull === "function" ? window.rzFull() : true);
+const zpAddr = (via, num, com) => [[via, num].filter(Boolean).join(" "), com].filter(Boolean).join(", ");
+const zpDay = ts => new Date(ts).toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit" });
+const zpToday = () => (typeof today === "function" ? today() : xISO(Date.now()));
+let zpPos = null, zpPosAt = 0, zpAgOpen = false, zpPrefill = "";
+const zpGiroDoc = xDoc("rz_zgiro_v1", "zgiro", { plan: null, active: null });
+const zpGiri = xColl("rz_zgiri_v1", "zgiri");
+
+/* ---------- salvataggio della scheda senza chiuderla ---------- */
+/* il salvataggio automatico della scheda conserva anche il periodo di ripasso della via */
+const _zpCommit = sheetCommit;
+sheetCommit = function(){
+  const S = sheet, c = S ? (S.comune || ui.comune) : null, k = S ? key(c, S.via) : null;
+  const keep = k && ann[k] ? ann[k].ripassoGiorni : undefined, rg = S && S.__zp ? S.ripassoGiorni : keep;
+  _zpCommit.apply(this, arguments);
+  if (k && ann[k] && (ann[k].ripassoGiorni || undefined) !== (rg || undefined)) { if (rg) ann[k].ripassoGiorni = rg; else delete ann[k].ripassoGiorni; lsSet(LS_KEY, ann); persist([c]); }
+};
+function zpSaveQuiet(){
+  if (!sheet) return;
+  const sp = $("sh-pass"); if (sp) sp.value = sheet.ultimoPassaggio || "";
+  sheetCommit();
+  zpGiroBar();
+}
+
+/* ---------- esito porta a porta ---------- */
+function zpEsito(k){
+  if (!sheet) return;
+  try { readTexts(); } catch {}
+  const inp = $("zp-num"), num = (inp && inp.value || "").trim();
+  if (!num) { toast("Scrivi il numero civico"); inp && inp.focus(); return; }
+  const agEl = $("zp-ag"), ag = (agEl && agEl.value || "").trim();
+  if (k === "cartello" && !ag && !zpAgOpen) { zpAgOpen = true; zpRedraw(num, "zp-ag"); toast("Scrivi il nome dell'agenzia e ripremi 🪧 (o lascialo vuoto)"); return; }
+  let c = sheet.civici.find(x => String(x.numero).toLowerCase() === num.toLowerCase());
+  if (!c) { c = { numero: num, interesse: "no", nota: "" }; sheet.civici.push(c); }
+  const ev = { at: Date.now(), e: k }; if (k === "cartello") { ev.ag = ag || "Agenzia"; c.agenzia = ev.ag; }
+  (c.esiti = c.esiti || []).push(ev); c.esito = k; c.esitoAt = ev.at;
+  if (k === "vende") c.interesse = "caldo";
+  if (sheet.stato === "da_fare") sheet.stato = "in_corso";
+  sheet.ultimoPassaggio = zpToday();
+  zpSaveQuiet();
+  zpAfterEsito(k, c, ev);
+  zpAgOpen = false;
+  /* propone il civico successivo dello stesso lato */
+  const n = parseInt(num, 10); zpRedraw(!isNaN(n) && String(n) === num ? String(n + 2) : "", "zp-num");
+  toast(ZP_LBL[k] + " · civico " + num + ((k === "vende" || k === "cartello") && zpFull() ? " · notizia creata" : k === "cartello" ? " · cartello salvato in Acquisizione" : ""));
+}
+function zpAfterEsito(k, c, ev){
+  const via = sheet.via, com = ui.comune, addr = zpAddr(via, c.numero, com);
+  if (k === "cartello") {
+    try { if (typeof aqCart !== "undefined" && !aqCart.all().some(x => zpNorm(x.indirizzo) === zpNorm(addr) && x.stato === "attivo")) { const d = zpToday(); aqCart.put({ id: xId("ct"), indirizzo: addr, tipo: "Vendesi", chi: "Agenzia", agenzia: ev.ag, tel: "", note: "Dalla Ricerca Zona", gg: 60, visto: d, due: xAddDays(d, 60), stato: "attivo", pos: null, comune: com, via }); } } catch {}
+  }
+  if ((k === "vende" || k === "cartello") && zpFull()) {
+    try {
+      if (typeof ntColl !== "undefined") {
+        const id = "nt-zp-" + zpNorm(addr).replace(/ /g, "-").slice(0, 80), old = ntColl.get(id);
+        ntColl.put(Object.assign({ id, created: Date.now(), src: "strada" }, old || {}, { addr, nome: c.nota || (old && old.nome) || "", tel: c.telefono || (old && old.tel) || "", stato: (old && old.stato) || "da_chiamare", prossima: zpToday(), ora: "", annuncio: k === "vende" ? "Dalla strada: il proprietario vende" : "Dalla strada: cartello dell'agenzia " + ev.ag }));
+      }
+      if (window.gqAdd) gqAdd({ key: "zpn:" + zpNorm(addr), tipo: "Nuova notizia", cliente: c.nota || addr, tel: c.telefono || "", testo: k === "vende" ? `Notizia dalla strada (Ricerca Zona): ${addr}. Il proprietario vende.${c.nota ? " Note: " + c.nota : ""}` : `Notizia dalla strada (Ricerca Zona): ${addr}. Cartello dell'agenzia ${ev.ag}: ricontattare il proprietario.`, nota: k === "vende" ? "chiamare" : "ric per cartello " + ev.ag, fonte: "Ricerca Zona · porta a porta" });
+    } catch {}
+  }
+}
+function zpRedraw(prefill, focusId){
+  zpPrefill = prefill || "";
+  try { redraw(); } catch {}
+  const f = $(focusId || "zp-num"); if (f) { try { f.focus(); if (f.select) f.select(); } catch {} }
+}
+
+/* ---------- la scheda della via: esito rapido, volantini, ripasso, concorrenza ---------- */
+function zpVolFor(com, via){ try { return aqVol.all().filter(v => zpNorm(v.comune) === zpNorm(com) && (v.vie || []).some(x => zpNorm(x) === zpNorm(via))).sort((a, b) => String(b.data).localeCompare(String(a.data))); } catch { return []; } }
+function zpCallsFor(com, via){ try { return aqCall.all().filter(c => c.via && zpNorm(c.via) === zpNorm(via) && (!c.comune || zpNorm(c.comune) === zpNorm(com) || zpNorm(c.comune).includes(zpNorm(com)))); } catch { return []; } }
+function zpVolVie(){ const s = new Set(); try { for (const v of aqVol.all()) for (const x of v.vie || []) s.add(x); } catch {} return [...s].sort((a, b) => a.localeCompare(b, "it")); }
+const _zpDrawSheet = drawSheet;
+drawSheet = function(){
+  _zpDrawSheet.apply(this, arguments);
+  const S = sheet; if (!S) return;
+  if (!S.__zp) { S.__zp = true; const a = getAnn(ui.comune, S.via); S.ripassoGiorni = a.ripassoGiorni || 0; }
+  const body = document.querySelector("#overlay .sheet-body"); if (!body) return;
+  const recent = [];
+  for (const c of S.civici) for (const e of c.esiti || []) recent.push({ n: c.numero, e });
+  recent.sort((a, b) => b.e.at - a.e.at);
+  body.insertAdjacentHTML("afterbegin", `<div class="zp-quick" id="zp-quick">
+    <div class="zp-qh">⚡ Esito porta a porta <small>scrivi il civico e tocca l'esito</small></div>
+    <div class="zp-qrow"><input class="inp zp-num" id="zp-num" inputmode="text" autocomplete="off" placeholder="Civico" value="${esc(zpPrefill)}"><div class="zp-step"><button type="button" data-zp-step="-2" aria-label="Civico precedente">−2</button><button type="button" data-zp-step="2" aria-label="Civico successivo">+2</button></div>${zpAgOpen ? `<input class="inp" id="zp-ag" placeholder="Nome dell'agenzia" autocomplete="off">` : ""}</div>
+    <div class="zp-btns">${ZP_ESITI.map(([k, i, l]) => `<button type="button" data-zp-esito="${k}">${i}<span>${l}</span></button>`).join("")}</div>
+    ${recent.length ? `<div class="zp-last">${recent.slice(0, 6).map(r => `<span>${esc(r.n)} · ${ZP_LBL[r.e.e] || r.e.e}${r.e.ag ? " " + esc(r.e.ag) : ""} · ${zpDay(r.e.at)}</span>`).join("")}</div>` : ""}
+  </div>`);
+  zpPrefill = "";
+  /* ripasso e volantini dopo "Ultimo passaggio" */
+  const pass = $("sh-pass"), anchor = pass && pass.closest(".row");
+  const vols = zpVolFor(ui.comune, S.via), calls = zpCallsFor(ui.comune, S.via), qta = vols.reduce((s, v) => s + (+v.qta || 0), 0);
+  const ags = {}; for (const c of S.civici) for (const e of c.esiti || []) if (e.e === "cartello") ags[e.ag || "Agenzia"] = (ags[e.ag || "Agenzia"] || 0) + 1;
+  const html = `<div class="zp-box"><div class="row"><b>🔔 Ripassa dopo</b><select class="inp" id="zp-rip" style="width:auto">${[[0, "60 giorni (normale)"], [30, "1 mese"], [90, "3 mesi"], [180, "6 mesi"], [365, "1 anno"]].map(([v, l]) => `<option value="${v}"${(+S.ripassoGiorni || 0) === v ? " selected" : ""}>${l}</option>`).join("")}</select></div></div>
+    <div class="zp-box"><div class="row"><b>📬 Volantini</b><small>${vols.length ? `ultimo ${esc(fmtDate(vols[0].data))} · ${vols.length} ${vols.length === 1 ? "volta" : "volte"} · ${qta} volantini · ${calls.length} ${calls.length === 1 ? "chiamata" : "chiamate"}` : "mai lasciati in questa via"}</small></div>
+      <div class="row"><input class="inp" id="zp-vq" type="number" inputmode="numeric" min="0" placeholder="Quanti" style="max-width:110px"><button type="button" class="btn" data-zp-vol>Segna volantinaggio di oggi</button></div></div>
+    ${Object.keys(ags).length ? `<div class="zp-box"><b>🏷️ Agenzie in questa via</b><div class="zp-chips">${Object.entries(ags).map(([a, n]) => `<span>${esc(a)} · ${n}</span>`).join("")}</div></div>` : ""}`;
+  if (anchor) anchor.insertAdjacentHTML("afterend", html); else body.insertAdjacentHTML("beforeend", html);
+  /* esiti su ogni civico */
+  document.querySelectorAll("#overlay .civ[data-i]").forEach(el => {
+    const c = S.civici[+el.dataset.i]; if (!c) return;
+    const last = (c.esiti || []).slice(-3).reverse();
+    el.insertAdjacentHTML("beforeend", `<div class="zp-civ">${ZP_ESITI.map(([k, i, l]) => `<button type="button" data-zp-cesito="${k}" title="${l}">${i}</button>`).join("")}<span class="h">${last.length ? last.map(e => (ZP_LBL[e.e] || e.e) + (e.ag ? " " + esc(e.ag) : "") + " " + zpDay(e.at)).join(" · ") : "nessun esito"}</span></div>`);
+  });
+};
+document.addEventListener("click", e => {
+  if (!sheet || !e.target.closest("#overlay")) return;
+  const b = e.target.closest("[data-zp-esito]"); if (b) { e.preventDefault(); zpEsito(b.dataset.zpEsito); return; }
+  const st = e.target.closest("[data-zp-step]"); if (st) { const i = $("zp-num"), n = parseInt(i.value, 10); i.value = isNaN(n) ? "" : String(Math.max(1, n + +st.dataset.zpStep)); i.focus(); return; }
+  const ce = e.target.closest("[data-zp-cesito]"); if (ce) { const civ = ce.closest("[data-i]"), c = civ && sheet.civici[+civ.dataset.i]; if (!c) return; const i = $("zp-num"); if (i) i.value = c.numero; if (ce.dataset.zpCesito === "cartello") { const a = prompt("Nome dell'agenzia del cartello:", c.agenzia || ""); if (a === null) return; zpAgOpen = true; zpRedraw(c.numero, "zp-num"); const ag = $("zp-ag"); if (ag) ag.value = a; } zpEsito(ce.dataset.zpCesito); return; }
+  if (e.target.closest("[data-zp-vol]")) {
+    const q = +($("zp-vq").value || 0); if (!q) { toast("Scrivi quanti volantini hai lasciato"); $("zp-vq").focus(); return; }
+    try { aqVol.put({ id: xId("vo"), data: zpToday(), comune: ui.comune, qta: q, vie: [sheet.via], note: "Dalla Ricerca Zona" }); } catch { toast("Non riesco a salvare il volantinaggio"); return; }
+    try { readTexts(); } catch {} if (!sheet.ultimoPassaggio) sheet.ultimoPassaggio = zpToday(); zpSaveQuiet(); toast(`📬 ${q} volantini segnati in ${sheet.via}`); zpRedraw(); return;
+  }
+}, true);
+document.addEventListener("change", e => { if (e.target.id === "zp-rip" && sheet) { try { readTexts(); } catch {} sheet.ripassoGiorni = +e.target.value || 0; zpSaveQuiet(); toast("🔔 Periodo di ripasso salvato"); } if (e.target.id === "aq-c-fonte") { const w = $("aq-c-via-w"); if (w) w.hidden = e.target.value !== "Volantino"; } });
+document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.id === "zp-num") { e.preventDefault(); toast("Tocca l'esito: 🚪 💬 🏡 ✅ 🪧"); } });
+
+/* ---------- 📍 Sono qui ---------- */
+function zpMatchStreet(com, street){
+  const L = STREETS[com] || [], q = zpNorm(street); if (!q) return null;
+  const strip = s => s.replace(/^(via|viale|piazza|piazzale|corso|vicolo|largo|strada|contrada|localita|loc)\s+/, "");
+  let hit = L.find(s => zpNorm(s.n) === q) || L.find(s => strip(zpNorm(s.n)) === strip(q)) || L.find(s => zpNorm(s.n).includes(q) || q.includes(zpNorm(s.n)));
+  return hit ? hit.n : null;
+}
+function zpDist(a, b){ const R = 6371000, r = Math.PI / 180, dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r, x = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(x)); }
+function zpNearest(com, pos){
+  const geo = zgeo[com]; if (!geo) return null; let best = null, bd = Infinity; const names = new Set((STREETS[com] || []).map(s => s.n));
+  for (const [name, lines] of Object.entries(geo)) { if (!names.has(name)) continue; for (const l of lines) for (const p of l) { const d = zpDist(pos, p); if (d < bd) { bd = d; best = name; } } }
+  return bd < 250 ? best : null;
+}
+function zpGetPos(){ return new Promise((res, rej) => { if (zpPos && Date.now() - zpPosAt < 60000) return res(zpPos); if (!navigator.geolocation) return rej(new Error("Posizione non disponibile su questo dispositivo")); navigator.geolocation.getCurrentPosition(p => { zpPos = [p.coords.latitude, p.coords.longitude]; zpPosAt = Date.now(); res(zpPos); }, () => rej(new Error("Non riesco a leggere la posizione: consenti l'accesso alla posizione")), { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 }); }); }
+function zpSetComune(com){ if (ui.comune === com) return; ui.comune = com; try { viewProv = (PROV_OF[com] || {}).sigla || viewProv; } catch {} try { saveUi(); } catch {} try { shown = PAGE; } catch {} render(); }
+async function zpHere(){
+  toast("📍 Cerco dove sei…");
+  let pos; try { pos = await zpGetPos(); } catch (e) { toast(e.message); return; }
+  let street = "", city = "", hn = "";
+  try { const r = await fetch("https://photon.komoot.io/reverse?" + new URLSearchParams({ lat: pos[0], lon: pos[1], lang: "it" })); const j = await r.json(); const q = ((j.features || [])[0] || {}).properties || {}; street = q.street || (q.type === "street" ? q.name : "") || ""; city = q.city || q.town || q.village || q.municipality || ""; hn = q.housenumber || ""; } catch {}
+  let com = COMUNI.find(c => zpNorm(c) === zpNorm(city)) || COMUNI.find(c => city && zpNorm(city).includes(zpNorm(c)));
+  if (!com) { for (const c of [...new Set([zmapComune, ui.comune].filter(Boolean))]) { try { await loadGeo(c); } catch { continue; } if (zpNearest(c, pos)) { com = c; break; } } }
+  if (!com) { toast(city ? `${city} non è tra i comuni dello stradario` : "Non riesco a capire in che comune sei"); return; }
+  zpSetComune(com);
+  let via = zpMatchStreet(com, street);
+  if (!via) { try { await loadGeo(com); via = zpNearest(com, pos); } catch {} }
+  if (!via) { toast(`Sei a ${com}${street ? ", " + street : ""}: non trovo la via nello stradario`); return; }
+  zpPrefill = hn || "";
+  openSheet(via);
+  setTimeout(() => { const f = $("zp-num"); if (f) { f.focus(); f.select && f.select(); } }, 80);
+  toast(`📍 ${via}${hn ? " " + hn : ""}, ${com}`);
+}
+
+/* ---------- 🚶 Giro porta a porta ---------- */
+async function zpGeoInfo(com, names){
+  let geo = null; try { geo = await loadGeo(com); } catch { geo = null; }
+  const info = {};
+  for (const n of names) { const lines = geo && geo[n]; if (!lines) { info[n] = null; continue; } let la = 0, lo = 0, k = 0, len = 0; for (const l of lines) { for (let i = 0; i < l.length; i++) { la += l[i][0]; lo += l[i][1]; k++; if (i) len += zpDist(l[i - 1], l[i]); } } info[n] = { c: [la / k, lo / k], len }; }
+  return info;
+}
+function zpOrder(names, info, start){
+  const left = names.filter(n => info[n]), none = names.filter(n => !info[n]), out = [];
+  let cur = start || (left.length ? info[left[0]].c : null), walk = 0;
+  while (left.length) { let bi = 0, bd = Infinity; left.forEach((n, i) => { const d = zpDist(cur, info[n].c); if (d < bd) { bd = d; bi = i; } }); const n = left.splice(bi, 1)[0]; if (out.length || start) walk += bd; out.push(n); cur = info[n].c; }
+  return { vie: out.concat(none), walk };
+}
+function zpEstimate(com, vie, info, walk){
+  let len = 0, civ = 0; for (const n of vie) { if (info && info[n]) len += info[n].len; civ += (getAnn(com, n).civici || []).length; }
+  const doors = Math.max(civ, Math.round(len / 25)), km = (walk + len) / 1000, min = Math.round(km / 4.5 * 60 + doors * 1.2);
+  return { km: Math.round(km * 10) / 10, min, doors, civ };
+}
+function zpMapsLink(com, vie){ const pts = vie.slice(0, 10).map(v => `${v}, ${com}`); if (!pts.length) return "#"; const p = new URLSearchParams({ api: "1", travelmode: "walking", destination: pts[pts.length - 1] }); if (pts.length > 1) p.set("origin", pts[0]); if (pts.length > 2) p.set("waypoints", pts.slice(1, -1).join("|")); return "https://www.google.com/maps/dir/?" + p.toString(); }
+let zpPlanInfo = null;
+function zpPlan(){ const d = zpGiroDoc.data; if (!d.plan || d.plan.comune !== ui.comune) d.plan = { comune: ui.comune, vie: [] }; return d.plan; }
+async function zpPlanRecalc(){ const P = zpPlan(); if (!P.vie.length) { zpPlanInfo = null; return; } let start = null; if (zpPos && Date.now() - zpPosAt < 10 * 60000) start = zpPos; const info = await zpGeoInfo(P.comune, P.vie); const o = zpOrder(P.vie, info, start); P.vie = o.vie; zpPlanInfo = { info, walk: o.walk }; zpGiroDoc.save(); }
+function zpGiroHtml(msg){
+  const P = zpPlan(), names = baseList().map(s => s.n), est = zpPlanInfo ? zpEstimate(P.comune, P.vie, zpPlanInfo.info, zpPlanInfo.walk) : null;
+  const due = names.filter(n => daRipassare(getAnn(P.comune, n))), doing = names.filter(n => getAnn(P.comune, n).stato === "in_corso");
+  return `<div class="sheet-head"><div style="flex:1"><div class="sheet-title">🚶 Giro porta a porta</div><div class="sheet-sub">${esc(P.comune)} · scegli le vie, metto io in ordine il percorso</div></div><button class="x" data-m="close" aria-label="Chiudi">✕</button></div>
+  <div class="sheet-body">
+    <div class="row"><input class="inp" id="zp-gadd" list="zp-gvie" placeholder="Aggiungi una via…" style="flex:1"><datalist id="zp-gvie">${names.slice(0, 3000).map(n => `<option value="${esc(n)}">`).join("")}</datalist><button class="btn" data-m="add">＋</button></div>
+    <div class="row" style="flex-wrap:wrap;gap:6px"><button class="btn muted" data-m="due"${due.length ? "" : " disabled"}>＋ Da ripassare (${due.length})</button><button class="btn muted" data-m="doing"${doing.length ? "" : " disabled"}>＋ In corso (${doing.length})</button><button class="btn muted" data-m="near">📍 ＋ Mai fatte vicino a me</button>${P.vie.length ? `<button class="btn muted" data-m="clear">Svuota</button>` : ""}</div>
+    ${msg ? `<div class="hint">${esc(msg)}</div>` : ""}
+    ${P.vie.length ? `<div class="zp-list">${P.vie.map((v, i) => { const a = getAnn(P.comune, v); return `<div class="zp-it"><span class="n">${i + 1}</span><div class="t"><b>${esc(v)}</b><small>${esc(STATO_LBL[a.stato] || "")}${(a.civici || []).length ? " · " + a.civici.length + " civici" : ""}${zpPlanInfo && !zpPlanInfo.info[v] ? " · posizione non trovata" : ""}</small></div><button data-m="rm" data-v="${esc(v)}" aria-label="Togli">✕</button></div>`; }).join("")}</div>` : `<div class="hint">Nessuna via nel giro: aggiungile qui sopra.</div>`}
+    ${est ? `<div class="zp-kpis"><div><b>${P.vie.length}</b><span>vie</span></div><div><b>~${est.doors}</b><span>porte</span></div><div><b>${est.km} km</b><span>a piedi</span></div><div><b>~${est.min >= 60 ? Math.floor(est.min / 60) + " h " + (est.min % 60) + "'" : est.min + " min"}</b><span>tempo stimato</span></div></div>` : ""}
+  </div>
+  <div class="sheet-foot">${P.vie.length ? `<a class="btn muted" href="${esc(zpMapsLink(P.comune, P.vie))}" target="_blank" rel="noopener">🗺️ Percorso a piedi</a><button class="btn" data-m="start">▶️ Inizia il giro</button>` : `<button class="btn muted" data-m="close">Chiudi</button>`}</div>`;
+}
+function zpGiroOpen(msg){
+  if (zpGiroDoc.data.active) { zpGiroBar(); toast("C'è già un giro in corso: lo trovi in alto"); return; }
+  openModal(zpGiroHtml(msg), async b => {
+    const m = b.dataset.m, P = zpPlan(), refresh = async (t) => { await zpPlanRecalc(); if (modalHandlers) $("overlay").querySelector(".sheet").innerHTML = `<div class="grab" aria-hidden="true"></div>` + zpGiroHtml(t); };
+    if (m === "close") return closeModal();
+    if (m === "add") { const v = ($("zp-gadd").value || "").trim(), n = zpMatchStreet(P.comune, v); if (!n) { toast("Via non trovata in " + P.comune); return; } if (!P.vie.includes(n)) P.vie.push(n); return refresh(); }
+    if (m === "rm") { P.vie = P.vie.filter(x => x !== b.dataset.v); return refresh(); }
+    if (m === "clear") { P.vie = []; zpPlanInfo = null; zpGiroDoc.save(); return refresh(); }
+    if (m === "due" || m === "doing") { for (const s of baseList()) { const a = getAnn(P.comune, s.n); if ((m === "due" ? daRipassare(a) : a.stato === "in_corso") && !P.vie.includes(s.n)) P.vie.push(s.n); } return refresh(); }
+    if (m === "near") {
+      let pos; try { pos = await zpGetPos(); } catch (e) { toast(e.message); return; }
+      const names = baseList().map(s => s.n).filter(n => !getAnn(P.comune, n).aggiornato && !P.vie.includes(n));
+      await refresh("Cerco le vie più vicine…");
+      const info = await zpGeoInfo(P.comune, names), near = names.filter(n => info[n]).sort((a, b) => zpDist(pos, info[a].c) - zpDist(pos, info[b].c)).slice(0, 4);
+      if (!near.length) return refresh("Non trovo vie mai fatte qui vicino (oppure la mappa di " + P.comune + " non si è scaricata).");
+      P.vie.push(...near); return refresh();
+    }
+    if (m === "start") { if (!P.vie.length) return; zpGiroDoc.data.active = { id: xId("zg"), comune: P.comune, vie: P.vie.slice(), i: 0, start: Date.now(), done: [] }; zpGiroDoc.data.plan = null; zpGiroDoc.save(); closeModal(); zpGiroBar(); toast("▶️ Giro iniziato: buon lavoro!"); openSheet(zpGiroDoc.data.active.vie[0]); }
+  }, () => {});
+}
+function zpGiroStats(G, end){
+  const s = { porte: 0, assente: 0, parlato: 0, vende: 0, venduto: 0, cartello: 0 };
+  for (const v of G.vie) { const a = ann[key(G.comune, v)]; if (!a) continue; for (const c of a.civici || []) for (const e of c.esiti || []) if (e.at >= G.start && e.at <= end) { s.porte++; if (s[e.e] !== undefined) s[e.e]++; } }
+  return s;
+}
+function zpGiroBar(){
+  const bar = $("zp-giro-bar"); if (!bar) return; const G = zpGiroDoc.data.active;
+  if (!G) { bar.hidden = true; bar.innerHTML = ""; return; }
+  const cur = G.vie[G.i], st = zpGiroStats(G, Date.now());
+  bar.hidden = false;
+  bar.innerHTML = `<b>🚶 Giro in corso a ${esc(G.comune)} · via ${Math.min(G.i + 1, G.vie.length)} di ${G.vie.length}</b><div>${cur ? "Ora: <b>" + esc(cur) + "</b>" : "Vie finite"} · ${st.porte} porte · ${st.parlato} parlati · ${st.vende + st.cartello} notizie</div>
+    <div class="row">${cur ? `<button class="tool primary" data-zg="open">Apri la via</button><button class="tool" data-zg="next">✓ Fatta, prossima</button>` : ""}<a class="tool" href="${esc(zpMapsLink(G.comune, G.vie.slice(G.i)))}" target="_blank" rel="noopener">🗺️ Percorso</a><button class="tool" data-zg="end">🏁 Fine giro</button></div>`;
+}
+function zpGiroEnd(){
+  const G = zpGiroDoc.data.active; if (!G) return; const end = Date.now(), st = zpGiroStats(G, end);
+  const rec = Object.assign({ id: G.id, comune: G.comune, vie: G.vie, fatte: G.done.length, start: G.start, end }, st);
+  try { zpGiri.put(rec); } catch {}
+  zpGiroDoc.data.active = null; zpGiroDoc.save(); zpGiroBar();
+  const mins = Math.max(1, Math.round((end - G.start) / 60000));
+  openModal(`<div class="sheet-head"><div style="flex:1"><div class="sheet-title">🏁 Giro finito</div><div class="sheet-sub">${esc(G.comune)} · ${mins >= 60 ? Math.floor(mins / 60) + " h " + (mins % 60) + " min" : mins + " min"}</div></div><button class="x" data-m="close" aria-label="Chiudi">✕</button></div>
+    <div class="sheet-body"><div class="zp-kpis"><div><b>${G.done.length}/${G.vie.length}</b><span>vie fatte</span></div><div><b>${st.porte}</b><span>porte</span></div><div><b>${st.parlato}</b><span>persone parlate</span></div><div><b>${st.vende}</b><span>vendono</span></div><div><b>${st.cartello}</b><span>cartelli</span></div><div><b>${st.vende + st.cartello}</b><span>notizie trovate</span></div></div>
+    ${zpGiri.all().length > 1 ? `<div class="lbl">Ultimi giri</div><div class="zp-list">${zpGiri.all().sort((a, b) => b.start - a.start).slice(0, 6).map(g => `<div class="zp-it"><div class="t"><b>${esc(new Date(g.start).toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short" }))} · ${esc(g.comune)}</b><small>${g.fatte}/${(g.vie || []).length} vie · ${g.porte} porte · ${g.parlato} parlati · ${(g.vende || 0) + (g.cartello || 0)} notizie</small></div></div>`).join("")}</div>` : ""}</div>
+    <div class="sheet-foot"><button class="btn" data-m="close">Chiudi</button></div>`, b => { if (b.dataset.m === "close") closeModal(); });
+}
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-zg]"); if (!g) return; const G = zpGiroDoc.data.active; if (!G) { zpGiroBar(); return; }
+  const a = g.dataset.zg;
+  if (a === "open") { zpSetComune(G.comune); openSheet(G.vie[G.i]); return; }
+  if (a === "next") { const v = G.vie[G.i]; if (v) { if (!G.done.includes(v)) G.done.push(v); const k = key(G.comune, v), x = ann[k] || { civici: [] }; ann[k] = Object.assign({}, x, { stato: "fatta", ultimoPassaggio: zpToday(), aggiornato: Date.now() }); ann = JSON.parse(JSON.stringify(ann)); persist([G.comune]); } G.i++; zpGiroDoc.save(); zpGiroBar(); try { render(); } catch {} if (G.vie[G.i]) { zpSetComune(G.comune); openSheet(G.vie[G.i]); } else toast("✅ Vie del giro finite: tocca 🏁 Fine giro"); return; }
+  if (a === "end") { if (!g.classList.contains("armed")) { g.classList.add("armed"); g.textContent = "Conferma fine"; setTimeout(() => { g.classList.remove("armed"); g.textContent = "🏁 Fine giro"; }, 4000); return; } zpGiroEnd(); }
+});
+
+/* ---------- 📬 Volantini: dove rispondono ---------- */
+function zpVolOpen(){
+  const com = ui.comune, rows = {};
+  try { for (const v of aqVol.all()) { if (zpNorm(v.comune) !== zpNorm(com)) continue; for (const via of v.vie || []) { const r = rows[zpNorm(via)] = rows[zpNorm(via)] || { via, volte: 0, qta: 0, last: "", calls: 0 }; r.volte++; r.qta += +v.qta || 0; if (String(v.data) > r.last) r.last = String(v.data); } } } catch {}
+  for (const r of Object.values(rows)) r.calls = zpCallsFor(com, r.via).length;
+  const L = Object.values(rows).sort((a, b) => (b.calls / Math.max(1, b.qta)) - (a.calls / Math.max(1, a.qta)) || b.qta - a.qta);
+  const tq = L.reduce((s, r) => s + r.qta, 0), tc = L.reduce((s, r) => s + r.calls, 0);
+  let unlinked = 0; try { unlinked = aqCall.all().filter(c => c.fonte === "Volantino" && !c.via).length; } catch {}
+  openModal(`<div class="sheet-head"><div style="flex:1"><div class="sheet-title">📬 Volantini a ${esc(com)}</div><div class="sheet-sub">Quali vie rispondono: chiamate ogni 1000 volantini</div></div><button class="x" data-m="close" aria-label="Chiudi">✕</button></div>
+    <div class="sheet-body"><div class="zp-kpis"><div><b>${L.length}</b><span>vie volantinate</span></div><div><b>${tq}</b><span>volantini</span></div><div><b>${tc}</b><span>chiamate collegate</span></div><div><b>${tq ? Math.round(tc / tq * 1000 * 10) / 10 : 0}</b><span>chiamate ogni 1000</span></div></div>
+    ${L.length ? `<div class="zp-list">${L.map(r => `<div class="zp-it"><div class="t"><b>${esc(r.via)}</b><small>${r.volte} ${r.volte === 1 ? "volta" : "volte"} · ${r.qta} volantini · ultimo ${esc(fmtDate(r.last))} · <b>${r.calls}</b> ${r.calls === 1 ? "chiamata" : "chiamate"}${r.qta ? " (" + Math.round(r.calls / r.qta * 1000 * 10) / 10 + " ogni 1000)" : ""}</small></div><button data-m="open" data-v="${esc(r.via)}">Apri</button></div>`).join("")}</div>` : `<div class="hint">Nessun volantinaggio a ${esc(com)}. Segnali dalla scheda della via (📬) o in Acquisizione → Volantini.</div>`}
+    <div class="hint">Le chiamate si collegano alla via in Acquisizione → Chiamate: scegli “Come ci ha trovato: Volantino” e poi la via.${unlinked ? ` Ci sono ${unlinked} chiamate da volantino senza via.` : ""}</div></div>
+    <div class="sheet-foot"><button class="btn" data-m="close">Chiudi</button></div>`, b => { if (b.dataset.m === "close") closeModal(); if (b.dataset.m === "open") { const n = zpMatchStreet(com, b.dataset.v); closeModal(); if (n) openSheet(n); else toast("Via non trovata nello stradario"); } });
+}
+
+/* ---------- 🏷️ Concorrenza ---------- */
+function zpConcData(){
+  const out = [];
+  for (const [k, a] of Object.entries(ann)) { const i = k.indexOf("||"), com = k.slice(0, i), via = k.slice(i + 2); for (const c of (a && a.civici) || []) for (const e of c.esiti || []) if (e.e === "cartello") out.push({ ag: e.ag || "Agenzia", com, via, num: c.numero, at: e.at, src: "zona" }); }
+  try { for (const c of aqCart.all()) if (c.chi === "Agenzia" && c.note !== "Dalla Ricerca Zona") out.push({ ag: c.agenzia || "Agenzia", com: c.comune || "", via: c.via || "", addr: c.indirizzo, at: new Date((c.visto || zpToday()) + "T12:00").getTime(), stato: c.stato, src: "cartello" }); } catch {}
+  return out;
+}
+function zpConcOpen(){
+  const D = zpConcData(), by = {};
+  for (const r of D) { const k = zpNorm(r.ag) || "agenzia"; (by[k] = by[k] || { ag: r.ag, rows: [] }).rows.push(r); }
+  const G = Object.values(by).sort((a, b) => b.rows.length - a.rows.length), now = Date.now(), LATE = 150 * 864e5;
+  const vie = {}; for (const r of D) if (r.via) { const k = r.com + "||" + r.via; vie[k] = (vie[k] || 0) + 1; }
+  const top = Object.entries(vie).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const late = D.filter(r => now - r.at > LATE && r.stato !== "tolto" && r.stato !== "preso").length;
+  openModal(`<div class="sheet-head"><div style="flex:1"><div class="sheet-title">🏷️ Concorrenza</div><div class="sheet-sub">Cartelli delle altre agenzie segnati in strada e in Acquisizione</div></div><button class="x" data-m="close" aria-label="Chiudi">✕</button></div>
+    <div class="sheet-body"><div class="zp-kpis"><div><b>${D.length}</b><span>cartelli</span></div><div><b>${G.length}</b><span>agenzie</span></div><div><b>${late}</b><span>da ricontattare (oltre 5 mesi)</span></div></div>
+    ${top.length ? `<div class="lbl">Vie più contese</div><div class="zp-chips">${top.map(([k, n]) => { const [c, v] = k.split("||"); return `<span>${esc(v)}, ${esc(c)} · ${n}</span>`; }).join("")}</div>` : ""}
+    ${G.length ? G.map(g => `<div class="lbl">${esc(g.ag)} · ${g.rows.length}</div><div class="zp-list">${g.rows.sort((a, b) => a.at - b.at).map(r => { const old = now - r.at > LATE && r.stato !== "tolto" && r.stato !== "preso"; return `<div class="zp-it${old ? " late" : ""}"><div class="t"><b>${esc(r.addr || zpAddr(r.via, r.num, r.com))}</b><small>visto il ${esc(new Date(r.at).toLocaleDateString("it-IT"))}${old ? " · ⏳ incarico probabilmente in scadenza: ricontatta il proprietario" : ""}${r.stato && r.stato !== "attivo" ? " · " + esc(r.stato) : ""}</small></div>${r.via && r.com && STREETS[r.com] ? `<button data-m="open" data-c="${esc(r.com)}" data-v="${esc(r.via)}">Apri</button>` : ""}</div>`; }).join("")}</div>`).join("") : `<div class="hint">Nessun cartello di agenzia segnato. In strada usa 🪧 “Cartello” sul civico: ti chiedo il nome dell'agenzia.</div>`}</div>
+    <div class="sheet-foot"><button class="btn" data-m="close">Chiudi</button></div>`, b => { if (b.dataset.m === "close") closeModal(); if (b.dataset.m === "open") { closeModal(); zpSetComune(b.dataset.c); const n = zpMatchStreet(b.dataset.c, b.dataset.v); if (n) openSheet(n); } });
+}
+
+/* ---------- mappa con notizie, mandati, valutazioni, cartelli ---------- */
+const ZP_LAYERS = [["nt", "📞 Notizie", "#dc2626", true], ["mnd", "📆 Mandati", "#7c3aed", true], ["val", "📝 Valutazioni", "#0891b2", false], ["cart", "🪧 Cartelli", "#d97706", false]];
+const zpLay = Object.assign({ nt: true, mnd: true, val: true, cart: true }, lsGet("rz_zp_layers") || {});
+let zpLayer = null, zpOvRun = 0;
+const zpGeoCache = (() => { try { return JSON.parse(localStorage.getItem("rz_geocache_v1") || "{}") || {}; } catch { return {}; } })();
+const zpGeoSave = () => { try { localStorage.setItem("rz_geocache_v1", JSON.stringify(zpGeoCache)); } catch {} };
+async function zpGeocode(addr){
+  const k = zpNorm(addr); if (!k) return null; if (k in zpGeoCache) return zpGeoCache[k] || null;
+  try { const r = await fetch("https://photon.komoot.io/api/?" + new URLSearchParams({ q: addr, limit: "1", lang: "it", lat: "45.69", lon: "9.8" })); const j = await r.json(); const f = (j.features || [])[0]; const p = f && f.geometry && f.geometry.coordinates ? [f.geometry.coordinates[1], f.geometry.coordinates[0]] : 0; zpGeoCache[k] = p; zpGeoSave(); return p || null; } catch { return null; }
+}
+function zpOvItems(com){
+  const inCom = s => zpNorm(s).includes(zpNorm(com)), out = [];
+  if (zpFull()) {
+    try { if (zpLay.nt) for (const r of ntColl.all()) if (ntOpen(r) && r.addr && inCom(r.addr)) out.push({ t: "nt", addr: r.addr, title: r.addr, sub: [r.nome, r.prossima ? "promemoria " + fmtDate(r.prossima) : ""].filter(Boolean).join(" · "), link: ntLink(r) }); } catch {}
+    try { if (zpLay.mnd) for (const r of mndColl.all()) if (r.addr && inCom(r.addr)) out.push({ t: "mnd", addr: r.addr, title: (r.dv || "") + " " + r.addr, sub: r.scad ? "mandato fino al " + fmtDate(r.scad) : "", link: r.dv ? "https://backoffice.dove.it/properties/" + String(r.dv).replace(/\D/g, "") : "" }); } catch {}
+  }
+  try { if (zpLay.val) for (const p of JSON.parse(localStorage.getItem("rz_preq_v1") || "[]")) { const v = (p && p.v) || {}; const a = [v.indirizzo, v.comune].filter(Boolean).join(", "); if (a && (inCom(a))) out.push({ t: "val", addr: a, title: a, sub: [v.nome, v.prezzo ? "€ " + v.prezzo : ""].filter(Boolean).join(" · ") }); } } catch {}
+  try { if (zpLay.cart) for (const c of aqCart.all()) if (c.stato === "attivo" && ((c.indirizzo && inCom(c.indirizzo)) || zpNorm(c.comune) === zpNorm(com))) out.push({ t: "cart", addr: c.indirizzo, pos: c.pos, title: c.indirizzo || "Cartello", sub: [c.chi === "Agenzia" ? c.agenzia || "Agenzia" : "Privato", c.tel].filter(Boolean).join(" · ") }); } catch {}
+  return out;
+}
+let zpOvKey = "";
+async function zpOverlay(force){
+  if (!window.L || !zmap || !zmapComune) return;
+  const com = zmapComune, k0 = com + JSON.stringify(zpLay) + zpOvItems(com).length;
+  if (!force && zpLayer && k0 === zpOvKey) return;
+  zpOvKey = k0;
+  const run = ++zpOvRun;
+  if (zpLayer) { zpLayer.remove(); zpLayer = null; }
+  zpLayer = L.layerGroup().addTo(zmap);
+  const items = zpOvItems(com).slice(0, 120), col = Object.fromEntries(ZP_LAYERS.map(x => [x[0], x[2]]));
+  for (const it of items) {
+    if (run !== zpOvRun) return;
+    const p = it.pos || (it.addr ? await zpGeocode(it.addr) : null); if (!p || run !== zpOvRun) continue;
+    const m = L.circleMarker(p, { radius: 8, color: "#fff", weight: 2, fillColor: col[it.t], fillOpacity: .95 });
+    m.bindPopup(`<b>${esc(it.title)}</b>${it.sub ? "<br>" + esc(it.sub) : ""}${it.link ? `<br><a href="${esc(it.link)}" target="_blank" rel="noopener">Apri nel gestionale</a>` : ""}`);
+    m.addTo(zpLayer);
+    if (!(zpNorm(it.addr) in zpGeoCache)) await new Promise(r => setTimeout(r, 120));
+  }
+}
+const _zpLegend = zmapLegend;
+zmapLegend = function(){
+  _zpLegend.apply(this, arguments);
+  const lg = $("zmap-legend"); if (!lg || lg.querySelector(".zp-layers")) return;
+  const avail = ZP_LAYERS.filter(x => zpFull() || x[0] === "val" || x[0] === "cart");
+  lg.insertAdjacentHTML("beforeend", `<div class="zp-layers">${avail.map(([k, l, c]) => `<label><input type="checkbox" data-zp-lay="${k}"${zpLay[k] ? " checked" : ""}><i style="background:${c};width:10px;height:10px;border-radius:50%;display:inline-block"></i>${l}</label>`).join("")}</div>`);
+  clearTimeout(zmapLegend.t); zmapLegend.t = setTimeout(zpOverlay, 300);
+};
+document.addEventListener("change", e => { const c = e.target.closest && e.target.closest("[data-zp-lay]"); if (!c) return; zpLay[c.dataset.zpLay] = c.checked; lsSet("rz_zp_layers", zpLay); zpOverlay(true); });
+
+/* ---------- lista vie: segno dei volantini recenti ---------- */
+const _zpRender = render;
+render = function(){
+  _zpRender.apply(this, arguments);
+  try {
+    const recent = {}, lim = xAddDays(zpToday(), -60);
+    for (const v of aqVol.all()) if (zpNorm(v.comune) === zpNorm(ui.comune) && String(v.data) >= lim) for (const x of v.vie || []) recent[zpNorm(x)] = true;
+    document.querySelectorAll("#list .via[data-v]").forEach(b => { if (recent[zpNorm(b.dataset.v)] && !b.querySelector(".zp-badge-vol")) { const bd = b.querySelector(".badges"); if (bd) bd.insertAdjacentHTML("afterbegin", `<span class="badge zp-badge-vol" title="Volantini negli ultimi 60 giorni">📬</span>`); } });
+  } catch {}
+  zpGiroBar();
+};
+
+/* ---------- Home: vie da ripassare ---------- */
+function zpDueAll(){ const by = {}; for (const [k, a] of Object.entries(ann)) { if (!a || !daRipassare(a)) continue; const c = k.slice(0, k.indexOf("||")); by[c] = (by[c] || 0) + 1; } return by; }
+const _zpHome = homeRender;
+homeRender = function(){
+  _zpHome.apply(this, arguments);
+  try {
+    const by = zpDueAll(), n = Object.values(by).reduce((s, x) => s + x, 0); if (!n) return;
+    const box = document.querySelector("#view-home .hm-todo"); if (!box) return;
+    const ok = box.querySelector(".hm-todo-ok"); if (ok) ok.remove();
+    const best = Object.entries(by).sort((a, b) => b[1] - a[1])[0][0];
+    const h = box.querySelector("h2");
+    (h || box).insertAdjacentHTML(h ? "afterend" : "beforeend", `<button type="button" class="hm-todo-row" data-home-go="zona" data-zp-due="${esc(best)}"><span class="ic">🔔</span><span class="tx"><b>${n}</b> ${n === 1 ? "via da ripassare" : "vie da ripassare"} (${esc(Object.keys(by).join(", "))})</span><span class="go">Apri ›</span></button>`);
+  } catch {}
+};
+XVIEWS.home = homeRender;
+document.addEventListener("click", e => { const b = e.target.closest("[data-zp-due]"); if (!b) return; setTimeout(() => { try { zpSetComune(b.dataset.zpDue); ui.due = true; saveUi(); render(); } catch {} }, 50); });
+
+/* ---------- pulsanti della barra ---------- */
+$("zp-here").addEventListener("click", zpHere);
+$("zp-giro").addEventListener("click", () => zpGiroOpen());
+$("zp-vol").addEventListener("click", zpVolOpen);
+$("zp-conc").addEventListener("click", zpConcOpen);
+setTimeout(zpGiroBar, 0);
+window.zpEsito = zpEsito;
 
 
 /* ===================== DA FARE NEL GESTIONALE: ROBUSTEZZA ===================== */
