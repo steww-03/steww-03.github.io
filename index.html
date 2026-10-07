@@ -1187,6 +1187,69 @@ body.rz-limited [data-rz-full]{display:none!important}
 .vx-banner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--todo-soft);border:1px solid var(--todo-bar);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:14px}
 .vx-banner span{flex:1;min-width:180px}
 .vx-banner button{min-height:40px;border-radius:10px;border:0;background:var(--todo-bar);color:#fff;font-weight:800;padding:0 14px;cursor:pointer}
+/* ---------- SOCIAL ---------- */
+.so-top{display:flex;justify-content:center;margin-bottom:12px}
+.so-tabs{width:100%;max-width:520px}
+.so-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.so-in,.so-out{display:flex;flex-direction:column;gap:12px;min-width:0}
+.so-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.so-h h3{margin:0}
+.so-file{cursor:pointer}
+.so-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.so-row .x-act{flex:1 1 auto}
+.so-sel{flex:1 1 220px;min-height:40px}
+.so-g2{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.so-g3{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.so-chk{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;cursor:pointer;min-height:36px}
+.so-chk input{width:20px;height:20px;accent-color:var(--accent);flex-shrink:0}
+.so-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 12px}
+.so-sw{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;cursor:pointer}
+.so-sw input{width:20px;height:20px;accent-color:var(--accent)}
+.so-tl{width:100%;height:72px;border-radius:10px;background:var(--surface-2);cursor:pointer;touch-action:manipulation;display:block}
+.so-wrap input[type=range]{width:100%;accent-color:var(--accent);min-height:28px}
+.so-sugg{display:flex;flex-wrap:wrap;gap:6px}
+.so-sugg button{border:1px dashed var(--line);background:var(--surface-2);border-radius:999px;padding:6px 11px;font-size:12.5px;color:var(--ink-2);cursor:pointer;text-align:left}
+.so-caps{display:flex;flex-direction:column;gap:6px;max-height:340px;overflow:auto}
+.so-cap{display:grid;grid-template-columns:52px minmax(0,1fr) 36px;gap:6px;align-items:center}
+.so-cap .t{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.so-cap .inp{min-height:36px;padding:6px 10px}
+.so-cap button{border:0;background:none;font-size:16px;cursor:pointer;min-height:36px;color:var(--ink-3)}
+.so-cap.on .inp{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.so-stage{position:relative;background:#0b0d12;border-radius:16px;overflow:hidden;display:grid;place-items:center;aspect-ratio:9/16;max-height:72vh;margin:0 auto;width:100%}
+.so-stage canvas{width:100%;height:100%;object-fit:contain;display:block}
+.so-empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#9aa3b2;font-size:15px;line-height:1.6;padding:20px}
+.so-ctrl{display:flex;gap:10px;align-items:center}
+.so-ctrl .x-act{flex:1}
+.so-time{font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-2);white-space:nowrap}
+.so-go{font-size:16px}
+.so-prog{height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.so-prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.so-res{display:flex;flex-direction:column;gap:10px}
+.so-res video{width:100%;max-height:60vh;border-radius:12px;background:#000}
+.so-car{--so-ar:.8;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.so-car .sl{flex:0 0 86%;scroll-snap-align:center;position:relative;border-radius:12px;overflow:hidden;box-shadow:0 6px 22px rgba(10,20,40,.18);background:var(--surface-2)}
+.so-car canvas{width:100%;height:auto;display:block}
+.so-car .sl button{position:absolute;right:8px;top:8px;border:0;border-radius:9px;background:rgba(0,0,0,.6);color:#fff;font-weight:700;font-size:12.5px;padding:7px 10px;cursor:pointer}
+.so-car .sl .n{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.55);color:#fff;font-size:11.5px;font-weight:700;border-radius:7px;padding:2px 7px}
+.so-pcount{text-align:center}
+.so-pacts .btn,.so-pacts .x-act{flex:1 1 200px}
+.so-stx{display:flex;flex-direction:column;gap:10px}
+.so-stx .it{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line-2);border-radius:12px;padding:10px}
+.so-stx .it b{font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.so-stx textarea{min-height:44px;resize:vertical}
+.so-pts{display:flex;flex-direction:column;gap:6px}
+@media (min-width:1000px){
+  .so-wrap{grid-template-columns:minmax(440px,1fr) minmax(340px,.75fr)}
+  .so-out{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+  .so-stage{max-height:calc(100dvh - 330px);width:auto;height:calc(100dvh - 330px)}
+  .so-car .sl{flex-basis:min(92%, calc((100dvh - 340px) * var(--so-ar, .8)))}
+  .so-out{padding-bottom:70px}
+}
+@media (min-width:640px) and (max-width:999px){ .so-stage{max-width:420px} .so-car .sl{flex-basis:62%} }
+@media (max-width:999px){ .so-out{order:-1} .so-stage{max-height:52vh;width:auto;height:52vh} #so-video.so-nov .so-out{display:none} .so-car .sl{flex-basis:min(86%, calc(56vh * var(--so-ar, .8)))} }
+.so-4k{display:inline-block;background:#16a34a;color:#fff;font-weight:800;font-size:11.5px;border-radius:6px;padding:1px 7px;margin-right:4px}
+
+.so-err{color:var(--hot,#e11d48);font-weight:600}
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
 .list-head span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .list{padding:8px var(--gut) 28px;display:grid;grid-template-columns:1fr;gap:8px;align-content:start}
@@ -2439,11 +2502,186 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
     </div>
   </main>
 </div>
+<div class="view" id="view-social" hidden>
+  <header class="top">
+    <div class="top-row">
+      <button class="menu-btn" data-menu aria-haspopup="menu" aria-expanded="false"><span aria-hidden="true">☰</span> Menu <span class="caret" aria-hidden="true">▾</span><span class="nb" data-badge hidden></span></button>
+      <div style="min-width:0;flex:1"><h1>📱 Social</h1><p class="sub">Video e post per Instagram e TikTok</p></div>
+      <span class="sync" id="so-sync">Locale</span>
+    </div>
+  </header>
+  <main class="x-main x-wide so-main">
+    <div class="so-top">
+      <div class="x-tabs so-tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-so-tab="video">🎬 Video</button>
+        <button type="button" role="tab" aria-selected="false" data-so-tab="post">🖼️ Post carosello</button>
+      </div>
+    </div>
+
+    <!-- ===================== VIDEO ===================== -->
+    <div class="so-wrap" id="so-video">
+      <section class="so-in">
+        <div class="x-card">
+          <div class="so-h"><h3>1 · Il video</h3><label class="x-act call so-file">📂 Scegli il video<input type="file" id="so-v-file" accept="video/*,.mp4,.mov,.m4v,.webm" hidden></label></div>
+          <div id="so-v-info" class="x-note">Scegli un video girato con il telefono (MP4 o MOV). Resta su questo dispositivo: non viene caricato da nessuna parte.</div>
+        </div>
+
+        <div class="x-card" data-so-need>
+          <div class="so-h"><h3>2 · Togli i momenti morti</h3><label class="so-sw"><input type="checkbox" id="so-cut" checked><span>Attivo</span></label></div>
+          <canvas class="so-tl" id="so-tl" aria-label="Linea del tempo: le parti rosse vengono tagliate"></canvas>
+          <div class="x-note" id="so-cutinfo"></div>
+          <div class="x-grid so-g2">
+            <label class="x-f"><span>Quanto tagliare <b id="so-sens-v"></b></span><input type="range" id="so-sens" min="1" max="10" step="1"></label>
+            <label class="x-f"><span>Pausa più lunga di <b id="so-minsil-v"></b></span><input type="range" id="so-minsil" min="0.3" max="1.5" step="0.1"></label>
+            <label class="x-f"><span>Inizio del video <b id="so-tin-v"></b></span><input type="range" id="so-tin" min="0" max="1" step="0.1" value="0"></label>
+            <label class="x-f"><span>Fine del video <b id="so-tout-v"></b></span><input type="range" id="so-tout" min="0" max="1" step="0.1" value="1"></label>
+          </div>
+          <div class="x-note">Tocca una parte rossa della linea del tempo per tenerla, toccala di nuovo per tagliarla.</div>
+        </div>
+
+        <div class="x-card" data-so-need>
+          <h3>3 · Sottotitoli automatici</h3>
+          <div class="so-row"><button type="button" class="x-act call" id="so-asr">✨ Crea i sottotitoli</button>
+            <select class="inp so-sel" id="so-asr-m" aria-label="Precisione"><option value="small">Precisione alta (consigliata su PC, 250 MB)</option><option value="base">Veloce (consigliata su telefono, 80 MB)</option><option value="tiny">Rapidissimo (meno preciso, 40 MB)</option></select></div>
+          <div id="so-asr-st" class="x-note">La prima volta scarica il riconoscimento vocale, poi resta salvato nel browser. Funziona tutto sul tuo dispositivo.</div>
+          <div class="chips-lbl">Stile</div>
+          <div class="x-pills" id="so-cap-styles"></div>
+          <div class="x-grid so-g3">
+            <label class="x-f"><span>Posizione</span><select class="inp" id="so-cap-pos"><option value="basso">In basso</option><option value="centro">Al centro</option><option value="alto">In alto</option></select></label>
+            <label class="x-f"><span>Parole per volta</span><select class="inp" id="so-cap-n"><option value="1">1 (molto dinamico)</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">Frase intera</option></select></label>
+            <label class="x-f so-chk"><input type="checkbox" id="so-cap-up"><span>TUTTO MAIUSCOLO</span></label>
+          </div>
+          <div class="so-caps" id="so-caps"></div>
+        </div>
+
+        <div class="x-card" data-so-need>
+          <h3>4 · Titolo d'apertura</h3>
+          <input class="inp" id="so-hook" maxlength="80" placeholder="Es. Trilocale con giardino a Bergamo 🏡">
+          <div class="x-note">Compare nei primi 3 secondi: è quello che fa fermare chi scorre.</div>
+          <div class="so-sugg" id="so-hook-sugg"></div>
+        </div>
+
+        <div class="x-card" data-so-need>
+          <h3>5 · Musica ed effetti sonori</h3>
+          <div class="x-pills" id="so-moods"></div>
+          <label class="x-act so-file" id="so-mus-lbl" hidden>🎵 Scegli la tua musica<input type="file" id="so-mus-file" accept="audio/*" hidden></label>
+          <div class="x-grid so-g2">
+            <label class="x-f"><span>Volume musica <b id="so-vol-v"></b></span><input type="range" id="so-vol" min="0" max="100" step="5"></label>
+            <div class="so-row"><button type="button" class="x-act" id="so-mus-try">🔊 Ascolta 8 secondi</button></div>
+          </div>
+          <div class="so-checks">
+            <label class="so-chk"><input type="checkbox" id="so-duck"><span>Abbassa la musica quando parli</span></label>
+            <label class="so-chk"><input type="checkbox" id="so-sfx-intro"><span>Effetto “whoosh” sul titolo</span></label>
+            <label class="so-chk"><input type="checkbox" id="so-sfx-cut"><span>Effetto sui tagli</span></label>
+            <label class="so-chk"><input type="checkbox" id="so-sfx-end"><span>“Ding” sulla chiusura</span></label>
+          </div>
+          <div class="x-note">Le musiche sono create dall'app, quindi senza diritti d'autore. Per un suono di tendenza puoi aggiungerlo poi su TikTok o Instagram a volume basso.</div>
+        </div>
+
+        <div class="x-card" data-so-need>
+          <h3>6 · Chiusura con i tuoi contatti</h3>
+          <label class="so-chk"><input type="checkbox" id="so-end"><span>Aggiungi 3 secondi finali con i contatti</span></label>
+          <div class="x-grid">
+            <label class="x-f"><span>Frase finale</span><input class="inp" id="so-end-t" maxlength="60"></label>
+            <label class="x-f"><span>Nome</span><input class="inp" data-so-me="nome"></label>
+            <label class="x-f"><span>Telefono</span><input class="inp" data-so-me="tel" inputmode="tel"></label>
+            <label class="x-f"><span>Profilo Instagram/TikTok</span><input class="inp" data-so-me="handle" placeholder="@iltuoprofilo"></label>
+          </div>
+        </div>
+
+        <div class="x-card" data-so-need>
+          <h3>7 · Formato ed esportazione</h3>
+          <div class="x-pills" id="so-fmts"></div>
+          <div class="x-grid so-g3">
+            <label class="x-f"><span>Inquadratura</span><select class="inp" id="so-fit"><option value="fill">Riempi lo schermo</option><option value="fit">Video intero con sfondo sfocato</option></select></label>
+            <label class="x-f"><span>Sposta l'inquadratura <b id="so-pan-v"></b></span><input type="range" id="so-pan" min="0" max="100" step="1"></label>
+            <label class="x-f"><span>Qualità</span><select class="inp" id="so-q"><option value="720">HD 720p (più veloce)</option><option value="1080">Full HD 1080p</option></select></label>
+          </div>
+          <button type="button" class="btn so-go" id="so-export">🎬 Crea il video finale</button>
+          <div id="so-exp-st"></div>
+          <div id="so-result"></div>
+        </div>
+
+        <div class="x-card" data-so-need>
+          <h3>#️⃣ Didascalia per il video</h3>
+          <select class="inp" id="so-v-src" aria-label="Immobile"></select>
+          <textarea class="inp" id="so-v-cap" rows="7"></textarea>
+          <div class="so-row"><button type="button" class="x-act" id="so-v-capnew">🔄 Altra versione</button><button type="button" class="x-act" id="so-v-capcp">📋 Copia</button><button type="button" class="x-act" id="so-v-capcptt">📋 Versione TikTok</button></div>
+        </div>
+      </section>
+
+      <section class="so-out">
+        <div class="so-stage" id="so-stage">
+          <canvas id="so-cv" width="360" height="640" aria-label="Anteprima del video"></canvas>
+          <div class="so-empty" id="so-empty">🎬<br>Scegli un video per iniziare</div>
+        </div>
+        <div class="so-ctrl" data-so-need>
+          <button type="button" class="x-act call" id="so-play">▶ Anteprima</button>
+          <span class="so-time" id="so-time">0:00 / 0:00</span>
+        </div>
+        <div class="x-note so-tip" data-so-need>Durante l'anteprima e la creazione del video tieni questa pagina aperta in primo piano.</div>
+      </section>
+    </div>
+
+    <!-- ===================== POST ===================== -->
+    <div class="so-wrap" id="so-post" hidden>
+      <section class="so-in">
+        <div class="x-card">
+          <h3>1 · Che post vuoi fare?</h3>
+          <div class="x-pills" id="so-ptypes"></div>
+        </div>
+
+        <div class="x-card" id="so-p-data"></div>
+
+        <div class="x-card">
+          <div class="so-h"><h3>3 · Foto <span class="x-note" id="so-p-nph"></span></h3><label class="x-act call so-file">📷 Aggiungi foto<input type="file" id="so-p-add" accept="image/*" multiple hidden></label></div>
+          <div class="br-photos" id="so-p-photos"></div>
+          <div class="x-note" id="so-p-phnote">La prima è la copertina. Ogni foto diventa una slide; usa ◀ ▶ per l'ordine.</div>
+        </div>
+
+        <div class="x-card">
+          <h3>4 · Stile</h3>
+          <div class="chips-lbl">Tema</div>
+          <div class="x-pills" id="so-themes"></div>
+          <div class="chips-lbl">Formato</div>
+          <div class="x-pills" id="so-pfmts"></div>
+          <div class="x-grid">
+            <label class="x-f"><span>Nome</span><input class="inp" data-so-me="nome"></label>
+            <label class="x-f"><span>Telefono</span><input class="inp" data-so-me="tel" inputmode="tel"></label>
+            <label class="x-f"><span>Profilo Instagram/TikTok</span><input class="inp" data-so-me="handle" placeholder="@iltuoprofilo"></label>
+          </div>
+        </div>
+
+        <div class="x-card">
+          <div class="so-h"><h3>5 · Testi delle slide</h3><button type="button" class="x-act" id="so-p-reset">🔄 Rigenera i testi</button></div>
+          <div class="so-stx" id="so-p-texts"></div>
+        </div>
+
+        <div class="x-card">
+          <h3>6 · Didascalia</h3>
+          <textarea class="inp" id="so-p-cap" rows="10"></textarea>
+          <div class="so-row"><button type="button" class="x-act" id="so-p-capnew">🔄 Altra versione</button><button type="button" class="x-act" id="so-p-capcp">📋 Copia</button><button type="button" class="x-act" id="so-p-capcptt">📋 Versione TikTok</button></div>
+        </div>
+      </section>
+
+      <section class="so-out">
+        <div class="so-car" id="so-p-prev" aria-label="Anteprima del carosello"></div>
+        <div class="x-note so-pcount" id="so-p-count"></div>
+        <div class="so-row so-pacts">
+          <button type="button" class="btn" id="so-p-dl">⬇️ Scarica tutte le slide</button>
+          <button type="button" class="x-act call" id="so-p-share">📤 Condividi su Instagram</button>
+        </div>
+        <div id="so-p-msg"></div>
+      </section>
+    </div>
+
+  </main>
+</div>
 <div class="dd" id="dd" role="menu" aria-label="Scegli lo strumento" hidden>
   <button class="dd-item dd-home" role="menuitemradio" data-view="home"><span class="dd-i">🏠</span><span class="dd-t"><b>Home</b><small>Tutte le sezioni</small></span><span class="dd-c" aria-hidden="true">✓</span></button>
   <div class="dd-tools"><input class="dd-search" id="dd-search" type="search" placeholder="Cerca sezione, cliente, notizia…  (Ctrl+K)" autocomplete="off" enterkeyhint="go" aria-label="Cerca una sezione"><div class="dd-recent" id="dd-recent"></div></div>
   <div class="dd-found" id="dd-found"></div>
-  <div class="dd-list"><div class="dd-g"><div class="dd-h">Oggi</div><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e WhatsApp da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti e visite</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Acquisizione</div><button class="dd-item" role="menuitemradio" data-view="notizie"><span class="dd-i">📞</span><span class="dd-t"><b>Sessione chiamate notizie</b><small>Chiama le notizie una dopo l'altra</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Immobile e marketing</div><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="brochure"><span class="dd-i">📄</span><span class="dd-t"><b>Brochure immobile</b><small>PDF con foto e descrizione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici e foto su Drive</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="ribasso"><span class="dd-i">📉</span><span class="dd-t"><b>Proposta di ribasso</b><small>Dati delle visite per il proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Chiusura e amministrazione</div><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto venditore</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="mandati"><span class="dd-i">📆</span><span class="dd-t"><b>Mandati e rogiti</b><small>Scadenze, rinnovi e rogiti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="conta"><span class="dd-i">🧾</span><span class="dd-t"><b>Contabilità <span class="nb" data-ct-badge hidden></span></b><small>Proforma, fatture e incassi</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e impostazioni</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Il mese in numeri</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, backup, tema</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
+  <div class="dd-list"><div class="dd-g"><div class="dd-h">Oggi</div><button class="dd-item" role="menuitemradio" data-view="messaggi"><span class="dd-i">💬</span><span class="dd-t"><b>Centro Messaggi <span class="nb" data-badge hidden></span></b><small>Appuntamenti e WhatsApp da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="giro"><span class="dd-i">🚗</span><span class="dd-t"><b>Giro della giornata</b><small>Valutazioni e visite con il percorso</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="agenda"><span class="dd-i">📅</span><span class="dd-t"><b>Agenda settimanale</b><small>La settimana e gli orari liberi</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="gestionale"><span class="dd-i">📋</span><span class="dd-t"><b>Da fare nel gestionale <span class="nb" data-gq-badge hidden></span></b><small>Da riportare nel backoffice</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Clienti e visite</div><button class="dd-item" role="menuitemradio" data-view="clienti"><span class="dd-i">👥</span><span class="dd-t"><b>Clienti</b><small>Venditori, acquirenti e storico</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="visite"><span class="dd-i">🏠</span><span class="dd-t"><b>Visite</b><small>Schede visita e report al proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="match"><span class="dd-i">🔗</span><span class="dd-t"><b>Incrocio domanda-offerta</b><small>Chi chiamare per ogni immobile</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="modelli"><span class="dd-i">✉️</span><span class="dd-t"><b>Modelli di messaggi</b><small>Messaggi pronti da inviare</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Acquisizione</div><button class="dd-item" role="menuitemradio" data-view="notizie"><span class="dd-i">📞</span><span class="dd-t"><b>Sessione chiamate notizie</b><small>Chiama le notizie una dopo l'altra</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="acq"><span class="dd-i">🚪</span><span class="dd-t"><b>Acquisizione</b><small>Chiamate, cartelli, volantini, contatti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="zona"><span class="dd-i">🗺️</span><span class="dd-t"><b>Ricerca Zona</b><small>Vie e civici di Bergamo e Brescia</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="preq"><span class="dd-i">📝</span><span class="dd-t"><b>Foglio prequalifica</b><small>Dati, documenti e valutazione</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="prezzi"><span class="dd-i">📈</span><span class="dd-t"><b>Prezzi di zona</b><small>Prezzi medi al m² dei comuni</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Immobile e marketing</div><button class="dd-item" role="menuitemradio" data-view="desc"><span class="dd-i">✍️</span><span class="dd-t"><b>Generatore descrizione</b><small>Testo per l'annuncio</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="social"><span class="dd-i">📱</span><span class="dd-t"><b>Social</b><small>Video e post per Instagram e TikTok</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="foto"><span class="dd-i">📸</span><span class="dd-t"><b>Fotografo</b><small>Servizi fotografici e foto su Drive</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="ribasso"><span class="dd-i">📉</span><span class="dd-t"><b>Proposta di ribasso</b><small>Dati delle visite per il proprietario</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Chiusura e amministrazione</div><button class="dd-item" role="menuitemradio" data-view="calc"><span class="dd-i">🧮</span><span class="dd-t"><b>Calcolatori</b><small>Mutuo, costi, netto venditore</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="mandati"><span class="dd-i">📆</span><span class="dd-t"><b>Mandati e rogiti</b><small>Scadenze, rinnovi e rogiti</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="consegna"><span class="dd-i">🔑</span><span class="dd-t"><b>Consegna immobile</b><small>Contatori, chiavi e verbale</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="conta"><span class="dd-i">🧾</span><span class="dd-t"><b>Contabilità <span class="nb" data-ct-badge hidden></span></b><small>Proforma, fatture e incassi</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div><div class="dd-g"><div class="dd-h">Risultati e impostazioni</div><button class="dd-item" role="menuitemradio" data-view="obiettivi"><span class="dd-i">📊</span><span class="dd-t"><b>Obiettivi del mese</b><small>Il mese in numeri</small></span><span class="dd-c" aria-hidden="true">✓</span></button><button class="dd-item" role="menuitemradio" data-view="utilita"><span class="dd-i">🧰</span><span class="dd-t"><b>Utilità e impostazioni</b><small>Rubrica, scadenze, backup, tema</small></span><span class="dd-c" aria-hidden="true">✓</span></button></div></div>
   <div class="dd-acc" id="dd-acc"></div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -6155,7 +6393,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610071155";
+const APP_VER = "v1-202610072047";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -6920,7 +7158,7 @@ setTimeout(gqBadge, 500);
 
 
 /* ===================== HOME ===================== */
-const HOME_GROUPS = [["Oggi", [["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp da inviare"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite con il percorso"], ["agenda", "📅", "Agenda settimanale", "La settimana e gli orari liberi"], ["gestionale", "📋", "Da fare nel gestionale", "Da riportare nel backoffice"]]], ["Clienti e visite", [["clienti", "👥", "Clienti", "Venditori, acquirenti e storico"], ["visite", "🏠", "Visite", "Schede visita e report al proprietario"], ["match", "🔗", "Incrocio domanda-offerta", "Chi chiamare per ogni immobile"], ["modelli", "✉️", "Modelli di messaggi", "Messaggi pronti da inviare"]]], ["Acquisizione", [["notizie", "📞", "Sessione chiamate notizie", "Chiama le notizie una dopo l'altra"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini, contatti"], ["zona", "🗺️", "Ricerca Zona", "Vie e civici di Bergamo e Brescia"], ["preq", "📝", "Foglio prequalifica", "Dati, documenti e valutazione"], ["prezzi", "📈", "Prezzi di zona", "Prezzi medi al m² dei comuni"]]], ["Immobile e marketing", [["desc", "✍️", "Generatore descrizione", "Testo per l'annuncio"], ["brochure", "📄", "Brochure immobile", "PDF con foto e descrizione"], ["foto", "📸", "Fotografo", "Servizi fotografici e foto su Drive"], ["ribasso", "📉", "Proposta di ribasso", "Dati delle visite per il proprietario"]]], ["Chiusura e amministrazione", [["calc", "🧮", "Calcolatori", "Mutuo, costi, netto venditore"], ["mandati", "📆", "Mandati e rogiti", "Scadenze, rinnovi e rogiti"], ["consegna", "🔑", "Consegna immobile", "Contatori, chiavi e verbale"], ["conta", "🧾", "Contabilità", "Proforma, fatture e incassi"]]], ["Risultati e impostazioni", [["obiettivi", "📊", "Obiettivi del mese", "Il mese in numeri"], ["utilita", "🧰", "Utilità e impostazioni", "Rubrica, scadenze, backup, tema"]]]];
+const HOME_GROUPS = [["Oggi", [["messaggi", "💬", "Centro Messaggi", "Appuntamenti e WhatsApp da inviare"], ["giro", "🚗", "Giro della giornata", "Valutazioni e visite con il percorso"], ["agenda", "📅", "Agenda settimanale", "La settimana e gli orari liberi"], ["gestionale", "📋", "Da fare nel gestionale", "Da riportare nel backoffice"]]], ["Clienti e visite", [["clienti", "👥", "Clienti", "Venditori, acquirenti e storico"], ["visite", "🏠", "Visite", "Schede visita e report al proprietario"], ["match", "🔗", "Incrocio domanda-offerta", "Chi chiamare per ogni immobile"], ["modelli", "✉️", "Modelli di messaggi", "Messaggi pronti da inviare"]]], ["Acquisizione", [["notizie", "📞", "Sessione chiamate notizie", "Chiama le notizie una dopo l'altra"], ["acq", "🚪", "Acquisizione", "Chiamate, cartelli, volantini, contatti"], ["zona", "🗺️", "Ricerca Zona", "Vie e civici di Bergamo e Brescia"], ["preq", "📝", "Foglio prequalifica", "Dati, documenti e valutazione"], ["prezzi", "📈", "Prezzi di zona", "Prezzi medi al m² dei comuni"]]], ["Immobile e marketing", [["desc", "✍️", "Generatore descrizione", "Testo per l'annuncio"], ["social", "📱", "Social", "Video e post per Instagram e TikTok"], ["foto", "📸", "Fotografo", "Servizi fotografici e foto su Drive"], ["ribasso", "📉", "Proposta di ribasso", "Dati delle visite per il proprietario"]]], ["Chiusura e amministrazione", [["calc", "🧮", "Calcolatori", "Mutuo, costi, netto venditore"], ["mandati", "📆", "Mandati e rogiti", "Scadenze, rinnovi e rogiti"], ["consegna", "🔑", "Consegna immobile", "Contatori, chiavi e verbale"], ["conta", "🧾", "Contabilità", "Proforma, fatture e incassi"]]], ["Risultati e impostazioni", [["obiettivi", "📊", "Obiettivi del mese", "Il mese in numeri"], ["utilita", "🧰", "Utilità e impostazioni", "Rubrica, scadenze, backup, tema"]]]];
 const HOME_INFO = Object.fromEntries(HOME_GROUPS.flatMap(g => g[1]).map(x => [x[0], x]));
 window.homeOpenLast = () => { try { return (lookDoc && lookDoc.data.open) === "last"; } catch { return false; } };
 function homeBadges(){
@@ -7922,6 +8160,7 @@ const UX_HELP = {
   prezzi: ["Prezzi di zona", ["Cerca un comune per il prezzo medio al m².", "Scrivi i m² per la stima.", "“Confronta” per mettere più comuni a fianco."]],
   desc: ["Generatore descrizione", ["Scegli un foglio di prequalifica.", "Aggiungi i punti di forza.", "“Genera” e poi modifica e copia il testo."]],
   brochure: ["Brochure immobile", ["Scegli il foglio di prequalifica.", "Aggiungi le foto (la prima è la copertina).", "Scarica il PDF da inviare o stampare."]],
+  social: ["Social", ["🎬 Video: scegli il video, l'app toglie le pause, aggiunge sottotitoli, titolo e musica. Poi “Crea il video finale”.", "🖼️ Post: scegli il tipo di post, aggiungi le foto e scegli lo stile: le slide e la didascalia si creano da sole.", "Puoi correggere ogni testo; poi scarica o condividi direttamente su Instagram e TikTok."]],
   foto: ["Fotografo", ["Compila indirizzo, giorno e ora del servizio.", "L'evento va nel calendario con l'invito.", "“Modifica e impacchettamento foto” sistema la luce e salva su Drive."]],
   fotoedit: ["Modifica foto", ["Scrivi il numero DV.", "Trascina le foto: la luce si corregge da sola.", "“Elabora e salva su Drive” e poi “📁 Cartella Drive”."]],
   ribasso: ["Proposta di ribasso", ["Scegli l'immobile (DV) e scrivi prezzo e prezzo minimo.", "Vedi cosa dicono le visite e il prezzo suggerito.", "Manda il messaggio o il PDF al proprietario."]],
@@ -8920,8 +9159,1116 @@ window.addEventListener("storage", e => {
   try { if (xCur === "notizie") ntRender(); else if (xCur === "home" && XVIEWS.home) XVIEWS.home(); } catch {}
 });
 
+/* ===================== SOCIAL: comune ===================== */
+const soDoc = xDoc("rz_social_v1", "social", { me: {}, tab: "video", v: {}, p: {} });
+const SO_VDEF = { cut: true, sens: 5, minsil: 0.6, capStyle: "tiktok", capPos: "basso", capN: 3, upper: true, hook: "", mood: "chill", vol: 45, duck: true, sfxIntro: true, sfxCut: false, sfxEnd: true, end: true, endT: "Vuoi vendere o comprare casa?", fmt: "9:16", fit: "fill", pan: 50, q: "", model: "", src: "", cap: "", capSeed: 0 };
+const SO_PDEF = { type: "vendita", theme: "elegante", fmt: "4:5", src: "", man: {}, photos: [], ov: {}, cap: "", capSeed: 0, topic: "errori", custom: { title: "", points: "" }, mkt: { comune: "Bergamo" }, chi: { anni: "", zona: "", frase: "" } };
+function soV(){ const v = soDoc.data.v || (soDoc.data.v = {}); for (const k in SO_VDEF) if (v[k] === undefined) v[k] = JSON.parse(JSON.stringify(SO_VDEF[k])); return v; }
+function soP(){ const p = soDoc.data.p || (soDoc.data.p = {}); for (const k in SO_PDEF) if (p[k] === undefined) p[k] = JSON.parse(JSON.stringify(SO_PDEF[k])); return p; }
+function soMe(){ const me = soDoc.data.me || (soDoc.data.me = {}); if (!me.nome) { try { me.nome = (typeof brDoc !== "undefined" && brDoc.data.me && brDoc.data.me.nome) || crm.signature || DEFAULT_SIG; } catch { me.nome = ""; } } if (!me.tel) { try { me.tel = (brDoc.data.me && brDoc.data.me.tel) || ""; } catch {} } return me; }
+let soSaveT = null; const soSave = () => { clearTimeout(soSaveT); soSaveT = setTimeout(() => soDoc.save(), 400); };
+const soTouch = () => window.matchMedia && matchMedia("(pointer:coarse)").matches;
+const soFmtT = s => { s = Math.max(0, s || 0); const m = Math.floor(s / 60), x = Math.floor(s % 60); return m + ":" + String(x).padStart(2, "0"); };
+const soClamp = (x, a, b) => Math.max(a, Math.min(b, x));
+
+/* ---------- font: Google Fonts caricati solo quando servono ---------- */
+const SO_FONT_CSS = "https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@500;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@500;600;800&display=swap";
+let soFontsP = null;
+function soFonts(){
+  if (soFontsP) return soFontsP;
+  soFontsP = (async () => {
+    if (!document.querySelector("link[data-so-fonts]")) { const l = document.createElement("link"); l.rel = "stylesheet"; l.href = SO_FONT_CSS; l.dataset.soFonts = "1"; document.head.appendChild(l); await new Promise(r => { l.onload = r; l.onerror = r; setTimeout(r, 6000); }); }
+    const specs = ["900 40px Montserrat", "800 40px Montserrat", "700 40px Montserrat", "600 40px Montserrat", "500 40px Montserrat", "800 40px Poppins", "600 40px Poppins", "500 40px Poppins", "400 40px Anton", "700 40px 'Playfair Display'", "italic 700 40px 'Playfair Display'", "700 40px 'DM Sans'", "500 40px 'DM Sans'"];
+    await Promise.race([Promise.all(specs.map(s => document.fonts.load(s).catch(() => {}))), new Promise(r => setTimeout(r, 8000))]);
+  })();
+  return soFontsP;
+}
+
+/* ---------- testo su canvas ---------- */
+function soWrap(ctx, text, maxW){
+  const out = [];
+  for (const para of String(text || "").split("\n")) {
+    const words = para.split(/\s+/).filter(Boolean); let line = "";
+    if (!words.length) { out.push(""); continue; }
+    for (const w of words) { const t = line ? line + " " + w : w; if (ctx.measureText(t).width <= maxW || !line) line = t; else { out.push(line); line = w; } }
+    if (line) out.push(line);
+  }
+  return out;
+}
+/* trova la dimensione più grande che fa stare il testo nel riquadro */
+function soFit(ctx, text, font, maxW, maxH, maxSize, minSize, lh){
+  let size = maxSize, lines = [];
+  for (; size >= minSize; size -= Math.max(1, Math.round(size * 0.06))) {
+    ctx.font = font(size); lines = soWrap(ctx, text, maxW);
+    if (lines.length * size * lh <= maxH && lines.every(l => ctx.measureText(l).width <= maxW)) break;
+  }
+  size = Math.max(size, minSize); ctx.font = font(size); lines = soWrap(ctx, text, maxW);
+  return { size, lines };
+}
+function soRound(ctx, x, y, w, h, r){ r = Math.min(r, w / 2, h / 2); ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+/* immagine "cover" dentro un riquadro, con spostamento orizzontale/verticale 0..1 */
+function soCover(ctx, img, x, y, w, h, px, py){
+  const iw = img.videoWidth || img.naturalWidth || img.width, ih = img.videoHeight || img.naturalHeight || img.height; if (!iw || !ih) return;
+  const r = Math.max(w / iw, h / ih), sw = w / r, sh = h / r;
+  const sx = (iw - sw) * (px == null ? 0.5 : px), sy = (ih - sh) * (py == null ? 0.5 : py);
+  ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+}
+function soContain(ctx, img, x, y, w, h){
+  const iw = img.videoWidth || img.naturalWidth || img.width, ih = img.videoHeight || img.naturalHeight || img.height; if (!iw || !ih) return;
+  const r = Math.min(w / iw, h / ih), dw = iw * r, dh = ih * r;
+  ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+}
+/* sfondo sfocato che funziona anche dove ctx.filter non c'è (Safari) */
+const soBlurC = document.createElement("canvas");
+function soBlurBg(ctx, img, W, H, dark){
+  const k = 24; soBlurC.width = Math.max(4, Math.round(W / k)); soBlurC.height = Math.max(4, Math.round(H / k));
+  const b = soBlurC.getContext("2d"); b.imageSmoothingEnabled = true; soCover(b, img, 0, 0, soBlurC.width, soBlurC.height);
+  ctx.save(); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high"; ctx.drawImage(soBlurC, 0, 0, W, H);
+  ctx.fillStyle = `rgba(0,0,0,${dark == null ? 0.35 : dark})`; ctx.fillRect(0, 0, W, H); ctx.restore();
+}
+
+/* ---------- dati degli immobili (dai fogli di prequalifica) ---------- */
+function soSheets(){ try { return brSheets(); } catch { return []; } }
+function soSheetRec(id){ const s = soSheets().find(x => x.id === id); return s ? s.rec : null; }
+function soSrcOptions(cur, manualLabel){
+  const sh = soSheets();
+  return `<option value="">${esc(manualLabel || "✍️ Scrivo io i dati")}</option>` + sh.map(x => `<option value="${esc(x.id)}"${x.id === cur ? " selected" : ""}>${esc(x.label)}</option>`).join("");
+}
+/* tutti i dati utili di un immobile, dal foglio o scritti a mano */
+function soProp(src, man){
+  const rec = src ? soSheetRec(src) : null, m = man || {}, o = { tip: "", loc: "", comune: "", zona: "", via: "", mq: 0, camere: 0, bagni: 0, prezzo: 0, plus: [], classe: "", giardino: 0, box: 0, terrazzo: false, balcone: false, cantina: false, piano: "", stato: "" };
+  if (rec) {
+    const d = dsData(rec), ds = dsDoc.data.by[src];
+    Object.assign(o, { tip: d.tip, comune: d.comune, via: d.via, mq: d.mq, camere: d.camere, bagni: d.bagni, prezzo: d.prezzo, classe: d.classe, giardino: d.giardino, box: d.box, terrazzo: !!d.terrazzi, balcone: !!d.balconi, cantina: !!d.cantine, piano: dsPianoTxt(d), stato: d.stato });
+    const L = dsLocali(d); o.loc = L ? DS_LOC[L] : ""; o.zona = (ds && ds.f && ds.f.zona) || "";
+    o.plus = (d.car || []).slice(0, 8);
+  }
+  for (const k of ["tip", "loc", "comune", "zona", "classe"]) if (m[k]) o[k] = m[k];
+  for (const k of ["mq", "camere", "bagni", "prezzo", "giardino"]) if (m[k] != null && m[k] !== "") { const n = rzNum(m[k]); if (n != null && !isNaN(n)) o[k] = n; }
+  if (m.plus != null && m.plus !== "") o.plus = String(m.plus).split(/\n|;/).map(s => s.trim()).filter(Boolean);
+  if (m.box != null && m.box !== "") o.box = m.box ? 1 : 0;
+  return o;
+}
+/* nome breve dell'immobile: "Trilocale", "Villa", "Appartamento" */
+function soName(o){
+  const tip = (o.tip || "").trim(), loc = o.loc ? o.loc.charAt(0).toUpperCase() + o.loc.slice(1) : "";
+  if (/villa|casa indipendente|attico|loft|rustico|mansarda|villetta/i.test(tip)) return tip;
+  return loc || tip || "Casa";
+}
+function soWhere(o){ return [o.zona, o.comune].filter(Boolean).filter((x, i, a) => a.indexOf(x) === i).join(", "); }
+function soEuro(n){ return n ? Math.round(n).toLocaleString("it-IT") + " €" : ""; }
+function soPlusAuto(o){
+  const a = [];
+  if (o.giardino) a.push("Giardino privato" + (o.giardino > 1 ? " di " + o.giardino + " m²" : ""));
+  if (o.terrazzo) a.push("Terrazzo vivibile"); else if (o.balcone) a.push("Balcone");
+  if (o.box) a.push("Box auto"); if (o.cantina) a.push("Cantina");
+  if (o.classe && /^A|^B/.test(o.classe)) a.push("Classe energetica " + o.classe);
+  if (o.piano && /ultimo/.test(o.piano)) a.push("Ultimo piano");
+  if (o.stato && /nuov|ristrutt|ottim/i.test(o.stato)) a.push(o.stato);
+  for (const p of o.plus || []) if (a.length < 8 && !a.some(x => x.toLowerCase() === String(p).toLowerCase())) a.push(String(p).charAt(0).toUpperCase() + String(p).slice(1));
+  return a;
+}
+function soProv(comune){ try { const x = PQ_PREZZI[comune]; return x ? x[0] : ""; } catch { return ""; } }
+const soTag = s => "#" + String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+
+/* ---------- didascalie ---------- */
+function soPick(arr, seed, salt){ const h = (seed * 2654435761 + (salt || 0) * 40503) >>> 0; return arr[h % arr.length]; }
+function soHashtags(o, kind, tiktok){
+  const t = [];
+  const prov = soProv(o.comune), city = prov === "BS" ? "brescia" : "bergamo";
+  if (o.comune) t.push(soTag(o.comune), soTag("case " + o.comune));
+  t.push("#" + city, "#casa" + city, "#immobiliare" + city);
+  const n = soName(o); if (n && kind !== "consigli" && kind !== "chisono") t.push(soTag(n));
+  if (kind === "vendita") t.push("#casainvendita", "#vendesi", "#cercocasa", "#casadavendere");
+  if (kind === "venduto") t.push("#venduto", "#casavenduta", "#vendocasa", "#vendereacasa");
+  if (kind === "consigli") t.push("#consigliimmobiliari", "#comprarecasa", "#vendercasa", "#mutuo");
+  if (kind === "mercato") t.push("#mercatoimmobiliare", "#prezzicase", "#investimentoimmobiliare");
+  if (kind === "chisono") t.push("#agenteimmobiliare", "#consulenteimmobiliare", "#vendocasa");
+  if (kind === "video") t.push("#casainvendita", "#hometour", "#tourcasa");
+  t.push("#immobiliare", "#casa", "#realestate", "#doveit");
+  const u = [...new Set(t.filter(x => x.length > 2))];
+  return (tiktok ? u.slice(0, 5).concat(["#perte", "#fyp"]) : u.slice(0, 18)).join(" ");
+}
+function soContact(me){
+  const a = []; if (me.nome) a.push("👤 " + me.nome); if (me.tel) a.push("📞 " + me.tel); return a.join("\n");
+}
+function soCaption(kind, o, extra, seed, tiktok){
+  const me = soMe(), name = soName(o), where = soWhere(o), P = (a, s) => soPick(a, seed, s);
+  const facts = [o.mq ? "📐 " + o.mq + " m²" : "", o.camere ? "🛏 " + o.camere + (o.camere === 1 ? " camera" : " camere") : "", o.bagni ? "🛁 " + o.bagni + (o.bagni === 1 ? " bagno" : " bagni") : "", ...soPlusAuto(o).slice(0, 4).map(x => "✨ " + x)].filter(Boolean);
+  const price = o.prezzo && extra.showPrice !== false ? soEuro(o.prezzo) : "";
+  let L = [];
+  if (kind === "vendita" || kind === "video") {
+    L.push(P([`🏡 ${name}${where ? " a " + where : ""}: guarda che spazi 👀`, `✨ Nuova casa in vendita${where ? " a " + where : ""}!`, `👀 Cerchi casa${o.comune ? " a " + o.comune : ""}? Questa potrebbe essere quella giusta.`, `📍 ${where || "Nuova proposta"} · ${name}${o.mq ? " di " + o.mq + " m²" : ""}`, `🔑 Ti presento questa ${name.toLowerCase()}${where ? " a " + where : ""}.`], 1));
+    L.push("");
+    L.push(P([`Una soluzione pensata per chi cerca comfort e praticità, in una posizione comoda per tutti i servizi.`, `Spazi luminosi e ben distribuiti, pronti per diventare la tua nuova casa.`, `Ideale per una coppia, una famiglia o come investimento.`, `Una casa da vedere dal vivo: le foto non bastano!`], 2));
+    if (facts.length) { L.push(""); L.push(...facts.slice(0, tiktok ? 3 : 7)); }
+    if (price) { L.push(""); L.push("💶 " + price); }
+    L.push("");
+    L.push(P([`📩 Scrivimi in DM per ricevere tutte le informazioni o fissare una visita.`, `📞 Chiamami per una visita: ti mostro la casa quando vuoi.`, `💬 Commenta “INFO” e ti mando la scheda completa.`, `📅 Prenota una visita: i posti si riempiono in fretta!`], 3));
+    L.push(P([`🔖 Salva il post e condividilo con chi sta cercando casa!`, `📤 Mandalo a chi cerca casa in zona!`, `🔖 Salvalo per non perderlo.`], 4));
+  } else if (kind === "venduto") {
+    L.push(P([`✅ VENDUTO! ${name}${where ? " a " + where : ""}`, `🎉 Un'altra casa venduta${where ? " a " + where : ""}!`, `🔑 Chiavi consegnate! ${name}${where ? " a " + where : ""} ha trovato i suoi nuovi proprietari.`], 1));
+    L.push("");
+    if (extra.giorni) L.push(`⏱ Venduto in ${extra.giorni} giorni.`);
+    L.push(P([`Grazie ai proprietari per la fiducia e benvenuti a casa ai nuovi acquirenti! 🥂`, `Un percorso seguito passo dopo passo, dalla valutazione al rogito.`, `Prezzo giusto, buona promozione e trattativa seguita fino alla fine: così si vende.`], 2));
+    L.push("");
+    L.push(P([`🏠 Vuoi vendere anche tu? Ti faccio una valutazione gratuita della tua casa.`, `📩 Pensi di vendere? Scrivimi: ti dico quanto vale davvero la tua casa.`, `📞 Hai una casa da vendere in zona? Parliamone senza impegno.`], 3));
+  } else if (kind === "consigli") {
+    L.push(`💡 ${extra.title || "Consigli per chi compra o vende casa"}`);
+    L.push("");
+    L.push(P([`Scorri il carosello 👉 e salva il post per quando ti servirà.`, `Ecco cosa ripeto sempre ai miei clienti 👇`, `Pochi minuti di lettura che possono farti risparmiare tempo e soldi.`], 2));
+    if (extra.points && extra.points.length) { L.push(""); extra.points.slice(0, tiktok ? 3 : 8).forEach((p, i) => L.push(`${i + 1}️⃣ ${p}`)); }
+    L.push("");
+    L.push(P([`Hai dubbi sulla tua situazione? Scrivimi in DM 📩`, `Quale di questi punti ti è stato più utile? Dimmelo nei commenti 👇`, `🔖 Salvalo e mandalo a chi sta per comprare o vendere casa!`], 3));
+  } else if (kind === "mercato") {
+    L.push(P([`📊 Quanto costano le case a ${o.comune || "Bergamo"}?`, `📈 Il mercato immobiliare a ${o.comune || "Bergamo"} in un colpo d'occhio`, `🏘 Prezzi delle case a ${o.comune || "Bergamo"}: ecco i numeri`], 1));
+    L.push("");
+    if (extra.mq) L.push(`💶 Prezzo medio: circa ${extra.mq.toLocaleString("it-IT")} €/m²`);
+    if (extra.esempio) L.push(`🏠 Un appartamento di 90 m² vale in media circa ${extra.esempio}`);
+    L.push(`Ogni casa però è diversa: piano, stato, esposizione e servizi cambiano molto il valore.`);
+    L.push("");
+    L.push(P([`📩 Vuoi sapere quanto vale la tua? Scrivimi per una valutazione gratuita.`, `📞 Valutazione gratuita e senza impegno: contattami.`], 3));
+  } else {
+    L.push(P([`👋 Piacere, sono ${String(me.nome || "il tuo consulente immobiliare").split(/\s+[—–-]\s+/)[0]}!`, `🔑 Chi c'è dietro a questo profilo?`, `👋 Se mi segui da poco, ecco chi sono.`], 1));
+    L.push("");
+    L.push(`Sono consulente immobiliare${extra.zona ? " a " + extra.zona : ""}${extra.anni ? " da " + extra.anni + " anni" : ""}: aiuto chi vuole vendere o comprare casa, seguendo tutto dalla valutazione al rogito.`);
+    if (extra.frase) { L.push(""); L.push("💬 " + extra.frase); }
+    L.push("");
+    L.push(P([`📩 Scrivimi in DM per qualsiasi domanda sulla tua casa.`, `📞 Vuoi vendere o comprare? Parliamone!`], 3));
+  }
+  const ct = soContact(me); if (ct && !tiktok) { L.push(""); L.push(ct); }
+  L.push(""); L.push(soHashtags(o, kind, tiktok));
+  let s = L.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+  if (tiktok) s = s.split("\n").filter(Boolean).slice(0, 8).join("\n");
+  return s;
+}
+async function soCopy(text){ try { await navigator.clipboard.writeText(text); toast("📋 Didascalia copiata"); } catch { const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); toast("📋 Didascalia copiata"); } catch { toast("Selezionala e copiala a mano"); } ta.remove(); } }
+
+/* ===================== SOCIAL: musica ed effetti creati dall'app (senza diritti) ===================== */
+const SO_MOODS = [
+  ["nessuna", "🔇 Nessuna"], ["chill", "😌 Rilassata"], ["lusso", "✨ Elegante"], ["energica", "⚡ Energica"], ["emozionale", "💛 Emozionale"], ["corporate", "💼 Positiva"], ["mia", "🎵 La mia musica"]
+];
+const SO_MUS = {
+  chill: { bpm: 84, prog: [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]], lead: "keys", drums: "soft" },
+  lusso: { bpm: 68, prog: [[48, 52, 55, 59], [45, 48, 52, 55], [41, 45, 48, 52], [43, 47, 50, 53]], lead: "bell", drums: "" },
+  energica: { bpm: 118, prog: [[52, 55, 59], [48, 52, 55], [55, 59, 62], [50, 54, 57]], lead: "pluck", drums: "house" },
+  emozionale: { bpm: 72, prog: [[53, 57, 60], [48, 52, 55], [50, 53, 57], [46, 50, 53]], lead: "piano", drums: "" },
+  corporate: { bpm: 100, prog: [[50, 54, 57], [45, 49, 52], [47, 50, 54], [43, 47, 50]], lead: "pluck", drums: "clap" }
+};
+const soHz = m => 440 * Math.pow(2, (m - 69) / 12);
+const soNoiseCache = new WeakMap();
+function soNoise(ctx){ let b = soNoiseCache.get(ctx); if (b) return b; b = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate); const d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; soNoiseCache.set(ctx, b); return b; }
+function soEnv(ctx, g, t, a, peak, dec, sus, rel, end){
+  g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + a);
+  if (sus != null) { g.gain.setTargetAtTime(peak * sus, t + a, dec / 3); g.gain.setTargetAtTime(0.0001, end, rel / 4); }
+  else g.gain.exponentialRampToValueAtTime(0.0001, t + a + dec);
+}
+function soVoice(ctx, out, type, f, t, dur, lvl){
+  if (type === "pad") {
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1100; lp.Q.value = 0.4;
+    const g = ctx.createGain(); lp.connect(g); g.connect(out); soEnv(ctx, g, t, 0.5, lvl, 0.6, 0.85, 0.8, t + dur);
+    for (const d of [-7, 7]) { const o = ctx.createOscillator(); o.type = "sawtooth"; o.frequency.value = f; o.detune.value = d; o.connect(lp); o.start(t); o.stop(t + dur + 0.9); }
+  } else if (type === "keys") {
+    const g = ctx.createGain(); g.connect(out); soEnv(ctx, g, t, 0.01, lvl, 1.6);
+    const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f; o.connect(g); o.start(t); o.stop(t + 1.8);
+    const o2 = ctx.createOscillator(), g2 = ctx.createGain(); g2.gain.value = 0.25; o2.type = "triangle"; o2.frequency.value = f * 2; o2.connect(g2); g2.connect(g); o2.start(t); o2.stop(t + 1.8);
+  } else if (type === "bell") {
+    const g = ctx.createGain(); g.connect(out); soEnv(ctx, g, t, 0.005, lvl, 1.4);
+    const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f;
+    const m = ctx.createOscillator(), mg = ctx.createGain(); m.frequency.value = f * 3.5; mg.gain.setValueAtTime(f * 1.2, t); mg.gain.exponentialRampToValueAtTime(1, t + 1.2); m.connect(mg); mg.connect(o.frequency);
+    o.connect(g); o.start(t); m.start(t); o.stop(t + 1.5); m.stop(t + 1.5);
+  } else if (type === "piano") {
+    const g = ctx.createGain(); g.connect(out); soEnv(ctx, g, t, 0.006, lvl, 2.2);
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.setValueAtTime(3500, t); lp.frequency.exponentialRampToValueAtTime(700, t + 1.5); lp.connect(g);
+    for (const [k, ty, v] of [[1, "triangle", 1], [2, "sine", 0.35], [3, "sine", 0.12]]) { const o = ctx.createOscillator(), gg = ctx.createGain(); o.type = ty; o.frequency.value = f * k; gg.gain.value = v; o.connect(gg); gg.connect(lp); o.start(t); o.stop(t + 2.4); }
+  } else if (type === "pluck") {
+    const g = ctx.createGain(); g.connect(out); soEnv(ctx, g, t, 0.004, lvl, 0.35);
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 3; lp.frequency.setValueAtTime(3200, t); lp.frequency.exponentialRampToValueAtTime(380, t + 0.25); lp.connect(g);
+    const o = ctx.createOscillator(); o.type = "sawtooth"; o.frequency.value = f; o.connect(lp); o.start(t); o.stop(t + 0.45);
+  } else if (type === "bass") {
+    const g = ctx.createGain(); g.connect(out); soEnv(ctx, g, t, 0.01, lvl, 0.25, 0.7, 0.15, t + dur);
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 380; lp.connect(g);
+    const o = ctx.createOscillator(); o.type = "triangle"; o.frequency.value = f; o.connect(lp); o.start(t); o.stop(t + dur + 0.3);
+  }
+}
+function soDrum(ctx, out, kind, t, lvl){
+  if (kind === "kick") {
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(45, t + 0.12);
+    g.gain.setValueAtTime(lvl, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.32); o.connect(g); g.connect(out); o.start(t); o.stop(t + 0.35);
+  } else {
+    const s = ctx.createBufferSource(); s.buffer = soNoise(ctx); const f = ctx.createBiquadFilter(), g = ctx.createGain();
+    if (kind === "hat") { f.type = "highpass"; f.frequency.value = 7500; g.gain.setValueAtTime(lvl, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05); }
+    else { f.type = "bandpass"; f.frequency.value = 1500; f.Q.value = 0.9; g.gain.setValueAtTime(lvl, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16); }
+    s.connect(f); f.connect(g); g.connect(out); s.start(t, Math.random() * 0.5); s.stop(t + 0.2);
+  }
+}
+/* scrive la musica nel contesto "ctx" (anche offline) da t0 per "dur" secondi */
+function soMusic(ctx, out, mood, t0, dur){
+  const M = SO_MUS[mood]; if (!M) return;
+  const beat = 60 / M.bpm, bar = beat * 4, end = t0 + dur;
+  const bus = ctx.createGain(); bus.gain.value = 1; bus.connect(out);
+  const lvl = { pad: 0.035, keys: 0.06, bell: 0.05, piano: 0.075, pluck: 0.05, bass: 0.13 };
+  let b = 0;
+  for (let t = t0; t < end; t += bar, b++) {
+    const ch = M.prog[b % M.prog.length], d = Math.min(bar, end - t);
+    for (const n of ch) soVoice(ctx, bus, "pad", soHz(n), t, d, lvl.pad * (mood === "energica" ? 0.6 : 1));
+    soVoice(ctx, bus, "bass", soHz(ch[0] - 24), t, Math.min(beat * 2, d) - 0.05, lvl.bass * (mood === "lusso" ? 0.7 : 1));
+    if (d > beat * 2) soVoice(ctx, bus, "bass", soHz(ch[0] - 24), t + beat * 2, Math.min(beat * 2, d - beat * 2) - 0.05, lvl.bass * 0.8);
+    const arp = ch.concat([ch[0] + 12, ch[1] + 12]);
+    for (let s = 0; s < 8; s++) {
+      const tt = t + s * beat / 2; if (tt >= end - 0.05) break;
+      if (M.lead === "keys") { if (s === 0 || s === 4 || s === 3) for (const n of ch) soVoice(ctx, bus, "keys", soHz(n + 12), tt, 0, lvl.keys * (s === 3 ? 0.5 : 1)); }
+      else if (M.lead === "bell") { if (s % 2 === 0) soVoice(ctx, bus, "bell", soHz(arp[(b * 3 + s / 2) % arp.length] + 12), tt, 0, lvl.bell); }
+      else if (M.lead === "piano") soVoice(ctx, bus, "piano", soHz([0, 2, 1, 3, 4, 2, 3, 1].map(i => arp[i % arp.length])[s]), tt, 0, lvl.piano * (s % 2 ? 0.7 : 1));
+      else if (M.lead === "pluck") soVoice(ctx, bus, "pluck", soHz(arp[(s * 2 + b) % arp.length] + (s % 4 === 3 ? 12 : 0)), tt, 0, lvl.pluck * (s % 2 ? 0.7 : 1));
+    }
+    if (M.drums) for (let k = 0; k < 4; k++) {
+      const tt = t + k * beat; if (tt >= end - 0.05) break;
+      if (M.drums === "house") { soDrum(ctx, bus, "kick", tt, 0.55); if (k % 2) soDrum(ctx, bus, "clap", tt, 0.16); soDrum(ctx, bus, "hat", tt + beat / 2, 0.08); }
+      else if (M.drums === "soft") { if (k % 2 === 0) soDrum(ctx, bus, "kick", tt, 0.38); soDrum(ctx, bus, "hat", tt, 0.035); soDrum(ctx, bus, "hat", tt + beat / 2, 0.025); if (k % 2) soDrum(ctx, bus, "clap", tt, 0.06); }
+      else if (M.drums === "clap") { if (k % 2 === 0) soDrum(ctx, bus, "kick", tt, 0.45); else soDrum(ctx, bus, "clap", tt, 0.14); soDrum(ctx, bus, "hat", tt + beat / 2, 0.05); }
+    }
+  }
+}
+function soSfx(ctx, out, kind, t, lvl){
+  if (kind === "whoosh") {
+    const s = ctx.createBufferSource(); s.buffer = soNoise(ctx); const f = ctx.createBiquadFilter(), g = ctx.createGain();
+    f.type = "bandpass"; f.Q.value = 0.9; f.frequency.setValueAtTime(350, t); f.frequency.exponentialRampToValueAtTime(4200, t + 0.32); f.frequency.exponentialRampToValueAtTime(1500, t + 0.5);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(lvl, t + 0.28); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+    s.connect(f); f.connect(g); g.connect(out); s.start(t); s.stop(t + 0.6);
+  } else if (kind === "pop") {
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.setValueAtTime(950, t); o.frequency.exponentialRampToValueAtTime(320, t + 0.08);
+    g.gain.setValueAtTime(lvl, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12); o.connect(g); g.connect(out); o.start(t); o.stop(t + 0.14);
+  } else if (kind === "ding") {
+    for (const [f, v] of [[1318.5, 1], [1975.5, 0.45], [2637, 0.2]]) { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f; g.gain.setValueAtTime(lvl * v, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.4); o.connect(g); g.connect(out); o.start(t); o.stop(t + 1.5); }
+  }
+}
+/* decodifica compatibile anche con i Safari vecchi */
+function soDecode(ctx, buf){ return new Promise((res, rej) => { try { const p = ctx.decodeAudioData(buf, res, rej); if (p && p.then) p.then(res, rej); } catch (e) { rej(e); } }); }
+let soAc = null;
+function soAudioCtx(){ if (!soAc || soAc.state === "closed") { const C = window.AudioContext || window.webkitAudioContext; soAc = new C(); } return soAc; }
+
+/* ===================== SOCIAL: editor video ===================== */
+const SO_CAPSTYLES = [["tiktok", "TikTok"], ["box", "Riquadro bianco"], ["elegante", "Elegante"], ["impatto", "Grande impatto"], ["nessuno", "Senza sottotitoli"]];
+const SO_FMTS = [["9:16", "📱 9:16 Reels/TikTok"], ["4:5", "▭ 4:5 Feed"], ["1:1", "◻️ 1:1 Quadrato"]];
+const SO_HOOKS = ["Guarda questa casa prima che sparisca 👀", "Cosa trovi con questo budget? 🏡", "Il soggiorno più luminoso che vedrai oggi ☀️", "Casa con giardino in zona tranquilla 🌳", "Ti porto a vedere una casa 🔑", "Questa casa ha un dettaglio che non ti aspetti…", "3 motivi per vedere questa casa 👇", "Venduta in pochi giorni: ecco perché ✅"];
+const SV = { file: null, url: "", vid: null, dur: 0, vw: 0, vh: 0, ab: null, dt: 0.02, db: null, peaks: null, thr: 0, regions: [], segs: [], outDur: 0, words: [], caps: [], bed: null, bedKey: "", busy: false, stop: false, playing: false, musBuf: null, musName: "", loadId: 0 };
+
+/* ---------- caricamento del video ---------- */
+function soVidEl(){
+  if (SV.vid) return SV.vid;
+  const v = document.createElement("video"); v.playsInline = true; v.setAttribute("playsinline", ""); v.setAttribute("webkit-playsinline", ""); v.muted = true; v.preload = "auto"; v.crossOrigin = "anonymous";
+  v.style.cssText = "position:fixed;left:-9999px;top:0;width:2px;height:2px;opacity:0;pointer-events:none"; document.body.appendChild(v);
+  return SV.vid = v;
+}
+function soOnce(el, ev, ms){ return new Promise((res, rej) => { let t = null; const ok = () => { clearTimeout(t); el.removeEventListener(ev, ok); el.removeEventListener("error", ko); res(); }, ko = () => { clearTimeout(t); el.removeEventListener(ev, ok); el.removeEventListener("error", ko); rej(new Error("video non leggibile")); }; el.addEventListener(ev, ok); el.addEventListener("error", ko); if (ms) t = setTimeout(() => { el.removeEventListener(ev, ok); el.removeEventListener("error", ko); res(); }, ms); }); }
+async function soSeek(t){ const v = SV.vid; if (Math.abs(v.currentTime - t) < 0.001 && v.readyState >= 2) return; const p = soOnce(v, "seeked", 4000); v.currentTime = t; await p; }
+async function soLoadVideo(file){
+  const id = ++SV.loadId; soStop();
+  const info = $("so-v-info"); info.innerHTML = `⏳ Apro “${esc(file.name)}”…`;
+  if (SV.url) URL.revokeObjectURL(SV.url);
+  Object.assign(SV, { file, url: URL.createObjectURL(file), ab: null, db: null, peaks: null, regions: [], segs: [], words: [], caps: [], bed: null, bedKey: "", dur: 0 });
+  $("so-result").innerHTML = ""; $("so-exp-st").innerHTML = "";
+  const v = soVidEl(); v.src = SV.url;
+  try { await soOnce(v, "loadedmetadata", 20000); } catch { info.innerHTML = `<span class="so-err">⚠️ Questo video non si apre in questo browser. Prova a esportarlo in MP4 dal telefono o usa Chrome/Safari aggiornati.</span>`; return; }
+  if (!isFinite(v.duration)) { v.currentTime = 1e7; await soOnce(v, "durationchange", 3000).catch(() => {}); v.currentTime = 0; }
+  SV.dur = v.duration || 0; SV.vw = v.videoWidth; SV.vh = v.videoHeight;
+  if (!SV.dur || !SV.vw) { info.innerHTML = `<span class="so-err">⚠️ Non riesco a leggere questo video.</span>`; return; }
+  const st = soV(); st.tin = 0; st.tout = SV.dur;
+  try { await soSeek(Math.min(0.1, SV.dur / 2)); } catch {}
+  $("so-empty").hidden = true; soShowNeed(true); soDrawPreviewAt(0);
+  const big4k = soIs4k(), head = () => `🎬 <b>${esc(file.name)}</b> · ${soFmtT(SV.dur)} · ${SV.vw}×${SV.vh}${file.size ? " · " + (file.size / 1048576).toFixed(0) + " MB" : ""}${big4k ? `<br><span class="so-4k">4K → 1080p</span> Il video viene ridotto in automatico a Full HD: più leggero da lavorare e perfetto per Instagram e TikTok.` : ""}`;
+  if (big4k) st.q = "1080";
+  info.innerHTML = head() + `<br>⏳ Analizzo l'audio per trovare le pause…`;
+  let heavy = file.size > (soTouch() ? 250 : 1500) * 1048576; try { if (localStorage.getItem("so_force_rt")) heavy = true; } catch {}
+  try {
+    if (heavy) throw new Error("big");
+    const buf = await file.arrayBuffer(); if (id !== SV.loadId) return;
+    const ab = await soDecode(soAudioCtx(), buf); if (id !== SV.loadId) return;
+    SV.ab = ab; soAnalyze();
+    info.innerHTML = head();
+  } catch (e) {
+    /* file troppo grande per la memoria (tipico dei 4K) o audio non decodificabile: leggo l'audio facendo scorrere il video a velocità doppia */
+    SV.ab = null; soDetect(); soRenderVideoUI(); soDrawPreviewAt(0);
+    await soAudioFallback(id, head);
+    return;
+  }
+  soDetect(); soRenderVideoUI(); soDrawPreviewAt(0);
+}
+const soIs4k = () => Math.max(SV.vw, SV.vh) > 2000;
+/* lettura dell'audio "in diretta" a velocità doppia: usa poca memoria, funziona anche con video 4K enormi */
+async function soAudioByPlayback(id, onProg){
+  const v = soVidEl(), ac = soAudioCtx(); await ac.resume();
+  const src = SV.elSrc || (SV.elSrc = ac.createMediaElementSource(v));
+  const rate = 2, blk = 4096, sp = ac.createScriptProcessor(blk, 2, 1), mute = ac.createGain(); mute.gain.value = 0;
+  const parts = []; let lastT = 0, next = null; const effSr = ac.sampleRate / rate, bd = blk / effSr;
+  sp.onaudioprocess = e => {
+    if (v.paused || v.seeking || v.currentTime <= 0) return;
+    const L = e.inputBuffer.getChannelData(0), R = e.inputBuffer.numberOfChannels > 1 ? e.inputBuffer.getChannelData(1) : L, m = new Float32Array(L.length);
+    for (let i = 0; i < L.length; i++) m[i] = (L[i] + R[i]) / 2;
+    /* ogni blocco va al suo posto: se il browser salta un pezzo non si sfasa tutto il resto */
+    const meas = v.currentTime - bd - 0.03; const at = next == null || Math.abs(meas - next) > 0.08 ? meas : next; parts.push([at, m]); next = at + bd;
+  };
+  src.connect(sp); sp.connect(mute); mute.connect(ac.destination);
+  const restore = () => { try { src.disconnect(sp); } catch {} try { sp.disconnect(); mute.disconnect(); } catch {} v.pause(); v.playbackRate = 1; v.preservesPitch = true; v.webkitPreservesPitch = true; v.muted = true; };
+  try {
+    v.preservesPitch = false; v.webkitPreservesPitch = false; v.mozPreservesPitch = false; v.muted = false; v.volume = 1;
+    await soSeek(0); v.playbackRate = rate;
+    await v.play();
+    await new Promise((res, rej) => {
+      const tick = setInterval(() => { if (id !== SV.loadId) { clearInterval(tick); rej(new Error("annullato")); return; } if (onProg) onProg(v.currentTime / SV.dur); if (v.ended || v.currentTime >= SV.dur - 0.05) { clearInterval(tick); setTimeout(res, 300); } else if (v.paused && v.currentTime > 0 && v.currentTime === lastT) { v.play().catch(() => {}); } lastT = v.currentTime; }, 250);
+    });
+  } finally { restore(); }
+  const sr = Math.round(ac.sampleRate / rate), len = Math.max(1, Math.ceil(SV.dur * sr));
+  const ab = (typeof AudioBuffer === "function" && AudioBuffer.length !== undefined) ? (() => { try { return new AudioBuffer({ length: len, numberOfChannels: 1, sampleRate: sr }); } catch { return ac.createBuffer(1, len, sr); } })() : ac.createBuffer(1, len, sr);
+  const d = ab.getChannelData(0); for (const [at, m] of parts) { const o = Math.round(at * sr); if (o >= len || o + m.length <= 0) continue; const a = Math.max(0, -o); d.set(m.subarray(a, Math.min(m.length, len - o)), o + a); }
+  return ab;
+}
+async function soAudioFallback(id, head){
+  const info = $("so-v-info");
+  const run = async () => {
+    info.innerHTML = head() + `<br>⏳ Leggo l'audio del video… <span id="so-aud-p">0%</span><div class="so-prog"><i id="so-aud-bar"></i></div>`;
+    try {
+      const ab = await soAudioByPlayback(id, k => { const p = $("so-aud-p"), b = $("so-aud-bar"), x = Math.round(soClamp(k, 0, 1) * 100); if (p) p.textContent = x + "%"; if (b) b.style.width = x + "%"; });
+      if (id !== SV.loadId) return;
+      SV.ab = ab; soAnalyze(); soDetect(); soRenderVideoUI(); try { await soSeek(Math.min(0.1, SV.dur / 2)); } catch {} soDrawPreviewAt(0);
+      info.innerHTML = head();
+    } catch (e) {
+      if (id !== SV.loadId) return;
+      if (e && e.name === "NotAllowedError") { info.innerHTML = head() + `<br><button type="button" class="x-act call" id="so-aud-go">🎧 Prepara l'audio del video</button> <span class="x-note">serve per tagliare le pause e creare i sottotitoli</span>`; const b = $("so-aud-go"); if (b) b.onclick = () => run(); return; }
+      info.innerHTML = head() + `<br><span class="so-err">⚠️ Non riesco a leggere l'audio di questo video: il taglio automatico delle pause e i sottotitoli automatici non sono disponibili. Puoi comunque tagliare inizio e fine, aggiungere titolo e musica.</span>`;
+    }
+  };
+  await run();
+}
+/* volume (dB) ogni 20 ms */
+function soAnalyze(){
+  const ab = SV.ab, sr = ab.sampleRate, hop = Math.round(sr * SV.dt), n = Math.floor(ab.length / hop), db = new Float32Array(n);
+  const chs = []; for (let c = 0; c < Math.min(2, ab.numberOfChannels); c++) chs.push(ab.getChannelData(c));
+  for (let i = 0; i < n; i++) { let s = 0; const o = i * hop; for (let j = 0; j < hop; j += 2) { let x = 0; for (const ch of chs) x += ch[o + j]; x /= chs.length; s += x * x; } db[i] = 10 * Math.log10(s / (hop / 2) + 1e-10); }
+  SV.db = db;
+}
+window.soDbg = () => ({ regions: SV.regions.map(r => [+r.s.toFixed(2), +r.e.toFixed(2)]), sr: SV.ab && SV.ab.sampleRate });
+function soPct(arr, p){ const a = Array.from(arr).sort((x, y) => x - y); return a[Math.min(a.length - 1, Math.max(0, Math.floor(a.length * p)))]; }
+/* trova le pause da tagliare */
+function soDetect(){
+  const st = soV(); SV.regions = [];
+  if (SV.db && SV.db.length) {
+    const db = SV.db, floor = soPct(db, 0.12), loud = soPct(db, 0.95), dt = SV.dt;
+    SV.thr = floor + (loud - floor) * (0.12 + st.sens * 0.035);
+    const minF = Math.round(st.minsil / dt), pad = 0.13;
+    let i = 0;
+    while (i < db.length) {
+      if (db[i] < SV.thr) { let j = i; while (j < db.length && db[j] < SV.thr) j++;
+        const s = i * dt, e = Math.min(SV.dur, j * dt), lead = i === 0, tail = j >= db.length - 1;
+        if (j - i >= minF || ((lead || tail) && e - s > 0.35)) { const cs = lead ? 0 : s + pad, ce = tail ? SV.dur : e - pad; if (ce - cs > 0.15) SV.regions.push({ s: cs, e: ce, on: true }); }
+        i = j; } else i++;
+    }
+  }
+  soSegs();
+}
+function soSegs(){
+  const st = soV(), tin = soClamp(st.tin || 0, 0, SV.dur), tout = soClamp(st.tout || SV.dur, tin + 0.5, SV.dur);
+  let keep = [[tin, tout]];
+  if (st.cut) for (const r of SV.regions) if (r.on) { const nk = []; for (const [a, b] of keep) { if (r.e <= a || r.s >= b) nk.push([a, b]); else { if (r.s > a) nk.push([a, r.s]); if (r.e < b) nk.push([r.e, b]); } } keep = nk; }
+  keep = keep.filter(([a, b]) => b - a >= 0.25);
+  if (!keep.length) keep = [[tin, tout]];
+  let o = 0; SV.segs = keep.map(([s, e]) => { const g = { s, e, o }; o += e - s; return g; }); SV.outDur = o;
+  SV.bed = null; soBuildCaps();
+}
+const soTotal = () => SV.outDur + (soV().end ? 3 : 0);
+function soMapT(t){ for (const g of SV.segs) if (t >= g.s - 0.02 && t <= g.e + 0.02) return g.o + soClamp(t, g.s, g.e) - g.s; return null; }
+
+/* ---------- sottotitoli ---------- */
+function soBuildCaps(){
+  const st = soV(), n = +st.capN || 3, W = []; SV.caps = [];
+  SV.words.forEach((w, i) => { const m = (w.s + w.e) / 2, o = soMapT(m); if (o == null) return; const s = soMapT(w.s), e = soMapT(w.e); W.push({ i, w: w.w, s: s == null ? o - 0.05 : s, e: e == null ? o + 0.05 : Math.max(e, (s == null ? o : s) + 0.08) }); });
+  let cur = null;
+  for (const w of W) {
+    const brk = !cur || cur.words.length >= n || w.s - cur.e > 0.6 || /[.!?]$/.test(cur.words[cur.words.length - 1].w) || (n >= 6 && cur.text.length > 34);
+    if (brk) { cur = { s: w.s, e: w.e, words: [], text: "" }; SV.caps.push(cur); }
+    cur.words.push(w); cur.e = w.e; cur.text = cur.words.map(x => x.w).join(" ");
+  }
+  for (let k = 0; k < SV.caps.length; k++) { const c = SV.caps[k], nx = SV.caps[k + 1]; c.e = Math.min(nx ? nx.s : c.e + 0.6, c.e + 0.6); if (c.e - c.s < 0.35) c.e = Math.min(nx ? nx.s : c.s + 0.35, c.s + 0.35); }
+}
+function soCapsUI(){
+  const box = $("so-caps"); if (!box) return;
+  if (!SV.words.length) { box.innerHTML = ""; return; }
+  box.innerHTML = `<div class="x-note">${SV.caps.length} sottotitoli: puoi correggere ogni frase qui sotto.</div>` + SV.caps.map((c, k) => `<div class="so-cap" data-so-capi="${k}"><span class="t">${soFmtT(c.s)}</span><input class="inp" value="${esc(c.text)}" data-so-capt="${k}" aria-label="Sottotitolo ${k + 1}"><button type="button" data-so-capdel="${k}" aria-label="Elimina">✕</button></div>`).join("");
+}
+/* modifica di un sottotitolo: le parole nuove si distribuiscono nello stesso tempo */
+function soCapEdit(k, text){
+  const c = SV.caps[k]; if (!c || !c.words.length) return;
+  const idx = c.words.map(w => w.i), i0 = Math.min(...idx), i1 = Math.max(...idx), s0 = SV.words[i0].s, e0 = SV.words[i1].e;
+  const toks = String(text).trim().split(/\s+/).filter(Boolean), d = (e0 - s0) / Math.max(1, toks.length);
+  const nw = toks.map((w, j) => ({ w, s: s0 + j * d, e: s0 + (j + 1) * d }));
+  SV.words.splice(i0, i1 - i0 + 1, ...nw); soBuildCaps();
+}
+function soAsrWorkerSrc(){
+  return `import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.5/dist/transformers.min.js";
+env.allowLocalModels = false;
+let asr = null, key = "";
+async function load(model, device){
+  const opts = { device, progress_callback: p => self.postMessage({ type: "progress", p: { status: p.status, file: p.file, progress: p.progress, loaded: p.loaded, total: p.total } }) };
+  opts.dtype = device === "webgpu" ? "fp32" : "q8";
+  return await pipeline("automatic-speech-recognition", model, opts);
+}
+self.onmessage = async e => {
+  const { pcm, model, gpu, parts } = e.data;
+  try {
+    if (!asr || key !== model) {
+      asr = null;
+      if (gpu) { try { asr = await load(model, "webgpu"); self.postMessage({ type: "device", d: "webgpu" }); } catch (err) { asr = null; } }
+      if (!asr) { asr = await load(model, "wasm"); self.postMessage({ type: "device", d: "wasm" }); }
+      key = model;
+    }
+    const words = [];
+    for (let k = 0; k < parts.length; k++) {
+      const [a, b] = parts[k], seg = pcm.subarray(Math.floor(a * 16000), Math.floor(b * 16000));
+      self.postMessage({ type: "part", k, n: parts.length });
+      let out = null;
+      try { out = await asr(seg, { language: "italian", task: "transcribe", return_timestamps: "word" }); }
+      catch (err) { out = await asr(seg, { language: "italian", task: "transcribe", return_timestamps: true }); out.seg = true; }
+      for (const c of out.chunks || []) {
+        const ts = c.timestamp || [0, 0], s = (ts[0] == null ? 0 : ts[0]) + a, en = (ts[1] == null ? (b - a) : ts[1]) + a;
+        if (out.seg) { const toks = String(c.text || "").trim().split(/\\s+/).filter(Boolean), L = toks.reduce((x, t) => x + t.length + 1, 0) || 1; let t0 = s; for (const t of toks) { const d = (en - s) * (t.length + 1) / L; words.push({ w: t, s: t0, e: t0 + d }); t0 += d; } }
+        else { const t = String(c.text || "").trim(); if (t) words.push({ w: t, s, e: Math.max(en, s) }); }
+      }
+    }
+    self.postMessage({ type: "done", words });
+  } catch (err) { self.postMessage({ type: "error", err: String((err && err.message) || err) }); }
+};`;
+}
+let soWorker = null;
+/* parti di parlato (max ~25 s) tagliate nelle pause, così il riconoscimento non ripete frasi */
+function soSpeechParts(tin, tout){
+  const parts = []; let a = null, last = tin;
+  const quiet = [];
+  if (SV.db) { const dt = SV.dt; let i = Math.floor(tin / dt); while (i < SV.db.length && i * dt < tout) { if (SV.db[i] < SV.thr) { let j = i; while (j < SV.db.length && SV.db[j] < SV.thr) j++; if ((j - i) * dt >= 0.25) quiet.push([i * dt, j * dt]); i = j; } else i++; } }
+  let start = tin;
+  while (start < tout - 0.3) {
+    let end = Math.min(tout, start + 25);
+    if (end < tout) { const cand = quiet.filter(q => q[0] > start + 8 && q[0] < end); if (cand.length) { const q = cand[cand.length - 1]; end = (q[0] + q[1]) / 2; } }
+    const sp = quiet.find(q => q[0] <= start + 0.01 && q[1] > start); const s2 = sp ? Math.max(start, sp[1] - 0.2) : start;
+    if (end - s2 > 0.4) parts.push([Math.max(0, s2 - tin), end - tin]);
+    start = end;
+  }
+  return parts;
+}
+async function soAsr(){
+  if (!SV.ab) { toast("Prima scegli un video con l'audio"); return; }
+  if (SV.busy) return;
+  const st = soV(), btn = $("so-asr"), out = $("so-asr-st"); SV.busy = true; btn.disabled = true;
+  const model = { tiny: "onnx-community/whisper-tiny_timestamped", base: "onnx-community/whisper-base_timestamped", small: "onnx-community/whisper-small_timestamped" }[st.model] || "onnx-community/whisper-base_timestamped";
+  const t0 = performance.now(); let tick = null;
+  try {
+    out.innerHTML = "⏳ Preparo l'audio…";
+    const tin = soClamp(st.tin || 0, 0, SV.dur), tout = soClamp(st.tout || SV.dur, tin, SV.dur);
+    const off = new OfflineAudioContext(1, Math.max(1, Math.ceil((tout - tin) * 16000)), 16000), s = off.createBufferSource(); s.buffer = SV.ab; s.connect(off.destination); s.start(0, tin, tout - tin);
+    const pcm = (await off.startRendering()).getChannelData(0);
+    const parts = soSpeechParts(tin, tout); if (!parts.length) parts.push([0, tout - tin]);
+    const gpu = false; /* wasm q8: modelli piccoli da scaricare e risultati migliori in italiano */
+    if (!soWorker) soWorker = new Worker(URL.createObjectURL(new Blob([soAsrWorkerSrc()], { type: "text/javascript" })), { type: "module" });
+    const files = {};
+    const words = await new Promise((res, rej) => {
+      let phase = "dl", part = "";
+      tick = setInterval(() => { const sec = Math.round((performance.now() - t0) / 1000); if (phase === "run") out.innerHTML = `🎙️ Ascolto il video e scrivo i sottotitoli… ${part} · ${sec}s`; }, 1000);
+      soWorker.onmessage = e => {
+        const m = e.data;
+        if (m.type === "progress" && m.p && m.p.status === "progress" && m.p.total) { files[m.p.file] = [m.p.loaded, m.p.total]; const L = Object.values(files).reduce((a, x) => a + x[0], 0), T = Object.values(files).reduce((a, x) => a + x[1], 0); out.innerHTML = `⬇️ Scarico il riconoscimento vocale (solo la prima volta)… ${Math.round(L / 1048576)} / ${Math.round(T / 1048576)} MB<div class="so-prog"><i style="width:${Math.round(L / T * 100)}%"></i></div>`; }
+        else if (m.type === "part") { phase = "run"; part = m.n > 1 ? `parte ${m.k + 1} di ${m.n}` : ""; out.innerHTML = `🎙️ Ascolto il video e scrivo i sottotitoli… ${part}`; }
+        else if (m.type === "done") res(m.words);
+        else if (m.type === "error") rej(new Error(m.err));
+      };
+      soWorker.onerror = e => rej(new Error((e && e.message) || "errore del riconoscimento vocale"));
+      soWorker.postMessage({ pcm, model, gpu, parts });
+    });
+    SV.words = soCleanWords(words.map(w => ({ w: w.w, s: w.s + tin, e: w.e + tin })));
+    soBuildCaps(); soCapsUI(); soDrawPreviewAt(0);
+    out.innerHTML = SV.words.length ? `✅ Sottotitoli pronti (${SV.words.length} parole, ${Math.round((performance.now() - t0) / 1000)} s). Controllali qui sotto: puoi correggere ogni frase.` : `⚠️ Non ho sentito parole nel video. Se c'è del parlato, prova “Precisione alta”.`;
+  } catch (e) {
+    try { soWorker && soWorker.terminate(); } catch {} soWorker = null;
+    out.innerHTML = `<span class="so-err">⚠️ Sottotitoli non creati: ${esc((e && e.message) || String(e))}. Controlla la connessione (la prima volta serve scaricare il riconoscimento vocale) e riprova; su telefoni poco potenti scegli “Rapidissimo”.</span>`;
+  }
+  clearInterval(tick); SV.busy = false; btn.disabled = false;
+}
+/* sistema i tempi delle parole: niente durate zero, niente sovrapposizioni; prima lettera maiuscola dopo il punto */
+function soCleanWords(W){
+  W = W.filter(w => w.w && String(w.w).trim()).sort((a, b) => a.s - b.s);
+  const J = []; for (const w of W) { const t = String(w.w).trim(), p = J[J.length - 1]; if (p && (/^['’]/.test(t) || /^[.,!?;:…»)]+$/.test(t) || /['’]$/.test(p.w))) { p.w += t; p.e = Math.max(p.e, w.e); } else J.push({ w: t, s: w.s, e: w.e }); }
+  W = J.filter(w => /[\p{L}\p{N}]/u.test(w.w));
+  for (let i = 0; i < W.length; i++) {
+    let j = i; while (j + 1 < W.length && W[j + 1].s - W[i].s < 0.03 && W[j + 1].e - W[i].e < 0.03) j++;
+    if (j > i) { const s = W[i].s, e = Math.max(W[j].e, W[j + 1] ? Math.min(W[j + 1].s, s + 0.25 * (j - i + 1)) : s + 0.25 * (j - i + 1)), d = (e - s) / (j - i + 1); for (let k = i; k <= j; k++) { W[k].s = s + (k - i) * d; W[k].e = W[k].s + d; } i = j; }
+  }
+  for (let i = 0; i < W.length; i++) { if (W[i].e - W[i].s < 0.08) W[i].e = W[i].s + 0.08; if (W[i + 1] && W[i].e > W[i + 1].s) W[i].e = Math.max(W[i].s + 0.05, W[i + 1].s); }
+  let cap = true; for (const w of W) { if (cap) w.w = w.w.charAt(0).toUpperCase() + w.w.slice(1); cap = /[.!?]$/.test(w.w); }
+  return W;
+}
+
+/* ---------- audio finale: voce tagliata + musica + effetti ---------- */
+function soSpeechOut(){
+  const iv = []; if (!SV.db) return iv; const dt = SV.dt;
+  for (const g of SV.segs) { let a = null; for (let t = g.s; t < g.e; t += dt) { const loud = (SV.db[Math.floor(t / dt)] || -200) >= SV.thr; const o = g.o + t - g.s; if (loud && a == null) a = o; if (!loud && a != null) { iv.push([a, o]); a = null; } } if (a != null) iv.push([a, g.o + g.e - g.s]); }
+  const m = []; for (const x of iv) { const l = m[m.length - 1]; if (l && x[0] - l[1] < 0.4) l[1] = x[1]; else m.push(x.slice()); }
+  return m;
+}
+async function soBuildBed(){
+  const st = soV(), total = soTotal(), key = JSON.stringify([SV.segs, st.mood, st.vol, st.duck, st.sfxIntro, st.sfxCut, st.sfxEnd, st.end, !!st.hook, SV.musName, !!SV.ab]);
+  if (SV.bed && SV.bedKey === key) return SV.bed;
+  const sr = 44100, ctx = new OfflineAudioContext(2, Math.max(1, Math.ceil(total * sr)), sr);
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4; comp.attack.value = 0.005; comp.release.value = 0.15; comp.connect(ctx.destination);
+  if (SV.ab) {
+    let peak = 0.0001; for (const g of SV.segs) { const d = SV.ab.getChannelData(0), a = Math.floor(g.s * SV.ab.sampleRate), b = Math.min(d.length, Math.floor(g.e * SV.ab.sampleRate)); for (let i = a; i < b; i += 7) { const x = Math.abs(d[i]); if (x > peak) peak = x; } }
+    const vg = ctx.createGain(); vg.gain.value = soClamp(0.85 / peak, 0.6, 3); vg.connect(comp);
+    for (const g of SV.segs) { const s = ctx.createBufferSource(), e = ctx.createGain(), d = g.e - g.s; s.buffer = SV.ab; e.gain.setValueAtTime(0, g.o); e.gain.linearRampToValueAtTime(1, g.o + 0.012); e.gain.setValueAtTime(1, g.o + Math.max(0.013, d - 0.012)); e.gain.linearRampToValueAtTime(0, g.o + d); s.connect(e); e.connect(vg); s.start(g.o, g.s, d); }
+  }
+  const vol = (st.vol || 0) / 100;
+  if (vol > 0 && (SO_MUS[st.mood] || (st.mood === "mia" && SV.musBuf))) {
+    const mg = ctx.createGain(), base = vol * (SV.ab ? 0.9 : 1.6); mg.gain.value = base; mg.connect(comp);
+    if (st.duck && SV.ab) { const low = base * 0.28; mg.gain.setValueAtTime(base, 0); for (const [a, b] of soSpeechOut()) { mg.gain.setTargetAtTime(low, Math.max(0, a - 0.15), 0.08); mg.gain.setTargetAtTime(base, b + 0.25, 0.25); } }
+    const fade = ctx.createGain(); fade.gain.setValueAtTime(0, 0); fade.gain.linearRampToValueAtTime(1, 0.4); fade.gain.setValueAtTime(1, Math.max(0.5, total - 1.5)); fade.gain.linearRampToValueAtTime(0, total); fade.connect(mg);
+    if (st.mood === "mia" && SV.musBuf) { const s = ctx.createBufferSource(); s.buffer = SV.musBuf; s.loop = true; const g = ctx.createGain(); g.gain.value = 0.6; s.connect(g); g.connect(fade); s.start(0); }
+    else soMusic(ctx, fade, st.mood, 0, total);
+  }
+  const fx = ctx.createGain(); fx.gain.value = 1; fx.connect(comp);
+  if (st.sfxIntro && st.hook) soSfx(ctx, fx, "whoosh", 0.02, 0.35);
+  if (st.sfxCut) { let last = -9; for (const g of SV.segs.slice(1)) if (g.o - last > 3) { soSfx(ctx, fx, "whoosh", Math.max(0, g.o - 0.25), 0.12); last = g.o; } }
+  if (st.end && st.sfxEnd) soSfx(ctx, fx, "ding", SV.outDur + 0.05, 0.22);
+  SV.bed = await ctx.startRendering(); SV.bedKey = key; return SV.bed;
+}
+
+/* ---------- disegno di un fotogramma ---------- */
+function soDims(q){ const f = soV().fmt, h = q === "1080" ? 1920 : q === "prev" ? 640 : 1280, w = Math.round(h * 9 / 16); if (f === "1:1") return [w, w]; if (f === "4:5") return [w, Math.round(w * 5 / 4)]; return [w, h]; }
+const SO_CAPF = {
+  tiktok: s => `900 ${s}px Montserrat, "Arial Black", system-ui, sans-serif`,
+  box: s => `800 ${s}px Poppins, "Arial", system-ui, sans-serif`,
+  elegante: s => `italic 700 ${s}px "Playfair Display", Georgia, serif`,
+  impatto: s => `400 ${s}px Anton, Impact, "Arial Black", sans-serif`
+};
+function soDrawCap(ctx, W, H, t){
+  const st = soV(), sty = st.capStyle; if (sty === "nessuno" || !SV.caps.length) return;
+  const c = SV.caps.find(x => t >= x.s && t < x.e); if (!c) return;
+  const up = st.upper || sty === "impatto", base = W * (sty === "impatto" ? 0.098 : sty === "elegante" ? 0.072 : 0.075);
+  const words = c.words.map(w => ({ ...w, w: up ? w.w.toLocaleUpperCase("it-IT") : w.w }));
+  const fit = soFit(ctx, words.map(w => w.w).join(" "), SO_CAPF[sty], W * 0.84, base * 2.5, base, base * 0.55, 1.2), size = fit.size;
+  const pop = soClamp((t - c.s) / 0.12, 0, 1), sc = 0.86 + 0.14 * (1 - Math.pow(1 - pop, 3));
+  const yC = H * (st.capPos === "alto" ? 0.24 : st.capPos === "centro" ? 0.5 : (H / W > 1.6 ? 0.69 : 0.76));
+  ctx.save(); ctx.translate(W / 2, yC); ctx.scale(sc, sc); ctx.font = SO_CAPF[sty](size); ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+  /* righe con le parole, per evidenziare quella pronunciata */
+  const lines = []; let cur = [], cw = 0; const sp = ctx.measureText(" ").width;
+  for (const w of words) { const ww = ctx.measureText(w.w).width; if (cur.length && cw + sp + ww > W * 0.84) { lines.push([cur, cw]); cur = []; cw = 0; } cur.push({ ...w, ww }); cw += (cur.length > 1 ? sp : 0) + ww; }
+  if (cur.length) lines.push([cur, cw]);
+  const lh = size * 1.2, y0 = -(lines.length - 1) * lh / 2;
+  lines.forEach(([ws, lw], li) => {
+    let x = -lw / 2; const y = y0 + li * lh;
+    if (sty === "box") { ctx.fillStyle = "#fff"; soRound(ctx, x - size * 0.35, y - size * 0.62, lw + size * 0.7, size * 1.24, size * 0.28); ctx.fill(); }
+    for (const w of ws) {
+      const on = t >= w.s && t < Math.max(w.e, w.s + 0.12);
+      if (sty === "tiktok" || sty === "impatto") { ctx.lineWidth = size * (sty === "impatto" ? 0.16 : 0.2); ctx.strokeStyle = "#000"; ctx.strokeText(w.w, x, y); ctx.fillStyle = on ? (sty === "impatto" ? "#22e1ff" : "#ffe14d") : "#fff"; ctx.fillText(w.w, x, y); }
+      else if (sty === "box") { ctx.fillStyle = on ? "#e11d48" : "#111"; ctx.fillText(w.w, x, y); }
+      else { ctx.shadowColor = "rgba(0,0,0,.75)"; ctx.shadowBlur = size * 0.35; ctx.shadowOffsetY = size * 0.05; ctx.fillStyle = on ? "#f3d27a" : "#fff"; ctx.fillText(w.w, x, y); ctx.shadowBlur = 0; ctx.shadowOffsetY = 0; }
+      x += w.ww + sp;
+    }
+  });
+  ctx.restore();
+}
+function soDrawHook(ctx, W, H, t){
+  const st = soV(); if (!st.hook || t > 3.2) return;
+  const a = soClamp(t / 0.25, 0, 1) * soClamp((3.2 - t) / 0.3, 0, 1), e = 1 - Math.pow(1 - soClamp(t / 0.35, 0, 1), 3);
+  const f = s => `900 ${s}px Montserrat, "Arial Black", system-ui, sans-serif`, fit = soFit(ctx, st.hook, f, W * 0.78, H * 0.2, W * 0.078, W * 0.045, 1.18);
+  ctx.save(); ctx.globalAlpha = a; ctx.font = f(fit.size); ctx.textBaseline = "middle"; ctx.textAlign = "center";
+  const lh = fit.size * 1.18, bw = Math.max(...fit.lines.map(l => ctx.measureText(l).width)) + fit.size * 1.1, bh = fit.lines.length * lh + fit.size * 0.8, yc = H * (H / W > 1.6 ? 0.2 : 0.17) - (1 - e) * H * 0.04;
+  ctx.translate(W / 2, yc); ctx.rotate(-0.025);
+  ctx.shadowColor = "rgba(0,0,0,.35)"; ctx.shadowBlur = fit.size * 0.5; ctx.fillStyle = "#fff"; soRound(ctx, -bw / 2, -bh / 2, bw, bh, fit.size * 0.3); ctx.fill(); ctx.shadowBlur = 0;
+  ctx.fillStyle = "#111"; fit.lines.forEach((l, i) => ctx.fillText(l, 0, -((fit.lines.length - 1) * lh) / 2 + i * lh));
+  ctx.restore();
+}
+function soDrawEnd(ctx, W, H, t){
+  const st = soV(), me = soMe(), k = soClamp(t / 0.4, 0, 1);
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#0f172a"); g.addColorStop(1, "#1e3a8a"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#fff";
+  const f = s => `900 ${s}px Montserrat, "Arial Black", sans-serif`, fit = soFit(ctx, st.endT || "Vuoi vendere o comprare casa?", f, W * 0.82, H * 0.26, W * 0.085, W * 0.05, 1.15);
+  ctx.font = f(fit.size); const lh = fit.size * 1.15; let y = H * 0.36 - (fit.lines.length - 1) * lh / 2;
+  for (const l of fit.lines) { ctx.fillText(l, W / 2, y); y += lh; }
+  y = H * 0.36 + fit.lines.length * lh / 2 + W * 0.09;
+  ctx.fillStyle = "#facc15"; ctx.fillRect(W * 0.42, y - W * 0.035, W * 0.16, W * 0.008);
+  ctx.fillStyle = "#fff"; ctx.font = `800 ${Math.round(W * 0.06)}px Montserrat, sans-serif`; if (me.nome) { ctx.fillText(me.nome, W / 2, y + W * 0.03); y += W * 0.1; }
+  ctx.font = `600 ${Math.round(W * 0.05)}px Montserrat, sans-serif`; if (me.tel) { ctx.fillText("📞 " + me.tel, W / 2, y + W * 0.03); y += W * 0.085; } if (me.handle) ctx.fillText(me.handle, W / 2, y + W * 0.03);
+  ctx.restore();
+}
+function soDrawFrame(ctx, W, H, t, end){
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+  if (end) { soDrawEnd(ctx, W, H, t - SV.outDur); return; }
+  const v = SV.vid, st = soV();
+  if (v && v.readyState >= 2) {
+    if (st.fit === "fit") { soBlurBg(ctx, v, W, H, 0.3); soContain(ctx, v, 0, 0, W, H); }
+    else { const p = (st.pan == null ? 50 : st.pan) / 100; soCover(ctx, v, 0, 0, W, H, SV.vw >= SV.vh * W / H ? p : 0.5, SV.vw >= SV.vh * W / H ? 0.5 : p); }
+  }
+  soDrawHook(ctx, W, H, t); soDrawCap(ctx, W, H, t);
+}
+function soDrawPreviewAt(t){
+  const cv = $("so-cv"); if (!cv) return; const [W, H] = soDims("prev"); if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+  const stage = $("so-stage"); if (stage) stage.style.aspectRatio = W + "/" + H;
+  soDrawFrame(cv.getContext("2d"), W, H, t, t >= SV.outDur && soV().end && SV.outDur > 0);
+  const tm = $("so-time"); if (tm) tm.textContent = soFmtT(t) + " / " + soFmtT(soTotal());
+}
+
+/* ---------- motore: anteprima ed esportazione usano lo stesso codice ---------- */
+function soMime(){
+  if (typeof MediaRecorder === "undefined") return "";
+  for (const m of ['video/mp4;codecs="avc1.640028,mp4a.40.2"', 'video/mp4;codecs="avc1.4d002a,mp4a.40.2"', "video/mp4;codecs=avc1,mp4a", "video/mp4", "video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm"]) { try { if (MediaRecorder.isTypeSupported(m)) return m; } catch {} }
+  return "";
+}
+function soStop(){ SV.stop = true; }
+const soFrame = v => new Promise(r => { if (v && v.requestVideoFrameCallback && !document.hidden) v.requestVideoFrameCallback(() => r()); else if (!document.hidden) requestAnimationFrame(() => r()); else setTimeout(r, 33); });
+async function soRun(record, onProg){
+  const v = SV.vid, ac = soAudioCtx(); try { await ac.resume(); } catch {}
+  await soFonts();
+  const bed = await soBuildBed();
+  const [W, H] = record ? soDims(soV().q || (soTouch() ? "720" : "1080")) : soDims("prev");
+  const cv = record ? document.createElement("canvas") : $("so-cv"); cv.width = W; cv.height = H; const ctx = cv.getContext("2d", { alpha: false });
+  let rec = null, chunks = [], dest = null, mime = "";
+  const out = record ? (dest = ac.createMediaStreamDestination()) : ac.destination;
+  let elSrc = null;
+  if (!SV.ab) { v.muted = record; if (record) { try { elSrc = SV.elSrc || (SV.elSrc = ac.createMediaElementSource(v)); elSrc.connect(dest); v.muted = false; } catch {} } }
+  else v.muted = true;
+  if (record) {
+    mime = soMime(); if (!mime) throw new Error("questo browser non sa registrare video: usa Chrome, Edge o Safari aggiornati");
+    const stream = cv.captureStream(30); for (const tr of dest.stream.getAudioTracks()) stream.addTrack(tr);
+    rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: W >= 1080 ? 12e6 : 7e6, audioBitsPerSecond: 160e3 });
+    rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+  }
+  SV.stop = false; SV.playing = true; SV.recording = !!record; let src = null, started = false;
+  const playBed = off => { if (!bed) return; try { if (src) src.stop(); } catch {} src = ac.createBufferSource(); src.buffer = bed; src.connect(out); src.start(ac.currentTime + 0.01, Math.min(off, bed.duration - 0.01)); };
+  const stopBed = () => { try { if (src) src.stop(); } catch {} src = null; };
+  try {
+    for (const g of SV.segs) {
+      if (SV.stop) break;
+      await soSeek(g.s); soDrawFrame(ctx, W, H, g.o);
+      if (rec) { if (!started) { rec.start(); started = true; } else if (rec.state === "paused") rec.resume(); }
+      await v.play().catch(() => {});
+      playBed(g.o + Math.max(0, v.currentTime - g.s));
+      while (!SV.stop) {
+        await soFrame(v); const t = v.currentTime; if (t >= g.e - 0.01 || v.ended || v.paused) break;
+        const ot = g.o + t - g.s; soDrawFrame(ctx, W, H, ot); if (onProg) onProg(ot);
+      }
+      v.pause(); stopBed(); if (rec && rec.state === "recording") rec.pause();
+    }
+    if (!SV.stop && soV().end) {
+      if (rec && rec.state === "paused") rec.resume(); playBed(SV.outDur);
+      const t0 = performance.now();
+      while (!SV.stop) { const t = SV.outDur + (performance.now() - t0) / 1000; if (t >= soTotal()) break; soDrawFrame(ctx, W, H, t, true); if (onProg) onProg(t); await new Promise(r => document.hidden ? setTimeout(r, 33) : requestAnimationFrame(r)); }
+      stopBed();
+    }
+  } finally { try { v.pause(); } catch {} stopBed(); SV.playing = false; SV.recording = false; if (elSrc) { try { elSrc.disconnect(); } catch {} } }
+  if (!rec) return null;
+  if (rec.state === "paused") rec.resume();
+  const done = new Promise(r => rec.onstop = r); rec.stop(); await done;
+  if (SV.stop) return null;
+  return new Blob(chunks, { type: mime.split(";")[0] });
+}
+async function soPreview(){
+  if (SV.playing) { soStop(); return; }
+  if (!SV.segs.length) return;
+  const b = $("so-play"); b.textContent = "⏹ Ferma";
+  try { await soRun(false, t => { const tm = $("so-time"); if (tm) tm.textContent = soFmtT(t) + " / " + soFmtT(soTotal()); soMark(t); }); }
+  catch (e) { toast("Anteprima non riuscita: " + ((e && e.message) || e)); }
+  b.textContent = "▶ Anteprima"; soMark(-1);
+}
+function soMark(t){ document.querySelectorAll("#so-caps .so-cap.on").forEach(x => x.classList.remove("on")); if (t < 0) return; const k = SV.caps.findIndex(c => t >= c.s && t < c.e); if (k >= 0) { const r = document.querySelector(`#so-caps [data-so-capi="${k}"]`); if (r) r.classList.add("on"); } }
+async function soExport(){
+  if (SV.playing) soStop();
+  if (!SV.segs.length) { toast("Prima scegli un video"); return; }
+  const btn = $("so-export"), st = $("so-exp-st"); btn.disabled = true;
+  await new Promise(r => setTimeout(r, 60));
+  const total = soTotal();
+  st.innerHTML = `<div class="x-note">🎬 Creo il video (${soFmtT(total)})… tieni questa pagina aperta.</div><div class="so-prog"><i id="so-exp-bar"></i></div><button type="button" class="x-act" id="so-exp-stop">✕ Annulla</button>`;
+  try {
+    const blob = await soRun(true, t => { const b = $("so-exp-bar"); if (b) b.style.width = Math.round(t / total * 100) + "%"; });
+    if (!blob) { st.innerHTML = `<div class="x-note">Creazione annullata.</div>`; btn.disabled = false; return; }
+    const ext = /mp4/.test(blob.type) ? "mp4" : "webm", name = `Video_social_${xISO(Date.now())}.${ext}`, url = URL.createObjectURL(blob);
+    if (SV.resUrl) URL.revokeObjectURL(SV.resUrl); SV.resUrl = url; SV.resBlob = blob; SV.resName = name;
+    st.innerHTML = "";
+    $("so-result").innerHTML = `<div class="so-res"><div class="note-box info">✅ Video pronto · ${soFmtT(total)} · ${(blob.size / 1048576).toFixed(1)} MB${ext === "webm" ? "<br>⚠️ Questo browser salva in formato WebM: per Instagram e TikTok è meglio crearlo da Chrome aggiornato, Edge o Safari (salvano in MP4)." : ""}</div><video src="${url}" controls playsinline></video><div class="so-row"><button type="button" class="btn" id="so-dl">⬇️ Scarica il video</button>${navigator.canShare ? `<button type="button" class="x-act call" id="so-share">📤 Condividi</button>` : ""}</div></div>`;
+  } catch (e) { st.innerHTML = `<div class="note-box err">Video non creato: ${esc((e && e.message) || String(e))}</div>`; }
+  btn.disabled = false;
+}
+
+/* ---------- interfaccia ---------- */
+function soShowNeed(on){ document.querySelectorAll("#so-video [data-so-need]").forEach(x => x.hidden = !on); const w = $("so-video"); if (w) w.classList.toggle("so-nov", !on); }
+function soDrawTimeline(){
+  const cv = $("so-tl"); if (!cv || !SV.dur) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1), W = Math.max(200, cv.clientWidth || 600), H = 72; cv.width = W * dpr; cv.height = H * dpr;
+  const c = cv.getContext("2d"); c.scale(dpr, dpr); c.clearRect(0, 0, W, H);
+  const st = soV(), x = t => t / SV.dur * W, css = getComputedStyle(document.documentElement), acc = css.getPropertyValue("--accent").trim() || "#2563eb";
+  if (SV.db) { const n = SV.db.length, lo = SV.thr - 25; c.fillStyle = acc; for (let px = 0; px < W; px++) { const a = Math.floor(px / W * n), b = Math.max(a + 1, Math.floor((px + 1) / W * n)); let m = -200; for (let i = a; i < b; i++) if (SV.db[i] > m) m = SV.db[i]; const h = soClamp((m - lo) / 40, 0.02, 1) * (H - 14); c.globalAlpha = m >= SV.thr ? 0.9 : 0.35; c.fillRect(px, (H - h) / 2, 1, h); } c.globalAlpha = 1; }
+  else { c.fillStyle = "rgba(127,127,127,.25)"; c.fillRect(0, H / 2 - 2, W, 4); }
+  if (st.cut) for (const r of SV.regions) { c.fillStyle = r.on ? "rgba(225,29,72,.38)" : "rgba(127,127,127,.12)"; c.fillRect(x(r.s), 0, Math.max(1, x(r.e) - x(r.s)), H); if (!r.on) { c.strokeStyle = "rgba(225,29,72,.6)"; c.setLineDash([4, 3]); c.strokeRect(x(r.s) + 0.5, 0.5, Math.max(1, x(r.e) - x(r.s) - 1), H - 1); c.setLineDash([]); } }
+  c.fillStyle = "rgba(0,0,0,.55)"; c.fillRect(0, 0, x(st.tin || 0), H); c.fillRect(x(st.tout || SV.dur), 0, W - x(st.tout || SV.dur), H);
+}
+function soCutInfo(){
+  const el = $("so-cutinfo"); if (!el) return; const st = soV(), n = st.cut ? SV.regions.filter(r => r.on).length : 0;
+  el.innerHTML = SV.dur ? `⏱ <b>${soFmtT(SV.dur)}</b> → <b>${soFmtT(SV.outDur)}</b>${n ? ` · ${n} pause tolte (${Math.round(SV.dur - SV.outDur)} s in meno)` : ""}${!SV.ab ? " · taglio automatico non disponibile per questo video" : ""}` : "";
+}
+function soRenderVideoUI(){
+  const st = soV(), me = soMe();
+  $("so-cut").checked = !!st.cut; $("so-sens").value = st.sens; $("so-sens-v").textContent = st.sens <= 3 ? "poco" : st.sens >= 8 ? "molto" : "medio";
+  $("so-minsil").value = st.minsil; $("so-minsil-v").textContent = String(st.minsil).replace(".", ",") + " s";
+  for (const [id, k] of [["so-tin", "tin"], ["so-tout", "tout"]]) { const el = $(id); el.max = Math.max(1, SV.dur).toFixed(1); el.value = (st[k] == null ? (k === "tout" ? SV.dur : 0) : st[k]).toFixed(1); $(id + "-v").textContent = soFmtT(+el.value); }
+  $("so-cap-styles").innerHTML = SO_CAPSTYLES.map(([k, l]) => `<button type="button" class="x-pill" data-so-capstyle="${k}" aria-pressed="${st.capStyle === k}">${esc(l)}</button>`).join("");
+  $("so-cap-pos").value = st.capPos; $("so-cap-n").value = String(st.capN); $("so-cap-up").checked = !!st.upper; if (!st.model) st.model = soTouch() ? "base" : "small"; $("so-asr-m").value = st.model;
+  $("so-hook").value = st.hook || ""; $("so-hook-sugg").innerHTML = SO_HOOKS.map(h => `<button type="button" data-so-hooksug="${esc(h)}">${esc(h)}</button>`).join("");
+  $("so-moods").innerHTML = SO_MOODS.map(([k, l]) => `<button type="button" class="x-pill" data-so-mood="${k}" aria-pressed="${st.mood === k}">${esc(l)}</button>`).join("");
+  $("so-mus-lbl").hidden = st.mood !== "mia"; if (st.mood === "mia") $("so-mus-lbl").firstChild.textContent = SV.musName ? "🎵 " + SV.musName : "🎵 Scegli la tua musica";
+  $("so-vol").value = st.vol; $("so-vol-v").textContent = st.vol + "%";
+  $("so-duck").checked = !!st.duck; $("so-sfx-intro").checked = !!st.sfxIntro; $("so-sfx-cut").checked = !!st.sfxCut; $("so-sfx-end").checked = !!st.sfxEnd;
+  $("so-end").checked = !!st.end; $("so-end-t").value = st.endT || "";
+  document.querySelectorAll("#view-social [data-so-me]").forEach(i => { if (document.activeElement !== i) i.value = me[i.dataset.soMe] || ""; });
+  $("so-fmts").innerHTML = SO_FMTS.map(([k, l]) => `<button type="button" class="x-pill" data-so-fmt="${k}" aria-pressed="${st.fmt === k}">${esc(l)}</button>`).join("");
+  $("so-fit").value = st.fit; $("so-pan").value = st.pan; $("so-pan-v").textContent = st.pan < 40 ? "← sinistra" : st.pan > 60 ? "destra →" : "al centro";
+  $("so-q").value = st.q || (soTouch() ? "720" : "1080");
+  $("so-v-src").innerHTML = soSrcOptions(st.src, "🏠 Didascalia generica (senza immobile)");
+  if (!st.cap) st.cap = soCaption("video", soProp(st.src, {}), { showPrice: true }, st.capSeed || 0, false);
+  if (document.activeElement !== $("so-v-cap")) $("so-v-cap").value = st.cap;
+  soShowNeed(!!SV.dur); $("so-empty").hidden = !!SV.dur;
+  soDrawTimeline(); soCutInfo(); soCapsUI();
+}
+
+/* ===================== SOCIAL: post carosello ===================== */
+const SO_PTYPES = [["vendita", "🏡 Casa in vendita"], ["venduto", "✅ Venduto"], ["consigli", "💡 Consigli"], ["mercato", "📊 Prezzi della zona"], ["chisono", "👋 Chi sono"]];
+const SO_THEMES = {
+  elegante: { label: "Elegante", bg: "#f5efe6", ink: "#1f2a44", acc: "#b08d57", acc2: "#1f2a44", tf: (s) => `700 ${s}px "Playfair Display", Georgia, serif`, bf: (s, w) => `${w || 600} ${s}px Montserrat, system-ui, sans-serif`, up: false, tag: "#b08d57" },
+  moderno: { label: "Moderno", bg: "#ffffff", ink: "#0f172a", acc: "#2563eb", acc2: "#0f172a", tf: (s) => `800 ${s}px Poppins, system-ui, sans-serif`, bf: (s, w) => `${w || 500} ${s}px Poppins, system-ui, sans-serif`, up: false, tag: "#2563eb" },
+  bold: { label: "Bold", bg: "#0b0b0b", ink: "#ffffff", acc: "#facc15", acc2: "#facc15", tf: (s) => `400 ${s}px Anton, Impact, sans-serif`, bf: (s, w) => `${w || 700} ${s}px Montserrat, system-ui, sans-serif`, up: true, tag: "#facc15" },
+  minimal: { label: "Minimal", bg: "#fafafa", ink: "#111827", acc: "#0f766e", acc2: "#111827", tf: (s) => `700 ${s}px "DM Sans", system-ui, sans-serif`, bf: (s, w) => `${w >= 600 ? 700 : 500} ${s}px "DM Sans", system-ui, sans-serif`, up: false, tag: "#0f766e" }
+};
+const SO_PFMTS = [["4:5", "4:5 Feed (consigliato)"], ["1:1", "1:1 Quadrato"], ["9:16", "9:16 Storie/TikTok"]];
+const SO_TOPICS = {
+  errori: ["5 errori da evitare quando vendi casa", ["Sbagliare il prezzo iniziale", "Un prezzo troppo alto allontana i compratori e fa “invecchiare” l'annuncio."], ["Foto fatte di fretta", "Le foto sono la prima visita: luce, ordine e inquadrature contano."], ["Documenti non pronti", "Planimetria, APE e conformità vanno controllati prima, non al compromesso."], ["Visite senza filtro", "Meglio poche visite con persone davvero interessate e con budget verificato."], ["Trattare da soli", "Un professionista tiene la trattativa sul prezzo e sui tempi, non sulle emozioni."]],
+  valore: ["Come aumentare il valore della tua casa prima di venderla", ["Piccole riparazioni", "Rubinetti, porte e prese: i difetti piccoli fanno pensare a problemi grandi."], ["Imbiancare", "Pareti chiare e fresche fanno sembrare gli ambienti più grandi e luminosi."], ["Fare spazio", "Meno oggetti = più spazio percepito. Svuota armadi e superfici."], ["Luce, luce, luce", "Apri le tende, cambia le lampadine spente, usa luci calde."], ["Curare l'ingresso", "La prima impressione si forma in 7 secondi: porta e ingresso in ordine."]],
+  documenti: ["Documenti per vendere casa: la checklist", ["Atto di provenienza", "Il rogito o la successione con cui sei diventato proprietario."], ["Planimetria catastale", "Deve corrispondere allo stato reale della casa."], ["APE", "L'attestato di prestazione energetica è obbligatorio già nell'annuncio."], ["Conformità urbanistica", "Permessi e sanatorie: meglio verificare subito con un tecnico."], ["Spese condominiali", "Una dichiarazione dell'amministratore sulle spese pagate e da pagare."]],
+  mutuo: ["Mutuo: 5 cose da sapere prima di cercare casa", ["Quanto puoi spendere", "In genere la rata non dovrebbe superare un terzo del reddito netto."], ["L'anticipo", "Spesso la banca finanzia fino all'80%: il resto va messo da parte."], ["Le spese extra", "Notaio, imposte, perizia e agenzia: calcola circa il 10% in più."], ["Fisso o variabile", "Il fisso dà certezza, il variabile può costare meno ma cambia nel tempo."], ["Prequalifica", "Fatti dire dalla banca quanto ti finanzia prima di innamorarti di una casa."]],
+  visita: ["Cosa controllare durante una visita", ["Esposizione e luce", "Chiedi dove batte il sole e torna a un'altra ora se puoi."], ["Umidità e muffa", "Guarda angoli, soffitti e dietro i mobili."], ["Impianti", "Età di caldaia, impianto elettrico e infissi."], ["Spese condominiali", "Chiedi l'importo e se ci sono lavori straordinari in arrivo."], ["Il quartiere", "Servizi, parcheggio, rumore: fai un giro a piedi intorno."]],
+  staging: ["Home staging: 5 trucchi per vendere prima", ["Neutralizza", "Togli foto di famiglia e oggetti personali: chi visita deve immaginarsi lì."], ["Profumo di casa", "Aria pulita e un profumo leggero fanno la differenza."], ["Tessili nuovi", "Cuscini, plaid e asciugamani coordinati danno subito un'aria curata."], ["Ogni stanza un uso", "La stanza “sgabuzzino” trasformala in studio o camera."], ["Esterni in ordine", "Balconi e giardino puliti valgono come una stanza in più."]],
+  custom: ["", []]
+};
+const SO_TOPIC_LABEL = { errori: "Errori quando vendi casa", valore: "Aumentare il valore", documenti: "Documenti per vendere", mutuo: "Mutuo: cosa sapere", visita: "Cosa guardare in visita", staging: "Home staging", custom: "✍️ Scrivo io" };
+const soImgs = {};
+function soImg(key){ return new Promise(async res => { if (soImgs[key] && soImgs[key].complete) return res(soImgs[key]); const d = await aqPhotoGet(key); if (!d) return res(null); const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = d; soImgs[key] = im; }); }
+function soPhotoPrep(file){ return new Promise((res, rej) => { const img = new Image(), url = URL.createObjectURL(file); img.onload = () => { const k = Math.min(1, 1800 / Math.max(img.width, img.height)), c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", 0.88)); }; img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("foto non leggibile")); }; img.src = url; }); }
+function soPDims(){ const f = soP().fmt; return f === "1:1" ? [1080, 1080] : f === "9:16" ? [1080, 1920] : [1080, 1350]; }
+
+/* ---------- le slide (testi automatici, modificabili) ---------- */
+function soPostProp(){ const p = soP(); return soProp(p.src, p.man); }
+function soAutoSlides(){
+  const p = soP(), o = soPostProp(), me = soMe(), ph = p.photos.slice(), name = soName(o), where = soWhere(o), price = o.prezzo && p.man.noPrice !== true ? soEuro(o.prezzo) : "";
+  const S = [];
+  if (p.type === "vendita" || p.type === "venduto") {
+    const plus = soPlusAuto(o);
+    const room = ["Ambienti luminosi", "Spazi ben distribuiti", "Pronta da vivere", "Finiture curate", "Zona giorno accogliente", "Camere tranquille", "Tutto a portata di mano"];
+    if (p.type === "venduto") S.push({ k: "cover", ph: ph[0], tag: "AFFARE CONCLUSO", t: `${name}${where ? "\na " + where : ""}`, s: p.man.giorni ? `Venduto in ${p.man.giorni} giorni` : "Un'altra famiglia ha trovato casa", stamp: true });
+    else S.push({ k: "cover", ph: ph[0], tag: "IN VENDITA", t: `${name}${o.mq ? " di " + o.mq + " m²" : ""}${where ? "\na " + where : ""}`, s: price, arrow: true });
+    if (p.type === "vendita") {
+      ph.slice(1, 7).forEach((k, i) => S.push({ k: "photo", ph: k, t: plus[i] || room[i % room.length], s: "" }));
+      const items = [o.mq && ["📐", o.mq + " m²"], o.loc && ["🏠", o.loc.charAt(0).toUpperCase() + o.loc.slice(1)], o.camere && ["🛏", o.camere + (o.camere === 1 ? " camera" : " camere")], o.bagni && ["🛁", o.bagni + (o.bagni === 1 ? " bagno" : " bagni")], o.giardino && ["🌳", "Giardino" + (o.giardino > 1 ? " " + o.giardino + " m²" : "")], (o.terrazzo || o.balcone) && ["☀️", o.terrazzo ? "Terrazzo" : "Balcone"], o.box && ["🚗", "Box auto"], o.cantina && ["📦", "Cantina"], o.classe && ["⚡", "Classe " + o.classe], o.piano && ["🏢", o.piano.replace(/^al |^all'/, "").replace(/^./, c => c.toUpperCase())]].filter(Boolean).slice(0, 8);
+      S.push({ k: "details", t: "I dettagli", items, s: price ? price : "" });
+      S.push({ k: "cta", ph: ph[ph.length - 1], t: "Ti piace questa casa?", s: "Scrivimi in DM o chiamami per una visita", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+    } else {
+      ph.slice(1, 4).forEach((k, i) => S.push({ k: "photo", ph: k, t: ["Valutazione corretta", "Promozione mirata", "Trattativa seguita fino al rogito"][i], s: "" }));
+      S.push({ k: "cta", ph: null, t: "Vuoi vendere anche tu?", s: "Ti faccio una valutazione gratuita della tua casa", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+    }
+  } else if (p.type === "consigli") {
+    let title, pts;
+    if (p.topic === "custom") { title = p.custom.title || "I miei consigli"; pts = String(p.custom.points || "").split("\n").map(s => s.trim()).filter(Boolean).map(s => { const m = s.split(/\s*[:–-]\s+/); return [m[0], m.slice(1).join(" - ")]; }); }
+    else { const T = SO_TOPICS[p.topic] || SO_TOPICS.errori; title = T[0]; pts = T.slice(1); }
+    S.push({ k: "tcover", ph: ph[0], t: title, s: "Salvalo per quando ti servirà 🔖", arrow: true });
+    pts.slice(0, 8).forEach((x, i) => S.push({ k: "point", ph: ph[i + 1] || null, n: i + 1, t: x[0], s: x[1] || "" }));
+    S.push({ k: "cta", ph: null, t: "Ti è stato utile?", s: "Salva il post e mandalo a chi sta per comprare o vendere casa", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+  } else if (p.type === "mercato") {
+    const com = p.mkt.comune || "Bergamo", pm = (() => { try { return (PQ_PREZZI[com] || [])[1] || 0; } catch { return 0; } })();
+    S.push({ k: "tcover", ph: ph[0], t: `Quanto costano le case a ${com}?`, s: "I numeri della zona", arrow: true });
+    S.push({ k: "big", ph: null, t: pm ? pm.toLocaleString("it-IT") + " €/m²" : "—", s: `Prezzo medio indicativo a ${com}` });
+    if (pm) S.push({ k: "big", ph: ph[1] || null, t: soEuro(Math.round(pm * 90 / 1000) * 1000), s: "Valore indicativo di un appartamento di 90 m²" });
+    S.push({ k: "point", ph: ph[2] || null, n: 1, t: "Ogni casa è diversa", s: "Piano, stato, esposizione, box e giardino possono spostare il prezzo anche del 20–30%." });
+    S.push({ k: "cta", ph: null, t: "Quanto vale la tua casa?", s: "Ti preparo una valutazione gratuita e senza impegno", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+  } else {
+    const c = p.chi;
+    S.push({ k: "tcover", ph: ph[0], t: `Piacere, sono ${String(me.nome || "il tuo consulente").split(/\s+[—–-]\s+/)[0]}`, s: "Consulente immobiliare" + (c.zona ? " · " + c.zona : ""), arrow: true });
+    S.push({ k: "point", ph: ph[1] || null, n: 1, t: "Cosa faccio", s: "Aiuto chi vuole vendere o comprare casa, dalla valutazione fino al rogito." });
+    if (c.anni) S.push({ k: "big", ph: null, t: c.anni + " anni", s: "di esperienza nel settore immobiliare" });
+    S.push({ k: "point", ph: ph[2] || null, n: 2, t: "Come lavoro", s: c.frase || "Prezzo giusto, foto curate, visite selezionate e trattativa seguita passo dopo passo." });
+    S.push({ k: "cta", ph: null, t: "Parliamo della tua casa?", s: "Scrivimi in DM o chiamami", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+  }
+  return S.slice(0, 10);
+}
+function soSlides(){ const p = soP(); return soAutoSlides().map((s, i) => { const o = p.ov[p.type + ":" + i + ":" + s.k]; return o ? Object.assign({}, s, o) : s; }); }
+
+/* ---------- disegno di una slide ---------- */
+function soDrawSlide(ctx, W, H, s, i, n, img){
+  const T = SO_THEMES[soP().theme] || SO_THEMES.elegante, M = W * 0.075, U = x => T.up ? String(x || "").toLocaleUpperCase("it-IT") : String(x || "");
+  ctx.save(); ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
+  const photoBg = (dark) => { soCover(ctx, img, 0, 0, W, H); const g = ctx.createLinearGradient(0, H * 0.35, 0, H); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, `rgba(0,0,0,${dark})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); };
+  const plain = () => { ctx.fillStyle = T.bg; ctx.fillRect(0, 0, W, H); };
+  const pill = (txt, x, y, bg, fg) => { ctx.font = T.bf(W * 0.03, 800); const w = ctx.measureText(txt).width + W * 0.05, h = W * 0.058; ctx.fillStyle = bg; soRound(ctx, x, y, w, h, h / 2); ctx.fill(); ctx.fillStyle = fg; ctx.textBaseline = "middle"; ctx.fillText(txt, x + W * 0.025, y + h / 2 + 1); ctx.textBaseline = "alphabetic"; return h; };
+  const block = (txt, font, x, yBottom, maxW, maxH, maxS, minS, lh, color, align) => { const f = soFit(ctx, txt, font, maxW, maxH, maxS, minS, lh); ctx.font = font(f.size); ctx.fillStyle = color; ctx.textAlign = align || "left"; const L = f.lines, h = L.length * f.size * lh; let y = yBottom - h + f.size; for (const l of L) { ctx.fillText(l, x, y); y += f.size * lh; } ctx.textAlign = "left"; return h; };
+  const blockTop = (txt, font, x, yTop, maxW, maxH, maxS, minS, lh, color, align) => { const f = soFit(ctx, txt, font, maxW, maxH, maxS, minS, lh); ctx.font = font(f.size); ctx.fillStyle = color; ctx.textAlign = align || "left"; let y = yTop + f.size; for (const l of f.lines) { ctx.fillText(l, x, y); y += f.size * lh; } ctx.textAlign = "left"; return f.lines.length * f.size * lh; };
+  const arrow = (light) => { ctx.font = T.bf(W * 0.032, 700); ctx.fillStyle = light ? "rgba(255,255,255,.92)" : T.ink; ctx.textAlign = "right"; ctx.fillText(U("Scorri") + "  →", W - M, H - M * 0.8); ctx.textAlign = "left"; };
+  const num = () => { if (n < 2) return; ctx.font = T.bf(W * 0.026, 700); ctx.fillStyle = "rgba(255,255,255,.9)"; const t = `${i + 1}/${n}`, w = ctx.measureText(t).width + W * 0.03; ctx.fillStyle = "rgba(0,0,0,.35)"; soRound(ctx, W - M - w, M * 0.7, w, W * 0.05, W * 0.025); ctx.fill(); ctx.fillStyle = "#fff"; ctx.textBaseline = "middle"; ctx.fillText(t, W - M - w + W * 0.015, M * 0.7 + W * 0.025 + 1); ctx.textBaseline = "alphabetic"; };
+
+  if (s.k === "cover" || s.k === "tcover") {
+    if (img) photoBg(0.82); else { plain(); ctx.fillStyle = T.acc; ctx.fillRect(M, H * 0.18, W * 0.14, W * 0.012); }
+    const light = !!img, ink = light ? "#fff" : T.ink;
+    let y = H - M * 1.6;
+    if (s.s) { const h = block(U(s.s), s => T.bf(s, s > 40 ? 800 : 700), M, y, W - 2 * M, H * 0.12, W * 0.06, W * 0.032, 1.2, light ? (T.acc === "#1f2a44" ? "#fff" : T.acc) : T.acc, "left"); y -= h + W * 0.03; }
+    const th = block(U(s.t), T.tf, M, y, W - 2 * M, H * (img ? 0.36 : 0.5), W * (T.up ? 0.13 : 0.105), W * 0.055, T.up ? 1.02 : 1.12, ink);
+    if (s.tag) pill(s.tag, M, y - th - W * 0.1, T.tag, T.tag === "#facc15" ? "#111" : "#fff");
+    if (s.stamp) { ctx.save(); ctx.translate(W * 0.7, H * 0.2); ctx.rotate(-0.22); ctx.strokeStyle = "#22c55e"; ctx.lineWidth = W * 0.012; ctx.font = `400 ${W * 0.11}px Anton, Impact, sans-serif`; const tw = ctx.measureText("VENDUTO").width; soRound(ctx, -tw / 2 - W * 0.03, -W * 0.1, tw + W * 0.06, W * 0.14, W * 0.02); ctx.stroke(); ctx.fillStyle = "#22c55e"; ctx.textAlign = "center"; ctx.fillText("VENDUTO", 0, W * 0.01); ctx.restore(); }
+    if (s.arrow) arrow(light);
+  } else if (s.k === "photo") {
+    if (img) photoBg(0.7); else plain();
+    const ink = img ? "#fff" : T.ink;
+    ctx.fillStyle = T.acc; ctx.fillRect(M, H - M * 1.6 - W * 0.012, W * 0.1, W * 0.01);
+    block(U(s.t), T.tf, M, H - M * 1.6 - W * 0.05, W - 2 * M, H * 0.3, W * (T.up ? 0.1 : 0.08), W * 0.045, T.up ? 1.04 : 1.14, ink);
+    if (s.s) blockTop(s.s, x => T.bf(x, 500), M, H - M * 1.5, W - 2 * M, M, W * 0.035, W * 0.025, 1.2, ink);
+    num();
+  } else if (s.k === "details") {
+    plain();
+    blockTop(U(s.t), T.tf, M, M * 1.3, W - 2 * M, H * 0.14, W * (T.up ? 0.11 : 0.085), W * 0.05, 1.1, T.ink);
+    ctx.fillStyle = T.acc; ctx.fillRect(M, M * 1.3 + W * 0.13, W * 0.12, W * 0.01);
+    const items = s.items || [], cols = 2, rows = Math.ceil(items.length / cols), top0 = M * 1.3 + W * 0.2, bottom = H - M * (s.s ? 3.2 : 1.5), ch = Math.min(W * 0.24, (bottom - top0) / Math.max(1, rows)), cw = (W - 2 * M - W * 0.03) / cols, top = top0 + Math.max(0, (bottom - top0 - rows * ch) / 2);
+    items.forEach(([e, t], k) => { const x = M + (k % cols) * (cw + W * 0.03), y = top + Math.floor(k / cols) * ch; ctx.fillStyle = T.bg === "#0b0b0b" ? "#1c1c1c" : (T.bg === "#ffffff" ? "#f1f5f9" : "rgba(0,0,0,.05)"); soRound(ctx, x, y, cw, ch - W * 0.025, W * 0.03); ctx.fill(); ctx.textBaseline = "middle"; ctx.fillStyle = T.ink; ctx.font = `${W * 0.06}px system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`; ctx.fillText(e, x + W * 0.035, y + (ch - W * 0.025) / 2); const f = soFit(ctx, t, z => T.bf(z, 700), cw - W * 0.15, ch * 0.7, W * 0.045, W * 0.026, 1.15); ctx.font = T.bf(f.size, 700); ctx.fillStyle = T.ink; const lh = f.size * 1.15; f.lines.forEach((l, j) => ctx.fillText(l, x + W * 0.125, y + (ch - W * 0.025) / 2 - (f.lines.length - 1) * lh / 2 + j * lh)); ctx.textBaseline = "alphabetic"; });
+    if (s.s) { ctx.fillStyle = T.acc; soRound(ctx, M, H - M * 2.6, W - 2 * M, M * 1.5, W * 0.03); ctx.fill(); ctx.fillStyle = T.acc === "#facc15" ? "#111" : "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.font = T.bf(W * 0.055, 800); ctx.fillText(s.s, W / 2, H - M * 1.85); ctx.textAlign = "left"; ctx.textBaseline = "alphabetic"; }
+  } else if (s.k === "point") {
+    if (img) photoBg(0.85); else plain();
+    const ink = img ? "#fff" : T.ink;
+    ctx.font = T.tf(W * 0.2); ctx.fillStyle = T.acc; ctx.globalAlpha = img ? 0.95 : 1; ctx.fillText(String(s.n).padStart(2, "0"), M, img ? H * 0.42 : M + W * 0.2); ctx.globalAlpha = 1;
+    if (img) { const h2 = s.s ? block(s.s, z => T.bf(z, 500), M, H - M * 1.3, W - 2 * M, H * 0.2, W * 0.043, W * 0.028, 1.3, "rgba(255,255,255,.92)") : 0; block(U(s.t), T.tf, M, H - M * 1.3 - h2 - W * 0.04, W - 2 * M, H * 0.24, W * (T.up ? 0.095 : 0.075), W * 0.045, T.up ? 1.04 : 1.14, ink); }
+    else { const y = M + W * 0.3, h = blockTop(U(s.t), T.tf, M, y, W - 2 * M, H * 0.25, W * (T.up ? 0.1 : 0.08), W * 0.045, T.up ? 1.04 : 1.14, ink); if (s.s) blockTop(s.s, z => T.bf(z, 500), M, y + h + W * 0.05, W - 2 * M, H - (y + h + W * 0.05) - M * 1.5, W * 0.05, W * 0.03, 1.35, T.ink === "#ffffff" ? "rgba(255,255,255,.85)" : "rgba(15,23,42,.8)"); }
+    num();
+  } else if (s.k === "big") {
+    if (img) photoBg(0.85); else plain();
+    const ink = img ? "#fff" : T.ink;
+    ctx.textAlign = "center"; const f = soFit(ctx, s.t, T.tf, W - 2 * M, H * 0.3, W * 0.17, W * 0.07, 1.05); ctx.font = T.tf(f.size); ctx.fillStyle = img ? "#fff" : T.acc; let y = H * 0.48 - (f.lines.length - 1) * f.size * 1.05 / 2; for (const l of f.lines) { ctx.fillText(l, W / 2, y); y += f.size * 1.05; }
+    ctx.textAlign = "left"; blockTop(s.s, z => T.bf(z, 600), W / 2, y + W * 0.01, W - 2 * M, H * 0.2, W * 0.05, W * 0.03, 1.3, ink, "center"); num();
+  } else if (s.k === "cta") {
+    if (img) { soBlurBg(ctx, img, W, H, 0.62); } else { plain(); }
+    const ink = img ? "#fff" : T.ink;
+    const h1 = blockTop(U(s.t), T.tf, W / 2, H * 0.24, W - 2 * M, H * 0.24, W * (T.up ? 0.12 : 0.095), W * 0.05, T.up ? 1.04 : 1.12, ink, "center");
+    let y = H * 0.24 + h1 + W * 0.06;
+    ctx.fillStyle = T.acc; ctx.fillRect(W / 2 - W * 0.07, y, W * 0.14, W * 0.01); y += W * 0.06;
+    y += blockTop(s.s, z => T.bf(z, 500), W / 2, y, W - 2 * M * 1.4, H * 0.14, W * 0.048, W * 0.03, 1.3, ink, "center") + W * 0.07;
+    if (s.c) { const L = s.c.split("\n"); ctx.textAlign = "center"; L.forEach((l, k) => { ctx.font = T.bf(k === 0 ? W * 0.05 : W * 0.042, k === 0 ? 800 : 600); ctx.fillStyle = ink; ctx.fillText((k === 1 && /^\+?\d/.test(l) ? "📞 " : "") + l, W / 2, y + W * 0.05); y += W * 0.075; }); ctx.textAlign = "left"; }
+    ctx.font = T.bf(W * 0.032, 700); ctx.fillStyle = img ? "rgba(255,255,255,.85)" : T.acc; ctx.textAlign = "center"; ctx.fillText("🔖 " + U("Salva il post") + "   📤 " + U("Condividilo"), W / 2, H - M); ctx.textAlign = "left";
+  }
+  ctx.restore();
+}
+async function soRenderSlide(s, i, n, W, H){
+  const c = document.createElement("canvas"); c.width = W; c.height = H; const ctx = c.getContext("2d");
+  const img = s.ph ? await soImg(s.ph) : null; soDrawSlide(ctx, W, H, s, i, n, img); return c;
+}
+let soPrevT = null, soPrevId = 0;
+function soPostPreview(){ clearTimeout(soPrevT); soPrevT = setTimeout(soPostPreviewNow, 120); }
+async function soPostPreviewNow(){
+  const id = ++soPrevId; await soFonts(); if (id !== soPrevId) return;
+  const S = soSlides(), [W, H] = soPDims(), k = 0.5, box = $("so-p-prev"); if (!box) return;
+  const cvs = []; for (let i = 0; i < S.length; i++) { const c = await soRenderSlide(S[i], i, S.length, Math.round(W * k), Math.round(H * k)); if (id !== soPrevId) return; cvs.push(c); }
+  const sc = box.scrollLeft; box.style.setProperty("--so-ar", (W / H).toFixed(3)); box.innerHTML = ""; cvs.forEach((c, i) => { const d = document.createElement("div"); d.className = "sl"; d.appendChild(c); d.insertAdjacentHTML("beforeend", `<span class="n">${i + 1}/${S.length}</span><button type="button" data-so-p1="${i}">⬇️ Salva</button>`); box.appendChild(d); }); box.scrollLeft = sc;
+  $("so-p-count").textContent = `${S.length} slide · ${W}×${H} px · scorri per vederle tutte`;
+}
+async function soPostBlobs(){
+  await soFonts(); const S = soSlides(), [W, H] = soPDims(), out = [];
+  for (let i = 0; i < S.length; i++) { const c = await soRenderSlide(S[i], i, S.length, W, H); const b = await new Promise(r => c.toBlob(r, "image/jpeg", 0.93)); out.push(new File([b], `slide_${String(i + 1).padStart(2, "0")}.jpg`, { type: "image/jpeg" })); }
+  return out;
+}
+let soZipP = null;
+function soZipLib(){ if (window.JSZip) return Promise.resolve(window.JSZip); if (!soZipP) soZipP = new Promise((res, rej) => { const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"; s.onload = () => res(window.JSZip); s.onerror = () => { soZipP = null; rej(new Error("non riesco a caricare lo strumento per lo zip")); }; document.head.appendChild(s); }); return soZipP; }
+async function soPostDownload(){
+  const btn = $("so-p-dl"), msg = $("so-p-msg"); btn.disabled = true; msg.innerHTML = `<div class="x-note">⏳ Preparo le slide in alta qualità…</div>`;
+  try {
+    const files = await soPostBlobs(), base = "Post_" + (soP().type) + "_" + xISO(Date.now());
+    if (soTouch() && navigator.canShare && navigator.canShare({ files })) { try { await navigator.share({ files, title: base }); msg.innerHTML = ""; btn.disabled = false; return; } catch (e) { if (e && e.name === "AbortError") { msg.innerHTML = ""; btn.disabled = false; return; } } }
+    try { const Z = await soZipLib(), z = new Z(); files.forEach(f => z.file(f.name, f)); await xDownload(await z.generateAsync({ type: "blob" }), base + ".zip"); msg.innerHTML = `<div class="note-box info">✅ ${files.length} slide scaricate in uno zip (${base}.zip). Aprilo e caricale su Instagram nell'ordine dei numeri.</div>`; }
+    catch { for (const f of files) { await xDownload(f, base + "_" + f.name); await new Promise(r => setTimeout(r, 350)); } msg.innerHTML = `<div class="note-box info">✅ ${files.length} slide scaricate.</div>`; }
+  } catch (e) { msg.innerHTML = `<div class="note-box err">Slide non create: ${esc((e && e.message) || String(e))}</div>`; }
+  btn.disabled = false;
+}
+async function soPostShare(){
+  const msg = $("so-p-msg");
+  try {
+    const files = await soPostBlobs();
+    if (navigator.canShare && navigator.canShare({ files })) { try { await soCopy($("so-p-cap").value); } catch {} await navigator.share({ files }); msg.innerHTML = `<div class="note-box info">📋 La didascalia è già copiata: incollala su Instagram.</div>`; }
+    else { msg.innerHTML = `<div class="note-box info">Da questo dispositivo non si può condividere direttamente: usa “Scarica tutte le slide” e caricale su Instagram.</div>`; }
+  } catch (e) { if (!(e && e.name === "AbortError")) msg.innerHTML = `<div class="note-box err">${esc((e && e.message) || String(e))}</div>`; }
+}
+
+/* ---------- interfaccia del post ---------- */
+function soPostDataUI(){
+  const p = soP(), m = p.man, box = $("so-p-data"); if (!box) return;
+  const f = (k, l, ph, im) => `<label class="x-f"><span>${l}</span><input class="inp" data-so-man="${k}" value="${esc(m[k] == null ? "" : m[k])}" placeholder="${esc(ph || "")}"${im ? ` inputmode="${im}"` : ""}></label>`;
+  let h = `<h3>2 · ${p.type === "consigli" ? "Argomento" : p.type === "mercato" ? "Zona" : p.type === "chisono" ? "Su di te" : "L'immobile"}</h3>`;
+  if (p.type === "vendita" || p.type === "venduto") {
+    const o = soPostProp();
+    h += `<select class="inp" id="so-p-src">${soSrcOptions(p.src, "✍️ Scrivo io i dati")}</select>
+      <div class="x-note">${p.src ? "Dati presi dal foglio di prequalifica: qui sotto puoi cambiarli solo per il post." : "Scegli un foglio di prequalifica oppure scrivi i dati."}</div>
+      <div class="x-grid">${f("tip", "Tipo", o.tip || "Appartamento")}${f("loc", "Locali", o.loc || "trilocale")}${f("comune", "Comune", o.comune || "Bergamo")}${f("zona", "Zona/quartiere", o.zona || "")}${f("mq", "m²", o.mq || "", "numeric")}${f("camere", "Camere", o.camere || "", "numeric")}${f("bagni", "Bagni", o.bagni || "", "numeric")}${f("prezzo", "Prezzo €", o.prezzo ? o.prezzo.toLocaleString("it-IT") : "", "numeric")}${p.type === "venduto" ? f("giorni", "Venduto in (giorni)", "", "numeric") : ""}</div>
+      <label class="so-chk"><input type="checkbox" data-so-manb="noPrice"${m.noPrice ? " checked" : ""}><span>Non mostrare il prezzo</span></label>
+      <label class="x-f"><span>Punti forza (uno per riga: diventano i testi delle foto)</span><textarea class="inp" data-so-man="plus" rows="4" placeholder="${esc(soPlusAuto(o).join("\n") || "Giardino privato\nBox doppio\nCucina abitabile")}">${esc(m.plus || "")}</textarea></label>`;
+  } else if (p.type === "consigli") {
+    h += `<div class="x-pills">${Object.keys(SO_TOPICS).map(k => `<button type="button" class="x-pill" data-so-topic="${k}" aria-pressed="${p.topic === k}">${esc(SO_TOPIC_LABEL[k])}</button>`).join("")}</div>`;
+    if (p.topic === "custom") h += `<label class="x-f"><span>Titolo del carosello</span><input class="inp" data-so-cu="title" value="${esc(p.custom.title || "")}" placeholder="Es. 4 cose da sapere sul compromesso"></label><label class="x-f"><span>Punti (uno per riga, “Titolo: spiegazione”)</span><textarea class="inp" data-so-cu="points" rows="6" placeholder="Caparra: quanto versare e come\nTempi: quanto passa fino al rogito">${esc(p.custom.points || "")}</textarea></label>`;
+    h += `<div class="x-note">Le foto sono facoltative: se le aggiungi fanno da sfondo alle slide.</div>`;
+  } else if (p.type === "mercato") {
+    h += `<label class="x-f"><span>Comune</span><input class="inp" data-so-mkt="comune" list="so-comuni" value="${esc(p.mkt.comune || "")}"></label><datalist id="so-comuni">${Object.keys(PQ_PREZZI).map(c => `<option value="${esc(c)}">`).join("")}</datalist><div class="x-note">Prezzo medio al m² preso dalla tabella dei prezzi dei comuni dell'app.</div>`;
+  } else {
+    h += `<div class="x-grid"><label class="x-f"><span>Anni di esperienza</span><input class="inp" data-so-chi="anni" inputmode="numeric" value="${esc(p.chi.anni || "")}"></label><label class="x-f"><span>Zona in cui lavori</span><input class="inp" data-so-chi="zona" value="${esc(p.chi.zona || "")}" placeholder="Bergamo e provincia"></label></div><label class="x-f"><span>Come lavori (una frase)</span><textarea class="inp" data-so-chi="frase" rows="3">${esc(p.chi.frase || "")}</textarea></label>`;
+  }
+  box.innerHTML = h;
+}
+function soPostTextsUI(){
+  const S = soSlides(), box = $("so-p-texts"); if (!box) return;
+  const lab = { cover: "Copertina", tcover: "Copertina", photo: "Foto", details: "Dettagli", cta: "Chiusura", point: "Punto", big: "Numero" };
+  box.innerHTML = S.map((s, i) => `<div class="it"><b>${i + 1} · ${lab[s.k] || "Slide"}</b><textarea class="inp" rows="2" data-so-ovt="${i}" aria-label="Titolo slide ${i + 1}">${esc(s.t || "")}</textarea>${s.k !== "details" ? `<textarea class="inp" rows="2" data-so-ovs="${i}" placeholder="Testo piccolo (facoltativo)" aria-label="Sottotitolo slide ${i + 1}">${esc(s.s || "")}</textarea>` : ""}</div>`).join("");
+}
+function soPostPhotosUI(){
+  const p = soP(); $("so-p-nph").textContent = p.photos.length ? `(${p.photos.length})` : "";
+  $("so-p-photos").innerHTML = p.photos.map((k, i) => `<div class="br-ph${i === 0 ? " cover" : ""}"><img alt="Foto ${i + 1}" data-so-thumb="${esc(k)}">${i === 0 ? `<span class="tag">Copertina</span>` : ""}<div class="bar"><button type="button" data-so-pmv="-1" data-i="${i}" aria-label="Sposta a sinistra">◀</button><button type="button" data-so-pdel="${i}" aria-label="Elimina">✕</button><button type="button" data-so-pmv="1" data-i="${i}" aria-label="Sposta a destra">▶</button></div></div>`).join("");
+  $("so-p-photos").querySelectorAll("[data-so-thumb]").forEach(async im => { const x = await soImg(im.dataset.soThumb); if (x) im.src = x.src; });
+}
+function soPostCapUI(force){
+  const p = soP(), o = soPostProp();
+  if (force || !p.cap) {
+    const ex = { showPrice: !p.man.noPrice, giorni: p.man.giorni };
+    if (p.type === "consigli") { const S = soAutoSlides(); ex.title = (S[0] || {}).t; ex.points = S.filter(s => s.k === "point").map(s => s.t + (s.s ? ": " + s.s : "")); }
+    if (p.type === "mercato") { const pm = (PQ_PREZZI[p.mkt.comune] || [])[1]; o.comune = p.mkt.comune; ex.mq = pm; ex.esempio = pm ? soEuro(Math.round(pm * 90 / 1000) * 1000) : ""; }
+    if (p.type === "chisono") Object.assign(ex, p.chi);
+    p.cap = soCaption(p.type, o, ex, p.capSeed || 0, false); soSave();
+  }
+  if (document.activeElement !== $("so-p-cap")) $("so-p-cap").value = p.cap;
+}
+function soRenderPostUI(){
+  const p = soP();
+  $("so-ptypes").innerHTML = SO_PTYPES.map(([k, l]) => `<button type="button" class="x-pill" data-so-ptype="${k}" aria-pressed="${p.type === k}">${esc(l)}</button>`).join("");
+  $("so-themes").innerHTML = Object.entries(SO_THEMES).map(([k, t]) => `<button type="button" class="x-pill" data-so-theme="${k}" aria-pressed="${p.theme === k}"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${t.bg};border:3px solid ${t.acc}"></span>${esc(t.label)}</button>`).join("");
+  $("so-pfmts").innerHTML = SO_PFMTS.map(([k, l]) => `<button type="button" class="x-pill" data-so-pfmt="${k}" aria-pressed="${p.fmt === k}">${esc(l)}</button>`).join("");
+  $("so-p-phnote").textContent = p.type === "vendita" || p.type === "venduto" ? "La prima è la copertina. Ogni foto diventa una slide (massimo 10 slide); usa ◀ ▶ per l'ordine." : "Facoltative: fanno da sfondo alla copertina e alle slide.";
+  const me = soMe(); document.querySelectorAll("#view-social [data-so-me]").forEach(i => { if (document.activeElement !== i) i.value = me[i.dataset.soMe] || ""; });
+  soPostDataUI(); soPostPhotosUI(); soPostTextsUI(); soPostCapUI(false); soPostPreview();
+}
+
+/* ===================== SOCIAL: controller ===================== */
+function soTab(t){
+  soDoc.data.tab = t; soSave();
+  document.querySelectorAll("#view-social [data-so-tab]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.soTab === t)));
+  $("so-video").hidden = t !== "video"; $("so-post").hidden = t !== "post";
+  if (t === "video") soRenderVideoUI(); else soRenderPostUI();
+}
+function socialRender(){ soFonts().then(() => { if (xCur === "social") { if (soDoc.data.tab === "post") soPostPreview(); else if (SV.dur && !SV.playing) soDrawPreviewAt(0); } }); $("so-sync").textContent = xLogged() ? "Google" : "Locale"; soTab(soDoc.data.tab === "post" ? "post" : "video"); }
+XVIEWS.social = socialRender;
+const soReseg = () => { soSegs(); soDrawTimeline(); soCutInfo(); soCapsUI(); if (!SV.playing) soDrawPreviewAt(0); };
+const soV2 = () => { if (!SV.playing && SV.dur) soDrawPreviewAt(Math.min(1, SV.outDur / 2)); };
+$("view-social").addEventListener("click", async e => {
+  const el = e.target;
+  const tb = el.closest("[data-so-tab]"); if (tb) { if (SV.playing) soStop(); soTab(tb.dataset.soTab); return; }
+  /* video */
+  const cs = el.closest("[data-so-capstyle]"); if (cs) { soV().capStyle = cs.dataset.soCapstyle; soSave(); soRenderVideoUI(); soV2(); return; }
+  const hs = el.closest("[data-so-hooksug]"); if (hs) { soV().hook = hs.dataset.soHooksug; $("so-hook").value = soV().hook; SV.bed = null; soSave(); if (!SV.playing && SV.dur) soDrawPreviewAt(0.6); return; }
+  const md = el.closest("[data-so-mood]"); if (md) { soV().mood = md.dataset.soMood; SV.bed = null; soSave(); soRenderVideoUI(); if (md.dataset.soMood === "mia" && !SV.musBuf) $("so-mus-file").click(); return; }
+  const fm = el.closest("[data-so-fmt]"); if (fm) { soV().fmt = fm.dataset.soFmt; soSave(); soRenderVideoUI(); soV2(); return; }
+  const cd = el.closest("[data-so-capdel]"); if (cd) { const c = SV.caps[+cd.dataset.soCapdel]; if (c) { const idx = new Set(c.words.map(w => w.i)); SV.words = SV.words.filter((w, i) => !idx.has(i)); soBuildCaps(); soCapsUI(); } return; }
+  if (el.closest("#so-play")) { soPreview(); return; }
+  if (el.closest("#so-asr")) { soAsr(); return; }
+  if (el.closest("#so-export")) { try { soAudioCtx().resume(); } catch {} soExport(); return; }
+  if (el.closest("#so-exp-stop")) { soStop(); return; }
+  if (el.closest("#so-dl")) { if (SV.resBlob) xDownload(SV.resBlob, SV.resName); return; }
+  if (el.closest("#so-share")) { if (SV.resBlob) { const f = new File([SV.resBlob], SV.resName, { type: SV.resBlob.type }); try { await soCopy($("so-v-cap").value); if (navigator.canShare && navigator.canShare({ files: [f] })) await navigator.share({ files: [f] }); else xDownload(SV.resBlob, SV.resName); } catch {} } return; }
+  if (el.closest("#so-mus-try")) {
+    const st = soV(); if (st.mood === "nessuna" || (st.mood === "mia" && !SV.musBuf)) { toast("Scegli prima una musica"); return; }
+    const ac = soAudioCtx(); try { await ac.resume(); } catch {}
+    if (SV.tryNode) { try { SV.tryNode.disconnect(); } catch {} SV.tryNode = null; $("so-mus-try").textContent = "🔊 Ascolta 8 secondi"; return; }
+    const g = ac.createGain(); g.gain.value = (st.vol || 45) / 100; g.connect(ac.destination); SV.tryNode = g; $("so-mus-try").textContent = "⏹ Ferma";
+    if (st.mood === "mia") { const s = ac.createBufferSource(); s.buffer = SV.musBuf; s.connect(g); s.start(); s.stop(ac.currentTime + 8); } else soMusic(ac, g, st.mood, ac.currentTime + 0.05, 8);
+    setTimeout(() => { if (SV.tryNode === g) { try { g.disconnect(); } catch {} SV.tryNode = null; const b = $("so-mus-try"); if (b) b.textContent = "🔊 Ascolta 8 secondi"; } }, 8300);
+    return;
+  }
+  if (el.closest("#so-v-capnew")) { const st = soV(); st.capSeed = (st.capSeed || 0) + 1; st.cap = soCaption("video", soProp(st.src, {}), { showPrice: true }, st.capSeed, false); $("so-v-cap").value = st.cap; soSave(); return; }
+  if (el.closest("#so-v-capcp")) { soCopy($("so-v-cap").value); return; }
+  if (el.closest("#so-v-capcptt")) { const st = soV(); soCopy(soCaption("video", soProp(st.src, {}), { showPrice: true }, st.capSeed || 0, true)); return; }
+  /* post */
+  const pt = el.closest("[data-so-ptype]"); if (pt) { const p = soP(); p.type = pt.dataset.soPtype; p.cap = ""; soSave(); soRenderPostUI(); return; }
+  const th = el.closest("[data-so-theme]"); if (th) { soP().theme = th.dataset.soTheme; soSave(); soRenderPostUI(); return; }
+  const pf = el.closest("[data-so-pfmt]"); if (pf) { soP().fmt = pf.dataset.soPfmt; soSave(); soRenderPostUI(); return; }
+  const tp = el.closest("[data-so-topic]"); if (tp) { const p = soP(); p.topic = tp.dataset.soTopic; p.cap = ""; soSave(); soRenderPostUI(); return; }
+  const mv = el.closest("[data-so-pmv]"); if (mv) { const p = soP(), i = +mv.dataset.i, j = i + +mv.dataset.soPmv; if (j < 0 || j >= p.photos.length) return; [p.photos[i], p.photos[j]] = [p.photos[j], p.photos[i]]; soSave(); soPostPhotosUI(); soPostTextsUI(); soPostPreview(); return; }
+  const pd = el.closest("[data-so-pdel]"); if (pd) { const p = soP(), [k] = p.photos.splice(+pd.dataset.soPdel, 1); try { aqPhotoDel(k); } catch {} delete soImgs[k]; soSave(); soPostPhotosUI(); soPostTextsUI(); soPostPreview(); return; }
+  const p1 = el.closest("[data-so-p1]"); if (p1) { const i = +p1.dataset.soP1, S = soSlides(), [W, H] = soPDims(); await soFonts(); const c = await soRenderSlide(S[i], i, S.length, W, H); c.toBlob(b => xDownload(b, `slide_${String(i + 1).padStart(2, "0")}.jpg`), "image/jpeg", 0.93); return; }
+  if (el.closest("#so-p-reset")) { const p = soP(); p.ov = {}; p.cap = ""; p.capEdited = false; soSave(); soPostTextsUI(); soPostCapUI(true); soPostPreview(); toast("Testi rigenerati"); return; }
+  if (el.closest("#so-p-dl")) { soPostDownload(); return; }
+  if (el.closest("#so-p-share")) { soPostShare(); return; }
+  if (el.closest("#so-p-capnew")) { const p = soP(); p.capSeed = (p.capSeed || 0) + 1; p.capEdited = false; soPostCapUI(true); return; }
+  if (el.closest("#so-p-capcp")) { soCopy($("so-p-cap").value); return; }
+  if (el.closest("#so-p-capcptt")) { const p = soP(), keep = p.cap; const o = soPostProp(); soCopy(soCaption(p.type, o, { showPrice: !p.man.noPrice, giorni: p.man.giorni, title: (soAutoSlides()[0] || {}).t, mq: p.type === "mercato" ? (PQ_PREZZI[p.mkt.comune] || [])[1] : 0 }, p.capSeed || 0, true)); p.cap = keep; return; }
+});
+/* timeline: tocca una pausa per tenerla o tagliarla */
+$("view-social").addEventListener("pointerup", e => {
+  if (e.target.id !== "so-tl" || !SV.dur) return;
+  const r = e.target.getBoundingClientRect(), t = (e.clientX - r.left) / r.width * SV.dur, st = soV();
+  const reg = SV.regions.find(x => t >= x.s - 0.15 && t <= x.e + 0.15);
+  if (reg && st.cut) { reg.on = !reg.on; soReseg(); }
+  else if (!SV.playing && SV.vid) { soSeek(t).then(() => { const o = soMapT(t); soDrawPreviewAt(o == null ? 0 : o); }).catch(() => {}); }
+});
+$("view-social").addEventListener("input", e => {
+  const el = e.target, id = el.id, st = soV();
+  if (id === "so-sens") { st.sens = +el.value; soSave(); soDetect(); soRenderVideoUI(); return; }
+  if (id === "so-minsil") { st.minsil = +el.value; soSave(); soDetect(); soRenderVideoUI(); return; }
+  if (id === "so-tin" || id === "so-tout") { const k = id === "so-tin" ? "tin" : "tout"; st[k] = +el.value; if (st.tout - st.tin < 1) { if (k === "tin") st.tin = Math.max(0, st.tout - 1); else st.tout = Math.min(SV.dur, st.tin + 1); } $(id + "-v").textContent = soFmtT(st[k]); soReseg(); if (SV.vid && !SV.playing) soSeek(st[k]).then(() => soDrawPreviewAt(k === "tin" ? 0 : Math.max(0, SV.outDur - 0.05))).catch(() => {}); return; }
+  if (id === "so-vol") { st.vol = +el.value; $("so-vol-v").textContent = st.vol + "%"; SV.bed = null; soSave(); return; }
+  if (id === "so-pan") { st.pan = +el.value; $("so-pan-v").textContent = st.pan < 40 ? "← sinistra" : st.pan > 60 ? "destra →" : "al centro"; soSave(); if (!SV.playing && SV.dur) soDrawPreviewAt(0); return; }
+  if (id === "so-hook") { st.hook = el.value; SV.bed = null; soSave(); if (!SV.playing && SV.dur) soDrawPreviewAt(0.6); return; }
+  if (id === "so-end-t") { st.endT = el.value; soSave(); return; }
+  if (id === "so-v-cap") { st.cap = el.value; soSave(); return; }
+  if (el.dataset.soMe) { soMe()[el.dataset.soMe] = el.value; soSave(); document.querySelectorAll(`#view-social [data-so-me="${el.dataset.soMe}"]`).forEach(x => { if (x !== el) x.value = el.value; }); if (!$("so-post").hidden) soPostPreview(); return; }
+  /* post */
+  const p = soP();
+  if (el.dataset.soMan) { p.man[el.dataset.soMan] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
+  if (el.dataset.soCu) { p.custom[el.dataset.soCu] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
+  if (el.dataset.soMkt) { p.mkt[el.dataset.soMkt] = el.value; soSave(); if (PQ_PREZZI[el.value]) { soPostPreview(); soPostTextsUIKeep(); soPostCapUI(!p.capEdited); } return; }
+  if (el.dataset.soChi) { p.chi[el.dataset.soChi] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
+  if (el.dataset.soOvt != null || el.dataset.soOvs != null) { const i = +(el.dataset.soOvt != null ? el.dataset.soOvt : el.dataset.soOvs), S = soAutoSlides(), s = S[i]; if (!s) return; const key = p.type + ":" + i + ":" + s.k, o = p.ov[key] || (p.ov[key] = {}); if (el.dataset.soOvt != null) o.t = el.value; else o.s = el.value; soSave(); soPostPreview(); return; }
+  if (id === "so-p-cap") { p.cap = el.value; p.capEdited = true; soSave(); return; }
+});
+let soInT = null;
+/* riscrive i testi delle slide solo se l'utente non ci sta scrivendo */
+function soPostTextsUIKeep(){ const a = document.activeElement; if (a && (a.dataset.soOvt != null || a.dataset.soOvs != null)) return; soPostTextsUI(); }
+$("view-social").addEventListener("change", async e => {
+  const el = e.target, id = el.id, st = soV();
+  if (id === "so-v-file" && el.files[0]) { const f = el.files[0]; el.value = ""; soLoadVideo(f); return; }
+  if (id === "so-mus-file" && el.files[0]) { const f = el.files[0]; el.value = ""; try { SV.musBuf = await soDecode(soAudioCtx(), await f.arrayBuffer()); SV.musName = f.name; st.mood = "mia"; SV.bed = null; soSave(); soRenderVideoUI(); toast("🎵 Musica caricata"); } catch { toast("Questo file audio non si apre: prova un MP3 o M4A"); } return; }
+  if (id === "so-cut") { st.cut = el.checked; soSave(); soReseg(); soCutInfo(); return; }
+  if (id === "so-cap-pos") { st.capPos = el.value; soSave(); soV2(); return; }
+  if (id === "so-cap-n") { st.capN = +el.value; soSave(); soBuildCaps(); soCapsUI(); soV2(); return; }
+  if (id === "so-cap-up") { st.upper = el.checked; soSave(); soV2(); return; }
+  if (id === "so-asr-m") { st.model = el.value; soSave(); return; }
+  if (id === "so-duck" || id === "so-sfx-intro" || id === "so-sfx-cut" || id === "so-sfx-end" || id === "so-end") { st[{ "so-duck": "duck", "so-sfx-intro": "sfxIntro", "so-sfx-cut": "sfxCut", "so-sfx-end": "sfxEnd", "so-end": "end" }[id]] = el.checked; SV.bed = null; soSave(); soCutInfo(); if (!SV.playing && SV.dur) soDrawPreviewAt(0); return; }
+  if (id === "so-fit") { st.fit = el.value; soSave(); soV2(); return; }
+  if (id === "so-q") { st.q = el.value; soSave(); return; }
+  if (id === "so-v-src") { st.src = el.value; st.cap = soCaption("video", soProp(st.src, {}), { showPrice: true }, st.capSeed || 0, false); $("so-v-cap").value = st.cap; soSave(); return; }
+  if (el.dataset.soCapt != null) { soCapEdit(+el.dataset.soCapt, el.value); soCapsUI(); soV2(); return; }
+  /* post */
+  const p = soP();
+  if (id === "so-p-src") { p.src = el.value; p.man = {}; p.ov = {}; p.cap = ""; p.capEdited = false; soSave(); soRenderPostUI(); return; }
+  if (el.dataset.soManb) { p.man[el.dataset.soManb] = el.checked; soSave(); soPostTextsUI(); soPostCapUI(!p.capEdited); soPostPreview(); return; }
+  if (id === "so-p-add" && el.files.length) {
+    const msg = $("so-p-msg"); msg.innerHTML = `<div class="x-note">⏳ Preparo le foto…</div>`; let n = 0;
+    for (const f of el.files) { if (p.photos.length >= 10) { toast("Massimo 10 foto per carosello"); break; } try { const d = await soPhotoPrep(f), k = "so:" + xId("f"); await aqPhotoSet(k, d); p.photos.push(k); n++; } catch {} }
+    el.value = ""; soSave(); msg.innerHTML = n ? "" : `<div class="note-box err">Nessuna foto aggiunta: formato non leggibile.</div>`; soPostPhotosUI(); soPostTextsUI(); soPostPreview(); return;
+  }
+});
+window.addEventListener("resize", () => { if (xCur === "social" && !$("so-video").hidden) soDrawTimeline(); });
+document.addEventListener("visibilitychange", () => { if (document.hidden && SV.playing && !SV.recording) { /* l'anteprima si ferma se la pagina va in secondo piano */ soStop(); } });
+
 /* ===================== APP MENU (dropdown) ===================== */
-const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
+const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "social", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
 let ddFrom = null;
 function showView(v){
   if (!APPS.includes(v)) v = "home";
