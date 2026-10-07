@@ -1248,6 +1248,8 @@ body.rz-limited [data-rz-full]{display:none!important}
 @media (min-width:640px) and (max-width:999px){ .so-stage{max-width:420px} .so-car .sl{flex-basis:62%} }
 @media (max-width:999px){ .so-out{order:-1} .so-stage{max-height:52vh;width:auto;height:52vh} #so-video.so-nov .so-out{display:none} .so-car .sl{flex-basis:min(86%, calc(56vh * var(--so-ar, .8)))} }
 .so-4k{display:inline-block;background:#16a34a;color:#fff;font-weight:800;font-size:11.5px;border-radius:6px;padding:1px 7px;margin-right:4px}
+.so-found{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.so-chip{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700}
 
 .so-err{color:var(--hot,#e11d48);font-weight:600}
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
@@ -6393,7 +6395,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610072047";
+const APP_VER = "v1-202610072110";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -9243,9 +9245,12 @@ function soProp(src, man){
     const L = dsLocali(d); o.loc = L ? DS_LOC[L] : ""; o.zona = (ds && ds.f && ds.f.zona) || "";
     o.plus = (d.car || []).slice(0, 8);
   }
+  /* dati e punti forza letti dalla descrizione (scritta qui o presa dal Generatore descrizione) */
+  const descTxt = String(m.desc != null && m.desc !== "" ? m.desc : (src && dsDoc.data.by[src] && dsDoc.data.by[src].text) || "");
+  if (descTxt.trim()) { const D = soFromDesc(descTxt); o.descPlus = D.plus; for (const k of ["tip", "loc", "comune", "zona", "classe", "mq", "camere", "bagni", "prezzo", "giardino"]) if (!o[k] && D[k]) o[k] = D[k]; for (const k of ["box", "terrazzo", "balcone", "cantina"]) if (D[k]) o[k] = o[k] || D[k]; }
   for (const k of ["tip", "loc", "comune", "zona", "classe"]) if (m[k]) o[k] = m[k];
   for (const k of ["mq", "camere", "bagni", "prezzo", "giardino"]) if (m[k] != null && m[k] !== "") { const n = rzNum(m[k]); if (n != null && !isNaN(n)) o[k] = n; }
-  if (m.plus != null && m.plus !== "") o.plus = String(m.plus).split(/\n|;/).map(s => s.trim()).filter(Boolean);
+  if (m.plus != null && String(m.plus).trim() !== "") o.manPlus = String(m.plus).split(/\n|;/).map(s => s.trim()).filter(Boolean);
   if (m.box != null && m.box !== "") o.box = m.box ? 1 : 0;
   return o;
 }
@@ -9257,15 +9262,90 @@ function soName(o){
 }
 function soWhere(o){ return [o.zona, o.comune].filter(Boolean).filter((x, i, a) => a.indexOf(x) === i).join(", "); }
 function soEuro(n){ return n ? Math.round(n).toLocaleString("it-IT") + " €" : ""; }
+/* ---------- punti forza dalla descrizione ---------- */
+const SO_FEAT = [
+  [/piscina/, "Piscina"],
+  [/giardino(?:\s+(?:privato|di proprietà|esclusivo|piantumato))?(?:\s+di\s+(?:circa\s+)?(\d{2,5})\s*(?:mq|m²|m2|metri))?/, m => "Giardino privato" + (m[1] ? " di " + m[1] + " m²" : ""), "giardino"],
+  [/terrazz[oaie]\s*(abitabil|vivibil|panoramic)?/, m => m[1] ? "Terrazzo " + (m[1].startsWith("pan") ? "panoramico" : "vivibile") : "Terrazzo", "terrazzo"],
+  [/vista\s+(panoramica|aperta|sui colli|sulle montagne|sulle mura|sul lago|sulla città alta|su città alta|sulla valle)/, m => "Vista " + m[1]],
+  [/\b(box|garage|autorimessa)\s*(doppio|singolo|triplo)?/, m => m[2] === "doppio" ? "Box doppio" : m[2] === "triplo" ? "Box triplo" : "Box auto", "box"],
+  [/posto auto/, "Posto auto"],
+  [/(completamente|totalmente|appena|recentemente|finemente|interamente)\s+ristrutturat/, m => (m[1] === "recentemente" || m[1] === "appena" ? "Appena ristrutturato" : "Completamente ristrutturato")],
+  [/ristrutturat|ristrutturazione/, "Ristrutturato"],
+  [/nuova costruzione|di nuova realizzazione|nuovo complesso/, "Nuova costruzione"],
+  [/classe(?:\s+energetica)?\s+(a\d?|a\+*|b)\b/, m => "Classe energetica " + m[1].toUpperCase(), "classe"],
+  [/fotovoltaic/, "Pannelli fotovoltaici"],
+  [/pompa di calore/, "Pompa di calore"],
+  [/riscaldamento a pavimento|pannelli radianti|a pavimento/, "Riscaldamento a pavimento"],
+  [/riscaldamento autonomo|termoautonom/, "Riscaldamento autonomo"],
+  [/aria condizionata|climatizzat|condizionatori/, "Aria condizionata"],
+  [/domotic/, "Casa domotica"],
+  [/cappotto/, "Cappotto termico"],
+  [/cucina abitabile/, "Cucina abitabile"],
+  [/cucina a vista|open space|cucina open/, "Cucina a vista sul soggiorno"],
+  [/(ampio|spazioso|grande)\s+soggiorno|soggiorno\s+(ampio|spazioso|luminoso)/, "Ampio soggiorno"],
+  [/camino/, "Camino"],
+  [/doppi servizi|due bagni|2 bagni/, "Doppi servizi"],
+  [/bagno finestrato|bagni finestrati/, "Bagno finestrato"],
+  [/cabina armadio/, "Cabina armadio"],
+  [/lavanderia/, "Lavanderia"],
+  [/taverna/, "Taverna"],
+  [/mansarda/, "Mansarda"],
+  [/cantina/, "Cantina", "cantina"],
+  [/ripostiglio/, "Ripostiglio"],
+  [/doppia esposizione|tripla esposizione|esposto a sud|esposizione a sud/, m => /tripla/.test(m[0]) ? "Tripla esposizione" : /sud/.test(m[0]) ? "Esposto a sud" : "Doppia esposizione"],
+  [/luminos/, "Ambienti luminosi"],
+  [/ultimo piano/, "Ultimo piano"],
+  [/ascensore/, "Ascensore"],
+  [/portineria|portiere|custode/, "Portineria"],
+  [/parquet/, "Parquet"],
+  [/(infissi|serramenti)\s+(nuovi|di recente|recenti|in pvc|triplo vetro|doppio vetro)/, "Serramenti nuovi"],
+  [/allarme|videosorveglianza/, "Impianto d'allarme"],
+  [/arredat[oa]/, "Arredato"],
+  [/pront[oa] da abitare|pronta consegna|senza (?:necessità di )?(?:alcun )?lavori|nessun lavoro/, "Pronto da abitare"],
+  [/spese condominiali (basse|contenute|ridotte)|nessuna spesa condominiale|senza spese condominiali/, "Spese condominiali contenute"],
+  [/balcon[ei]/, "Balcone", "balcone"],
+  [/tranquill|silenzios/, "Zona tranquilla"],
+  [/centro storico|pieno centro|in centro/, "In centro"],
+  [/scuol|negozi|supermercat|farmaci|vicin\w* a(?:i|l)? (?:principali |tutti i )?servizi|comod\w* (?:a|ai) (?:tutti i )?servizi|servizi (?:principali|di zona|di quartiere)/, "Vicino a scuole e servizi"],
+  [/fermata|autobus|mezzi pubblici|\bteb\b|stazione|metropolitana/, "Comodo ai mezzi"],
+  [/autostrad|tangenziale|casello/, "Vicino all'autostrada"]
+];
+const SO_NUM = { un: 1, una: 1, uno: 1, due: 2, tre: 3, quattro: 4, cinque: 5, sei: 6, doppi: 2 };
+function soFromDesc(text){
+  const t = " " + String(text || "").toLowerCase().replace(/\s+/g, " ") + " ", o = { plus: [] }, seen = new Set();
+  for (const [re, lab, fam] of SO_FEAT) {
+    const m = t.match(re); if (!m) continue;
+    if (/\bsenza\s+(\w+\s+){0,2}$/.test(t.slice(Math.max(0, m.index - 22), m.index))) continue; /* "senza ascensore", "senza giardino" */
+    const l = typeof lab === "function" ? lab(m) : lab, key = (fam || l.split(" ")[0]).toLowerCase();
+    if (fam === "box") o.box = 1; if (fam === "terrazzo") o.terrazzo = true; if (fam === "balcone") o.balcone = true; if (fam === "cantina") o.cantina = true;
+    if (fam === "giardino" && m[1]) o.giardino = +m[1]; if (fam === "classe") o.classe = m[1].toUpperCase();
+    if (seen.has(key) || (key === "balcone" && seen.has("terrazzo")) || (l === "Ristrutturato" && [...seen].some(x => /ristrutt/.test(x)))) continue;
+    seen.add(key); if (/ristrutt/i.test(l)) seen.add("ristrutt"); o.plus.push(l);
+  }
+  let m;
+  for (const x of t.matchAll(/(\d{2,4})(?:[.,]\d+)?\s*(?:mq|m²|m2|metri quadr)/g)) { if (/(giardino|terrazz|terreno|cortile|area esterna|lotto|parco)[^.;]{0,30}$/.test(t.slice(Math.max(0, x.index - 40), x.index))) continue; o.mq = +x[1]; break; }
+  if ((m = t.match(/\b(\d|un[ao]?|due|tre|quattro|cinque)\s+(?:ampie\s+|grandi\s+|spaziose\s+)?camer[ae]/))) o.camere = +m[1] || SO_NUM[m[1]] || 0;
+  if ((m = t.match(/\b(\d|un|due|tre|quattro|doppi)\s+(?:bagni|bagno|servizi)/))) o.bagni = +m[1] || SO_NUM[m[1]] || 0;
+  if ((m = t.match(/(?:€|euro)\s*(\d{2,3}(?:[.\s]\d{3})+|\d{5,7})|(\d{2,3}(?:[.\s]\d{3})+|\d{5,7})\s*(?:€|euro)/))) o.prezzo = +String(m[1] || m[2]).replace(/[.\s]/g, "");
+  if ((m = t.match(/\b(monolocale|bilocale|trilocale|quadrilocale|cinque locali)\b/))) { o.loc = m[1]; if (!o.camere) o.camere = { bilocale: 1, trilocale: 2, quadrilocale: 3 }[m[1]] || 0; }
+  if ((m = t.match(/\b(villa singola|villa|villetta a schiera|villetta|casa indipendente|attico|loft|rustico|appartamento)\b/))) o.tip = m[1].replace(/^./, c => c.toUpperCase());
+  try { const names = Object.keys(PQ_PREZZI).sort((a, b) => b.length - a.length); for (const c of names) { const re = new RegExp("\\b(?:a|in|di|ad|zona)\\s+" + c.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b"); if (re.test(t)) { o.comune = c; break; } } } catch {}
+  if ((m = t.match(/\b(?:in )?zona ([a-zà-ù' ]{3,24}?)(?=[,.;]| a | di | in | vicin| con | e )/))) { const z = m[1].trim(); if (!o.comune || z !== o.comune.toLowerCase()) o.zona = z.replace(/(^|\s)\S/g, c => c.toUpperCase()); }
+  return o;
+}
 function soPlusAuto(o){
-  const a = [];
-  if (o.giardino) a.push("Giardino privato" + (o.giardino > 1 ? " di " + o.giardino + " m²" : ""));
-  if (o.terrazzo) a.push("Terrazzo vivibile"); else if (o.balcone) a.push("Balcone");
-  if (o.box) a.push("Box auto"); if (o.cantina) a.push("Cantina");
-  if (o.classe && /^A|^B/.test(o.classe)) a.push("Classe energetica " + o.classe);
-  if (o.piano && /ultimo/.test(o.piano)) a.push("Ultimo piano");
-  if (o.stato && /nuov|ristrutt|ottim/i.test(o.stato)) a.push(o.stato);
-  for (const p of o.plus || []) if (a.length < 8 && !a.some(x => x.toLowerCase() === String(p).toLowerCase())) a.push(String(p).charAt(0).toUpperCase() + String(p).slice(1));
+  if (o.manPlus && o.manPlus.length) return o.manPlus.slice(0, 8);
+  const a = [], fam = x => x.toLowerCase().split(" ")[0];
+  for (const p of o.descPlus || []) if (a.length < 8) a.push(p);
+  const add = x => { if (a.length < 8 && !a.some(y => fam(y) === fam(x) || (fam(x) === "balcone" && fam(y) === "terrazzo"))) a.push(x); };
+  if (o.giardino) add("Giardino privato" + (o.giardino > 1 ? " di " + o.giardino + " m²" : ""));
+  if (o.terrazzo) add("Terrazzo vivibile"); else if (o.balcone) add("Balcone");
+  if (o.box) add("Box auto"); if (o.cantina) add("Cantina");
+  if (o.classe && /^A|^B/.test(o.classe)) add("Classe energetica " + o.classe);
+  if (o.piano && /ultimo/.test(o.piano)) add("Ultimo piano");
+  if (o.stato && /nuov|ristrutt|ottim/i.test(o.stato)) add(o.stato);
+  for (const p of o.plus || []) add(String(p).charAt(0).toUpperCase() + String(p).slice(1));
   return a;
 }
 function soProv(comune){ try { const x = PQ_PREZZI[comune]; return x ? x[0] : ""; } catch { return ""; } }
@@ -10103,6 +10183,12 @@ async function soPostShare(){
 }
 
 /* ---------- interfaccia del post ---------- */
+function soDescText(){ const p = soP(); if (p.man.desc != null && p.man.desc !== "") return p.man.desc; const ds = p.src && dsDoc.data.by[p.src]; return (ds && ds.text) || ""; }
+function soFoundHTML(o){
+  const L = soPlusAuto(Object.assign({}, o, { manPlus: null })), d = o.descPlus;
+  if (!soDescText().trim()) return `<span class="x-note">✨ Scrivi o incolla la descrizione: i punti forza si trovano da soli.</span>`;
+  return `<span class="x-note">✨ Punti forza trovati${d && d.length ? "" : " (nessuno nella descrizione, uso i dati della scheda)"}:</span> ${L.map(x => `<span class="so-chip">${esc(x)}</span>`).join("")}`;
+}
 function soPostDataUI(){
   const p = soP(), m = p.man, box = $("so-p-data"); if (!box) return;
   const f = (k, l, ph, im) => `<label class="x-f"><span>${l}</span><input class="inp" data-so-man="${k}" value="${esc(m[k] == null ? "" : m[k])}" placeholder="${esc(ph || "")}"${im ? ` inputmode="${im}"` : ""}></label>`;
@@ -10113,7 +10199,9 @@ function soPostDataUI(){
       <div class="x-note">${p.src ? "Dati presi dal foglio di prequalifica: qui sotto puoi cambiarli solo per il post." : "Scegli un foglio di prequalifica oppure scrivi i dati."}</div>
       <div class="x-grid">${f("tip", "Tipo", o.tip || "Appartamento")}${f("loc", "Locali", o.loc || "trilocale")}${f("comune", "Comune", o.comune || "Bergamo")}${f("zona", "Zona/quartiere", o.zona || "")}${f("mq", "m²", o.mq || "", "numeric")}${f("camere", "Camere", o.camere || "", "numeric")}${f("bagni", "Bagni", o.bagni || "", "numeric")}${f("prezzo", "Prezzo €", o.prezzo ? o.prezzo.toLocaleString("it-IT") : "", "numeric")}${p.type === "venduto" ? f("giorni", "Venduto in (giorni)", "", "numeric") : ""}</div>
       <label class="so-chk"><input type="checkbox" data-so-manb="noPrice"${m.noPrice ? " checked" : ""}><span>Non mostrare il prezzo</span></label>
-      <label class="x-f"><span>Punti forza (uno per riga: diventano i testi delle foto)</span><textarea class="inp" data-so-man="plus" rows="4" placeholder="${esc(soPlusAuto(o).join("\n") || "Giardino privato\nBox doppio\nCucina abitabile")}">${esc(m.plus || "")}</textarea></label>`;
+      <label class="x-f"><span>Descrizione dell'immobile</span><textarea class="inp" data-so-man="desc" rows="6" placeholder="Incolla qui la descrizione dell'annuncio: l'app ne ricava da sola i punti forza, i metri quadri, le camere e il prezzo.">${esc(soDescText())}</textarea></label>
+      <div class="so-found" id="so-p-found">${soFoundHTML(o)}</div>
+      <label class="x-f"><span>Punti forza da usare (facoltativo: lascia vuoto per usare quelli trovati)</span><textarea class="inp" data-so-man="plus" rows="3" placeholder="${esc(soPlusAuto(Object.assign({}, o, { manPlus: null })).join("\n") || "Giardino privato\nBox doppio\nCucina abitabile")}">${esc(m.plus || "")}</textarea></label>`;
   } else if (p.type === "consigli") {
     h += `<div class="x-pills">${Object.keys(SO_TOPICS).map(k => `<button type="button" class="x-pill" data-so-topic="${k}" aria-pressed="${p.topic === k}">${esc(SO_TOPIC_LABEL[k])}</button>`).join("")}</div>`;
     if (p.topic === "custom") h += `<label class="x-f"><span>Titolo del carosello</span><input class="inp" data-so-cu="title" value="${esc(p.custom.title || "")}" placeholder="Es. 4 cose da sapere sul compromesso"></label><label class="x-f"><span>Punti (uno per riga, “Titolo: spiegazione”)</span><textarea class="inp" data-so-cu="points" rows="6" placeholder="Caparra: quanto versare e come\nTempi: quanto passa fino al rogito">${esc(p.custom.points || "")}</textarea></label>`;
@@ -10230,7 +10318,7 @@ $("view-social").addEventListener("input", e => {
   if (el.dataset.soMe) { soMe()[el.dataset.soMe] = el.value; soSave(); document.querySelectorAll(`#view-social [data-so-me="${el.dataset.soMe}"]`).forEach(x => { if (x !== el) x.value = el.value; }); if (!$("so-post").hidden) soPostPreview(); return; }
   /* post */
   const p = soP();
-  if (el.dataset.soMan) { p.man[el.dataset.soMan] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
+  if (el.dataset.soMan) { p.man[el.dataset.soMan] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { const o = soPostProp(), f = $("so-p-found"); if (f) f.innerHTML = soFoundHTML(o); document.querySelectorAll("#so-p-data input[data-so-man]").forEach(i => { const k = i.dataset.soMan, v = o[k]; if (k in o && k !== "giorni") i.placeholder = v ? (k === "prezzo" ? Number(v).toLocaleString("it-IT") : String(v)) : ""; }); soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
   if (el.dataset.soCu) { p.custom[el.dataset.soCu] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
   if (el.dataset.soMkt) { p.mkt[el.dataset.soMkt] = el.value; soSave(); if (PQ_PREZZI[el.value]) { soPostPreview(); soPostTextsUIKeep(); soPostCapUI(!p.capEdited); } return; }
   if (el.dataset.soChi) { p.chi[el.dataset.soChi] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
