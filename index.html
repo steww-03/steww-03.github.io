@@ -6155,7 +6155,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610052106";
+const APP_VER = "v1-202610071155";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -8149,15 +8149,16 @@ window.addEventListener('message',e=>{if(e.origin==='https://steww-03.github.io'
 if(window.opener){try{window.opener.postMessage(data,'https://steww-03.github.io');sent=true;}catch(e){}}
 const b=document.createElement('button');b.textContent='📋 Copia per Agente Pro';b.style.cssText='margin-left:10px;padding:8px 12px;border-radius:9px;border:0;background:#1d4ed8;color:#fff;font-weight:700;cursor:pointer';b.onclick=async()=>{try{await navigator.clipboard.writeText(txt);b.textContent='✓ Copiate: nell\\'app premi “Incolla”';}catch(e){prompt('Copia questo testo e incollalo nell\\'app:',txt);}};
 say((sent?'📤 Invio '+list.length+' notizie ad Agente Pro…':'✅ Lette '+list.length+' notizie.')+' ',b);})();`;
-const NT_BM = "javascript:" + encodeURIComponent(NT_BM_SRC.replace(/\n/g, ""));
+const NT_BM_LOADER = "(()=>{const s=document.createElement('script');s.charset='utf-8';s.src='https://steww-03.github.io/bo.js?t='+Date.now();s.onerror=()=>alert('Non riesco a caricare Agente Pro: controlla la connessione e riprova.');document.head.appendChild(s);})();";
+const NT_BM = "javascript:" + encodeURIComponent(NT_BM_LOADER);
 let ntBoWin = null;
 function ntUpdBox(){
   const bar = document.querySelector("#view-notizie .nt-bar"); if (!bar) return;
   let box = $("nt-upd"); if (box) { box.remove(); return; }
   bar.insertAdjacentHTML("afterend", `<div class="nt-upd" id="nt-upd">
     <b>🔄 Aggiorna la lista con le notizie da gestire di oggi</b>
-    <ol><li>Ho aperto il gestionale in un'altra scheda (pagina Notizie).</li><li>Lì premi il segnalibro <b>📥 Notizie → Agente Pro</b>.</li><li>Torna qui: la lista si aggiorna da sola, con tutte le notizie da gestire di oggi, quante che siano.</li></ol>
-    <div class="row"><a class="bm" href="${esc(NT_BM)}" draggable="true" data-nt-bm>📥 Notizie → Agente Pro</a><span class="x-note">Prima volta: <b>trascina</b> questo pulsante nella barra dei preferiti (Ctrl+Maiusc+B per mostrarla).</span></div>
+    <ol><li>Ho aperto il gestionale in un'altra scheda (pagina Notizie).</li><li>Lì premi il segnalibro <b>📥 Notizie → Agente Pro</b> e aspetta qualche secondo: legge tutte le pagine.</li><li>Se compare “📤 Manda ad Agente Pro”, premilo. La lista qui si aggiorna da sola, con tutte le notizie da gestire, quante che siano.</li></ol>
+    <div class="row"><a class="bm" href="${esc(NT_BM)}" draggable="true" data-nt-bm>📥 Notizie → Agente Pro</a><span class="x-note">Solo una volta: <b>trascina</b> questo pulsante nella barra dei preferiti (Ctrl+Maiusc+B per mostrarla). Se avevi già un segnalibro vecchio, cancellalo e trascina questo: non servirà più rifarlo.</span></div>
     <div class="row"><button type="button" class="x-act" data-nt-paste-bo>📋 Incolla (se le hai copiate)</button><button type="button" class="x-act" data-nt-reopen>🔗 Riapri il gestionale</button><button type="button" class="x-act" data-nt-updx>Chiudi</button></div>
     <div class="x-note">Dal telefono o dall'iPad: scrivi a Claude “aggiorna le notizie”.</div>
   </div>`);
@@ -8910,6 +8911,14 @@ clRenderSide = rzWrap(clRenderSide, "view-clienti"); clRenderDetail = rzWrap(clR
 agRender = rzWrap(agRender, "view-agenda"); grRender = rzWrap(grRender, "view-giro"); fotoRender = rzWrap(fotoRender, "view-foto"); window.fotoRender = fotoRender;
 pqRender = rzWrap(pqRender, "view-preq"); window.pqRender = pqRender; csRender = rzWrap(csRender, "view-consegna"); utRender = rzWrap(utRender, "view-utilita");
 dsRender = rzWrap(dsRender, "view-desc"); brRender = rzWrap(brRender, "view-brochure"); mdRender = rzWrap(mdRender, "view-modelli"); calcRender = rzWrap(calcRender, "view-calc");
+
+
+/* la lista delle notizie arrivata in un'altra scheda dell'app compare anche qui */
+window.addEventListener("storage", e => {
+  if (e.key !== "rz_notizie_v1" || !e.newValue) return;
+  try { ntColl.list = JSON.parse(e.newValue) || []; } catch { return; }
+  try { if (xCur === "notizie") ntRender(); else if (xCur === "home" && XVIEWS.home) XVIEWS.home(); } catch {}
+});
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "brochure", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
