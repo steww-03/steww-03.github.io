@@ -1250,6 +1250,24 @@ body.rz-limited [data-rz-full]{display:none!important}
 .so-4k{display:inline-block;background:#16a34a;color:#fff;font-weight:800;font-size:11.5px;border-radius:6px;padding:1px 7px;margin-right:4px}
 .so-found{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .so-chip{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700}
+.so-r-dv{flex:0 1 170px;display:flex;align-items:center;gap:4px}
+.so-r-ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:6px}
+.so-r-ph button{position:relative;border:2px solid transparent;border-radius:9px;overflow:hidden;padding:0;aspect-ratio:4/3;background:var(--surface-2);cursor:pointer}
+.so-r-ph button img{width:100%;height:100%;object-fit:cover;display:block}
+.so-r-ph button .n{position:absolute;left:4px;top:4px;background:rgba(0,0,0,.6);color:#fff;font-size:10.5px;font-weight:800;border-radius:6px;padding:1px 5px}
+.so-r-ph button.used{opacity:.55}
+.so-r-ph button.used .n{background:var(--accent)}
+.so-r-path{display:flex;flex-direction:column;gap:6px}
+.so-r-slot{display:grid;grid-template-columns:30px 64px minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid var(--line-2);border-radius:12px;padding:6px 8px;cursor:pointer;background:var(--surface)}
+.so-r-slot.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.so-r-slot .k{font-weight:800;color:var(--ink-3);text-align:center;font-variant-numeric:tabular-nums}
+.so-r-slot .th{width:64px;height:44px;border-radius:7px;background:var(--surface-2) center/cover no-repeat;display:grid;place-items:center;font-size:11px;color:var(--ink-3)}
+.so-r-slot b{font-size:14px}
+.so-r-slot small{display:block;color:var(--ink-3);font-size:12px}
+.so-r-slot select{min-height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-size:12.5px;padding:0 6px}
+.so-r-floor{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.so-r-form{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:520px){ .so-r-form{grid-template-columns:repeat(2,minmax(0,1fr))} }
 
 .so-err{color:var(--hot,#e11d48);font-weight:600}
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
@@ -2517,6 +2535,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
       <div class="x-tabs so-tabs" role="tablist">
         <button type="button" role="tab" aria-selected="true" data-so-tab="video">🎬 Video</button>
         <button type="button" role="tab" aria-selected="false" data-so-tab="post">🖼️ Post carosello</button>
+        <button type="button" role="tab" aria-selected="false" data-so-tab="render" data-so-stefano hidden>🏠 Rendering</button>
       </div>
     </div>
 
@@ -2674,6 +2693,66 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
           <button type="button" class="x-act call" id="so-p-share">📤 Condividi su Instagram</button>
         </div>
         <div id="so-p-msg"></div>
+      </section>
+    </div>
+
+    <!-- ===================== RENDERING (solo stefano.piccioli@dove.it) ===================== -->
+    <div class="so-wrap" id="so-render" hidden>
+      <section class="so-in">
+        <div class="x-card">
+          <h3>1 · Le foto del DV</h3>
+          <div class="so-row">
+            <select class="inp so-sel" id="so-r-dvsel" aria-label="DV con foto su Drive"></select>
+            <div class="fe-dv so-r-dv"><span class="fe-dv-pre">DV-</span><input class="inp" id="so-r-dv" inputmode="numeric" placeholder="14201" autocomplete="off" aria-label="Numero DV"></div>
+          </div>
+          <div class="so-row"><button type="button" class="x-act call" id="so-r-load">📥 Carica le foto da Drive</button><label class="x-act so-file">📷 Dal dispositivo<input type="file" id="so-r-add" accept="image/*" multiple hidden></label></div>
+          <div id="so-r-msg" class="x-note">Usa le foto già caricate con “Modifica e impacchettamento”, nella cartella Drive “Foto DV-…”.</div>
+          <div class="so-r-ph" id="so-r-photos"></div>
+        </div>
+
+        <div class="x-card">
+          <h3>2 · Com'è fatta la casa</h3>
+          <div class="x-grid so-r-form">
+            <label class="x-f"><span>Piani</span><input class="inp" data-so-rn="piani" inputmode="numeric"></label>
+            <label class="x-f"><span>Sale / soggiorni</span><input class="inp" data-so-rn="sale" inputmode="numeric"></label>
+            <label class="x-f"><span>Camere</span><input class="inp" data-so-rn="camere" inputmode="numeric"></label>
+            <label class="x-f"><span>Bagni</span><input class="inp" data-so-rn="bagni" inputmode="numeric"></label>
+          </div>
+          <div class="so-checks">
+            <label class="so-chk"><input type="checkbox" id="so-r-cucina"><span>Cucina separata</span></label>
+            <label class="so-chk"><input type="checkbox" id="so-r-esterni"><span>Esterni alla fine (giardino, terrazzo)</span></label>
+          </div>
+          <div class="chips-lbl">Percorso del video</div>
+          <div class="x-note">Si parte sempre dalla porta, poi sala, camere e bagni, piano per piano. Tocca una stanza e poi la foto giusta qui sopra per cambiarla.</div>
+          <div class="so-r-path" id="so-r-path"></div>
+          <div class="so-row"><button type="button" class="x-act" id="so-r-auto">🔀 Assegna le foto in ordine</button><button type="button" class="x-act" id="so-r-clear">✕ Togli tutte le foto</button></div>
+        </div>
+
+        <div class="x-card">
+          <h3>3 · Stile del video</h3>
+          <div class="x-grid so-g3">
+            <label class="x-f"><span>Movimento</span><select class="inp" id="so-r-mode"><option value="3d">Cinematico 3D (profondità)</option><option value="2d">Classico (più veloce)</option></select></label>
+            <label class="x-f"><span>Secondi per stanza</span><select class="inp" id="so-r-dur"><option value="2.5">2,5 s (ritmo veloce)</option><option value="3.2">3,2 s</option><option value="4">4 s (lento, elegante)</option></select></label>
+            <label class="x-f"><span>Formato</span><select class="inp" id="so-r-fmt"><option value="9:16">9:16 Reels/TikTok/Shorts</option><option value="4:5">4:5 Feed</option><option value="16:9">16:9 YouTube</option></select></label>
+          </div>
+          <label class="x-f"><span>Titolo iniziale</span><input class="inp" id="so-r-title" maxlength="70" placeholder="Es. Trilocale con giardino a Ponteranica"></label>
+          <label class="so-chk"><input type="checkbox" id="so-r-labels"><span>Scrivi il nome di ogni stanza</span></label>
+          <label class="so-chk"><input type="checkbox" id="so-r-end"><span>Chiusura con i tuoi contatti</span></label>
+          <div class="chips-lbl">Musica</div>
+          <div class="x-pills" id="so-r-moods"></div>
+        </div>
+
+        <div class="x-card">
+          <h3>4 · Crea il video</h3>
+          <button type="button" class="btn so-go" id="so-r-make">🎬 Crea il rendering</button>
+          <div id="so-r-st"></div>
+          <div id="so-r-result"></div>
+        </div>
+      </section>
+      <section class="so-out">
+        <div class="so-stage" id="so-r-stage"><canvas id="so-r-cv" width="360" height="640" aria-label="Anteprima del rendering"></canvas><div class="so-empty" id="so-r-empty">🏠<br>Carica le foto del DV per iniziare</div></div>
+        <div class="so-ctrl"><button type="button" class="x-act call" id="so-r-play">▶ Anteprima</button><span class="so-time" id="so-r-time">0:00</span></div>
+        <div class="x-note so-tip">La prima anteprima calcola la profondità di ogni foto per l'effetto 3D: può richiedere qualche secondo per foto.</div>
       </section>
     </div>
 
@@ -6395,7 +6474,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610072110";
+const APP_VER = "v1-202610081212";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -8162,7 +8241,7 @@ const UX_HELP = {
   prezzi: ["Prezzi di zona", ["Cerca un comune per il prezzo medio al m².", "Scrivi i m² per la stima.", "“Confronta” per mettere più comuni a fianco."]],
   desc: ["Generatore descrizione", ["Scegli un foglio di prequalifica.", "Aggiungi i punti di forza.", "“Genera” e poi modifica e copia il testo."]],
   brochure: ["Brochure immobile", ["Scegli il foglio di prequalifica.", "Aggiungi le foto (la prima è la copertina).", "Scarica il PDF da inviare o stampare."]],
-  social: ["Social", ["🎬 Video: scegli il video, l'app toglie le pause, aggiunge sottotitoli, titolo e musica. Poi “Crea il video finale”.", "🖼️ Post: scegli il tipo di post, aggiungi le foto e scegli lo stile: le slide e la didascalia si creano da sole.", "Puoi correggere ogni testo; poi scarica o condividi direttamente su Instagram e TikTok."]],
+  social: ["Social", ["🎬 Video: scegli il video, l'app toglie le pause, aggiunge sottotitoli, titolo e musica. Poi “Crea il video finale”.", "🖼️ Post: scegli il tipo di post, aggiungi le foto e scegli lo stile: le slide e la didascalia si creano da sole.", "🏠 Rendering (solo account di Stefano): scegli il DV, indica piani, sale, camere e bagni, controlla il percorso e crea il video a carrellata.", "Puoi correggere ogni testo; poi scarica o condividi direttamente su Instagram e TikTok."]],
   foto: ["Fotografo", ["Compila indirizzo, giorno e ora del servizio.", "L'evento va nel calendario con l'invito.", "“Modifica e impacchettamento foto” sistema la luce e salva su Drive."]],
   fotoedit: ["Modifica foto", ["Scrivi il numero DV.", "Trascina le foto: la luce si corregge da sola.", "“Elabora e salva su Drive” e poi “📁 Cartella Drive”."]],
   ribasso: ["Proposta di ribasso", ["Scegli l'immobile (DV) e scrivi prezzo e prezzo minimo.", "Vedi cosa dicono le visite e il prezzo suggerito.", "Manda il messaggio o il PDF al proprietario."]],
@@ -10244,20 +10323,452 @@ function soRenderPostUI(){
   soPostDataUI(); soPostPhotosUI(); soPostTextsUI(); soPostCapUI(false); soPostPreview();
 }
 
+/* ===================== SOCIAL: RENDERING (video "a carrellata" della casa dalle foto del DV) ===================== */
+const SR_DEF = { dv: "", piani: 1, sale: 1, camere: 1, bagni: 1, cucina: false, esterni: false, assign: {}, floors: {}, mode: "3d", dur: "3.2", fmt: "9:16", title: "", labels: true, end: true, mood: "lusso" };
+const SR = { photos: [], dv: "", busy: false, playing: false, stop: false, active: "", depth: {}, bmp: {}, mesh: {}, gl: null, bed: null, bedKey: "", loadId: 0 };
+function srS(){ const r = soDoc.data.r || (soDoc.data.r = {}); for (const k in SR_DEF) if (r[k] === undefined) r[k] = JSON.parse(JSON.stringify(SR_DEF[k])); return r; }
+const srOk = () => { try { return isStefano(); } catch { return false; } };
+const srInt = (v, a, b, d) => { const n = parseInt(String(v).replace(/\D/g, ""), 10); return isNaN(n) ? d : Math.max(a, Math.min(b, n)); };
+const SR_FLOOR = ["Piano terra", "Primo piano", "Secondo piano", "Terzo piano", "Quarto piano"];
+
+/* ---------- il percorso: porta → sale → cucina → camere → bagni, piano per piano ---------- */
+function srSlots(){
+  const r = srS(), P = srInt(r.piani, 1, 5, 1), S = [];
+  const def = (type, i) => {
+    if (P === 1) return 0;
+    if (type === "sala" || type === "cucina") return 0;
+    if (type === "camera") return 1 + (i % (P - 1));
+    if (type === "bagno") { const n = srInt(r.bagni, 0, 6, 0); return n >= P ? (i < P - 1 ? P - 1 - i : 0) : P - 1 - (i % (P - 1)); }
+    return 0;
+  };
+  const add = (type, i, label) => { const key = type + (i + 1), fl = r.floors[key] != null ? Math.min(P - 1, +r.floors[key]) : def(type, i); S.push({ key, type, label, floor: fl }); };
+  S.push({ key: "porta", type: "porta", label: "Ingresso", floor: 0 });
+  const ns = srInt(r.sale, 0, 4, 1), nc = srInt(r.camere, 0, 8, 1), nb = srInt(r.bagni, 0, 6, 1);
+  for (let i = 0; i < ns; i++) add("sala", i, ns > 1 ? "Soggiorno " + (i + 1) : "Soggiorno");
+  if (r.cucina) add("cucina", 0, "Cucina");
+  for (let i = 0; i < nc; i++) add("camera", i, nc > 1 ? "Camera " + (i + 1) : "Camera");
+  for (let i = 0; i < nb; i++) add("bagno", i, nb > 1 ? "Bagno " + (i + 1) : "Bagno");
+  const ord = { porta: 0, sala: 1, cucina: 2, camera: 3, bagno: 4 };
+  const body = S.slice(1).sort((a, b) => a.floor - b.floor || ord[a.type] - ord[b.type] || a.key.localeCompare(b.key, undefined, { numeric: true }));
+  const out = [S[0]].concat(body);
+  /* numerazione nell'ordine del percorso: Camera 1 è la prima che si incontra */
+  const tot = {}, cnt = {}; for (const x of out) tot[x.type] = (tot[x.type] || 0) + 1;
+  const base = { sala: "Soggiorno", cucina: "Cucina", camera: "Camera", bagno: "Bagno" };
+  for (const x of out) if (base[x.type]) { cnt[x.type] = (cnt[x.type] || 0) + 1; x.label = tot[x.type] > 1 ? base[x.type] + " " + cnt[x.type] : base[x.type]; }
+  if (r.esterni) out.push({ key: "esterni", type: "esterni", label: "Esterni", floor: -1 });
+  return out;
+}
+function srShots(){ const r = srS(); return srSlots().map(s => Object.assign({}, s, { ph: r.assign[s.key] })).filter(s => s.ph && SR.photos.some(p => p.id === s.ph)); }
+
+/* ---------- foto: da Drive (cartella "Foto DV-…") o dal dispositivo ---------- */
+function srDvList(){ const seen = new Map(); try { for (const r of feColl.all().sort((a, b) => (b.at || 0) - (a.at || 0))) if (r.dv && !seen.has(r.dv)) seen.set(r.dv, r); } catch {} return [...seen.values()]; }
+async function srDrvBlob(id){
+  if (!tok || tok.exp < Date.now()) throw new Error("accedi con Google per leggere le foto da Drive");
+  const r = await fetch(DRV + "/" + encodeURIComponent(id) + "?alt=media", { headers: { Authorization: "Bearer " + tok.access_token } });
+  if (r.status === 401) { tok = null; try { authExpired(); } catch {} throw new Error("sessione Google scaduta: accedi di nuovo"); }
+  if (!r.ok) throw new Error("errore " + r.status + " nello scaricare una foto");
+  return r.blob();
+}
+async function srBitmap(blob, max){
+  try { const b = await createImageBitmap(blob); if (Math.max(b.width, b.height) <= max) return b; const k = max / Math.max(b.width, b.height), c = document.createElement("canvas"); c.width = Math.round(b.width * k); c.height = Math.round(b.height * k); c.getContext("2d").drawImage(b, 0, 0, c.width, c.height); b.close && b.close(); return await createImageBitmap(c); }
+  catch { return await new Promise((res, rej) => { const u = URL.createObjectURL(blob), im = new Image(); im.onload = () => { const k = Math.min(1, max / Math.max(im.width, im.height)), c = document.createElement("canvas"); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u); res(c); }; im.onerror = () => { URL.revokeObjectURL(u); rej(new Error("foto non leggibile")); }; im.src = u; }); }
+}
+function srThumb(bmp){ const k = 200 / Math.max(bmp.width, bmp.height), c = document.createElement("canvas"); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k); c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height); return c.toDataURL("image/jpeg", 0.75); }
+async function srLoadDrive(){
+  const r = srS(), dv = String($("so-r-dv").value || r.dv || "").replace(/\D/g, ""); if (!dv) { toast("Scrivi o scegli il numero DV"); $("so-r-dv").focus(); return; }
+  r.dv = dv; soSave(); const id = ++SR.loadId, msg = $("so-r-msg"), btn = $("so-r-load"); btn.disabled = true;
+  try {
+    msg.innerHTML = `⏳ Cerco la cartella “Foto DV-${esc(dv)}” su Drive…`;
+    const rec = srDvList().find(x => x.dv === dv); let folders = rec && rec.folder ? [rec.folder] : [];
+    if (!folders.length) { const l = await api(DRV + "?" + new URLSearchParams({ q: `name='Foto DV-${dv}' and mimeType='application/vnd.google-apps.folder' and trashed=false`, fields: "files(id)", spaces: "drive" })); folders = (l.files || []).map(f => f.id); }
+    if (!folders.length) { msg.innerHTML = `<span class="so-err">⚠️ Non trovo la cartella “Foto DV-${esc(dv)}” su Drive. Carica prima le foto con “Modifica e impacchettamento”, oppure usa “Dal dispositivo”.</span>`; btn.disabled = false; return; }
+    let files = [];
+    for (const f of folders) { const l = await api(DRV + "?" + new URLSearchParams({ q: `'${f}' in parents and trashed=false and mimeType contains 'image/'`, fields: "files(id,name,mimeType)", orderBy: "name", pageSize: "200", spaces: "drive" })); files = files.concat(l.files || []); }
+    if (!files.length) { msg.innerHTML = `<span class="so-err">⚠️ La cartella “Foto DV-${esc(dv)}” è vuota.</span>`; btn.disabled = false; return; }
+    SR.photos = []; SR.depth = {}; SR.bmp = {}; SR.mesh = {}; SR.bed = null; srPhotosUI();
+    let k = 0;
+    for (const f of files) {
+      if (id !== SR.loadId) return;
+      msg.innerHTML = `⬇️ Scarico le foto da Drive… ${++k} di ${files.length}<div class="so-prog"><i style="width:${Math.round(k / files.length * 100)}%"></i></div>`;
+      try { const b = await srDrvBlob(f.id), bmp = await srBitmap(b, 2048); SR.bmp[f.id] = bmp; SR.photos.push({ id: f.id, name: f.name, th: srThumb(bmp) }); srPhotosUI(); } catch (e) { if (/accedi|sessione/.test(e.message)) throw e; }
+    }
+    SR.dv = dv; srAutoIfEmpty();
+    msg.innerHTML = `✅ ${SR.photos.length} foto del DV-${esc(dv)} pronte.`;
+    srRenderUI(); srPreviewFrame(0);
+  } catch (e) { msg.innerHTML = `<span class="so-err">⚠️ ${esc((e && e.message) || String(e))}</span>`; }
+  btn.disabled = false;
+}
+async function srAddLocal(files){
+  const msg = $("so-r-msg"); let k = 0;
+  for (const f of files) { try { msg.innerHTML = `⏳ Preparo le foto… ${++k} di ${files.length}`; const bmp = await srBitmap(f, 2048), id = "loc:" + xId("f"); SR.bmp[id] = bmp; SR.photos.push({ id, name: f.name, th: srThumb(bmp) }); } catch {} }
+  msg.innerHTML = `✅ ${SR.photos.length} foto pronte.`; srAutoIfEmpty(); srRenderUI(); srPreviewFrame(0);
+}
+/* assegna le foto alle stanze nell'ordine in cui sono state caricate */
+function srAuto(force){ const r = srS(), S = srSlots(); if (force) r.assign = {}; let i = 0; const used = new Set(Object.values(r.assign)); for (const s of S) { if (r.assign[s.key] && SR.photos.some(p => p.id === r.assign[s.key])) continue; while (i < SR.photos.length && used.has(SR.photos[i].id)) i++; if (i < SR.photos.length) { r.assign[s.key] = SR.photos[i].id; used.add(SR.photos[i].id); i++; } } soSave(); SR.bed = null; }
+function srAutoIfEmpty(){ const r = srS(); if (!Object.values(r.assign).some(id => SR.photos.some(p => p.id === id))) srAuto(true); }
+
+/* ---------- profondità delle foto (per il movimento 3D) ---------- */
+function srDepthWorkerSrc(){
+  return `import { pipeline, RawImage, env } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.5/dist/transformers.min.js";
+env.allowLocalModels = false;
+let de = null, dev = "";
+const prog = p => self.postMessage({ type: "progress", p: { status: p.status, file: p.file, loaded: p.loaded, total: p.total } });
+self.onmessage = async e => {
+  const { id, blob, gpu } = e.data;
+  try {
+    if (!de) {
+      if (gpu) { try { de = await pipeline("depth-estimation", "onnx-community/depth-anything-v2-small", { dtype: "fp16", device: "webgpu", progress_callback: prog }); dev = "webgpu"; } catch (err) { de = null; } }
+      if (!de) { de = await pipeline("depth-estimation", "onnx-community/depth-anything-v2-small", { dtype: "q8", device: "wasm", progress_callback: prog }); dev = "wasm"; }
+      self.postMessage({ type: "device", d: dev });
+    }
+    const img = await RawImage.fromBlob(blob), out = await de(img), d = out.depth;
+    const data = new Uint8Array(d.data.length / (d.channels || 1)); for (let i = 0; i < data.length; i++) data[i] = d.data[i * (d.channels || 1)];
+    self.postMessage({ type: "depth", id, w: d.width, h: d.height, data }, [data.buffer]);
+  } catch (err) { self.postMessage({ type: "error", id, err: String((err && err.message) || err) }); }
+};`;
+}
+let srWorker = null, srWorkerGpu = null;
+async function srDepthOf(id, onMsg){
+  if (SR.depth[id]) return SR.depth[id];
+  const bmp = SR.bmp[id]; if (!bmp) return null;
+  if (srWorkerGpu == null) { try { srWorkerGpu = !!(navigator.gpu && await navigator.gpu.requestAdapter()); } catch { srWorkerGpu = false; } }
+  if (!srWorker) srWorker = new Worker(URL.createObjectURL(new Blob([srDepthWorkerSrc()], { type: "text/javascript" })), { type: "module" });
+  const k = 640 / Math.max(bmp.width, bmp.height), c = document.createElement("canvas"); c.width = Math.round(bmp.width * Math.min(1, k)); c.height = Math.round(bmp.height * Math.min(1, k)); c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.9));
+  const res = await new Promise((resolve, reject) => {
+    const to = setTimeout(() => reject(new Error("tempo scaduto")), 240000);
+    srWorker.onmessage = e => { const m = e.data; if (m.type === "depth" && m.id === id) { clearTimeout(to); resolve(m); } else if (m.type === "error") { clearTimeout(to); reject(new Error(m.err)); } else if (onMsg) onMsg(m); };
+    srWorker.onerror = e => { clearTimeout(to); reject(new Error((e && e.message) || "errore")); };
+    srWorker.postMessage({ id, blob, gpu: srWorkerGpu });
+  });
+  return SR.depth[id] = res;
+}
+
+/* ---------- WebGL: la foto diventa una superficie in 3D e la "telecamera" ci si muove dentro ---------- */
+const SR_TIY = Math.tan(28 * Math.PI / 180);
+function srGL(){
+  if (SR.gl !== null && SR.gl !== undefined) return SR.gl;
+  try {
+    const cv = document.createElement("canvas"); cv.width = 4; cv.height = 4;
+    const gl = cv.getContext("webgl", { preserveDrawingBuffer: true, antialias: true, premultipliedAlpha: false }) || cv.getContext("experimental-webgl", { preserveDrawingBuffer: true });
+    if (!gl) return SR.gl = false;
+    const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+    const pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, `attribute vec3 aP; attribute vec2 aUV; uniform vec3 uC; uniform float uYaw; uniform vec2 uTan; varying vec2 vUV;
+      void main(){ vec3 p = aP - uC; float c = cos(uYaw), s = sin(uYaw); float xc = c * p.x + s * p.z; float zf = s * p.x - c * p.z; vUV = aUV;
+        gl_Position = vec4(xc / uTan.x, p.y / uTan.y, (zf - 0.05) / 20.0 * 2.0 * zf - zf, zf); }`));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `precision mediump float; uniform sampler2D uT; varying vec2 vUV; void main(){ gl_FragColor = texture2D(uT, vUV); }`));
+    gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error("shader");
+    gl.useProgram(pr);
+    return SR.gl = { cv, gl, pr, aP: gl.getAttribLocation(pr, "aP"), aUV: gl.getAttribLocation(pr, "aUV"), uC: gl.getUniformLocation(pr, "uC"), uYaw: gl.getUniformLocation(pr, "uYaw"), uTan: gl.getUniformLocation(pr, "uTan"), uT: gl.getUniformLocation(pr, "uT"), ext: gl.getExtension("OES_element_index_uint") };
+  } catch (e) { return SR.gl = false; }
+}
+/* griglia di vertici: ogni punto della foto viene spinto in profondità secondo la mappa di profondità */
+function srMesh(id){
+  if (SR.mesh[id]) return SR.mesh[id];
+  const G = srGL(), bmp = SR.bmp[id], dep = SR.depth[id]; if (!G || !bmp || !dep) return null;
+  const gl = G.gl, ia = bmp.width / bmp.height, NX = 150, NY = Math.max(40, Math.round(NX / ia)), TIX = SR_TIY * ia;
+  /* profondità: media su un intorno per evitare strappi, poi normalizzata tra il 2% e il 98% */
+  const dw = dep.w, dh = dep.h, D = dep.data, grid = new Float32Array((NX + 1) * (NY + 1)), rad = Math.max(1, Math.round(dw / NX * 1.2));
+  for (let j = 0; j <= NY; j++) for (let i = 0; i <= NX; i++) { const cx = Math.round(i / NX * (dw - 1)), cy = Math.round(j / NY * (dh - 1)); let s = 0, n = 0; for (let y = Math.max(0, cy - rad); y <= Math.min(dh - 1, cy + rad); y += 1) for (let x = Math.max(0, cx - rad); x <= Math.min(dw - 1, cx + rad); x += 1) { s += D[y * dw + x]; n++; } grid[j * (NX + 1) + i] = s / n; }
+  const sorted = Array.from(grid).sort((a, b) => a - b), lo = sorted[Math.floor(sorted.length * 0.02)], hi = sorted[Math.floor(sorted.length * 0.98)] || 255;
+  const pos = new Float32Array((NX + 1) * (NY + 1) * 3), uv = new Float32Array((NX + 1) * (NY + 1) * 2);
+  for (let j = 0; j <= NY; j++) for (let i = 0; i <= NX; i++) {
+    const k = j * (NX + 1) + i, d = soClamp((grid[k] - lo) / Math.max(1, hi - lo), 0, 1), Z = 1 / (0.3 + 0.7 * d), sx = i / NX * 2 - 1, sy = 1 - j / NY * 2;
+    pos[k * 3] = sx * TIX * Z; pos[k * 3 + 1] = sy * SR_TIY * Z; pos[k * 3 + 2] = -Z; uv[k * 2] = i / NX; uv[k * 2 + 1] = j / NY;
+  }
+  const idx = new (G.ext ? Uint32Array : Uint16Array)(NX * NY * 6); let q = 0;
+  for (let j = 0; j < NY; j++) for (let i = 0; i < NX; i++) { const a = j * (NX + 1) + i, b = a + 1, c = a + NX + 1, d = c + 1; idx[q++] = a; idx[q++] = c; idx[q++] = b; idx[q++] = b; idx[q++] = c; idx[q++] = d; }
+  if (!G.ext && (NX + 1) * (NY + 1) > 65535) return null;
+  const bp = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bp); gl.bufferData(gl.ARRAY_BUFFER, pos, gl.STATIC_DRAW);
+  const bu = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bu); gl.bufferData(gl.ARRAY_BUFFER, uv, gl.STATIC_DRAW);
+  const bi = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, bi); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, idx, gl.STATIC_DRAW);
+  const tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, bmp);
+  return SR.mesh[id] = { bp, bu, bi, tx, n: idx.length, type: G.ext ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT, ia, TIX };
+}
+/* movimento della telecamera per lo scatto k al tempo u (0 → 1, oltre 1 durante la dissolvenza) */
+function srCam(k, u, outA, ia){
+  const dir = k % 2 ? -1 : 1, e = u < 0 ? 0 : u > 1.25 ? 1.25 : u, ease = x => x < 1 ? x * x * (3 - 2 * x) * 0.85 + x * 0.15 : 1 + (x - 1) * 1.2;
+  const zoom = Math.max(1.06, outA / (0.94 * ia)), tanY = SR_TIY / zoom, tanX = tanY * outA, TIX = SR_TIY * ia;
+  const maxP = Math.max(0, (TIX - tanX * 1.12) / TIX), p = maxP * 0.85 * dir * (ease(e) * 2 - 1);
+  return { yaw: Math.atan(p * TIX), tanX, tanY, cz: -0.13 * ease(e), cx: 0.025 * dir * ease(e) };
+}
+function srDraw3D(ctx, W, H, id, k, u, alpha){
+  const G = srGL(), M = srMesh(id); if (!G || !M) return false;
+  const gl = G.gl; if (G.cv.width !== W || G.cv.height !== H) { G.cv.width = W; G.cv.height = H; }
+  const c = srCam(k, u, W / H, M.ia);
+  gl.viewport(0, 0, W, H); gl.clearColor(0, 0, 0, 1); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.bindBuffer(gl.ARRAY_BUFFER, M.bp); gl.enableVertexAttribArray(G.aP); gl.vertexAttribPointer(G.aP, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, M.bu); gl.enableVertexAttribArray(G.aUV); gl.vertexAttribPointer(G.aUV, 2, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, M.bi); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, M.tx); gl.uniform1i(G.uT, 0);
+  gl.uniform3f(G.uC, c.cx, 0, c.cz); gl.uniform1f(G.uYaw, c.yaw); gl.uniform2f(G.uTan, c.tanX, c.tanY);
+  gl.drawElements(gl.TRIANGLES, M.n, M.type, 0);
+  ctx.save(); ctx.globalAlpha = alpha; ctx.drawImage(G.cv, 0, 0, W, H); ctx.restore(); return true;
+}
+/* versione 2D (senza profondità): stessa inquadratura, zoom e panoramica */
+function srDraw2D(ctx, W, H, id, k, u, alpha){
+  const bmp = SR.bmp[id]; if (!bmp) return;
+  const ia = bmp.width / bmp.height, c = srCam(k, u, W / H, ia), TIX = SR_TIY * ia;
+  const z = 1 + (-c.cz) * 1.1, vw = c.tanX / TIX / z, vh = c.tanY / SR_TIY / z, cx = 0.5 + Math.tan(c.yaw) / TIX / 2;
+  const sw = bmp.width * vw, sh = bmp.height * vh, sx = soClamp(cx * bmp.width - sw / 2, 0, bmp.width - sw), sy = (bmp.height - sh) / 2;
+  ctx.save(); ctx.globalAlpha = alpha; ctx.drawImage(bmp, sx, sy, sw, sh, 0, 0, W, H); ctx.restore();
+}
+/* ---------- montaggio: tempi, scritte, chiusura ---------- */
+const SR_TR = 0.7;
+function srTimeline(){ const r = srS(), D = +r.dur || 3.2, sh = srShots(), T = []; let t = 0; sh.forEach((s, k) => { T.push(Object.assign({ t0: t, t1: t + D, k }, s)); t += D - (k < sh.length - 1 ? SR_TR : 0); }); const body = T.length ? T[T.length - 1].t1 : 0; return { T, body, total: body + (r.end ? 3 : 0) }; }
+function srDims(q){ const f = srS().fmt, h = q === "1080" ? 1920 : q === "prev" ? 640 : 1280, w = Math.round(h * 9 / 16); if (f === "4:5") return [w, Math.round(w * 5 / 4)]; if (f === "16:9") return [h, w]; return [w, h]; }
+function srText(ctx, W, H, s, t){
+  const r = srS(), u = (t - s.t0) / (s.t1 - s.t0), a = soClamp(Math.min((t - s.t0 - 0.35) / 0.4, (s.t1 - 0.45 - t) / 0.35), 0, 1); if (a <= 0) return;
+  const m = Math.min(W, H) * 0.07, base = Math.min(W, H);
+  ctx.save(); ctx.globalAlpha = a; ctx.textBaseline = "alphabetic"; ctx.shadowColor = "rgba(0,0,0,.55)"; ctx.shadowBlur = base * 0.03;
+  if (s.k === 0 && r.title) {
+    const f = z => `italic 700 ${z}px "Playfair Display", Georgia, serif`, fit = soFit(ctx, r.title, f, W - 2 * m, H * 0.22, base * 0.085, base * 0.05, 1.12);
+    ctx.font = f(fit.size); ctx.fillStyle = "#fff"; ctx.textAlign = "center"; let y = H * 0.74 - (fit.lines.length - 1) * fit.size * 1.12 / 2 + (1 - a) * base * 0.03;
+    for (const l of fit.lines) { ctx.fillText(l, W / 2, y); y += fit.size * 1.12; }
+    ctx.font = `600 ${Math.round(base * 0.03)}px Montserrat, sans-serif`; ctx.fillStyle = "rgba(255,255,255,.9)"; ctx.fillText(soSpaced("BENVENUTI"), W / 2, H * 0.74 - fit.size * 1.1 - (fit.lines.length - 1) * fit.size * 0.56);
+  } else if (r.labels && s.type !== "porta") {
+    const fl = s.floor >= 0 && srInt(r.piani, 1, 5, 1) > 1 ? SR_FLOOR[s.floor] || "" : "";
+    ctx.textAlign = "left"; ctx.fillStyle = "#fff"; const x = m, y = H - m * (H / W > 1.4 ? 2.6 : 1.4);
+    ctx.font = `700 ${Math.round(base * 0.058)}px Montserrat, sans-serif`; ctx.fillText(s.label, x, y);
+    ctx.fillStyle = "#e8c77d"; ctx.fillRect(x, y + base * 0.022, base * 0.09 * soClamp(u * 3, 0, 1), base * 0.007);
+    if (fl) { ctx.fillStyle = "rgba(255,255,255,.85)"; ctx.font = `600 ${Math.round(base * 0.028)}px Montserrat, sans-serif`; ctx.fillText(soSpaced(fl.toUpperCase()), x, y - base * 0.07); }
+  }
+  ctx.restore();
+}
+const soSpaced = s => String(s).split("").join(" ");
+function srGrade(ctx, W, H){
+  ctx.save(); const g = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.max(W, H) * 0.75); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,.38)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = "soft-light"; ctx.fillStyle = "rgba(255,190,130,.10)"; ctx.fillRect(0, 0, W, H); ctx.restore();
+}
+function srEnd(ctx, W, H, t){
+  const me = soMe(), k = soClamp(t / 0.5, 0, 1), base = Math.min(W, H);
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#14110f"); g.addColorStop(1, "#2a2118"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#fff";
+  ctx.font = `italic 700 ${Math.round(base * 0.085)}px "Playfair Display", Georgia, serif`; ctx.fillText("Prenota una visita", W / 2, H * 0.4);
+  ctx.fillStyle = "#e8c77d"; ctx.fillRect(W / 2 - base * 0.07, H * 0.4 + base * 0.07, base * 0.14, base * 0.007);
+  ctx.fillStyle = "#fff"; let y = H * 0.4 + base * 0.16;
+  if (me.nome) { ctx.font = `700 ${Math.round(base * 0.055)}px Montserrat, sans-serif`; ctx.fillText(String(me.nome).split(/\s+[—–-]\s+/)[0], W / 2, y); y += base * 0.085; }
+  ctx.font = `600 ${Math.round(base * 0.045)}px Montserrat, sans-serif`; if (me.tel) { ctx.fillText("📞 " + me.tel, W / 2, y); y += base * 0.075; } if (me.handle) ctx.fillText(me.handle, W / 2, y);
+  ctx.restore();
+}
+function srFrame(ctx, W, H, t, TL, use3d){
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+  if (t >= TL.body && srS().end) { srEnd(ctx, W, H, t - TL.body); return; }
+  const act = TL.T.filter(s => t >= s.t0 && t < s.t1 + 0.0001);
+  act.forEach((s, j) => {
+    const u = (t - s.t0) / (s.t1 - s.t0 - SR_TR), a = j === 0 || act.length === 1 ? 1 : soClamp((t - s.t0) / SR_TR, 0, 1);
+    const fadeOut = TL.T[s.k + 1] ? 1 : soClamp((TL.body - t) / 0.6, 0, 1);
+    if (!(use3d && srDraw3D(ctx, W, H, s.ph, s.k, u, a * (j === 0 ? 1 : 1)))) srDraw2D(ctx, W, H, s.ph, s.k, u, a);
+    if (fadeOut < 1) { ctx.save(); ctx.globalAlpha = 1 - fadeOut; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+  });
+  srGrade(ctx, W, H);
+  for (const s of act) srText(ctx, W, H, s, t);
+}
+/* ---------- preparazione: foto in memoria e profondità ---------- */
+async function srPrepare(st){
+  const r = srS(), sh = srShots(); if (!sh.length) throw new Error("assegna almeno una foto alle stanze");
+  let use3d = r.mode === "3d" && !!srGL();
+  if (use3d) {
+    const todo = [...new Set(sh.map(s => s.ph))].filter(id => !SR.depth[id]);
+    let k = 0, files = {};
+    for (const id of todo) {
+      k++;
+      try { await srDepthOf(id, m => { if (m.type === "progress" && m.p && m.p.total) { files[m.p.file] = [m.p.loaded, m.p.total]; const L = Object.values(files).reduce((a, x) => a + x[0], 0), T = Object.values(files).reduce((a, x) => a + x[1], 0); st(`⬇️ Scarico il modello 3D (solo la prima volta)… ${Math.round(L / 1048576)} / ${Math.round(T / 1048576)} MB`, L / T); } }); st(`🧊 Calcolo la profondità delle foto… ${k} di ${todo.length}`, k / todo.length); }
+      catch (e) { use3d = false; st(`⚠️ Effetto 3D non disponibile (${esc((e && e.message) || e)}): uso il movimento classico.`, 1); try { srWorker && srWorker.terminate(); } catch {} srWorker = null; break; }
+    }
+  }
+  await soFonts();
+  return use3d;
+}
+async function srBuildBed(total, TL){
+  const r = srS(), key = JSON.stringify([total, r.mood, TL.T.length]); if (SR.bed && SR.bedKey === key) return SR.bed;
+  const sr = 44100, ctx = new OfflineAudioContext(2, Math.max(1, Math.ceil(total * sr)), sr), comp = ctx.createDynamicsCompressor(); comp.connect(ctx.destination);
+  if (SO_MUS[r.mood]) { const g = ctx.createGain(); g.gain.setValueAtTime(0, 0); g.gain.linearRampToValueAtTime(0.9, 0.6); g.gain.setValueAtTime(0.9, Math.max(0.7, total - 1.6)); g.gain.linearRampToValueAtTime(0, total); g.connect(comp); soMusic(ctx, g, r.mood, 0, total); }
+  if (r.end) soSfx(ctx, comp, "ding", TL.body + 0.1, 0.18);
+  SR.bed = await ctx.startRendering(); SR.bedKey = key; return SR.bed;
+}
+async function srRun(record, onProg){
+  const ac = soAudioCtx(); try { await ac.resume(); } catch {}
+  const stEl = $("so-r-st"), st = (t, k) => { stEl.innerHTML = `<div class="x-note">${t}</div>` + (k != null ? `<div class="so-prog"><i style="width:${Math.round(soClamp(k, 0, 1) * 100)}%"></i></div>` : ""); };
+  const use3d = await srPrepare(st);
+  const TL = srTimeline();
+  const [W, H] = record ? srDims(soTouch() ? "720" : "1080") : srDims("prev");
+  if (record && !window.__srNoWC) {
+    let codecs = null; try { codecs = await srCodecs(W, H); } catch {}
+    if (codecs) {
+      try {
+        stEl.innerHTML = `<div class="x-note">🎬 Creo il video fotogramma per fotogramma (${soFmtT(TL.total)})…</div><div class="so-prog"><i id="so-r-bar"></i></div><button type="button" class="x-act" id="so-r-stop">✕ Annulla</button>`;
+        const blob = await srEncode(TL, use3d, W, H, codecs, onProg); stEl.innerHTML = ""; return blob;
+      } catch (e) { if (SR.stop) { stEl.innerHTML = `<div class="x-note">Creazione annullata.</div>`; return null; } /* altrimenti si passa alla registrazione in tempo reale */ }
+    }
+  }
+  const bed = await srBuildBed(TL.total, TL);
+  const cv = record ? document.createElement("canvas") : $("so-r-cv"); cv.width = W; cv.height = H; const ctx = cv.getContext("2d", { alpha: false });
+  const dest = record ? ac.createMediaStreamDestination() : ac.destination;
+  let rec = null, chunks = [], mime = "";
+  if (record) { mime = soMime(); if (!mime) throw new Error("questo browser non sa registrare video: usa Chrome, Edge o Safari aggiornati"); const stream = cv.captureStream(30); for (const tr of dest.stream.getAudioTracks()) stream.addTrack(tr); rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: W * H >= 1920 * 1080 ? 12e6 : 7e6, audioBitsPerSecond: 160e3 }); rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); }; }
+  srFrame(ctx, W, H, 0, TL, use3d);
+  stEl.innerHTML = record ? `<div class="x-note">🎬 Registro il video (${soFmtT(TL.total)})… tieni questa pagina aperta.</div><div class="so-prog"><i id="so-r-bar"></i></div><button type="button" class="x-act" id="so-r-stop">✕ Annulla</button>` : "";
+  SR.stop = false; SR.playing = true; SR.recording = !!record;
+  const src = ac.createBufferSource(); src.buffer = bed; src.connect(dest);
+  if (rec) rec.start();
+  const t0 = ac.currentTime + 0.05; src.start(t0);
+  try {
+    while (!SR.stop) {
+      const t = ac.currentTime - t0; if (t >= TL.total) break;
+      srFrame(ctx, W, H, Math.max(0, t), TL, use3d); if (onProg) onProg(t, TL.total);
+      await new Promise(r => document.hidden ? setTimeout(r, 33) : requestAnimationFrame(r));
+    }
+  } finally { try { src.stop(); } catch {} SR.playing = false; SR.recording = false; }
+  if (!rec) { stEl.innerHTML = ""; return null; }
+  const done = new Promise(r => rec.onstop = r); rec.stop(); await done;
+  if (SR.stop) { stEl.innerHTML = `<div class="x-note">Creazione annullata.</div>`; return null; }
+  stEl.innerHTML = ""; return new Blob(chunks, { type: mime.split(";")[0] });
+}
+/* ---------- creazione fotogramma per fotogramma (WebCodecs): nessun fotogramma perso e di solito più veloce del tempo reale ---------- */
+let srMuxP = null;
+function srMuxLib(){ if (window.Mp4Muxer) return Promise.resolve(window.Mp4Muxer); if (!srMuxP) srMuxP = new Promise((res, rej) => { const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/mp4-muxer@5.2.2/build/mp4-muxer.js"; s.onload = () => window.Mp4Muxer ? res(window.Mp4Muxer) : rej(new Error("mp4")); s.onerror = () => { srMuxP = null; rej(new Error("non riesco a caricare lo strumento video")); }; document.head.appendChild(s); }); return srMuxP; }
+async function srCodecs(W, H){
+  if (typeof VideoEncoder === "undefined" || typeof AudioEncoder === "undefined" || typeof VideoFrame === "undefined" || typeof AudioData === "undefined") return null;
+  let v = null, a = null;
+  for (const [codec, mux] of [["avc1.640033", "avc"], ["avc1.640028", "avc"], ["avc1.4d0033", "avc"], ["avc1.4d0028", "avc"], ["vp09.00.40.08", "vp9"]]) { const cfg = { codec, width: W, height: H, bitrate: W * H >= 1920 * 1080 ? 12e6 : 7e6, framerate: 30 }; if (mux === "avc") cfg.avc = { format: "avc" }; try { const r = await VideoEncoder.isConfigSupported(cfg); if (r && r.supported) { v = { cfg, mux }; break; } } catch {} }
+  for (const [codec, mux] of [["mp4a.40.2", "aac"], ["opus", "opus"]]) { const cfg = { codec, sampleRate: 48000, numberOfChannels: 2, bitrate: 160000 }; try { const r = await AudioEncoder.isConfigSupported(cfg); if (r && r.supported) { a = { cfg, mux }; break; } } catch {} }
+  return v && a ? { v, a } : null;
+}
+async function srEncode(TL, use3d, W, H, codecs, onProg){
+  const M = await srMuxLib(), fps = 30, nF = Math.ceil(TL.total * fps);
+  const bed = await srBuildBed(TL.total, TL), sr = 48000;
+  /* la musica va ricampionata a 48 kHz per l'encoder */
+  const off = new OfflineAudioContext(2, Math.ceil(TL.total * sr), sr), bs = off.createBufferSource(); bs.buffer = bed; bs.connect(off.destination); bs.start(); const aud = await off.startRendering();
+  const target = new M.ArrayBufferTarget(), mux = new M.Muxer({ target, video: { codec: codecs.v.mux, width: W, height: H, frameRate: fps }, audio: { codec: codecs.a.mux, numberOfChannels: 2, sampleRate: sr }, fastStart: "in-memory", firstTimestampBehavior: "offset" });
+  let err = null;
+  const ve = new VideoEncoder({ output: (c, m) => mux.addVideoChunk(c, m), error: e => { err = e; } }); ve.configure(codecs.v.cfg);
+  const ae = new AudioEncoder({ output: (c, m) => mux.addAudioChunk(c, m), error: e => { err = e; } }); ae.configure(codecs.a.cfg);
+  const cv = document.createElement("canvas"); cv.width = W; cv.height = H; const ctx = cv.getContext("2d", { alpha: false });
+  SR.stop = false; SR.playing = true; SR.recording = true;
+  try {
+    for (let i = 0; i < nF; i++) {
+      if (SR.stop) throw new Error("annullato");
+      if (err) throw err;
+      const t = i / fps; srFrame(ctx, W, H, t, TL, use3d);
+      const vf = new VideoFrame(cv, { timestamp: Math.round(i * 1e6 / fps), duration: Math.round(1e6 / fps) }); ve.encode(vf, { keyFrame: i % 60 === 0 }); vf.close();
+      while (ve.encodeQueueSize > 6) await new Promise(r => setTimeout(r, 4));
+      if (i % 6 === 0) { if (onProg) onProg(t, TL.total); await new Promise(r => setTimeout(r, 0)); }
+    }
+    const L = aud.getChannelData(0), R = aud.getChannelData(1), step = 4800;
+    for (let o = 0; o < aud.length; o += step) { const n = Math.min(step, aud.length - o), buf = new Float32Array(n * 2); buf.set(L.subarray(o, o + n), 0); buf.set(R.subarray(o, o + n), n); const ad = new AudioData({ format: "f32-planar", sampleRate: sr, numberOfFrames: n, numberOfChannels: 2, timestamp: Math.round(o / sr * 1e6), data: buf }); ae.encode(ad); ad.close(); }
+    await ve.flush(); await ae.flush(); if (err) throw err;
+    mux.finalize();
+  } finally { try { ve.close(); } catch {} try { ae.close(); } catch {} SR.playing = false; SR.recording = false; }
+  return new Blob([target.buffer], { type: "video/mp4" });
+}
+async function srPreview(){
+  if (SR.playing) { SR.stop = true; return; }
+  if (!srShots().length) { toast("Prima carica le foto e assegnale alle stanze"); return; }
+  const b = $("so-r-play"); b.textContent = "⏹ Ferma";
+  try { await srRun(false, (t, T) => { $("so-r-time").textContent = soFmtT(t) + " / " + soFmtT(T); }); }
+  catch (e) { $("so-r-st").innerHTML = `<div class="note-box err">${esc((e && e.message) || String(e))}</div>`; }
+  b.textContent = "▶ Anteprima";
+}
+async function srMake(){
+  if (SR.playing) SR.stop = true;
+  if (!srShots().length) { toast("Prima carica le foto e assegnale alle stanze"); return; }
+  const btn = $("so-r-make"); btn.disabled = true; $("so-r-result").innerHTML = "";
+  await new Promise(r => setTimeout(r, 80));
+  try {
+    const blob = await srRun(true, (t, T) => { const b = $("so-r-bar"); if (b) b.style.width = Math.round(t / T * 100) + "%"; });
+    if (blob) {
+      const ext = /mp4/.test(blob.type) ? "mp4" : "webm", name = `Rendering_DV-${srS().dv || "casa"}_${xISO(Date.now())}.${ext}`, url = URL.createObjectURL(blob);
+      if (SR.resUrl) URL.revokeObjectURL(SR.resUrl); Object.assign(SR, { resUrl: url, resBlob: blob, resName: name });
+      $("so-r-result").innerHTML = `<div class="so-res"><div class="note-box info">✅ Rendering pronto · ${(blob.size / 1048576).toFixed(1)} MB${ext === "webm" ? "<br>⚠️ Formato WebM: per Instagram e TikTok crealo da Chrome aggiornato, Edge o Safari (salvano in MP4)." : ""}</div><video src="${url}" controls playsinline></video><div class="so-row"><button type="button" class="btn" id="so-r-dl">⬇️ Scarica il video</button>${navigator.canShare ? `<button type="button" class="x-act call" id="so-r-share">📤 Condividi</button>` : ""}</div></div>`;
+    }
+  } catch (e) { $("so-r-st").innerHTML = `<div class="note-box err">Video non creato: ${esc((e && e.message) || String(e))}</div>`; }
+  btn.disabled = false;
+}
+function srPreviewFrame(t){
+  const cv = $("so-r-cv"); if (!cv) return; const [W, H] = srDims("prev"); cv.width = W; cv.height = H; const stg = $("so-r-stage"); if (stg) stg.style.aspectRatio = W + "/" + H;
+  const TL = srTimeline(); $("so-r-empty").hidden = !!TL.T.length; if (!TL.T.length) { cv.getContext("2d").clearRect(0, 0, W, H); return; }
+  soFonts().then(() => { if (!SR.playing) srFrame(cv.getContext("2d"), W, H, t, TL, false); });
+  $("so-r-time").textContent = "0:00 / " + soFmtT(TL.total);
+}
+
+/* ---------- interfaccia ---------- */
+function srPhotosUI(){
+  const r = srS(), used = new Map(); for (const [k, id] of Object.entries(r.assign)) used.set(id, k);
+  const S = srSlots(); $("so-r-photos").innerHTML = SR.photos.map((p, i) => { const sk = used.get(p.id), sl = S.find(s => s.key === sk); return `<button type="button" class="${sl ? "used" : ""}" data-so-rph="${esc(p.id)}" title="${esc(p.name)}"><img src="${p.th}" alt="Foto ${i + 1}"><span class="n">${sl ? esc(sl.label) : i + 1}</span></button>`; }).join("");
+}
+function srPathUI(){
+  const r = srS(), S = srSlots(), P = srInt(r.piani, 1, 5, 1); let lastF = null, n = 0;
+  $("so-r-path").innerHTML = S.map(s => {
+    const ph = SR.photos.find(p => p.id === r.assign[s.key]), head = s.floor !== lastF && P > 1 && s.floor >= 0 ? `<div class="so-r-floor">${SR_FLOOR[s.floor]}</div>` : ""; lastF = s.floor; n++;
+    const sel = P > 1 && s.type !== "porta" && s.type !== "esterni" ? `<select data-so-rfl="${s.key}" aria-label="Piano">${Array.from({ length: P }, (_, i) => `<option value="${i}"${i === s.floor ? " selected" : ""}>${SR_FLOOR[i]}</option>`).join("")}</select>` : "";
+    return head + `<div class="so-r-slot${SR.active === s.key ? " on" : ""}" data-so-rslot="${s.key}"><span class="k">${n}</span><span class="th" style="${ph ? `background-image:url('${ph.th}')` : ""}">${ph ? "" : "manca"}</span><span><b>${esc(s.label)}</b><small>${ph ? "Tocca per cambiare la foto" : "Tocca e poi scegli la foto"}</small></span>${sel}</div>`;
+  }).join("");
+}
+function srRenderUI(){
+  const r = srS();
+  const dvs = srDvList(); $("so-r-dvsel").innerHTML = `<option value="">📁 DV con foto su Drive (${dvs.length})</option>` + dvs.map(x => `<option value="${esc(x.dv)}"${x.dv === r.dv ? " selected" : ""}>DV-${esc(x.dv)} · ${x.n || "?"} foto · ${esc(new Date(x.at).toLocaleDateString("it-IT"))}</option>`).join("");
+  if (document.activeElement !== $("so-r-dv")) $("so-r-dv").value = r.dv || "";
+  document.querySelectorAll("#so-render [data-so-rn]").forEach(i => { if (document.activeElement !== i) i.value = r[i.dataset.soRn]; });
+  $("so-r-cucina").checked = !!r.cucina; $("so-r-esterni").checked = !!r.esterni; $("so-r-labels").checked = !!r.labels; $("so-r-end").checked = !!r.end;
+  $("so-r-mode").value = r.mode; $("so-r-dur").value = String(r.dur); $("so-r-fmt").value = r.fmt; if (document.activeElement !== $("so-r-title")) $("so-r-title").value = r.title || "";
+  $("so-r-moods").innerHTML = SO_MOODS.filter(m => m[0] !== "mia").map(([k, l]) => `<button type="button" class="x-pill" data-so-rmood="${k}" aria-pressed="${r.mood === k}">${esc(l)}</button>`).join("");
+  srPhotosUI(); srPathUI(); $("so-r-empty").hidden = !!srShots().length;
+}
+function srApplyAccess(){ const ok = srOk(); document.querySelectorAll("#view-social [data-so-stefano]").forEach(b => b.hidden = !ok); if (!ok && soDoc.data.tab === "render") soDoc.data.tab = "video"; return ok; }
+$("view-social").addEventListener("click", e => {
+  const el = e.target;
+  const ph = el.closest("[data-so-rph]"); if (ph) { const r = srS(), S = srSlots(); let key = SR.active || (S.find(s => !r.assign[s.key] || !SR.photos.some(p => p.id === r.assign[s.key])) || {}).key; if (!key) { toast("Tocca prima una stanza qui sotto, poi la foto"); return; } for (const k of Object.keys(r.assign)) if (r.assign[k] === ph.dataset.soRph && k !== key) delete r.assign[k]; r.assign[key] = ph.dataset.soRph; const i = S.findIndex(s => s.key === key); const nx = S.slice(i + 1).find(s => !r.assign[s.key]); SR.active = nx ? nx.key : ""; SR.bed = null; soSave(); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
+  if (el.closest("select")) return;
+  const sl = el.closest("[data-so-rslot]"); if (sl) { SR.active = SR.active === sl.dataset.soRslot ? "" : sl.dataset.soRslot; srPathUI(); if (SR.active) toast("Ora tocca la foto per “" + (srSlots().find(s => s.key === SR.active) || {}).label + "”"); return; }
+  const md = el.closest("[data-so-rmood]"); if (md) { srS().mood = md.dataset.soRmood; SR.bed = null; soSave(); srRenderUI(); return; }
+  if (el.closest("#so-r-load")) { srLoadDrive(); return; }
+  if (el.closest("#so-r-auto")) { srAuto(true); SR.active = ""; srPhotosUI(); srPathUI(); srPreviewFrame(0); toast("Foto assegnate in ordine"); return; }
+  if (el.closest("#so-r-clear")) { srS().assign = {}; soSave(); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
+  if (el.closest("#so-r-play")) { srPreview(); return; }
+  if (el.closest("#so-r-make")) { try { soAudioCtx().resume(); } catch {} srMake(); return; }
+  if (el.closest("#so-r-stop")) { SR.stop = true; return; }
+  if (el.closest("#so-r-dl")) { if (SR.resBlob) xDownload(SR.resBlob, SR.resName); return; }
+  if (el.closest("#so-r-share")) { if (SR.resBlob) { const f = new File([SR.resBlob], SR.resName, { type: SR.resBlob.type }); if (navigator.canShare && navigator.canShare({ files: [f] })) navigator.share({ files: [f] }).catch(() => {}); else xDownload(SR.resBlob, SR.resName); } return; }
+});
+$("view-social").addEventListener("input", e => {
+  const el = e.target, r = srS();
+  if (el.dataset.soRn) { const lim = { piani: [1, 5], sale: [0, 4], camere: [0, 8], bagni: [0, 6] }[el.dataset.soRn]; if (el.value.trim() === "") return; r[el.dataset.soRn] = srInt(el.value, lim[0], lim[1], r[el.dataset.soRn]); soSave(); srAuto(false); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-title") { r.title = el.value; soSave(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-dv") { const v = el.value.replace(/\D/g, ""); if (v !== el.value) el.value = v; return; }
+});
+$("view-social").addEventListener("change", e => {
+  const el = e.target, r = srS();
+  if (el.dataset.soRn) { el.value = r[el.dataset.soRn]; return; }
+  if (el.dataset.soRfl) { r.floors[el.dataset.soRfl] = +el.value; soSave(); srPathUI(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-dvsel") { if (el.value) { $("so-r-dv").value = el.value; r.dv = el.value; soSave(); srLoadDrive(); } return; }
+  if (el.id === "so-r-add" && el.files.length) { const f = [...el.files]; el.value = ""; srAddLocal(f); return; }
+  if (el.id === "so-r-cucina" || el.id === "so-r-esterni") { r[el.id === "so-r-cucina" ? "cucina" : "esterni"] = el.checked; soSave(); srAuto(false); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-labels" || el.id === "so-r-end") { r[el.id === "so-r-labels" ? "labels" : "end"] = el.checked; SR.bed = null; soSave(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-mode") { r.mode = el.value; soSave(); return; }
+  if (el.id === "so-r-dur") { r.dur = el.value; SR.bed = null; soSave(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-fmt") { r.fmt = el.value; soSave(); srPreviewFrame(0); return; }
+});
+document.addEventListener("visibilitychange", () => { if (document.hidden && SR.playing && !SR.recording) SR.stop = true; });
+
 /* ===================== SOCIAL: controller ===================== */
 function soTab(t){
   soDoc.data.tab = t; soSave();
   document.querySelectorAll("#view-social [data-so-tab]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.soTab === t)));
-  $("so-video").hidden = t !== "video"; $("so-post").hidden = t !== "post";
-  if (t === "video") soRenderVideoUI(); else soRenderPostUI();
+  if (t === "render" && !srApplyAccess()) t = "video";
+  document.querySelectorAll("#view-social [data-so-tab]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.soTab === t)));
+  $("so-video").hidden = t !== "video"; $("so-post").hidden = t !== "post"; $("so-render").hidden = t !== "render";
+  if (t === "video") soRenderVideoUI(); else if (t === "post") soRenderPostUI(); else { srRenderUI(); srPreviewFrame(0); }
 }
-function socialRender(){ soFonts().then(() => { if (xCur === "social") { if (soDoc.data.tab === "post") soPostPreview(); else if (SV.dur && !SV.playing) soDrawPreviewAt(0); } }); $("so-sync").textContent = xLogged() ? "Google" : "Locale"; soTab(soDoc.data.tab === "post" ? "post" : "video"); }
+function socialRender(){ soFonts().then(() => { if (xCur === "social") { if (soDoc.data.tab === "post") soPostPreview(); else if (SV.dur && !SV.playing) soDrawPreviewAt(0); } }); $("so-sync").textContent = xLogged() ? "Google" : "Locale"; srApplyAccess(); soTab(["post", "render"].includes(soDoc.data.tab) ? soDoc.data.tab : "video"); }
 XVIEWS.social = socialRender;
 const soReseg = () => { soSegs(); soDrawTimeline(); soCutInfo(); soCapsUI(); if (!SV.playing) soDrawPreviewAt(0); };
 const soV2 = () => { if (!SV.playing && SV.dur) soDrawPreviewAt(Math.min(1, SV.outDur / 2)); };
 $("view-social").addEventListener("click", async e => {
   const el = e.target;
-  const tb = el.closest("[data-so-tab]"); if (tb) { if (SV.playing) soStop(); soTab(tb.dataset.soTab); return; }
+  const tb = el.closest("[data-so-tab]"); if (tb) { if (SV.playing) soStop(); if (SR.playing) SR.stop = true; soTab(tb.dataset.soTab); return; }
   /* video */
   const cs = el.closest("[data-so-capstyle]"); if (cs) { soV().capStyle = cs.dataset.soCapstyle; soSave(); soRenderVideoUI(); soV2(); return; }
   const hs = el.closest("[data-so-hooksug]"); if (hs) { soV().hook = hs.dataset.soHooksug; $("so-hook").value = soV().hook; SV.bed = null; soSave(); if (!SV.playing && SV.dur) soDrawPreviewAt(0.6); return; }
