@@ -1275,6 +1275,14 @@ body.rz-limited [data-rz-full]{display:none!important}
 .so-r-ph button .ai{position:absolute;right:4px;bottom:4px;background:rgba(255,255,255,.9);color:#111;font-size:10px;font-weight:800;border-radius:6px;padding:1px 5px}
 
 .so-err{color:var(--hot,#e11d48);font-weight:600}
+/* ---------- VENDUTO QUI ---------- */
+.vq-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
+.vq-in,.vq-out{display:flex;flex-direction:column;gap:12px;min-width:0}
+.vq-out canvas{width:100%;height:auto;border-radius:8px;box-shadow:0 8px 30px rgba(10,20,40,.18);background:#fff;display:block}
+.vq-logo{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.vq-logo img{height:56px;max-width:180px;object-fit:contain;background:#fff;border:1px solid var(--line-2);border-radius:8px;padding:4px}
+.vq-ph{width:100%;max-width:260px;aspect-ratio:4/3;border-radius:10px;background:var(--surface-2) center/cover no-repeat;display:grid;place-items:center;color:var(--ink-3);font-size:13px}
+@media (min-width:1000px){ .vq-wrap{grid-template-columns:minmax(420px,1fr) minmax(360px,.8fr)} .vq-out{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)} .vq-out canvas{max-height:calc(100dvh - 200px);width:auto;max-width:100%;margin:0 auto} }
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
 .list-head span{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .list{padding:8px var(--gut) 28px;display:grid;grid-template-columns:1fr;gap:8px;align-content:start}
@@ -2173,6 +2181,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
       <button type="button" role="tab" data-aq-tab="call" aria-selected="true">📞 Chiamate</button>
       <button type="button" role="tab" data-aq-tab="cart" aria-selected="false">🪧 Cartelli <span class="nb" id="aq-b-cart" hidden></span></button>
       <button type="button" role="tab" data-aq-tab="vol" aria-selected="false">📬 Volantini</button>
+      <button type="button" role="tab" data-aq-tab="vq" aria-selected="false">🏷️ Venduto qui</button>
       <button type="button" role="tab" data-aq-tab="sv" aria-selected="false">🤝 Contatti utili <span class="nb" id="aq-b-sv" hidden></span></button>
     </div>
     <div class="aq-body" id="aq-body"></div>
@@ -6486,7 +6495,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610081549";
+const APP_VER = "v1-202610082033";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -11085,6 +11094,132 @@ $("view-social").addEventListener("change", async e => {
 });
 window.addEventListener("resize", () => { if (xCur === "social" && !$("so-video").hidden) soDrawTimeline(); });
 document.addEventListener("visibilitychange", () => { if (document.hidden && SV.playing && !SV.recording) { /* l'anteprima si ferma se la pagina va in secondo piano */ soStop(); } });
+
+
+/* ===================== VOLANTINO "VENDUTO QUI" ===================== */
+const vqDoc = xDoc("rz_vendutoqui_v1", "vendutoqui", {});
+const VQ_DEF = { nome: "", cognome: "", tel: "", mail: "", src: "", titolo: "VENDUTO QUI!", tipo: "", indirizzo: "", prezzo: "", mostraPrezzo: true, mq: "", locali: "", extra: "", desc: "", msg: "Ricerchiamo altri immobili simili per la nostra clientela selezionata!", cta: "Vuoi vendere o avere una valutazione gratuita?", hasLogo: false, hasPh: false };
+const VQ_MAG = "#e31d93", VQ_INK = "#333333", VQ_TEAL = "#009686";
+let vqImgs = { logo: null, ph: null };
+function vqS(){ const d = vqDoc.data; for (const k in VQ_DEF) if (d[k] === undefined) d[k] = VQ_DEF[k];
+  if (!d.nome && !d.cognome) { const n = String((typeof soMe === "function" ? soMe().nome : "") || (typeof crm !== "undefined" && crm.signature) || "").split(/\s+[—–-]\s+/)[0].trim().split(/\s+/); d.nome = n[0] || ""; d.cognome = n.slice(1).join(" "); }
+  if (!d.tel) { try { d.tel = soMe().tel || ""; } catch {} } if (!d.mail) { try { d.mail = soMe().mail || ""; } catch {} }
+  return d; }
+let vqT = null; const vqSave = () => { clearTimeout(vqT); vqT = setTimeout(() => vqDoc.save(), 400); };
+function vqImg(key){ return new Promise(async res => { const d = await aqPhotoGet("vq:" + key); if (!d) return res(null); const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = d; }); }
+async function vqLoadImgs(){ vqImgs.logo = await vqImg("logo"); vqImgs.ph = await vqImg("ph"); }
+/* dati dal foglio di prequalifica, se scelto */
+function vqFromSheet(id){
+  const d = vqS(), rec = (typeof brSheets === "function" ? brSheets() : []).find(x => x.id === id); if (!rec) return;
+  const o = typeof soProp === "function" ? soProp(id, {}) : null; if (!o) return;
+  d.tipo = (o.tip || "Appartamento") + (o.via ? " in " + o.via : "") ; d.indirizzo = o.comune || ""; d.prezzo = o.prezzo ? Math.round(o.prezzo).toLocaleString("it-IT") : ""; d.mq = o.mq ? String(o.mq) : "";
+  const L = { monolocale: 1, bilocale: 2, trilocale: 3, quadrilocale: 4, "cinque locali": 5 }[o.loc] || ""; d.locali = L ? String(L) : "";
+  d.extra = [o.box ? "box compreso" : "", o.piano || ""].filter(Boolean).join(" · ");
+  const ds = typeof dsDoc !== "undefined" && dsDoc.data.by[id]; if (ds && ds.text) d.desc = ds.text.replace(/\s+/g, " ").slice(0, 420);
+}
+function vqHtml(){
+  const d = vqS(), sheets = typeof brSheets === "function" ? brSheets() : [];
+  const f = (k, l, ph, im, ty) => `<label class="x-f"><span>${l}</span><input class="inp" data-vq="${k}" value="${esc(d[k] || "")}" placeholder="${esc(ph || "")}"${im ? ` inputmode="${im}"` : ""}${ty ? ` type="${ty}"` : ""}></label>`;
+  return `<div class="vq-wrap"><section class="vq-in">
+    <div class="x-card"><h3>1 · Logo</h3>
+      <div class="vq-logo">${vqImgs.logo ? `<img src="${vqImgs.logo.src}" alt="Logo">` : `<span class="x-note">Nessun logo caricato</span>`}<label class="x-act call" style="cursor:pointer">🖼️ ${vqImgs.logo ? "Cambia logo" : "Carica il logo Dove.it"}<input type="file" id="vq-logo" accept="image/*" hidden></label>${vqImgs.logo ? `<button type="button" class="x-act" id="vq-logo-del">✕ Togli</button>` : ""}</div>
+      <div class="x-note">Carica il file ufficiale del logo (meglio PNG con sfondo trasparente): resta salvato su questo dispositivo e va in alto al centro del volantino.</div></div>
+    <div class="x-card"><h3>2 · L'immobile venduto</h3>
+      <select class="inp" id="vq-src"><option value="">✍️ Scrivo io i dati</option>${sheets.map(x => `<option value="${esc(x.id)}"${x.id === d.src ? " selected" : ""}>${esc(x.label)}</option>`).join("")}</select>
+      <div class="vq-logo"><span class="vq-ph" style="${vqImgs.ph ? `background-image:url('${vqImgs.ph.src}')` : ""}">${vqImgs.ph ? "" : "Foto"}</span><label class="x-act call" style="cursor:pointer">📷 ${vqImgs.ph ? "Cambia foto" : "Aggiungi la foto"}<input type="file" id="vq-ph" accept="image/*" hidden></label></div>
+      <div class="x-grid">${f("tipo", "Immobile", "Appartamento in Via Dante Alighieri")}${f("indirizzo", "Comune", "Chiuduno")}${f("prezzo", "Prezzo €", "145.000", "numeric")}${f("mq", "m²", "106", "numeric")}${f("locali", "Locali", "5", "numeric")}${f("extra", "Altro (box, piano…)", "box compreso · 3° piano")}</div>
+      <label class="so-chk"><input type="checkbox" id="vq-showp"${d.mostraPrezzo ? " checked" : ""}><span>Mostra il prezzo e il prezzo al m²</span></label>
+      <label class="x-f"><span>Descrizione</span><textarea class="inp" data-vq="desc" rows="4" maxlength="420" placeholder="Appartamento dai grandi spazi, ottimo per famiglia numerosa…">${esc(d.desc || "")}</textarea></label></div>
+    <div class="x-card"><h3>3 · Testi</h3>
+      <div class="x-grid">${f("titolo", "Titolo", "VENDUTO QUI!")}</div>
+      <label class="x-f"><span>Messaggio</span><textarea class="inp" data-vq="msg" rows="2">${esc(d.msg || "")}</textarea></label>
+      <label class="x-f"><span>Invito</span><input class="inp" data-vq="cta" value="${esc(d.cta || "")}"></label></div>
+    <div class="x-card"><h3>4 · I tuoi contatti</h3>
+      <div class="x-grid">${f("nome", "Nome", "Stefano")}${f("cognome", "Cognome", "Piccioli")}${f("tel", "Telefono", "035 000 0000", "tel", "tel")}${f("mail", "Email", "nome@dove.it", "email", "email")}</div></div>
+    <div class="so-row"><button type="button" class="btn" id="vq-pdf">📄 Scarica PDF (A4 da stampare)</button><button type="button" class="x-act call" id="vq-png">🖼️ Immagine per WhatsApp</button></div>
+    <div id="vq-msg"></div>
+  </section><section class="vq-out"><canvas id="vq-cv" width="620" height="877" aria-label="Anteprima del volantino"></canvas></section></div>`;
+}
+/* disegno del volantino su un foglio A4 (proporzioni 210×297) */
+function vqDraw(ctx, W, H){
+  const d = vqS(), m = W * 0.07, R = (f, s, w) => `${w || 400} ${s}px Roboto, "Helvetica Neue", Arial, sans-serif`;
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
+  /* fascia in alto con il logo */
+  let y = m * 0.8;
+  if (vqImgs.logo) { const lh = H * 0.07, lw = Math.min(W * 0.5, lh * vqImgs.logo.width / vqImgs.logo.height); ctx.drawImage(vqImgs.logo, (W - lw) / 2, y, lw, lw * vqImgs.logo.height / vqImgs.logo.width); y += lw * vqImgs.logo.height / vqImgs.logo.width + H * 0.02; }
+  else y += H * 0.01;
+  ctx.fillStyle = VQ_MAG; ctx.fillRect(m, y, W - 2 * m, W * 0.006); y += H * 0.045;
+  /* titolo */
+  const tf = s => R(0, s, 900), tfit = soFit(ctx, (d.titolo || "VENDUTO QUI!").toUpperCase(), tf, W - 2 * m, H * 0.11, W * 0.11, W * 0.06, 1.05);
+  ctx.font = tf(tfit.size); ctx.fillStyle = VQ_MAG; ctx.textAlign = "center"; for (const l of tfit.lines) { y += tfit.size * 0.95; ctx.fillText(l, W / 2, y); y += tfit.size * 0.1; }
+  ctx.textAlign = "left"; y += H * 0.03;
+  /* scheda dell'immobile */
+  const cardH = H * 0.3, cardY = y; ctx.fillStyle = "#f7f7f7"; soRound(ctx, m, cardY, W - 2 * m, cardH, W * 0.02); ctx.fill();
+  const phW = (W - 2 * m) * 0.44, pad = W * 0.025;
+  ctx.save(); soRound(ctx, m + pad, cardY + pad, phW, cardH - 2 * pad, W * 0.015); ctx.clip();
+  if (vqImgs.ph) soCover(ctx, vqImgs.ph, m + pad, cardY + pad, phW, cardH - 2 * pad); else { ctx.fillStyle = "#e4e4e4"; ctx.fillRect(m + pad, cardY + pad, phW, cardH - 2 * pad); ctx.fillStyle = "#9a9a9a"; ctx.font = R(0, W * 0.03, 500); ctx.textAlign = "center"; ctx.fillText("Foto dell'immobile", m + pad + phW / 2, cardY + cardH / 2); ctx.textAlign = "left"; }
+  ctx.restore();
+  /* bollino VENDUTO sulla foto */
+  ctx.save(); ctx.translate(m + pad + phW * 0.72, cardY + pad + W * 0.06); ctx.rotate(-0.12); ctx.font = R(0, W * 0.032, 900); const bw = ctx.measureText("VENDUTO").width + W * 0.04; ctx.fillStyle = VQ_MAG; soRound(ctx, -bw / 2, -W * 0.032, bw, W * 0.05, W * 0.01); ctx.fill(); ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.fillText("VENDUTO", 0, W * 0.003); ctx.restore();
+  const tx = m + pad * 2 + phW, tw = W - m - pad - tx; let ty = cardY + pad;
+  const put = (txt, size, w, color, maxLines) => { if (!txt) return; ctx.font = R(0, size, w); ctx.fillStyle = color; let L = soWrap(ctx, txt, tw); if (maxLines && L.length > maxLines) { L = L.slice(0, maxLines); L[maxLines - 1] = L[maxLines - 1].replace(/\s*\S*$/, "") + "…"; } for (const l of L) { ty += size * 1.05; ctx.fillText(l, tx, ty); ty += size * 0.22; } };
+  put(d.tipo + (d.indirizzo ? (d.tipo ? ", " : "") + d.indirizzo : ""), W * 0.03, 700, VQ_INK, 3);
+  const pr = rzNum(d.prezzo), mq = rzNum(d.mq);
+  if (d.mostraPrezzo && pr) { ty += W * 0.008; ctx.font = R(0, W * 0.05, 900); ctx.fillStyle = VQ_MAG; ty += W * 0.05; ctx.fillText(Math.round(pr).toLocaleString("it-IT") + " €", tx, ty); if (mq) { const pw = ctx.measureText(Math.round(pr).toLocaleString("it-IT") + " €").width; ctx.font = R(0, W * 0.022, 500); ctx.fillStyle = "#777"; ctx.fillText("  " + Math.round(pr / mq).toLocaleString("it-IT") + " €/m²", tx + pw, ty); } ty += W * 0.015; }
+  const chips = [mq ? mq + " m²" : "", d.locali ? d.locali + (d.locali === "1" ? " locale" : " locali") : "", ...String(d.extra || "").split(/\s*[·,]\s*/)].filter(Boolean).slice(0, 5);
+  if (chips.length) { ty += W * 0.012; let cx = tx; ctx.font = R(0, W * 0.021, 700); for (const c of chips) { const cw = ctx.measureText(c).width + W * 0.025; if (cx + cw > tx + tw) { cx = tx; ty += W * 0.045; } ctx.fillStyle = "#fff"; soRound(ctx, cx, ty, cw, W * 0.036, W * 0.018); ctx.fill(); ctx.strokeStyle = VQ_TEAL; ctx.lineWidth = W * 0.002; ctx.stroke(); ctx.fillStyle = VQ_TEAL; ctx.fillText(c, cx + W * 0.0125, ty + W * 0.025); cx += cw + W * 0.012; } ty += W * 0.05; }
+  if (d.desc) { const room = Math.max(1, Math.floor((cardY + cardH - pad - ty) / (W * 0.021 * 1.27))); put(d.desc, W * 0.019, 400, "#555", room); }
+  y = cardY + cardH + H * 0.05;
+  /* riquadro contatti in basso, a misura fissa; il messaggio riempie lo spazio in mezzo */
+  const boxH = H * 0.205, boxY = H - m * 0.9 - H * 0.03 - boxH;
+  if (d.msg) { const mf = s => R(0, s, 700), avail = boxY - y - H * 0.03, mfit = soFit(ctx, d.msg.toUpperCase(), mf, W - 2 * m, avail, W * 0.055, W * 0.026, 1.18), bh = mfit.lines.length * mfit.size * 1.18; ctx.font = mf(mfit.size); ctx.fillStyle = VQ_INK; ctx.textAlign = "center"; let yy = y + Math.max(0, (avail - bh) / 2); for (const l of mfit.lines) { yy += mfit.size; ctx.fillText(l, W / 2, yy); yy += mfit.size * 0.18; } ctx.textAlign = "left"; }
+  ctx.fillStyle = VQ_MAG; soRound(ctx, m, boxY, W - 2 * m, boxH, W * 0.025); ctx.fill();
+  ctx.textAlign = "center"; ctx.fillStyle = "#fff"; const iw = W - 2 * m - W * 0.08;
+  let by = boxY + boxH * 0.06;
+  if (d.cta) { const cf = s => R(0, s, 700), cfit = soFit(ctx, d.cta, cf, iw, boxH * 0.24, W * 0.042, W * 0.024, 1.12); ctx.font = cf(cfit.size); for (const l of cfit.lines) { by += cfit.size; ctx.fillText(l, W / 2, by); by += cfit.size * 0.12; } }
+  const who = [d.nome, d.cognome].filter(Boolean).join(" ");
+  if (who) { by += boxH * 0.12; ctx.font = R(0, W * 0.024, 500); ctx.globalAlpha = 0.92; ctx.fillText("CHIAMA " + who.toUpperCase(), W / 2, by); ctx.globalAlpha = 1; }
+  if (d.tel) { const tf2 = s => R(0, s, 900), tfit2 = soFit(ctx, d.tel, tf2, iw, boxH * 0.3, W * 0.085, W * 0.045, 1); by += tfit2.size * 1.02; ctx.font = tf2(tfit2.size); ctx.fillText(tfit2.lines[0] || d.tel, W / 2, by); }
+  if (d.mail) { ctx.font = R(0, W * 0.028, 500); ctx.fillText(d.mail, W / 2, Math.min(boxY + boxH - boxH * 0.08, by + W * 0.05)); }
+  ctx.textAlign = "left";
+  /* piè di pagina */
+  ctx.fillStyle = "#999"; ctx.font = R(0, W * 0.017, 400); ctx.textAlign = "center"; ctx.fillText("Valutazione gratuita e senza impegno", W / 2, H - m * 0.55); ctx.textAlign = "left";
+}
+let vqPrevT = null;
+function vqPreview(){ clearTimeout(vqPrevT); vqPrevT = setTimeout(async () => { const cv = $("vq-cv"); if (!cv) return; try { await soFonts(); } catch {} const W = 620, H = Math.round(W * 297 / 210); cv.width = W; cv.height = H; vqDraw(cv.getContext("2d"), W, H); }, 120); }
+function vqCanvas(){ const W = 1654, H = 2339, c = document.createElement("canvas"); c.width = W; c.height = H; vqDraw(c.getContext("2d"), W, H); return c; }
+const vqName = () => "Venduto_qui_" + (vqS().indirizzo || "immobile").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "_") + "_" + xISO(Date.now());
+async function vqPdf(){
+  const msg = $("vq-msg"); msg.innerHTML = `<div class="x-note">⏳ Preparo il PDF…</div>`;
+  try { await soFonts(); const jsPDF = await pdfLoad(), doc = new jsPDF({ unit: "mm", format: "a4" }); doc.addImage(vqCanvas().toDataURL("image/jpeg", 0.93), "JPEG", 0, 0, 210, 297); await xDownload(doc.output("blob"), vqName() + ".pdf"); msg.innerHTML = `<div class="note-box info">✅ Volantino pronto da stampare (A4).</div>`; }
+  catch (e) { msg.innerHTML = `<div class="note-box err">PDF non creato: ${esc((e && e.message) || String(e))}</div>`; }
+}
+async function vqPng(){
+  const msg = $("vq-msg");
+  try { await soFonts(); const b = await new Promise(r => vqCanvas().toBlob(r, "image/jpeg", 0.92)); await xDownload(b, vqName() + ".jpg"); msg.innerHTML = ""; }
+  catch (e) { msg.innerHTML = `<div class="note-box err">${esc((e && e.message) || String(e))}</div>`; }
+}
+async function vqSetImg(key, file){
+  const max = key === "logo" ? 1200 : 1800;
+  const data = await new Promise((res, rej) => { const img = new Image(), url = URL.createObjectURL(file); img.onload = () => { const k = Math.min(1, max / Math.max(img.width, img.height)), c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res(c.toDataURL(key === "logo" ? "image/png" : "image/jpeg", 0.9)); }; img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("immagine non leggibile")); }; img.src = url; });
+  await aqPhotoSet("vq:" + key, data); await vqLoadImgs();
+}
+async function vqRenderTab(){ await vqLoadImgs(); if (aqTab !== "vq") return; $("aq-body").innerHTML = vqHtml(); vqPreview(); }
+const _aqRenderVq = aqRender;
+aqRender = function(){ if (aqTab !== "vq") return _aqRenderVq.apply(this, arguments); xSync("aq-sync"); document.querySelectorAll("[data-aq-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.aqTab === aqTab)); $("aq-body").innerHTML = vqHtml(); vqPreview(); vqRenderTab(); try { aqBadges(); } catch {} };
+XVIEWS.acq = aqRender;
+$("view-acq").addEventListener("input", e => { const el = e.target; if (el.dataset.vq) { vqS()[el.dataset.vq] = el.value; vqSave(); vqPreview(); } });
+$("view-acq").addEventListener("change", async e => {
+  const el = e.target;
+  if (el.id === "vq-src") { const d = vqS(); d.src = el.value; if (el.value) vqFromSheet(el.value); vqSave(); vqRenderTab(); return; }
+  if (el.id === "vq-showp") { vqS().mostraPrezzo = el.checked; vqSave(); vqPreview(); return; }
+  if ((el.id === "vq-logo" || el.id === "vq-ph") && el.files[0]) { const f = el.files[0]; el.value = ""; try { await vqSetImg(el.id === "vq-logo" ? "logo" : "ph", f); vqRenderTab(); } catch (err) { toast("⚠️ " + err.message); } return; }
+});
+$("view-acq").addEventListener("click", async e => {
+  if (e.target.closest("#vq-pdf")) { vqPdf(); return; }
+  if (e.target.closest("#vq-png")) { vqPng(); return; }
+  if (e.target.closest("#vq-logo-del")) { try { const db = await aqDb(); db.transaction("f", "readwrite").objectStore("f").delete("vq:logo"); } catch {} vqImgs.logo = null; vqRenderTab(); return; }
+});
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "social", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
