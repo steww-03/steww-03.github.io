@@ -1268,6 +1268,11 @@ body.rz-limited [data-rz-full]{display:none!important}
 .so-r-floor{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
 .so-r-form{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:520px){ .so-r-form{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.so-r-slot{grid-template-columns:30px auto minmax(0,1fr) auto}
+.so-r-slot .ths{display:flex;gap:3px;flex-wrap:wrap;max-width:150px}
+.so-r-slot .ths .th{width:46px;height:34px}
+.so-r-ph button.in{border-color:var(--accent);opacity:1}
+.so-r-ph button .ai{position:absolute;right:4px;bottom:4px;background:rgba(255,255,255,.9);color:#111;font-size:10px;font-weight:800;border-radius:6px;padding:1px 5px}
 
 .so-err{color:var(--hot,#e11d48);font-weight:600}
 .diary-note{padding:9px 12px;border-radius:10px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:13px;line-height:1.45}
@@ -2606,6 +2611,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
             <label class="x-f"><span>Frase finale</span><input class="inp" id="so-end-t" maxlength="60"></label>
             <label class="x-f"><span>Nome</span><input class="inp" data-so-me="nome"></label>
             <label class="x-f"><span>Telefono</span><input class="inp" data-so-me="tel" inputmode="tel"></label>
+            <label class="x-f"><span>Email</span><input class="inp" data-so-me="mail" inputmode="email" type="email"></label>
             <label class="x-f"><span>Profilo Instagram/TikTok</span><input class="inp" data-so-me="handle" placeholder="@iltuoprofilo"></label>
           </div>
         </div>
@@ -2706,7 +2712,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
             <div class="fe-dv so-r-dv"><span class="fe-dv-pre">DV-</span><input class="inp" id="so-r-dv" inputmode="numeric" placeholder="14201" autocomplete="off" aria-label="Numero DV"></div>
           </div>
           <div class="so-row"><button type="button" class="x-act call" id="so-r-load">📥 Carica le foto da Drive</button><label class="x-act so-file">📷 Dal dispositivo<input type="file" id="so-r-add" accept="image/*" multiple hidden></label></div>
-          <div id="so-r-msg" class="x-note">Usa le foto già caricate con “Modifica e impacchettamento”, nella cartella Drive “Foto DV-…”.</div>
+          <div id="so-r-msg" class="x-note">Usa le foto già caricate con “Modifica e impacchettamento”, nella cartella Drive “Foto DV-…”. Dopo averle caricate l'app riconosce da sola le stanze.</div>
           <div class="so-r-ph" id="so-r-photos"></div>
         </div>
 
@@ -2723,9 +2729,9 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
             <label class="so-chk"><input type="checkbox" id="so-r-esterni"><span>Esterni alla fine (giardino, terrazzo)</span></label>
           </div>
           <div class="chips-lbl">Percorso del video</div>
-          <div class="x-note">Si parte sempre dalla porta, poi sala, camere e bagni, piano per piano. Tocca una stanza e poi la foto giusta qui sopra per cambiarla.</div>
+          <div class="x-note">Si parte sempre dalla porta, poi sala, camere e bagni, piano per piano. Ogni stanza può avere più foto: tocca una stanza e poi le foto qui sopra per aggiungerle o toglierle. Se due foto della stessa stanza si sovrappongono, la telecamera passa dall'una all'altra girando come in un'unica ripresa.</div>
           <div class="so-r-path" id="so-r-path"></div>
-          <div class="so-row"><button type="button" class="x-act" id="so-r-auto">🔀 Assegna le foto in ordine</button><button type="button" class="x-act" id="so-r-clear">✕ Togli tutte le foto</button></div>
+          <div class="so-row"><button type="button" class="x-act call" id="so-r-ai">🔎 Riconosci le stanze</button><button type="button" class="x-act" id="so-r-auto">🔀 Riassegna le foto</button><button type="button" class="x-act" id="so-r-clear">✕ Togli tutte le foto</button></div>
         </div>
 
         <div class="x-card">
@@ -2738,6 +2744,12 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
           <label class="x-f"><span>Titolo iniziale</span><input class="inp" id="so-r-title" maxlength="70" placeholder="Es. Trilocale con giardino a Ponteranica"></label>
           <label class="so-chk"><input type="checkbox" id="so-r-labels"><span>Scrivi il nome di ogni stanza</span></label>
           <label class="so-chk"><input type="checkbox" id="so-r-end"><span>Chiusura con i tuoi contatti</span></label>
+          <div class="x-grid">
+            <label class="x-f"><span>Frase finale</span><input class="inp" id="so-r-endt" maxlength="50"></label>
+            <label class="x-f"><span>Nome</span><input class="inp" data-so-me="nome"></label>
+            <label class="x-f"><span>Telefono</span><input class="inp" data-so-me="tel" inputmode="tel"></label>
+            <label class="x-f"><span>Email</span><input class="inp" data-so-me="mail" inputmode="email" type="email"></label>
+          </div>
           <div class="chips-lbl">Musica</div>
           <div class="x-pills" id="so-r-moods"></div>
         </div>
@@ -6474,7 +6486,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610081212";
+const APP_VER = "v1-202610081549";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -9253,13 +9265,13 @@ const soFmtT = s => { s = Math.max(0, s || 0); const m = Math.floor(s / 60), x =
 const soClamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
 /* ---------- font: Google Fonts caricati solo quando servono ---------- */
-const SO_FONT_CSS = "https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@500;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@500;600;800&display=swap";
+const SO_FONT_CSS = "https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@500;700&family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@500;600;800&family=Roboto:wght@400;500;700;900&display=swap";
 let soFontsP = null;
 function soFonts(){
   if (soFontsP) return soFontsP;
   soFontsP = (async () => {
     if (!document.querySelector("link[data-so-fonts]")) { const l = document.createElement("link"); l.rel = "stylesheet"; l.href = SO_FONT_CSS; l.dataset.soFonts = "1"; document.head.appendChild(l); await new Promise(r => { l.onload = r; l.onerror = r; setTimeout(r, 6000); }); }
-    const specs = ["900 40px Montserrat", "800 40px Montserrat", "700 40px Montserrat", "600 40px Montserrat", "500 40px Montserrat", "800 40px Poppins", "600 40px Poppins", "500 40px Poppins", "400 40px Anton", "700 40px 'Playfair Display'", "italic 700 40px 'Playfair Display'", "700 40px 'DM Sans'", "500 40px 'DM Sans'"];
+    const specs = ["900 40px Montserrat", "800 40px Montserrat", "700 40px Montserrat", "600 40px Montserrat", "500 40px Montserrat", "800 40px Poppins", "600 40px Poppins", "500 40px Poppins", "400 40px Anton", "700 40px 'Playfair Display'", "italic 700 40px 'Playfair Display'", "700 40px 'DM Sans'", "500 40px 'DM Sans'", "700 40px Roboto", "500 40px Roboto", "400 40px Roboto"];
     await Promise.race([Promise.all(specs.map(s => document.fonts.load(s).catch(() => {}))), new Promise(r => setTimeout(r, 8000))]);
   })();
   return soFontsP;
@@ -9449,7 +9461,7 @@ function soHashtags(o, kind, tiktok){
   return (tiktok ? u.slice(0, 5).concat(["#perte", "#fyp"]) : u.slice(0, 18)).join(" ");
 }
 function soContact(me){
-  const a = []; if (me.nome) a.push("👤 " + me.nome); if (me.tel) a.push("📞 " + me.tel); return a.join("\n");
+  const a = []; if (me.nome) a.push("👤 " + me.nome); if (me.tel) a.push("📞 " + me.tel); if (me.mail) a.push("✉️ " + me.mail); return a.join("\n");
 }
 function soCaption(kind, o, extra, seed, tiktok){
   const me = soMe(), name = soName(o), where = soWhere(o), P = (a, s) => soPick(a, seed, s);
@@ -9953,7 +9965,7 @@ function soDrawEnd(ctx, W, H, t){
   y = H * 0.36 + fit.lines.length * lh / 2 + W * 0.09;
   ctx.fillStyle = "#facc15"; ctx.fillRect(W * 0.42, y - W * 0.035, W * 0.16, W * 0.008);
   ctx.fillStyle = "#fff"; ctx.font = `800 ${Math.round(W * 0.06)}px Montserrat, sans-serif`; if (me.nome) { ctx.fillText(me.nome, W / 2, y + W * 0.03); y += W * 0.1; }
-  ctx.font = `600 ${Math.round(W * 0.05)}px Montserrat, sans-serif`; if (me.tel) { ctx.fillText("📞 " + me.tel, W / 2, y + W * 0.03); y += W * 0.085; } if (me.handle) ctx.fillText(me.handle, W / 2, y + W * 0.03);
+  ctx.font = `600 ${Math.round(W * 0.05)}px Montserrat, sans-serif`; if (me.tel) { ctx.fillText("📞 " + me.tel, W / 2, y + W * 0.03); y += W * 0.085; } if (me.mail) { ctx.font = `600 ${Math.round(W * 0.042)}px Montserrat, sans-serif`; ctx.fillText("✉️ " + me.mail, W / 2, y + W * 0.03); y += W * 0.08; } if (me.handle) ctx.fillText(me.handle, W / 2, y + W * 0.03);
   ctx.restore();
 }
 function soDrawFrame(ctx, W, H, t, end){
@@ -10097,6 +10109,7 @@ function soRenderVideoUI(){
 /* ===================== SOCIAL: post carosello ===================== */
 const SO_PTYPES = [["vendita", "🏡 Casa in vendita"], ["venduto", "✅ Venduto"], ["consigli", "💡 Consigli"], ["mercato", "📊 Prezzi della zona"], ["chisono", "👋 Chi sono"]];
 const SO_THEMES = {
+  doveit: { label: "Dove.it", bg: "#ffffff", ink: "#333333", acc: "#e31d93", acc2: "#009686", tf: (s) => `700 ${s}px Roboto, "Helvetica Neue", Arial, sans-serif`, bf: (s, w) => `${w >= 700 ? 700 : w >= 600 ? 500 : 400} ${s}px Roboto, "Helvetica Neue", Arial, sans-serif`, up: false, tag: "#e31d93", tile: "#f7f7f7" },
   elegante: { label: "Elegante", bg: "#f5efe6", ink: "#1f2a44", acc: "#b08d57", acc2: "#1f2a44", tf: (s) => `700 ${s}px "Playfair Display", Georgia, serif`, bf: (s, w) => `${w || 600} ${s}px Montserrat, system-ui, sans-serif`, up: false, tag: "#b08d57" },
   moderno: { label: "Moderno", bg: "#ffffff", ink: "#0f172a", acc: "#2563eb", acc2: "#0f172a", tf: (s) => `800 ${s}px Poppins, system-ui, sans-serif`, bf: (s, w) => `${w || 500} ${s}px Poppins, system-ui, sans-serif`, up: false, tag: "#2563eb" },
   bold: { label: "Bold", bg: "#0b0b0b", ink: "#ffffff", acc: "#facc15", acc2: "#facc15", tf: (s) => `400 ${s}px Anton, Impact, sans-serif`, bf: (s, w) => `${w || 700} ${s}px Montserrat, system-ui, sans-serif`, up: true, tag: "#facc15" },
@@ -10132,10 +10145,10 @@ function soAutoSlides(){
       ph.slice(1, 7).forEach((k, i) => S.push({ k: "photo", ph: k, t: plus[i] || room[i % room.length], s: "" }));
       const items = [o.mq && ["📐", o.mq + " m²"], o.loc && ["🏠", o.loc.charAt(0).toUpperCase() + o.loc.slice(1)], o.camere && ["🛏", o.camere + (o.camere === 1 ? " camera" : " camere")], o.bagni && ["🛁", o.bagni + (o.bagni === 1 ? " bagno" : " bagni")], o.giardino && ["🌳", "Giardino" + (o.giardino > 1 ? " " + o.giardino + " m²" : "")], (o.terrazzo || o.balcone) && ["☀️", o.terrazzo ? "Terrazzo" : "Balcone"], o.box && ["🚗", "Box auto"], o.cantina && ["📦", "Cantina"], o.classe && ["⚡", "Classe " + o.classe], o.piano && ["🏢", o.piano.replace(/^al |^all'/, "").replace(/^./, c => c.toUpperCase())]].filter(Boolean).slice(0, 8);
       S.push({ k: "details", t: "I dettagli", items, s: price ? price : "" });
-      S.push({ k: "cta", ph: ph[ph.length - 1], t: "Ti piace questa casa?", s: "Scrivimi in DM o chiamami per una visita", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+      S.push({ k: "cta", ph: ph[ph.length - 1], t: "Ti piace questa casa?", s: "Scrivimi in DM o chiamami per una visita", c: [me.nome, me.tel, me.mail, me.handle].filter(Boolean).join("\n") });
     } else {
       ph.slice(1, 4).forEach((k, i) => S.push({ k: "photo", ph: k, t: ["Valutazione corretta", "Promozione mirata", "Trattativa seguita fino al rogito"][i], s: "" }));
-      S.push({ k: "cta", ph: null, t: "Vuoi vendere anche tu?", s: "Ti faccio una valutazione gratuita della tua casa", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+      S.push({ k: "cta", ph: null, t: "Vuoi vendere anche tu?", s: "Ti faccio una valutazione gratuita della tua casa", c: [me.nome, me.tel, me.mail, me.handle].filter(Boolean).join("\n") });
     }
   } else if (p.type === "consigli") {
     let title, pts;
@@ -10143,21 +10156,21 @@ function soAutoSlides(){
     else { const T = SO_TOPICS[p.topic] || SO_TOPICS.errori; title = T[0]; pts = T.slice(1); }
     S.push({ k: "tcover", ph: ph[0], t: title, s: "Salvalo per quando ti servirà 🔖", arrow: true });
     pts.slice(0, 8).forEach((x, i) => S.push({ k: "point", ph: ph[i + 1] || null, n: i + 1, t: x[0], s: x[1] || "" }));
-    S.push({ k: "cta", ph: null, t: "Ti è stato utile?", s: "Salva il post e mandalo a chi sta per comprare o vendere casa", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+    S.push({ k: "cta", ph: null, t: "Ti è stato utile?", s: "Salva il post e mandalo a chi sta per comprare o vendere casa", c: [me.nome, me.tel, me.mail, me.handle].filter(Boolean).join("\n") });
   } else if (p.type === "mercato") {
     const com = p.mkt.comune || "Bergamo", pm = (() => { try { return (PQ_PREZZI[com] || [])[1] || 0; } catch { return 0; } })();
     S.push({ k: "tcover", ph: ph[0], t: `Quanto costano le case a ${com}?`, s: "I numeri della zona", arrow: true });
     S.push({ k: "big", ph: null, t: pm ? pm.toLocaleString("it-IT") + " €/m²" : "—", s: `Prezzo medio indicativo a ${com}` });
     if (pm) S.push({ k: "big", ph: ph[1] || null, t: soEuro(Math.round(pm * 90 / 1000) * 1000), s: "Valore indicativo di un appartamento di 90 m²" });
     S.push({ k: "point", ph: ph[2] || null, n: 1, t: "Ogni casa è diversa", s: "Piano, stato, esposizione, box e giardino possono spostare il prezzo anche del 20–30%." });
-    S.push({ k: "cta", ph: null, t: "Quanto vale la tua casa?", s: "Ti preparo una valutazione gratuita e senza impegno", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+    S.push({ k: "cta", ph: null, t: "Quanto vale la tua casa?", s: "Ti preparo una valutazione gratuita e senza impegno", c: [me.nome, me.tel, me.mail, me.handle].filter(Boolean).join("\n") });
   } else {
     const c = p.chi;
     S.push({ k: "tcover", ph: ph[0], t: `Piacere, sono ${String(me.nome || "il tuo consulente").split(/\s+[—–-]\s+/)[0]}`, s: "Consulente immobiliare" + (c.zona ? " · " + c.zona : ""), arrow: true });
     S.push({ k: "point", ph: ph[1] || null, n: 1, t: "Cosa faccio", s: "Aiuto chi vuole vendere o comprare casa, dalla valutazione fino al rogito." });
     if (c.anni) S.push({ k: "big", ph: null, t: c.anni + " anni", s: "di esperienza nel settore immobiliare" });
     S.push({ k: "point", ph: ph[2] || null, n: 2, t: "Come lavoro", s: c.frase || "Prezzo giusto, foto curate, visite selezionate e trattativa seguita passo dopo passo." });
-    S.push({ k: "cta", ph: null, t: "Parliamo della tua casa?", s: "Scrivimi in DM o chiamami", c: [me.nome, me.tel, me.handle].filter(Boolean).join("\n") });
+    S.push({ k: "cta", ph: null, t: "Parliamo della tua casa?", s: "Scrivimi in DM o chiamami", c: [me.nome, me.tel, me.mail, me.handle].filter(Boolean).join("\n") });
   }
   return S.slice(0, 10);
 }
@@ -10196,7 +10209,7 @@ function soDrawSlide(ctx, W, H, s, i, n, img){
     blockTop(U(s.t), T.tf, M, M * 1.3, W - 2 * M, H * 0.14, W * (T.up ? 0.11 : 0.085), W * 0.05, 1.1, T.ink);
     ctx.fillStyle = T.acc; ctx.fillRect(M, M * 1.3 + W * 0.13, W * 0.12, W * 0.01);
     const items = s.items || [], cols = 2, rows = Math.ceil(items.length / cols), top0 = M * 1.3 + W * 0.2, bottom = H - M * (s.s ? 3.2 : 1.5), ch = Math.min(W * 0.24, (bottom - top0) / Math.max(1, rows)), cw = (W - 2 * M - W * 0.03) / cols, top = top0 + Math.max(0, (bottom - top0 - rows * ch) / 2);
-    items.forEach(([e, t], k) => { const x = M + (k % cols) * (cw + W * 0.03), y = top + Math.floor(k / cols) * ch; ctx.fillStyle = T.bg === "#0b0b0b" ? "#1c1c1c" : (T.bg === "#ffffff" ? "#f1f5f9" : "rgba(0,0,0,.05)"); soRound(ctx, x, y, cw, ch - W * 0.025, W * 0.03); ctx.fill(); ctx.textBaseline = "middle"; ctx.fillStyle = T.ink; ctx.font = `${W * 0.06}px system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`; ctx.fillText(e, x + W * 0.035, y + (ch - W * 0.025) / 2); const f = soFit(ctx, t, z => T.bf(z, 700), cw - W * 0.15, ch * 0.7, W * 0.045, W * 0.026, 1.15); ctx.font = T.bf(f.size, 700); ctx.fillStyle = T.ink; const lh = f.size * 1.15; f.lines.forEach((l, j) => ctx.fillText(l, x + W * 0.125, y + (ch - W * 0.025) / 2 - (f.lines.length - 1) * lh / 2 + j * lh)); ctx.textBaseline = "alphabetic"; });
+    items.forEach(([e, t], k) => { const x = M + (k % cols) * (cw + W * 0.03), y = top + Math.floor(k / cols) * ch; ctx.fillStyle = T.tile || (T.bg === "#0b0b0b" ? "#1c1c1c" : (T.bg === "#ffffff" ? "#f1f5f9" : "rgba(0,0,0,.05)")); soRound(ctx, x, y, cw, ch - W * 0.025, W * 0.03); ctx.fill(); ctx.textBaseline = "middle"; ctx.fillStyle = T.ink; ctx.font = `${W * 0.06}px system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`; ctx.fillText(e, x + W * 0.035, y + (ch - W * 0.025) / 2); const f = soFit(ctx, t, z => T.bf(z, 700), cw - W * 0.15, ch * 0.7, W * 0.045, W * 0.026, 1.15); ctx.font = T.bf(f.size, 700); ctx.fillStyle = T.ink; const lh = f.size * 1.15; f.lines.forEach((l, j) => ctx.fillText(l, x + W * 0.125, y + (ch - W * 0.025) / 2 - (f.lines.length - 1) * lh / 2 + j * lh)); ctx.textBaseline = "alphabetic"; });
     if (s.s) { ctx.fillStyle = T.acc; soRound(ctx, M, H - M * 2.6, W - 2 * M, M * 1.5, W * 0.03); ctx.fill(); ctx.fillStyle = T.acc === "#facc15" ? "#111" : "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.font = T.bf(W * 0.055, 800); ctx.fillText(s.s, W / 2, H - M * 1.85); ctx.textAlign = "left"; ctx.textBaseline = "alphabetic"; }
   } else if (s.k === "point") {
     if (img) photoBg(0.85); else plain();
@@ -10217,7 +10230,7 @@ function soDrawSlide(ctx, W, H, s, i, n, img){
     let y = H * 0.24 + h1 + W * 0.06;
     ctx.fillStyle = T.acc; ctx.fillRect(W / 2 - W * 0.07, y, W * 0.14, W * 0.01); y += W * 0.06;
     y += blockTop(s.s, z => T.bf(z, 500), W / 2, y, W - 2 * M * 1.4, H * 0.14, W * 0.048, W * 0.03, 1.3, ink, "center") + W * 0.07;
-    if (s.c) { const L = s.c.split("\n"); ctx.textAlign = "center"; L.forEach((l, k) => { ctx.font = T.bf(k === 0 ? W * 0.05 : W * 0.042, k === 0 ? 800 : 600); ctx.fillStyle = ink; ctx.fillText((k === 1 && /^\+?\d/.test(l) ? "📞 " : "") + l, W / 2, y + W * 0.05); y += W * 0.075; }); ctx.textAlign = "left"; }
+    if (s.c) { const L = s.c.split("\n"); ctx.textAlign = "center"; L.forEach((l, k) => { ctx.font = T.bf(k === 0 ? W * 0.05 : W * 0.042, k === 0 ? 800 : 600); ctx.fillStyle = ink; ctx.fillText((/^\+?\d[\d\s]{5,}$/.test(l) ? "📞 " : /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(l) ? "✉️ " : "") + l, W / 2, y + W * 0.05); y += W * 0.075; }); ctx.textAlign = "left"; }
     ctx.font = T.bf(W * 0.032, 700); ctx.fillStyle = img ? "rgba(255,255,255,.85)" : T.acc; ctx.textAlign = "center"; ctx.fillText("🔖 " + U("Salva il post") + "   📤 " + U("Condividilo"), W / 2, H - M); ctx.textAlign = "left";
   }
   ctx.restore();
@@ -10324,8 +10337,8 @@ function soRenderPostUI(){
 }
 
 /* ===================== SOCIAL: RENDERING (video "a carrellata" della casa dalle foto del DV) ===================== */
-const SR_DEF = { dv: "", piani: 1, sale: 1, camere: 1, bagni: 1, cucina: false, esterni: false, assign: {}, floors: {}, mode: "3d", dur: "3.2", fmt: "9:16", title: "", labels: true, end: true, mood: "lusso" };
-const SR = { photos: [], dv: "", busy: false, playing: false, stop: false, active: "", depth: {}, bmp: {}, mesh: {}, gl: null, bed: null, bedKey: "", loadId: 0 };
+const SR_DEF = { endT: "Prenota una visita", userCounts: false, dv: "", piani: 1, sale: 1, camere: 1, bagni: 1, cucina: false, esterni: false, assign: {}, floors: {}, mode: "3d", dur: "3.2", fmt: "9:16", title: "", labels: true, end: true, mood: "lusso" };
+const SR = { photos: [], dv: "", busy: false, playing: false, stop: false, active: "", depth: {}, bmp: {}, mesh: {}, gl: null, bed: null, bedKey: "", loadId: 0, cls: {}, link: {} };
 function srS(){ const r = soDoc.data.r || (soDoc.data.r = {}); for (const k in SR_DEF) if (r[k] === undefined) r[k] = JSON.parse(JSON.stringify(SR_DEF[k])); return r; }
 const srOk = () => { try { return isStefano(); } catch { return false; } };
 const srInt = (v, a, b, d) => { const n = parseInt(String(v).replace(/\D/g, ""), 10); return isNaN(n) ? d : Math.max(a, Math.min(b, n)); };
@@ -10358,7 +10371,10 @@ function srSlots(){
   if (r.esterni) out.push({ key: "esterni", type: "esterni", label: "Esterni", floor: -1 });
   return out;
 }
-function srShots(){ const r = srS(); return srSlots().map(s => Object.assign({}, s, { ph: r.assign[s.key] })).filter(s => s.ph && SR.photos.some(p => p.id === s.ph)); }
+/* foto di una stanza (anche più d'una), solo quelle caricate */
+function srIds(key){ const r = srS(); let a = r.assign[key]; if (!a) return []; if (!Array.isArray(a)) a = r.assign[key] = [a]; return a.filter(id => SR.photos.some(p => p.id === id)); }
+function srOwner(id){ const r = srS(); for (const k of Object.keys(r.assign)) { const a = Array.isArray(r.assign[k]) ? r.assign[k] : [r.assign[k]]; if (a.includes(id)) return k; } return ""; }
+function srShots(){ const out = []; for (const s of srSlots()) { const ids = srIds(s.key); ids.forEach((ph, i) => out.push(Object.assign({}, s, { ph, ri: i, rn: ids.length }))); } return out; }
 
 /* ---------- foto: da Drive (cartella "Foto DV-…") o dal dispositivo ---------- */
 function srDvList(){ const seen = new Map(); try { for (const r of feColl.all().sort((a, b) => (b.at || 0) - (a.at || 0))) if (r.dv && !seen.has(r.dv)) seen.set(r.dv, r); } catch {} return [...seen.values()]; }
@@ -10392,20 +10408,176 @@ async function srLoadDrive(){
       msg.innerHTML = `⬇️ Scarico le foto da Drive… ${++k} di ${files.length}<div class="so-prog"><i style="width:${Math.round(k / files.length * 100)}%"></i></div>`;
       try { const b = await srDrvBlob(f.id), bmp = await srBitmap(b, 2048); SR.bmp[f.id] = bmp; SR.photos.push({ id: f.id, name: f.name, th: srThumb(bmp) }); srPhotosUI(); } catch (e) { if (/accedi|sessione/.test(e.message)) throw e; }
     }
-    SR.dv = dv; srAutoIfEmpty();
+    SR.dv = dv; SR.cls = {}; SR.link = {}; SR.prof = {}; srAutoIfEmpty();
     msg.innerHTML = `✅ ${SR.photos.length} foto del DV-${esc(dv)} pronte.`;
-    srRenderUI(); srPreviewFrame(0);
+    srRenderUI(); srPreviewFrame(0); btn.disabled = false; srRecognize();
   } catch (e) { msg.innerHTML = `<span class="so-err">⚠️ ${esc((e && e.message) || String(e))}</span>`; }
   btn.disabled = false;
 }
 async function srAddLocal(files){
   const msg = $("so-r-msg"); let k = 0;
   for (const f of files) { try { msg.innerHTML = `⏳ Preparo le foto… ${++k} di ${files.length}`; const bmp = await srBitmap(f, 2048), id = "loc:" + xId("f"); SR.bmp[id] = bmp; SR.photos.push({ id, name: f.name, th: srThumb(bmp) }); } catch {} }
-  msg.innerHTML = `✅ ${SR.photos.length} foto pronte.`; srAutoIfEmpty(); srRenderUI(); srPreviewFrame(0);
+  msg.innerHTML = `✅ ${SR.photos.length} foto pronte.`; srAutoIfEmpty(); srRenderUI(); srPreviewFrame(0); srRecognize();
 }
-/* assegna le foto alle stanze nell'ordine in cui sono state caricate */
-function srAuto(force){ const r = srS(), S = srSlots(); if (force) r.assign = {}; let i = 0; const used = new Set(Object.values(r.assign)); for (const s of S) { if (r.assign[s.key] && SR.photos.some(p => p.id === r.assign[s.key])) continue; while (i < SR.photos.length && used.has(SR.photos[i].id)) i++; if (i < SR.photos.length) { r.assign[s.key] = SR.photos[i].id; used.add(SR.photos[i].id); i++; } } soSave(); SR.bed = null; }
-function srAutoIfEmpty(){ const r = srS(); if (!Object.values(r.assign).some(id => SR.photos.some(p => p.id === id))) srAuto(true); }
+/* assegna le foto alle stanze: se le stanze sono state riconosciute usa il riconoscimento, altrimenti l'ordine di caricamento */
+function srAuto(force){
+  const r = srS(), S = srSlots();
+  if (force) r.assign = {};
+  if (SR.photos.length && SR.photos.every(p => SR.cls[p.id])) { srAutoSmart(); return; }
+  let i = 0; const used = new Set(Object.values(r.assign).flat());
+  for (const s of S) { if (srIds(s.key).length) continue; while (i < SR.photos.length && used.has(SR.photos[i].id)) i++; if (i < SR.photos.length) { r.assign[s.key] = [SR.photos[i].id]; used.add(SR.photos[i].id); i++; } }
+  soSave(); SR.bed = null;
+}
+function srAutoIfEmpty(){ const r = srS(); if (!SR.photos.some(p => srOwner(p.id))) srAuto(true); }
+
+/* ---------- riconoscimento delle stanze (CLIP, sul dispositivo) ---------- */
+const SR_ROOMS = { porta: "Ingresso", sala: "Soggiorno", cucina: "Cucina", camera: "Camera", bagno: "Bagno", esterni: "Esterni", altro: "Altro" };
+function srClipWorkerSrc(){
+  return `import { AutoProcessor, AutoTokenizer, CLIPVisionModelWithProjection, CLIPTextModelWithProjection, RawImage, env } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.5/dist/transformers.min.js";
+env.allowLocalModels = false;
+const M = "Xenova/clip-vit-base-patch32";
+const P = {
+  porta: ["a photo of the front door of an apartment seen from inside", "an entrance hall with the front door", "a narrow hallway corridor inside a house"],
+  sala: ["a photo of a living room with a sofa", "a bright living room interior", "a living and dining area with a table"],
+  cucina: ["a photo of a kitchen", "a kitchen with cabinets, sink and stove", "a modern fitted kitchen"],
+  camera: ["a photo of a bedroom with a bed", "a double bedroom interior", "a small bedroom with a single bed"],
+  bagno: ["a photo of a bathroom", "a bathroom with a shower and a toilet", "a bathroom with a sink and a bathtub"],
+  esterni: ["a photo of a balcony", "an outdoor terrace", "a private garden of a house", "the outside facade of a residential building"],
+  altro: ["a staircase", "a garage", "a cellar or storage room", "a floor plan drawing"]
+};
+let mdl = null;
+const prog = p => self.postMessage({ type: "progress", p: { status: p.status, file: p.file, loaded: p.loaded, total: p.total } });
+const norm = v => { let s = 0; for (const x of v) s += x * x; s = Math.sqrt(s) || 1; return v.map(x => x / s); };
+async function load(){
+  const proc = await AutoProcessor.from_pretrained(M, { progress_callback: prog }), tok = await AutoTokenizer.from_pretrained(M, { progress_callback: prog });
+  const vis = await CLIPVisionModelWithProjection.from_pretrained(M, { dtype: "q8", device: "wasm", progress_callback: prog });
+  const txt = await CLIPTextModelWithProjection.from_pretrained(M, { dtype: "q8", device: "wasm", progress_callback: prog });
+  const keys = Object.keys(P), cls = {};
+  for (const k of keys) { const e = (await txt(tok(P[k], { padding: true, truncation: true }))).text_embeds.tolist().map(norm); const m = e[0].map((_, i) => e.reduce((a, v) => a + v[i], 0) / e.length); cls[k] = norm(m); }
+  return { proc, vis, cls };
+}
+self.onmessage = async e => {
+  const { id, blob } = e.data;
+  try {
+    if (!mdl) mdl = await load();
+    const img = await RawImage.fromBlob(blob), emb = norm((await mdl.vis(await mdl.proc(img))).image_embeds.tolist()[0]);
+    const sc = {}; for (const k in mdl.cls) sc[k] = mdl.cls[k].reduce((a, x, i) => a + x * emb[i], 0);
+    self.postMessage({ type: "clip", id, sc, emb: new Float32Array(emb) });
+  } catch (err) { self.postMessage({ type: "error", id, err: String((err && err.message) || err) }); }
+};`;
+}
+let srClipW = null;
+async function srClipOf(id, onMsg){
+  if (SR.cls[id]) return SR.cls[id];
+  const bmp = SR.bmp[id]; if (!bmp) return null;
+  if (!srClipW) srClipW = new Worker(URL.createObjectURL(new Blob([srClipWorkerSrc()], { type: "text/javascript" })), { type: "module" });
+  const k = 448 / Math.max(bmp.width, bmp.height), c = document.createElement("canvas"); c.width = Math.round(bmp.width * Math.min(1, k)); c.height = Math.round(bmp.height * Math.min(1, k)); c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.9));
+  const m = await new Promise((resolve, reject) => {
+    const to = setTimeout(() => reject(new Error("tempo scaduto")), 300000);
+    srClipW.onmessage = e => { const x = e.data; if (x.type === "clip" && x.id === id) { clearTimeout(to); resolve(x); } else if (x.type === "error") { clearTimeout(to); reject(new Error(x.err)); } else if (onMsg) onMsg(x); };
+    srClipW.onerror = e => { clearTimeout(to); reject(new Error((e && e.message) || "errore")); };
+    srClipW.postMessage({ id, blob });
+  });
+  /* la porta d'ingresso conta un po' di più se è tra le prime foto */
+  const best = Object.entries(m.sc).sort((a, b) => b[1] - a[1]);
+  return SR.cls[id] = { cls: best[0][0], second: best[1][0], sc: m.sc, emb: m.emb };
+}
+const srCos = (a, b) => { let s = 0; for (let i = 0; i < a.length; i++) s += a[i] * b[i]; return s; };
+/* raggruppa le foto dello stesso tipo nelle stanze (es. 2 camere): foto simili = stessa stanza */
+function srCluster(ids, n){
+  if (n <= 0) return [];
+  let G = ids.map(id => [id]);
+  const sim = (A, B) => { let s = 0; for (const a of A) for (const b of B) s += srCos(SR.cls[a].emb, SR.cls[b].emb); return s / (A.length * B.length); };
+  while (G.length > n) { let bi = 0, bj = 1, bs = -9; for (let i = 0; i < G.length; i++) for (let j = i + 1; j < G.length; j++) { const v = sim(G[i], G[j]); if (v > bs) { bs = v; bi = i; bj = j; } } G[bi] = G[bi].concat(G[bj]); G.splice(bj, 1); }
+  const ord = id => SR.photos.findIndex(p => p.id === id);
+  G.forEach(g => g.sort((a, b) => ord(a) - ord(b))); G.sort((a, b) => ord(a[0]) - ord(b[0]));
+  return G;
+}
+/* stima quante stanze diverse ci sono di un tipo (foto poco simili = stanze diverse) */
+function srCountRooms(ids){ if (ids.length < 2) return ids.length; let n = ids.length; const G = ids.map(id => [id]); const sim = (A, B) => { let s = 0; for (const a of A) for (const b of B) s += srCos(SR.cls[a].emb, SR.cls[b].emb); return s / (A.length * B.length); }; while (G.length > 1) { let bi = 0, bj = 1, bs = -9; for (let i = 0; i < G.length; i++) for (let j = i + 1; j < G.length; j++) { const v = sim(G[i], G[j]); if (v > bs) { bs = v; bi = i; bj = j; } } if (bs < 0.86) break; G[bi] = G[bi].concat(G[bj]); G.splice(bj, 1); } return G.length; }
+function srAutoSmart(){
+  const r = srS(), byT = {};
+  SR.photos.forEach((p, i) => { const c = SR.cls[p.id]; let t = c.cls; if (t === "altro") t = c.second === "altro" ? "" : c.second; if (t) (byT[t] = byT[t] || []).push(p.id); });
+  /* se c'è una cucina o degli esterni nelle foto, attivo le stanze corrispondenti */
+  if ((byT.cucina || []).length && !r.cucina) r.cucina = true;
+  if ((byT.esterni || []).length && !r.esterni) r.esterni = true;
+  if (!(byT.porta || []).length && SR.photos.length) { const first = SR.photos[0].id; for (const t in byT) byT[t] = byT[t].filter(x => x !== first); byT.porta = [first]; }
+  r.assign = {};
+  const S = srSlots(), types = {}; for (const s of S) (types[s.type] = types[s.type] || []).push(s.key);
+  const spill = [];
+  for (const t in byT) {
+    const keys = types[t] || [];
+    if (!keys.length) { spill.push(...byT[t]); continue; }
+    const G = srCluster(byT[t], keys.length); G.forEach((g, i) => { r.assign[keys[i]] = srChain(g).slice(0, 5); });
+  }
+  /* foto di stanze non previste: vanno nel soggiorno */
+  if (spill.length) { const k = (types.sala || types.porta)[0]; r.assign[k] = (r.assign[k] || []).concat(spill).slice(0, 6); }
+  soSave(); SR.bed = null;
+}
+async function srRecognize(){
+  if (!SR.photos.length) { toast("Prima carica le foto del DV"); return; }
+  if (SR.busy) return; SR.busy = true; const msg = $("so-r-msg"), btn = $("so-r-ai"); if (btn) btn.disabled = true;
+  try {
+    let k = 0, files = {};
+    for (const p of SR.photos) {
+      k++;
+      await srClipOf(p.id, m => { if (m.type === "progress" && m.p && m.p.total) { files[m.p.file] = [m.p.loaded, m.p.total]; const L = Object.values(files).reduce((a, x) => a + x[0], 0), T = Object.values(files).reduce((a, x) => a + x[1], 0); msg.innerHTML = `⬇️ Scarico il riconoscimento delle stanze (solo la prima volta)… ${Math.round(L / 1048576)} / ${Math.round(T / 1048576)} MB<div class="so-prog"><i style="width:${Math.round(L / T * 100)}%"></i></div>`; } });
+      msg.innerHTML = `🔎 Riconosco le stanze… foto ${k} di ${SR.photos.length}<div class="so-prog"><i style="width:${Math.round(k / SR.photos.length * 100)}%"></i></div>`;
+      srPhotosUI();
+    }
+    msg.innerHTML = `📐 Confronto le foto per capire come sono collegate…`; await new Promise(r => setTimeout(r, 30));
+    const r = srS(), cnt = t => SR.photos.filter(p => SR.cls[p.id].cls === t).map(p => p.id);
+    const nC = srCountRooms(cnt("camera")), nB = srCountRooms(cnt("bagno")), nS = Math.max(1, Math.min(2, srCountRooms(cnt("sala"))));
+    const guess = `${nS} ${nS === 1 ? "soggiorno" : "soggiorni"}, ${nC} ${nC === 1 ? "camera" : "camere"}, ${nB} ${nB === 1 ? "bagno" : "bagni"}`;
+    if (!r.userCounts) { r.sale = nS; r.camere = nC; r.bagni = nB; }
+    srAutoSmart(); srRenderUI(); srPreviewFrame(0);
+    const sum = Object.entries(SR_ROOMS).map(([t, l]) => [l, SR.photos.filter(p => SR.cls[p.id].cls === t).length]).filter(x => x[1]).map(x => `${x[0]} ${x[1]}`).join(" · ");
+    msg.innerHTML = `✅ Stanze riconosciute: ${esc(sum)}.<br>Mi sembra che ci siano ${esc(guess)}${r.userCounts ? " (uso i numeri che hai scritto tu)" : ""}. Controlla il percorso qui sotto: tocca una stanza e poi le foto per correggere.`;
+  } catch (e) { msg.innerHTML = `<span class="so-err">⚠️ Riconoscimento non riuscito: ${esc((e && e.message) || String(e))}. Puoi assegnare le foto a mano.</span>`; try { srClipW && srClipW.terminate(); } catch {} srClipW = null; }
+  SR.busy = false; if (btn) btn.disabled = false;
+}
+
+/* ---------- come sono collegate due foto della stessa stanza (per una panoramica continua) ---------- */
+function srProfile(bmp){
+  const W = 256, H = Math.round(256 * bmp.height / bmp.width), c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(bmp, 0, 0, W, H);
+  const d = x.getImageData(0, 0, W, H).data, g = new Float32Array(W * H); for (let i = 0; i < W * H; i++) g[i] = 0.3 * d[i * 4] + 0.59 * d[i * 4 + 1] + 0.11 * d[i * 4 + 2];
+  /* per ogni colonna: bordi verticali (gradiente orizzontale) su 8 fasce di altezza */
+  const B = 8, P = new Float32Array(W * B);
+  for (let y = 1; y < H - 1; y++) { const b = Math.min(B - 1, Math.floor(y / H * B)); for (let xx = 1; xx < W - 1; xx++) P[xx * B + b] += Math.abs(g[y * W + xx + 1] - g[y * W + xx - 1]); }
+  return { W, B, P };
+}
+function srShift(a, b){
+  const key = a + "|" + b; if (key in SR.link) return SR.link[key];
+  const A = SR.prof && SR.prof[a] || (SR.prof = SR.prof || {}, SR.prof[a] = srProfile(SR.bmp[a])), Bp = SR.prof[b] || (SR.prof[b] = srProfile(SR.bmp[b]));
+  if (Math.abs(SR.bmp[a].width / SR.bmp[a].height - SR.bmp[b].width / SR.bmp[b].height) > 0.2) return SR.link[key] = null;
+  const W = A.W, NB = A.B; let best = -1, bs = 0;
+  for (let s = -Math.round(W * 0.8); s <= Math.round(W * 0.8); s++) {
+    if (Math.abs(s) < W * 0.08) continue;
+    const x0 = Math.max(0, s), x1 = Math.min(W, W + s); if (x1 - x0 < W * 0.2) continue;
+    let ma = 0, mb = 0, n = (x1 - x0) * NB;
+    for (let x = x0; x < x1; x++) for (let k = 0; k < NB; k++) { ma += A.P[x * NB + k]; mb += Bp.P[(x - s) * NB + k]; }
+    ma /= n; mb /= n; let num = 0, da = 0, db = 0;
+    for (let x = x0; x < x1; x++) for (let k = 0; k < NB; k++) { const u = A.P[x * NB + k] - ma, v = Bp.P[(x - s) * NB + k] - mb; num += u * v; da += u * u; db += v * v; }
+    const c = num / Math.sqrt(da * db + 1e-9); if (c > best) { best = c; bs = s; }
+  }
+  if (best < 0.7) return SR.link[key] = null;
+  /* conferma sull'immagine vera: la zona in comune deve somigliarsi davvero */
+  const g = id => { const b = SR.bmp[id], w = 96, h = Math.round(96 * b.height / b.width), c = document.createElement("canvas"); c.width = w; c.height = h; const x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(b, 0, 0, w, h); const d = x.getImageData(0, 0, w, h).data, o = new Float32Array(w * h); for (let i = 0; i < w * h; i++) o[i] = 0.3 * d[i * 4] + 0.59 * d[i * 4 + 1] + 0.11 * d[i * 4 + 2]; return { w, h, o }; };
+  const ga = g(a), gb = g(b), off = Math.round(bs / W * ga.w), h = Math.min(ga.h, gb.h); let ma = 0, mb = 0, n = 0;
+  for (let y = 0; y < h; y++) for (let x = Math.max(0, off); x < Math.min(ga.w, gb.w + off); x++) { ma += ga.o[y * ga.w + x]; mb += gb.o[y * gb.w + x - off]; n++; }
+  if (n < ga.w * h * 0.2) return SR.link[key] = null;
+  ma /= n; mb /= n; let num = 0, da = 0, db = 0;
+  for (let y = 0; y < h; y++) for (let x = Math.max(0, off); x < Math.min(ga.w, gb.w + off); x++) { const u = ga.o[y * ga.w + x] - ma, v = gb.o[y * gb.w + x - off] - mb; num += u * v; da += u * u; db += v * v; }
+  return SR.link[key] = num / Math.sqrt(da * db + 1e-9) > 0.6 ? bs / W : null;
+}
+/* ordina le foto di una stanza in modo che ognuna continui la precedente */
+function srChain(ids){
+  if (ids.length < 3) return ids;
+  const left = ids.slice(1), out = [ids[0]];
+  while (left.length) { const cur = out[out.length - 1]; let bi = -1; for (let i = 0; i < left.length; i++) if (srShift(cur, left[i]) != null) { bi = i; break; } out.push(left.splice(bi < 0 ? 0 : bi, 1)[0]); }
+  return out;
+}
 
 /* ---------- profondità delle foto (per il movimento 3D) ---------- */
 function srDepthWorkerSrc(){
@@ -10488,36 +10660,64 @@ function srMesh(id){
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, bmp);
   return SR.mesh[id] = { bp, bu, bi, tx, n: idx.length, type: G.ext ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT, ia, TIX };
 }
-/* movimento della telecamera per lo scatto k al tempo u (0 → 1, oltre 1 durante la dissolvenza) */
-function srCam(k, u, outA, ia){
-  const dir = k % 2 ? -1 : 1, e = u < 0 ? 0 : u > 1.25 ? 1.25 : u, ease = x => x < 1 ? x * x * (3 - 2 * x) * 0.85 + x * 0.15 : 1 + (x - 1) * 1.2;
-  const zoom = Math.max(1.06, outA / (0.94 * ia)), tanY = SR_TIY / zoom, tanX = tanY * outA, TIX = SR_TIY * ia;
-  const maxP = Math.max(0, (TIX - tanX * 1.12) / TIX), p = maxP * 0.85 * dir * (ease(e) * 2 - 1);
-  return { yaw: Math.atan(p * TIX), tanX, tanY, cz: -0.13 * ease(e), cx: 0.025 * dir * ease(e) };
+/* movimento della telecamera per lo scatto s: u da 0 a 1 durante lo scatto; "push" da 0 a 1 mentre si cammina verso la stanza dopo */
+function srCam(s, u, outA, ia, push){
+  const e = soClamp(u, 0, 1.3), ease = x => x < 1 ? x * x * (3 - 2 * x) * 0.8 + x * 0.2 : 1 + (x - 1) * 1.1;
+  const zoom = Math.max(1.1, outA / (0.9 * ia)), tanY = SR_TIY / zoom, tanX = tanY * outA, TIX = SR_TIY * ia;
+  const maxP = Math.max(0, (TIX - tanX * 1.18) / TIX), pl = s.plan || { p0: -0.85, p1: 0.85 }, k = ease(e);
+  const p = soClamp(pl.p0 + (pl.p1 - pl.p0) * k, -1, 1) * maxP;
+  /* avanzamento: lento e costante (stabilizzato); all'ingresso in una stanza nuova parte già in movimento */
+  const walkIn = s.trIn === "walk", f = walkIn ? 1 - Math.pow(1 - Math.min(1, e), 2) * 0.6 - 0.4 * (1 - Math.min(1, e)) : k;
+  const pz = push ? push * push * 0.42 : 0;
+  return { yaw: Math.atan(p * TIX), tanX, tanY, cz: -0.12 * f - pz, cx: 0.02 * Math.sign(pl.p1 - pl.p0 || 1) * k };
 }
-function srDraw3D(ctx, W, H, id, k, u, alpha){
-  const G = srGL(), M = srMesh(id); if (!G || !M) return false;
+function srDraw3D(ctx, W, H, s, u, alpha, push){
+  const id = s.ph, G = srGL(), M = srMesh(id); if (!G || !M) return false;
   const gl = G.gl; if (G.cv.width !== W || G.cv.height !== H) { G.cv.width = W; G.cv.height = H; }
-  const c = srCam(k, u, W / H, M.ia);
-  gl.viewport(0, 0, W, H); gl.clearColor(0, 0, 0, 1); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  const c = srCam(s, u, W / H, M.ia, push);
+  gl.viewport(0, 0, W, H); gl.clearColor(0, 0, 0, 0); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.bindBuffer(gl.ARRAY_BUFFER, M.bp); gl.enableVertexAttribArray(G.aP); gl.vertexAttribPointer(G.aP, 3, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, M.bu); gl.enableVertexAttribArray(G.aUV); gl.vertexAttribPointer(G.aUV, 2, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, M.bi); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, M.tx); gl.uniform1i(G.uT, 0);
   gl.uniform3f(G.uC, c.cx, 0, c.cz); gl.uniform1f(G.uYaw, c.yaw); gl.uniform2f(G.uTan, c.tanX, c.tanY);
   gl.drawElements(gl.TRIANGLES, M.n, M.type, 0);
+  /* sotto il 3D la stessa inquadratura in 2D: copre gli eventuali bordi scoperti dal movimento */
+  srDraw2D(ctx, W, H, s, u, alpha, push);
   ctx.save(); ctx.globalAlpha = alpha; ctx.drawImage(G.cv, 0, 0, W, H); ctx.restore(); return true;
 }
 /* versione 2D (senza profondità): stessa inquadratura, zoom e panoramica */
-function srDraw2D(ctx, W, H, id, k, u, alpha){
-  const bmp = SR.bmp[id]; if (!bmp) return;
-  const ia = bmp.width / bmp.height, c = srCam(k, u, W / H, ia), TIX = SR_TIY * ia;
+function srDraw2D(ctx, W, H, s, u, alpha, push){
+  const bmp = SR.bmp[s.ph]; if (!bmp) return;
+  const ia = bmp.width / bmp.height, c = srCam(s, u, W / H, ia, push), TIX = SR_TIY * ia;
   const z = 1 + (-c.cz) * 1.1, vw = c.tanX / TIX / z, vh = c.tanY / SR_TIY / z, cx = 0.5 + Math.tan(c.yaw) / TIX / 2;
   const sw = bmp.width * vw, sh = bmp.height * vh, sx = soClamp(cx * bmp.width - sw / 2, 0, bmp.width - sw), sy = (bmp.height - sh) / 2;
   ctx.save(); ctx.globalAlpha = alpha; ctx.drawImage(bmp, sx, sy, sw, sh, 0, 0, W, H); ctx.restore();
 }
 /* ---------- montaggio: tempi, scritte, chiusura ---------- */
-const SR_TR = 0.7;
-function srTimeline(){ const r = srS(), D = +r.dur || 3.2, sh = srShots(), T = []; let t = 0; sh.forEach((s, k) => { T.push(Object.assign({ t0: t, t1: t + D, k }, s)); t += D - (k < sh.length - 1 ? SR_TR : 0); }); const body = T.length ? T[T.length - 1].t1 : 0; return { T, body, total: body + (r.end ? 3 : 0) }; }
+const SR_TRD = { walk: 0.95, pan: 0.6, fade: 0.75 };
+/* quanto si può girare la telecamera su una foto (in mezze larghezze) con il formato scelto */
+function srMaxP(id){ const b = SR.bmp[id]; if (!b) return 0.3; const [W, H] = srDims("prev"), outA = W / H, ia = b.width / b.height, zoom = Math.max(1.1, outA / (0.9 * ia)), tanX = SR_TIY / zoom * outA, TIX = SR_TIY * ia; return Math.max(0.05, (TIX - tanX * 1.18) / TIX); }
+function srTimeline(){
+  const r = srS(), D = +r.dur || 3.2, sh = srShots(), T = [];
+  /* piano dei movimenti: nella stessa stanza, se due foto si sovrappongono la panoramica continua da una all'altra */
+  let dir = 1;
+  sh.forEach((s, k) => {
+    const prev = sh[k - 1], same = prev && prev.key === s.key, sh0 = same ? srShift(prev.ph, s.ph) : null;
+    s.trIn = !prev ? "" : !same ? "walk" : sh0 != null ? "pan" : "fade";
+    if (s.trIn === "pan") {
+      /* la fine della panoramica sulla foto A e l'inizio sulla foto B inquadrano lo stesso punto della stanza */
+      const d = Math.sign(sh0) || 1, mA = srMaxP(prev.ph), mB = srMaxP(s.ph);
+      prev.plan = { p0: prev.trIn === "pan" || Math.sign(prev.plan.p0) !== d ? prev.plan.p0 : -d * 0.5, p1: d * 0.9 };
+      const xB = (prev.plan.p1 * mA - 2 * sh0) / (mB || 1);
+      s.plan = { p0: soClamp(xB, -0.95, 0.95), p1: d * 0.9 };
+      if (Math.abs(s.plan.p1 - s.plan.p0) < 0.4) s.plan.p1 = soClamp(s.plan.p0 + d * 0.6, -0.95, 0.95);
+    }
+    else { dir = -dir; s.plan = { p0: -0.8 * dir, p1: 0.8 * dir }; if (s.trIn === "walk") s.plan = { p0: -0.35 * dir, p1: 0.75 * dir }; }
+  });
+  let t = 0;
+  sh.forEach((s, k) => { const nx = sh[k + 1], tr = nx ? (SR_TRD[nx.trIn] || 0.75) : 0; T.push(Object.assign(s, { t0: t, t1: t + D, k, trOut: nx ? nx.trIn : "", trD: tr })); t += D - tr; });
+  const body = T.length ? T[T.length - 1].t1 : 0; return { T, body, total: body + (r.end ? 3 : 0) };
+}
 function srDims(q){ const f = srS().fmt, h = q === "1080" ? 1920 : q === "prev" ? 640 : 1280, w = Math.round(h * 9 / 16); if (f === "4:5") return [w, Math.round(w * 5 / 4)]; if (f === "16:9") return [h, w]; return [w, h]; }
 function srText(ctx, W, H, s, t){
   const r = srS(), u = (t - s.t0) / (s.t1 - s.t0), a = soClamp(Math.min((t - s.t0 - 0.35) / 0.4, (s.t1 - 0.45 - t) / 0.35), 0, 1); if (a <= 0) return;
@@ -10528,7 +10728,7 @@ function srText(ctx, W, H, s, t){
     ctx.font = f(fit.size); ctx.fillStyle = "#fff"; ctx.textAlign = "center"; let y = H * 0.74 - (fit.lines.length - 1) * fit.size * 1.12 / 2 + (1 - a) * base * 0.03;
     for (const l of fit.lines) { ctx.fillText(l, W / 2, y); y += fit.size * 1.12; }
     ctx.font = `600 ${Math.round(base * 0.03)}px Montserrat, sans-serif`; ctx.fillStyle = "rgba(255,255,255,.9)"; ctx.fillText(soSpaced("BENVENUTI"), W / 2, H * 0.74 - fit.size * 1.1 - (fit.lines.length - 1) * fit.size * 0.56);
-  } else if (r.labels && s.type !== "porta") {
+  } else if (r.labels && s.type !== "porta" && (s.ri === 0 || s.trIn === "walk")) {
     const fl = s.floor >= 0 && srInt(r.piani, 1, 5, 1) > 1 ? SR_FLOOR[s.floor] || "" : "";
     ctx.textAlign = "left"; ctx.fillStyle = "#fff"; const x = m, y = H - m * (H / W > 1.4 ? 2.6 : 1.4);
     ctx.font = `700 ${Math.round(base * 0.058)}px Montserrat, sans-serif`; ctx.fillText(s.label, x, y);
@@ -10546,11 +10746,11 @@ function srEnd(ctx, W, H, t){
   const me = soMe(), k = soClamp(t / 0.5, 0, 1), base = Math.min(W, H);
   const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#14110f"); g.addColorStop(1, "#2a2118"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#fff";
-  ctx.font = `italic 700 ${Math.round(base * 0.085)}px "Playfair Display", Georgia, serif`; ctx.fillText("Prenota una visita", W / 2, H * 0.4);
+  ctx.font = `italic 700 ${Math.round(base * 0.085)}px "Playfair Display", Georgia, serif`; ctx.fillText(srS().endT || "Prenota una visita", W / 2, H * 0.4);
   ctx.fillStyle = "#e8c77d"; ctx.fillRect(W / 2 - base * 0.07, H * 0.4 + base * 0.07, base * 0.14, base * 0.007);
   ctx.fillStyle = "#fff"; let y = H * 0.4 + base * 0.16;
   if (me.nome) { ctx.font = `700 ${Math.round(base * 0.055)}px Montserrat, sans-serif`; ctx.fillText(String(me.nome).split(/\s+[—–-]\s+/)[0], W / 2, y); y += base * 0.085; }
-  ctx.font = `600 ${Math.round(base * 0.045)}px Montserrat, sans-serif`; if (me.tel) { ctx.fillText("📞 " + me.tel, W / 2, y); y += base * 0.075; } if (me.handle) ctx.fillText(me.handle, W / 2, y);
+  ctx.font = `600 ${Math.round(base * 0.045)}px Montserrat, sans-serif`; if (me.tel) { ctx.fillText("📞 " + me.tel, W / 2, y); y += base * 0.075; } if (me.mail) { ctx.font = `600 ${Math.round(base * 0.04)}px Montserrat, sans-serif`; ctx.fillText("✉️ " + me.mail, W / 2, y); y += base * 0.07; } if (me.handle) ctx.fillText(me.handle, W / 2, y);
   ctx.restore();
 }
 function srFrame(ctx, W, H, t, TL, use3d){
@@ -10558,9 +10758,14 @@ function srFrame(ctx, W, H, t, TL, use3d){
   if (t >= TL.body && srS().end) { srEnd(ctx, W, H, t - TL.body); return; }
   const act = TL.T.filter(s => t >= s.t0 && t < s.t1 + 0.0001);
   act.forEach((s, j) => {
-    const u = (t - s.t0) / (s.t1 - s.t0 - SR_TR), a = j === 0 || act.length === 1 ? 1 : soClamp((t - s.t0) / SR_TR, 0, 1);
+    const span = Math.max(0.5, s.t1 - s.t0 - (s.trD || 0)), u = (t - s.t0) / span;
+    const inD = s.trIn ? SR_TRD[s.trIn] : 0, a = j === 0 || act.length === 1 ? 1 : soClamp((t - s.t0) / inD, 0, 1);
+    /* camminata verso la stanza successiva: la telecamera accelera in avanti mentre la scena cambia */
+    const push = s.trOut === "walk" ? soClamp((t - (s.t1 - s.trD)) / s.trD, 0, 1) : 0;
+    const aa = s.trIn === "walk" && j > 0 ? a * a * (3 - 2 * a) : a;
+    if (!(use3d && srDraw3D(ctx, W, H, s, u, aa, push))) srDraw2D(ctx, W, H, s, u, aa, push);
+    if (push > 0 && j === 0 && act.length > 1) { ctx.save(); ctx.globalAlpha = 0.12 * push; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); ctx.restore(); }
     const fadeOut = TL.T[s.k + 1] ? 1 : soClamp((TL.body - t) / 0.6, 0, 1);
-    if (!(use3d && srDraw3D(ctx, W, H, s.ph, s.k, u, a * (j === 0 ? 1 : 1)))) srDraw2D(ctx, W, H, s.ph, s.k, u, a);
     if (fadeOut < 1) { ctx.save(); ctx.globalAlpha = 1 - fadeOut; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H); ctx.restore(); }
   });
   srGrade(ctx, W, H);
@@ -10696,15 +10901,17 @@ function srPreviewFrame(t){
 
 /* ---------- interfaccia ---------- */
 function srPhotosUI(){
-  const r = srS(), used = new Map(); for (const [k, id] of Object.entries(r.assign)) used.set(id, k);
-  const S = srSlots(); $("so-r-photos").innerHTML = SR.photos.map((p, i) => { const sk = used.get(p.id), sl = S.find(s => s.key === sk); return `<button type="button" class="${sl ? "used" : ""}" data-so-rph="${esc(p.id)}" title="${esc(p.name)}"><img src="${p.th}" alt="Foto ${i + 1}"><span class="n">${sl ? esc(sl.label) : i + 1}</span></button>`; }).join("");
+  const S = srSlots(), act = SR.active;
+  $("so-r-photos").innerHTML = SR.photos.map((p, i) => { const sk = srOwner(p.id), sl = S.find(s => s.key === sk), c = SR.cls[p.id]; return `<button type="button" class="${sl ? "used" : ""}${act && sk === act ? " in" : ""}" data-so-rph="${esc(p.id)}" title="${esc(p.name)}"><img src="${p.th}" alt="Foto ${i + 1}"><span class="n">${sl ? esc(sl.label) : i + 1}</span>${c ? `<span class="ai">${esc(SR_ROOMS[c.cls])}</span>` : ""}</button>`; }).join("");
 }
 function srPathUI(){
   const r = srS(), S = srSlots(), P = srInt(r.piani, 1, 5, 1); let lastF = null, n = 0;
   $("so-r-path").innerHTML = S.map(s => {
-    const ph = SR.photos.find(p => p.id === r.assign[s.key]), head = s.floor !== lastF && P > 1 && s.floor >= 0 ? `<div class="so-r-floor">${SR_FLOOR[s.floor]}</div>` : ""; lastF = s.floor; n++;
+    const ids = srIds(s.key), head = s.floor !== lastF && P > 1 && s.floor >= 0 ? `<div class="so-r-floor">${SR_FLOOR[s.floor]}</div>` : ""; lastF = s.floor; n++;
     const sel = P > 1 && s.type !== "porta" && s.type !== "esterni" ? `<select data-so-rfl="${s.key}" aria-label="Piano">${Array.from({ length: P }, (_, i) => `<option value="${i}"${i === s.floor ? " selected" : ""}>${SR_FLOOR[i]}</option>`).join("")}</select>` : "";
-    return head + `<div class="so-r-slot${SR.active === s.key ? " on" : ""}" data-so-rslot="${s.key}"><span class="k">${n}</span><span class="th" style="${ph ? `background-image:url('${ph.th}')` : ""}">${ph ? "" : "manca"}</span><span><b>${esc(s.label)}</b><small>${ph ? "Tocca per cambiare la foto" : "Tocca e poi scegli la foto"}</small></span>${sel}</div>`;
+    const ths = ids.length ? ids.map(id => { const ph = SR.photos.find(p => p.id === id); return `<span class="th" style="background-image:url('${ph.th}')"></span>`; }).join("") : `<span class="th">manca</span>`;
+    const on = SR.active === s.key;
+    return head + `<div class="so-r-slot${on ? " on" : ""}" data-so-rslot="${s.key}"><span class="k">${n}</span><span class="ths">${ths}</span><span><b>${esc(s.label)}</b><small>${on ? "Tocca le foto qui sopra per aggiungerle o toglierle" : ids.length > 1 ? ids.length + " foto · tocca per cambiarle" : ids.length ? "Tocca per aggiungere altre foto" : "Tocca e poi scegli le foto"}</small></span>${sel}</div>`;
   }).join("");
 }
 function srRenderUI(){
@@ -10715,17 +10922,27 @@ function srRenderUI(){
   $("so-r-cucina").checked = !!r.cucina; $("so-r-esterni").checked = !!r.esterni; $("so-r-labels").checked = !!r.labels; $("so-r-end").checked = !!r.end;
   $("so-r-mode").value = r.mode; $("so-r-dur").value = String(r.dur); $("so-r-fmt").value = r.fmt; if (document.activeElement !== $("so-r-title")) $("so-r-title").value = r.title || "";
   $("so-r-moods").innerHTML = SO_MOODS.filter(m => m[0] !== "mia").map(([k, l]) => `<button type="button" class="x-pill" data-so-rmood="${k}" aria-pressed="${r.mood === k}">${esc(l)}</button>`).join("");
+  document.querySelectorAll("#so-render [data-so-me]").forEach(i => { if (document.activeElement !== i) i.value = soMe()[i.dataset.soMe] || ""; });
+  if (document.activeElement !== $("so-r-endt")) $("so-r-endt").value = r.endT || "";
   srPhotosUI(); srPathUI(); $("so-r-empty").hidden = !!srShots().length;
 }
 function srApplyAccess(){ const ok = srOk(); document.querySelectorAll("#view-social [data-so-stefano]").forEach(b => b.hidden = !ok); if (!ok && soDoc.data.tab === "render") soDoc.data.tab = "video"; return ok; }
 $("view-social").addEventListener("click", e => {
   const el = e.target;
-  const ph = el.closest("[data-so-rph]"); if (ph) { const r = srS(), S = srSlots(); let key = SR.active || (S.find(s => !r.assign[s.key] || !SR.photos.some(p => p.id === r.assign[s.key])) || {}).key; if (!key) { toast("Tocca prima una stanza qui sotto, poi la foto"); return; } for (const k of Object.keys(r.assign)) if (r.assign[k] === ph.dataset.soRph && k !== key) delete r.assign[k]; r.assign[key] = ph.dataset.soRph; const i = S.findIndex(s => s.key === key); const nx = S.slice(i + 1).find(s => !r.assign[s.key]); SR.active = nx ? nx.key : ""; SR.bed = null; soSave(); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
+  const ph = el.closest("[data-so-rph]"); if (ph) {
+    const r = srS(), S = srSlots(), id = ph.dataset.soRph; let key = SR.active || (S.find(s => !srIds(s.key).length) || {}).key;
+    if (!key) { toast("Tocca prima una stanza qui sotto, poi le foto"); return; }
+    const cur = srIds(key);
+    if (cur.includes(id)) r.assign[key] = cur.filter(x => x !== id);
+    else { for (const k of Object.keys(r.assign)) if (k !== key) r.assign[k] = srIds(k).filter(x => x !== id); r.assign[key] = srChain(cur.concat(id)).slice(0, 6); if (!SR.active) SR.active = key; }
+    SR.bed = null; soSave(); srPhotosUI(); srPathUI(); srPreviewFrame(0); return;
+  }
   if (el.closest("select")) return;
   const sl = el.closest("[data-so-rslot]"); if (sl) { SR.active = SR.active === sl.dataset.soRslot ? "" : sl.dataset.soRslot; srPathUI(); if (SR.active) toast("Ora tocca la foto per “" + (srSlots().find(s => s.key === SR.active) || {}).label + "”"); return; }
   const md = el.closest("[data-so-rmood]"); if (md) { srS().mood = md.dataset.soRmood; SR.bed = null; soSave(); srRenderUI(); return; }
   if (el.closest("#so-r-load")) { srLoadDrive(); return; }
-  if (el.closest("#so-r-auto")) { srAuto(true); SR.active = ""; srPhotosUI(); srPathUI(); srPreviewFrame(0); toast("Foto assegnate in ordine"); return; }
+  if (el.closest("#so-r-auto")) { srAuto(true); SR.active = ""; srRenderUI(); srPreviewFrame(0); toast(SR.photos.every(p => SR.cls[p.id]) ? "Foto assegnate alle stanze riconosciute" : "Foto assegnate in ordine"); return; }
+  if (el.closest("#so-r-ai")) { srRecognize(); return; }
   if (el.closest("#so-r-clear")) { srS().assign = {}; soSave(); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
   if (el.closest("#so-r-play")) { srPreview(); return; }
   if (el.closest("#so-r-make")) { try { soAudioCtx().resume(); } catch {} srMake(); return; }
@@ -10735,7 +10952,8 @@ $("view-social").addEventListener("click", e => {
 });
 $("view-social").addEventListener("input", e => {
   const el = e.target, r = srS();
-  if (el.dataset.soRn) { const lim = { piani: [1, 5], sale: [0, 4], camere: [0, 8], bagni: [0, 6] }[el.dataset.soRn]; if (el.value.trim() === "") return; r[el.dataset.soRn] = srInt(el.value, lim[0], lim[1], r[el.dataset.soRn]); soSave(); srAuto(false); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
+  if (el.dataset.soRn) { const lim = { piani: [1, 5], sale: [0, 4], camere: [0, 8], bagni: [0, 6] }[el.dataset.soRn]; if (el.value.trim() === "") return; r[el.dataset.soRn] = srInt(el.value, lim[0], lim[1], r[el.dataset.soRn]); r.userCounts = true; soSave(); if (SR.photos.length && SR.photos.every(p => SR.cls[p.id])) srAutoSmart(); else srAuto(false); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-endt") { r.endT = el.value; soSave(); return; }
   if (el.id === "so-r-title") { r.title = el.value; soSave(); srPreviewFrame(0); return; }
   if (el.id === "so-r-dv") { const v = el.value.replace(/\D/g, ""); if (v !== el.value) el.value = v; return; }
 });
@@ -10752,6 +10970,8 @@ $("view-social").addEventListener("change", e => {
   if (el.id === "so-r-fmt") { r.fmt = el.value; soSave(); srPreviewFrame(0); return; }
 });
 document.addEventListener("visibilitychange", () => { if (document.hidden && SR.playing && !SR.recording) SR.stop = true; });
+window.srDbgTL = () => srTimeline().T.map(s => [s.label, s.ri, s.trIn, s.plan && [+s.plan.p0.toFixed(2), +s.plan.p1.toFixed(2)]]);
+window.__srLinkDbg = (a, b) => { const v = srShift(a, b); return v == null ? null : +v.toFixed(3); };
 
 /* ===================== SOCIAL: controller ===================== */
 function soTab(t){
