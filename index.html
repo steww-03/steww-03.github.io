@@ -279,7 +279,7 @@ a{color:inherit}
   #pq-print-area h1{font-size:18pt;margin:0 0 4mm}
   #pq-print-area h2{font-size:12pt;margin:5mm 0 2mm;border-bottom:1px solid #000;padding-bottom:1mm;text-transform:uppercase;letter-spacing:.04em}
   #pq-print-area table{width:100%;border-collapse:collapse}
-  #pq-print-area td{padding:1.2mm 2mm;border-bottom:1px dotted #999;vertical-align:top}
+  #pq-print-area td{white-space:pre-wrap;padding:1.2mm 2mm;border-bottom:1px dotted #999;vertical-align:top}
   #pq-print-area td:first-child{width:38%;font-weight:bold}
 }
 /* ---------- SUITE: stili comuni ---------- */
@@ -2614,7 +2614,11 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         </div>
 
         <div class="x-card" data-so-need>
-          <h3>6 · Chiusura con i tuoi contatti</h3>
+          <h3>6 · Stile del video e chiusura</h3>
+          <div class="x-grid">
+            <label class="x-f"><span>Stile del video</span><select class="inp" id="so-v-style"><option value="classica">Classica (come ora)</option><option value="doveit">Dove.it (magenta, logo in chiusura)</option></select></label>
+          </div>
+          <div class="x-note" id="so-v-style-note"></div>
           <label class="so-chk"><input type="checkbox" id="so-end"><span>Aggiungi 3 secondi finali con i contatti</span></label>
           <div class="x-grid">
             <label class="x-f"><span>Frase finale</span><input class="inp" id="so-end-t" maxlength="60"></label>
@@ -2829,6 +2833,7 @@ const $ = id => document.getElementById(id);
 /* legge i numeri come li scrive un italiano: 40.000 · 1.830,50 · 3,5 · € 180.000 · 1 250 */
 function rzNum(v){
   if (v == null) return null; if (typeof v === "number") return isFinite(v) ? v : null;
+  if (/[^\d.,\-€\s\u00a0'+]/.test(String(v))) { const m = String(v).match(/-?\d(?:[\d.,']|[\s\u00a0](?=\d{3}(?!\d)))*/); if (!m) return null; v = m[0]; }
   let s = String(v).trim().replace(/[€\s ']/g, "").replace(/[^\d.,\-]/g, ""); if (!s || !/\d/.test(s)) return null;
   const neg = s.startsWith("-"); s = s.replace(/-/g, "");
   const hasC = s.includes(","), hasD = s.includes(".");
@@ -4424,13 +4429,14 @@ const PQ_KEY = "rz_preq_v1", PQ_DRAFT = "rz_preq_draft_v1";
 let pqList = (() => { try { return JSON.parse(localStorage.getItem(PQ_KEY) || "[]") || []; } catch { return []; } })();
 let pqCur = null, pqBuilt = false, pqMerged = false, pqDelArm = null;
 const pqEmpty = () => ({ id: "pq-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7), created: 0, updated: 0, v: {}, c: {} });
+function pqUnitTxt(val, f){ const s = String(val || ""); return f.unit && /^[\d\s.,'+\-]+$/.test(s.trim()) ? " " + f.unit : ""; }
 function pqField(f){
   const req = f.req ? " <em>*</em>" : "", id = "pq_" + f.k;
   let input;
   if (f.t === "area") input = `<textarea class="inp" id="${id}" data-pq="${f.k}" rows="2"></textarea>`;
   else {
-    const type = f.t === "num" ? "number" : f.t === "tel" ? "tel" : "text";
-    const extra = f.t === "num" ? ` inputmode="decimal" min="0"` : "";
+    const type = "text";
+    const extra = ` autocapitalize="sentences" spellcheck="false"`;
     input = `<input class="inp" id="${id}" data-pq="${f.k}" type="${type}"${extra}${f.ac ? ` autocomplete="${f.ac}"` : ""}${f.ph ? ` placeholder="${esc(f.ph)}"` : ""}>`;
   }
   if (f.unit || f.per) input = `<div class="pq-unit">${input}${f.unit ? `<small>${f.unit}</small>` : ""}${f.per ? `<select class="inp" id="pq_${f.k}_per" data-pq="${f.k}_per" style="flex:0 0 auto;width:auto"><option value="mese">al mese</option><option value="anno">all'anno</option></select>` : ""}</div>`;
@@ -4472,7 +4478,7 @@ function pqText(rec){
   const out = ["📝 FOGLIO PREQUALIFICA", ""];
   for (const s of PQ_SCHEMA) {
     const lines = [];
-    if (s.fields) for (const f of s.fields) { const val = rec.v[f.k]; if (!val) continue; lines.push(`${f.l}: ${val}${f.unit ? " " + f.unit : ""}${f.per && rec.v[f.k + "_per"] ? (rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese") : ""}`); }
+    if (s.fields) for (const f of s.fields) { const val = rec.v[f.k]; if (!val) continue; lines.push(`${f.l}: ${val}${pqUnitTxt(val, f)}${f.per && rec.v[f.k + "_per"] ? (rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese") : ""}`); }
     else if ((rec.c[s.checks] || []).length) lines.push(rec.c[s.checks].join(", "));
     if (lines.length) { out.push(s.title.toUpperCase()); out.push(...lines); out.push(""); }
   }
@@ -4543,7 +4549,7 @@ $("pq-print").addEventListener("click", () => {
   let html = `<h1>Foglio prequalifica</h1><p>${esc(new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }))}</p>`;
   for (const s of PQ_SCHEMA) {
     const rows = [];
-    if (s.fields) for (const f of s.fields) { const val = rec.v[f.k]; rows.push(`<tr><td>${esc(f.l)}</td><td>${val ? esc(val) + (f.unit ? " " + f.unit : "") + (f.per && rec.v[f.k + "_per"] ? (rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese") : "") : ""}</td></tr>`); }
+    if (s.fields) for (const f of s.fields) { const val = rec.v[f.k]; rows.push(`<tr><td>${esc(f.l)}</td><td>${val ? esc(val) + pqUnitTxt(val, f) + (f.per && rec.v[f.k + "_per"] ? (rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese") : "") : ""}</td></tr>`); }
     else rows.push(`<tr><td colspan="2">${s.opts.map(o => ((rec.c[s.checks] || []).includes(o) ? "☑ " : "☐ ") + esc(o)).join("&nbsp;&nbsp;&nbsp; ")}</td></tr>`);
     html += `<h2>${esc(s.title)}</h2><table>${rows.join("")}</table>`;
   }
@@ -5918,7 +5924,7 @@ function pdfBuild(jsPDF, rec){
     if (s.fields) {
       for (const f of s.fields) {
         let val = rec.v[f.k] ? String(rec.v[f.k]) : "";
-        if (val && f.unit) val += " " + f.unit;
+        if (val && f.unit) val += pqUnitTxt(val, f);
         if (val && f.per && rec.v[f.k + "_per"]) val += rec.v[f.k + "_per"] === "anno" ? " all'anno" : " al mese";
         doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
         const lines = val ? doc.splitTextToSize(pdfTxt(val), CW - labelW - 2) : [""];
@@ -6496,7 +6502,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610132008";
+const APP_VER = "v1-202610132115";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -9264,7 +9270,7 @@ window.addEventListener("storage", e => {
 
 /* ===================== SOCIAL: comune ===================== */
 const soDoc = xDoc("rz_social_v1", "social", { me: {}, tab: "video", v: {}, p: {} });
-const SO_VDEF = { cut: true, sens: 5, minsil: 0.6, capStyle: "tiktok", capPos: "basso", capN: 3, upper: true, hook: "", mood: "chill", vol: 45, duck: true, sfxIntro: true, sfxCut: false, sfxEnd: true, end: true, endT: "Vuoi vendere o comprare casa?", fmt: "9:16", fit: "fill", pan: 50, q: "", model: "", src: "", cap: "", capSeed: 0 };
+const SO_VDEF = { cut: true, sens: 5, minsil: 0.6, capStyle: "tiktok", capPos: "basso", capN: 3, upper: true, hook: "", mood: "chill", vol: 45, duck: true, sfxIntro: true, sfxCut: false, sfxEnd: true, end: true, endT: "Vuoi vendere o comprare casa?", fmt: "9:16", fit: "fill", pan: 50, q: "", model: "", src: "", cap: "", capSeed: 0, style: "classica" };
 const SO_PDEF = { type: "vendita", theme: "elegante", fmt: "4:5", src: "", man: {}, photos: [], ov: {}, cap: "", capSeed: 0, topic: "errori", custom: { title: "", points: "" }, mkt: { comune: "Bergamo" }, chi: { anni: "", zona: "", frase: "" } };
 function soV(){ const v = soDoc.data.v || (soDoc.data.v = {}); for (const k in SO_VDEF) if (v[k] === undefined) v[k] = JSON.parse(JSON.stringify(SO_VDEF[k])); return v; }
 function soP(){ const p = soDoc.data.p || (soDoc.data.p = {}); for (const k in SO_PDEF) if (p[k] === undefined) p[k] = JSON.parse(JSON.stringify(SO_PDEF[k])); return p; }
@@ -9630,7 +9636,7 @@ let soAc = null;
 function soAudioCtx(){ if (!soAc || soAc.state === "closed") { const C = window.AudioContext || window.webkitAudioContext; soAc = new C(); } return soAc; }
 
 /* ===================== SOCIAL: editor video ===================== */
-const SO_CAPSTYLES = [["tiktok", "TikTok"], ["box", "Riquadro bianco"], ["elegante", "Elegante"], ["impatto", "Grande impatto"], ["nessuno", "Senza sottotitoli"]];
+const SO_CAPSTYLES = [["tiktok", "TikTok"], ["doveit", "Dove.it"], ["box", "Riquadro bianco"], ["elegante", "Elegante"], ["impatto", "Grande impatto"], ["nessuno", "Senza sottotitoli"]];
 const SO_FMTS = [["9:16", "📱 9:16 Reels/TikTok"], ["4:5", "▭ 4:5 Feed"], ["1:1", "◻️ 1:1 Quadrato"]];
 const SO_HOOKS = ["Guarda questa casa prima che sparisca 👀", "Cosa trovi con questo budget? 🏡", "Il soggiorno più luminoso che vedrai oggi ☀️", "Casa con giardino in zona tranquilla 🌳", "Ti porto a vedere una casa 🔑", "Questa casa ha un dettaglio che non ti aspetti…", "3 motivi per vedere questa casa 👇", "Venduta in pochi giorni: ecco perché ✅"];
 const SV = { file: null, url: "", vid: null, dur: 0, vw: 0, vh: 0, ab: null, dt: 0.02, db: null, peaks: null, thr: 0, regions: [], segs: [], outDur: 0, words: [], caps: [], bed: null, bedKey: "", busy: false, stop: false, playing: false, musBuf: null, musName: "", loadId: 0 };
@@ -9925,8 +9931,10 @@ const SO_CAPF = {
   tiktok: s => `900 ${s}px Montserrat, "Arial Black", system-ui, sans-serif`,
   box: s => `800 ${s}px Poppins, "Arial", system-ui, sans-serif`,
   elegante: s => `italic 700 ${s}px "Playfair Display", Georgia, serif`,
-  impatto: s => `400 ${s}px Anton, Impact, "Arial Black", sans-serif`
+  impatto: s => `400 ${s}px Anton, Impact, "Arial Black", sans-serif`,
+  doveit: s => `900 ${s}px Roboto, "Helvetica Neue", Arial, sans-serif`
 };
+const soDove = () => soV().style === "doveit", SO_MAG = "#e31d93";
 function soDrawCap(ctx, W, H, t){
   const st = soV(), sty = st.capStyle; if (sty === "nessuno" || !SV.caps.length) return;
   const c = SV.caps.find(x => t >= x.s && t < x.e); if (!c) return;
@@ -9946,7 +9954,8 @@ function soDrawCap(ctx, W, H, t){
     if (sty === "box") { ctx.fillStyle = "#fff"; soRound(ctx, x - size * 0.35, y - size * 0.62, lw + size * 0.7, size * 1.24, size * 0.28); ctx.fill(); }
     for (const w of ws) {
       const on = t >= w.s && t < Math.max(w.e, w.s + 0.12);
-      if (sty === "tiktok" || sty === "impatto") { ctx.lineWidth = size * (sty === "impatto" ? 0.16 : 0.2); ctx.strokeStyle = "#000"; ctx.strokeText(w.w, x, y); ctx.fillStyle = on ? (sty === "impatto" ? "#22e1ff" : "#ffe14d") : "#fff"; ctx.fillText(w.w, x, y); }
+      if (sty === "doveit") { if (on) { ctx.fillStyle = SO_MAG; soRound(ctx, x - size * 0.14, y - size * 0.6, w.ww + size * 0.28, size * 1.2, size * 0.22); ctx.fill(); } ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = on ? 0 : size * 0.3; ctx.fillStyle = "#fff"; ctx.fillText(w.w, x, y); ctx.shadowBlur = 0; }
+      else if (sty === "tiktok" || sty === "impatto") { ctx.lineWidth = size * (sty === "impatto" ? 0.16 : 0.2); ctx.strokeStyle = "#000"; ctx.strokeText(w.w, x, y); ctx.fillStyle = on ? (sty === "impatto" ? "#22e1ff" : "#ffe14d") : "#fff"; ctx.fillText(w.w, x, y); }
       else if (sty === "box") { ctx.fillStyle = on ? "#e11d48" : "#111"; ctx.fillText(w.w, x, y); }
       else { ctx.shadowColor = "rgba(0,0,0,.75)"; ctx.shadowBlur = size * 0.35; ctx.shadowOffsetY = size * 0.05; ctx.fillStyle = on ? "#f3d27a" : "#fff"; ctx.fillText(w.w, x, y); ctx.shadowBlur = 0; ctx.shadowOffsetY = 0; }
       x += w.ww + sp;
@@ -9957,15 +9966,17 @@ function soDrawCap(ctx, W, H, t){
 function soDrawHook(ctx, W, H, t){
   const st = soV(); if (!st.hook || t > 3.2) return;
   const a = soClamp(t / 0.25, 0, 1) * soClamp((3.2 - t) / 0.3, 0, 1), e = 1 - Math.pow(1 - soClamp(t / 0.35, 0, 1), 3);
-  const f = s => `900 ${s}px Montserrat, "Arial Black", system-ui, sans-serif`, fit = soFit(ctx, st.hook, f, W * 0.78, H * 0.2, W * 0.078, W * 0.045, 1.18);
+  const dv = soDove(), f = dv ? s => `900 ${s}px Roboto, "Helvetica Neue", Arial, sans-serif` : s => `900 ${s}px Montserrat, "Arial Black", system-ui, sans-serif`, fit = soFit(ctx, st.hook, f, W * 0.78, H * 0.2, W * 0.078, W * 0.045, 1.18);
   ctx.save(); ctx.globalAlpha = a; ctx.font = f(fit.size); ctx.textBaseline = "middle"; ctx.textAlign = "center";
   const lh = fit.size * 1.18, bw = Math.max(...fit.lines.map(l => ctx.measureText(l).width)) + fit.size * 1.1, bh = fit.lines.length * lh + fit.size * 0.8, yc = H * (H / W > 1.6 ? 0.2 : 0.17) - (1 - e) * H * 0.04;
-  ctx.translate(W / 2, yc); ctx.rotate(-0.025);
+  ctx.translate(W / 2, yc); if (!dv) ctx.rotate(-0.025);
   ctx.shadowColor = "rgba(0,0,0,.35)"; ctx.shadowBlur = fit.size * 0.5; ctx.fillStyle = "#fff"; soRound(ctx, -bw / 2, -bh / 2, bw, bh, fit.size * 0.3); ctx.fill(); ctx.shadowBlur = 0;
-  ctx.fillStyle = "#111"; fit.lines.forEach((l, i) => ctx.fillText(l, 0, -((fit.lines.length - 1) * lh) / 2 + i * lh));
+  if (dv) { ctx.fillStyle = SO_MAG; ctx.fillRect(-bw / 2, bh / 2 - fit.size * 0.14, bw * e, fit.size * 0.14); }
+  ctx.fillStyle = dv ? SO_MAG : "#111"; fit.lines.forEach((l, i) => ctx.fillText(l, 0, -((fit.lines.length - 1) * lh) / 2 + i * lh));
   ctx.restore();
 }
 function soDrawEnd(ctx, W, H, t){
+  if (soDove() && typeof srEndDove === "function") return srEndDove(ctx, W, H, t, soV().endT || "Vuoi vendere o comprare casa?");
   const st = soV(), me = soMe(), k = soClamp(t / 0.4, 0, 1);
   const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#0f172a"); g.addColorStop(1, "#1e3a8a"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#fff";
@@ -9987,6 +9998,7 @@ function soDrawFrame(ctx, W, H, t, end){
     else { const p = (st.pan == null ? 50 : st.pan) / 100; soCover(ctx, v, 0, 0, W, H, SV.vw >= SV.vh * W / H ? p : 0.5, SV.vw >= SV.vh * W / H ? 0.5 : p); }
   }
   soDrawHook(ctx, W, H, t); soDrawCap(ctx, W, H, t);
+  if (soDove() && SV.outDur > 0) { const hb = Math.max(3, Math.round(H * 0.006)); ctx.fillStyle = "rgba(255,255,255,.35)"; ctx.fillRect(0, 0, W, hb); ctx.fillStyle = SO_MAG; ctx.fillRect(0, 0, W * soClamp(t / SV.outDur, 0, 1), hb); }
 }
 function soDrawPreviewAt(t){
   const cv = $("so-cv"); if (!cv) return; const [W, H] = soDims("prev"); if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
@@ -10105,6 +10117,7 @@ function soRenderVideoUI(){
   $("so-vol").value = st.vol; $("so-vol-v").textContent = st.vol + "%";
   $("so-duck").checked = !!st.duck; $("so-sfx-intro").checked = !!st.sfxIntro; $("so-sfx-cut").checked = !!st.sfxCut; $("so-sfx-end").checked = !!st.sfxEnd;
   $("so-end").checked = !!st.end; $("so-end-t").value = st.endT || "";
+  $("so-v-style").value = st.style || "classica"; $("so-v-style-note").textContent = st.style === "doveit" ? "Sottotitoli e titolo in Roboto con evidenziazione magenta, barra di avanzamento magenta e, in fondo al video, schermata bianca con il logo Dove.it in alto, la frase finale e i tuoi contatti nel riquadro magenta." : "Stile classico: sottotitoli e chiusura come li scegli qui sopra.";
   document.querySelectorAll("#view-social [data-so-me]").forEach(i => { if (document.activeElement !== i) i.value = me[i.dataset.soMe] || ""; });
   $("so-fmts").innerHTML = SO_FMTS.map(([k, l]) => `<button type="button" class="x-pill" data-so-fmt="${k}" aria-pressed="${st.fmt === k}">${esc(l)}</button>`).join("");
   $("so-fit").value = st.fit; $("so-pan").value = st.pan; $("so-pan-v").textContent = st.pan < 40 ? "← sinistra" : st.pan > 60 ? "destra →" : "al centro";
@@ -10808,7 +10821,7 @@ function srGrade(ctx, W, H){
   ctx.save(); const g = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.max(W, H) * 0.75); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,.38)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   ctx.globalCompositeOperation = "soft-light"; ctx.fillStyle = "rgba(255,190,130,.10)"; ctx.fillRect(0, 0, W, H); ctx.restore();
 }
-function srEndDove(ctx, W, H, t){
+function srEndDove(ctx, W, H, t, endT){
   const me = soMe(), k = soClamp(t / 0.5, 0, 1), base = Math.min(W, H), m = base * 0.08;
   ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
   ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center";
@@ -10816,7 +10829,7 @@ function srEndDove(ctx, W, H, t){
   const lg = srLogo(); let y = H * (H / W > 1.4 ? 0.1 : 0.07);
   if (lg) { const lh = H * (H / W > 1.4 ? 0.22 : 0.3), lw = lh * lg.naturalWidth / lg.naturalHeight, sc = 0.92 + 0.08 * (1 - Math.pow(1 - k, 3)); ctx.drawImage(lg, W / 2 - lw * sc / 2, y + lh * (1 - sc) / 2, lw * sc, lh * sc); y += lh + H * 0.04; } else y += H * 0.08;
   ctx.fillStyle = SR_MAG; ctx.fillRect(m, y, W - 2 * m, base * 0.006); y += H * 0.05;
-  const f = z => srRob(900, z), fit = soFit(ctx, srS().endT || "Prenota una visita", f, W - 2 * m, H * 0.14, base * 0.1, base * 0.055, 1.08);
+  const f = z => srRob(900, z), fit = soFit(ctx, (endT != null ? endT : srS().endT) || "Prenota una visita", f, W - 2 * m, H * 0.14, base * 0.1, base * 0.055, 1.08);
   ctx.font = f(fit.size); ctx.fillStyle = SR_MAG; ctx.textBaseline = "alphabetic"; for (const l of fit.lines) { y += fit.size; ctx.fillText(l, W / 2, y); y += fit.size * 0.08; }
   y += H * 0.04;
   const lines = [me.nome ? String(me.nome).split(/\s+[—–-]\s+/)[0] : "", me.tel ? "📞 " + me.tel : "", me.mail ? "✉️ " + me.mail : "", me.handle || ""].filter(Boolean);
@@ -11147,6 +11160,15 @@ $("view-social").addEventListener("input", e => {
 let soInT = null;
 /* riscrive i testi delle slide solo se l'utente non ci sta scrivendo */
 function soPostTextsUIKeep(){ const a = document.activeElement; if (a && (a.dataset.soOvt != null || a.dataset.soOvs != null)) return; soPostTextsUI(); }
+$("view-social").addEventListener("change", e => {
+  if (e.target.id !== "so-v-style") return;
+  const st = soV(); st.style = e.target.value;
+  if (st.style === "doveit") { st.end = true; if (st.capStyle !== "nessuno") st.capStyle = "doveit"; if (typeof srLogo === "function") srLogo(); }
+  else if (st.capStyle === "doveit") st.capStyle = "tiktok";
+  SV.bed = null; soSave(); soRenderVideoUI(); soCutInfo();
+  /* mostro subito la chiusura nell'anteprima */
+  if (!SV.playing && SV.dur) { const go = () => soDrawPreviewAt(st.end ? SV.outDur + 1.2 : 0.6); go(); setTimeout(go, 400); }
+});
 $("view-social").addEventListener("change", async e => {
   const el = e.target, id = el.id, st = soV();
   if (id === "so-v-file" && el.files[0]) { const f = el.files[0]; el.value = ""; soLoadVideo(f); return; }
