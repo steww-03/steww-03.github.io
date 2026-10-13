@@ -2746,6 +2746,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
         <div class="x-card">
           <h3>3 · Stile del video</h3>
           <div class="x-grid so-g3">
+            <label class="x-f"><span>Stile</span><select class="inp" id="so-r-style"><option value="classica">Classica (elegante, toni caldi)</option><option value="doveit">Dove.it (magenta, logo in chiusura)</option></select></label>
             <label class="x-f"><span>Movimento</span><select class="inp" id="so-r-mode"><option value="3d">Cinematico 3D (profondità)</option><option value="2d">Classico (più veloce)</option></select></label>
             <label class="x-f"><span>Secondi per stanza</span><select class="inp" id="so-r-dur"><option value="2.5">2,5 s (ritmo veloce)</option><option value="3.2">3,2 s</option><option value="4">4 s (lento, elegante)</option></select></label>
             <label class="x-f"><span>Formato</span><select class="inp" id="so-r-fmt"><option value="9:16">9:16 Reels/TikTok/Shorts</option><option value="4:5">4:5 Feed</option><option value="16:9">16:9 YouTube</option></select></label>
@@ -6495,7 +6496,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610082132";
+const APP_VER = "v1-202610132008";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -10346,7 +10347,7 @@ function soRenderPostUI(){
 }
 
 /* ===================== SOCIAL: RENDERING (video "a carrellata" della casa dalle foto del DV) ===================== */
-const SR_DEF = { endT: "Prenota una visita", userCounts: false, dv: "", piani: 1, sale: 1, camere: 1, bagni: 1, cucina: false, esterni: false, assign: {}, floors: {}, mode: "3d", dur: "3.2", fmt: "9:16", title: "", labels: true, end: true, mood: "lusso" };
+const SR_DEF = { style: "classica", endT: "Prenota una visita", userCounts: false, dv: "", piani: 1, sale: 1, camere: 1, bagni: 1, cucina: false, esterni: false, assign: {}, floors: {}, mode: "3d", dur: "3.2", fmt: "9:16", title: "", labels: true, end: true, mood: "lusso" };
 const SR = { photos: [], dv: "", busy: false, playing: false, stop: false, active: "", depth: {}, bmp: {}, mesh: {}, gl: null, bed: null, bedKey: "", loadId: 0, cls: {}, link: {} };
 function srS(){ const r = soDoc.data.r || (soDoc.data.r = {}); for (const k in SR_DEF) if (r[k] === undefined) r[k] = JSON.parse(JSON.stringify(SR_DEF[k])); return r; }
 const srOk = () => { try { return isStefano(); } catch { return false; } };
@@ -10417,7 +10418,7 @@ async function srLoadDrive(){
       msg.innerHTML = `⬇️ Scarico le foto da Drive… ${++k} di ${files.length}<div class="so-prog"><i style="width:${Math.round(k / files.length * 100)}%"></i></div>`;
       try { const b = await srDrvBlob(f.id), bmp = await srBitmap(b, 2048); SR.bmp[f.id] = bmp; SR.photos.push({ id: f.id, name: f.name, th: srThumb(bmp) }); srPhotosUI(); } catch (e) { if (/accedi|sessione/.test(e.message)) throw e; }
     }
-    SR.dv = dv; SR.cls = {}; SR.link = {}; SR.prof = {}; srAutoIfEmpty();
+    SR.dv = dv; SR.cls = {}; SR.raw = {}; SR.link = {}; SR.prof = {}; srAutoIfEmpty();
     msg.innerHTML = `✅ ${SR.photos.length} foto del DV-${esc(dv)} pronte.`;
     srRenderUI(); srPreviewFrame(0); btn.disabled = false; srRecognize();
   } catch (e) { msg.innerHTML = `<span class="so-err">⚠️ ${esc((e && e.message) || String(e))}</span>`; }
@@ -10444,7 +10445,7 @@ const SR_ROOMS = { porta: "Ingresso", sala: "Soggiorno", cucina: "Cucina", camer
 function srClipWorkerSrc(){
   return `import { AutoProcessor, AutoTokenizer, CLIPVisionModelWithProjection, CLIPTextModelWithProjection, RawImage, env } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.5/dist/transformers.min.js";
 env.allowLocalModels = false;
-const M = "Xenova/clip-vit-base-patch32";
+const M = "Xenova/clip-vit-base-patch16";
 const P = {
   porta: ["a photo of the front door of an apartment seen from inside", "an entrance hall with the front door", "a narrow hallway corridor inside a house"],
   sala: ["a photo of a living room with a sofa", "a bright living room interior", "a living and dining area with a table"],
@@ -10466,10 +10467,13 @@ async function load(){
   return { proc, vis, cls };
 }
 self.onmessage = async e => {
-  const { id, blob } = e.data;
+  const { id, blobs } = e.data;
   try {
     if (!mdl) mdl = await load();
-    const img = await RawImage.fromBlob(blob), emb = norm((await mdl.vis(await mdl.proc(img))).image_embeds.tolist()[0]);
+    /* più inquadrature della stessa foto (centro + foto intera): la media è più affidabile del solo quadrato centrale */
+    const E = [];
+    for (const b of blobs) { const img = await RawImage.fromBlob(b); E.push(norm((await mdl.vis(await mdl.proc(img))).image_embeds.tolist()[0])); }
+    const emb = norm(E[0].map((_, i) => E.reduce((a, v) => a + v[i], 0) / E.length));
     const sc = {}; for (const k in mdl.cls) sc[k] = mdl.cls[k].reduce((a, x, i) => a + x * emb[i], 0);
     self.postMessage({ type: "clip", id, sc, emb: new Float32Array(emb) });
   } catch (err) { self.postMessage({ type: "error", id, err: String((err && err.message) || err) }); }
@@ -10480,31 +10484,55 @@ async function srClipOf(id, onMsg){
   if (SR.cls[id]) return SR.cls[id];
   const bmp = SR.bmp[id]; if (!bmp) return null;
   if (!srClipW) srClipW = new Worker(URL.createObjectURL(new Blob([srClipWorkerSrc()], { type: "text/javascript" })), { type: "module" });
-  const k = 448 / Math.max(bmp.width, bmp.height), c = document.createElement("canvas"); c.width = Math.round(bmp.width * Math.min(1, k)); c.height = Math.round(bmp.height * Math.min(1, k)); c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
-  const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.9));
+  /* 1) quadrato centrale  2) foto intera dentro un quadrato grigio (così non si perdono i lati delle foto larghe) */
+  const sq = (fn) => { const c = document.createElement("canvas"); c.width = c.height = 256; const x = c.getContext("2d"); fn(x); return new Promise(r => c.toBlob(r, "image/jpeg", 0.92)); };
+  const s0 = Math.min(bmp.width, bmp.height);
+  const blobs = [await sq(x => x.drawImage(bmp, (bmp.width - s0) / 2, (bmp.height - s0) / 2, s0, s0, 0, 0, 256, 256)), await sq(x => { x.fillStyle = "#808080"; x.fillRect(0, 0, 256, 256); const k = 256 / Math.max(bmp.width, bmp.height); x.drawImage(bmp, (256 - bmp.width * k) / 2, (256 - bmp.height * k) / 2, bmp.width * k, bmp.height * k); })];
   const m = await new Promise((resolve, reject) => {
     const to = setTimeout(() => reject(new Error("tempo scaduto")), 300000);
     srClipW.onmessage = e => { const x = e.data; if (x.type === "clip" && x.id === id) { clearTimeout(to); resolve(x); } else if (x.type === "error") { clearTimeout(to); reject(new Error(x.err)); } else if (onMsg) onMsg(x); };
     srClipW.onerror = e => { clearTimeout(to); reject(new Error((e && e.message) || "errore")); };
-    srClipW.postMessage({ id, blob });
+    srClipW.postMessage({ id, blobs });
   });
-  /* la porta d'ingresso conta un po' di più se è tra le prime foto */
   const best = Object.entries(m.sc).sort((a, b) => b[1] - a[1]);
+  SR.raw = SR.raw || {}; SR.raw[id] = { sc: m.sc, emb: m.emb };
   return SR.cls[id] = { cls: best[0][0], second: best[1][0], sc: m.sc, emb: m.emb };
+}
+/* ---------- decisione finale sull'insieme delle foto della casa ----------
+   1) si toglie a ogni stanza la sua "somiglianza media" con le foto di questa casa (una classe che piace a tutte le foto non vince sempre)
+   2) foto quasi uguali (stessa stanza) votano insieme
+   3) una sola foto fa da ingresso (quella più convinta); le altre vanno alla seconda scelta
+   4) la prima foto ha un piccolo vantaggio come ingresso */
+function srDecide(){
+  const ids = SR.photos.map(p => p.id).filter(id => SR.raw && SR.raw[id]); if (!ids.length) return;
+  const K = Object.keys(SR.raw[ids[0]].sc), med = {};
+  for (const k of K) { const v = ids.map(id => SR.raw[id].sc[k]).sort((a, b) => a - b); med[k] = v[Math.floor(v.length / 2)]; }
+  const lam = ids.length >= 4 ? 0.7 : ids.length >= 2 ? 0.35 : 0;
+  const adj = {}; ids.forEach((id, i) => { adj[id] = {}; for (const k of K) adj[id][k] = SR.raw[id].sc[k] - lam * med[k] + (k === "porta" && i === 0 ? 0.006 : 0) + (k === "altro" ? -0.01 : 0); });
+  /* voto di gruppo tra foto molto simili */
+  const fin = {}; for (const id of ids) { fin[id] = {}; for (const k of K) { let s = adj[id][k] * 2, w = 2; for (const j of ids) if (j !== id) { const c = srSim(id, j); if (c > 0.93) { const wt = c >= 1 ? 2 : 1; s += adj[j][k] * wt; w += wt; } } fin[id][k] = s / w; } }
+  const rank = id => Object.entries(fin[id]).sort((a, b) => b[1] - a[1]);
+  let portaId = null, bestP = -9; for (const id of ids) { const r = rank(id); if (r[0][0] === "porta" && fin[id].porta > bestP) { bestP = fin[id].porta; portaId = id; } }
+  for (const id of ids) {
+    let r = rank(id); if (r[0][0] === "porta" && id !== portaId) r = r.filter(x => x[0] !== "porta");
+    SR.cls[id] = { cls: r[0][0], second: (r[1] || r[0])[0], sc: fin[id], emb: SR.raw[id].emb, conf: r[0][1] - (r[1] ? r[1][1] : 0) };
+  }
 }
 const srCos = (a, b) => { let s = 0; for (let i = 0; i < a.length; i++) s += a[i] * b[i]; return s; };
 /* raggruppa le foto dello stesso tipo nelle stanze (es. 2 camere): foto simili = stessa stanza */
 function srCluster(ids, n){
   if (n <= 0) return [];
   let G = ids.map(id => [id]);
-  const sim = (A, B) => { let s = 0; for (const a of A) for (const b of B) s += srCos(SR.cls[a].emb, SR.cls[b].emb); return s / (A.length * B.length); };
+  const sim = (A, B) => { let s = 0; for (const a of A) for (const b of B) s += srSim(a, b); return s / (A.length * B.length); };
   while (G.length > n) { let bi = 0, bj = 1, bs = -9; for (let i = 0; i < G.length; i++) for (let j = i + 1; j < G.length; j++) { const v = sim(G[i], G[j]); if (v > bs) { bs = v; bi = i; bj = j; } } G[bi] = G[bi].concat(G[bj]); G.splice(bj, 1); }
   const ord = id => SR.photos.findIndex(p => p.id === id);
   G.forEach(g => g.sort((a, b) => ord(a) - ord(b))); G.sort((a, b) => ord(a[0]) - ord(b[0]));
   return G;
 }
 /* stima quante stanze diverse ci sono di un tipo (foto poco simili = stanze diverse) */
-function srCountRooms(ids){ if (ids.length < 2) return ids.length; let n = ids.length; const G = ids.map(id => [id]); const sim = (A, B) => { let s = 0; for (const a of A) for (const b of B) s += srCos(SR.cls[a].emb, SR.cls[b].emb); return s / (A.length * B.length); }; while (G.length > 1) { let bi = 0, bj = 1, bs = -9; for (let i = 0; i < G.length; i++) for (let j = i + 1; j < G.length; j++) { const v = sim(G[i], G[j]); if (v > bs) { bs = v; bi = i; bj = j; } } if (bs < 0.86) break; G[bi] = G[bi].concat(G[bj]); G.splice(bj, 1); } return G.length; }
+/* somiglianza tra due foto: se si sovrappongono (stessa parete vista da due punti) sono sicuramente la stessa stanza */
+function srSim(a, b){ try { if (SR.bmp[a] && SR.bmp[b] && (srShift(a, b) != null || srShift(b, a) != null)) return 1; } catch {} return srCos(SR.cls[a].emb, SR.cls[b].emb); }
+function srCountRooms(ids){ if (ids.length < 2) return ids.length; let n = ids.length; const G = ids.map(id => [id]); const sim = (A, B) => { let s = 0; for (const a of A) for (const b of B) s += srSim(a, b); return s / (A.length * B.length); }; while (G.length > 1) { let bi = 0, bj = 1, bs = -9; for (let i = 0; i < G.length; i++) for (let j = i + 1; j < G.length; j++) { const v = sim(G[i], G[j]); if (v > bs) { bs = v; bi = i; bj = j; } } if (bs < 0.9) break; G[bi] = G[bi].concat(G[bj]); G.splice(bj, 1); } return G.length; }
 function srAutoSmart(){
   const r = srS(), byT = {};
   SR.photos.forEach((p, i) => { const c = SR.cls[p.id]; let t = c.cls; if (t === "altro") t = c.second === "altro" ? "" : c.second; if (t) (byT[t] = byT[t] || []).push(p.id); });
@@ -10536,6 +10564,7 @@ async function srRecognize(){
       srPhotosUI();
     }
     msg.innerHTML = `📐 Confronto le foto per capire come sono collegate…`; await new Promise(r => setTimeout(r, 30));
+    srDecide();
     const r = srS(), cnt = t => SR.photos.filter(p => SR.cls[p.id].cls === t).map(p => p.id);
     const nC = srCountRooms(cnt("camera")), nB = srCountRooms(cnt("bagno")), nS = Math.max(1, Math.min(2, srCountRooms(cnt("sala"))));
     const guess = `${nS} ${nS === 1 ? "soggiorno" : "soggiorni"}, ${nC} ${nC === 1 ? "camera" : "camere"}, ${nB} ${nB === 1 ? "bagno" : "bagni"}`;
@@ -10728,8 +10757,35 @@ function srTimeline(){
   const body = T.length ? T[T.length - 1].t1 : 0; return { T, body, total: body + (r.end ? 3 : 0) };
 }
 function srDims(q){ const f = srS().fmt, h = q === "1080" ? 1920 : q === "prev" ? 640 : 1280, w = Math.round(h * 9 / 16); if (f === "4:5") return [w, Math.round(w * 5 / 4)]; if (f === "16:9") return [h, w]; return [w, h]; }
+/* ---------- stile Dove.it: magenta, carattere Roboto, logo in chiusura ---------- */
+const SR_MAG = "#e31d93";
+const srDove = () => srS().style === "doveit";
+let srLogoImg = null;
+function srLogo(){ if (srLogoImg) return srLogoImg.complete && srLogoImg.naturalWidth ? srLogoImg : null; try { srLogoImg = new Image(); srLogoImg.src = typeof VQ_LOGO_DEF !== "undefined" ? VQ_LOGO_DEF : ""; } catch {} return null; }
+const srRob = (w, z) => `${w} ${Math.round(z)}px Roboto, "Helvetica Neue", Arial, sans-serif`;
+function srPill(ctx, txt, x, y, font, bg, fg, padX, h, align){ ctx.font = font; const w = ctx.measureText(txt).width + padX * 2, x0 = align === "center" ? x - w / 2 : x; ctx.fillStyle = bg; soRound(ctx, x0, y - h / 2, w, h, h / 2); ctx.fill(); ctx.fillStyle = fg; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(txt, x0 + padX, y + 1); ctx.textBaseline = "alphabetic"; return w; }
+function srTextDove(ctx, W, H, s, t, u, a){
+  const r = srS(), m = Math.min(W, H) * 0.07, base = Math.min(W, H);
+  ctx.save(); ctx.globalAlpha = a; ctx.shadowColor = "rgba(0,0,0,.35)"; ctx.shadowBlur = base * 0.02;
+  if (s.k === 0 && r.title) {
+    const f = z => srRob(700, z), fit = soFit(ctx, r.title, f, W - 2 * m, H * 0.22, base * 0.085, base * 0.05, 1.1);
+    let y = H * 0.76 - (fit.lines.length - 1) * fit.size * 1.1 / 2 + (1 - a) * base * 0.03;
+    srPill(ctx, "BENVENUTI", W / 2, y - fit.size * 1.25, srRob(700, base * 0.032), SR_MAG, "#fff", base * 0.035, base * 0.06, "center");
+    ctx.font = f(fit.size); ctx.fillStyle = "#fff"; ctx.textAlign = "center";
+    for (const l of fit.lines) { ctx.fillText(l, W / 2, y); y += fit.size * 1.1; }
+    ctx.shadowBlur = 0; ctx.fillStyle = SR_MAG; const bw = base * 0.16 * soClamp(u * 2.5, 0, 1); ctx.fillRect(W / 2 - bw / 2, y - fit.size * 0.55, bw, base * 0.01);
+  } else if (r.labels && s.type !== "porta" && (s.ri === 0 || s.trIn === "walk")) {
+    const fl = s.floor >= 0 && srInt(r.piani, 1, 5, 1) > 1 ? SR_FLOOR[s.floor] || "" : "";
+    const x = m, y = H - m * (H / W > 1.4 ? 2.6 : 1.4), sl = (1 - soClamp(u * 4, 0, 1)) * base * 0.06;
+    ctx.shadowBlur = base * 0.02;
+    if (fl) srPill(ctx, fl.toUpperCase(), x - sl, y - base * 0.085, srRob(700, base * 0.026), "#fff", SR_MAG, base * 0.025, base * 0.048);
+    srPill(ctx, s.label, x - sl, y, srRob(700, base * 0.052), SR_MAG, "#fff", base * 0.04, base * 0.095);
+  }
+  ctx.restore();
+}
 function srText(ctx, W, H, s, t){
   const r = srS(), u = (t - s.t0) / (s.t1 - s.t0), a = soClamp(Math.min((t - s.t0 - 0.35) / 0.4, (s.t1 - 0.45 - t) / 0.35), 0, 1); if (a <= 0) return;
+  if (srDove()) return srTextDove(ctx, W, H, s, t, u, a);
   const m = Math.min(W, H) * 0.07, base = Math.min(W, H);
   ctx.save(); ctx.globalAlpha = a; ctx.textBaseline = "alphabetic"; ctx.shadowColor = "rgba(0,0,0,.55)"; ctx.shadowBlur = base * 0.03;
   if (s.k === 0 && r.title) {
@@ -10748,10 +10804,31 @@ function srText(ctx, W, H, s, t){
 }
 const soSpaced = s => String(s).split("").join(" ");
 function srGrade(ctx, W, H){
+  if (srDove()) { ctx.save(); const g = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.4, W / 2, H / 2, Math.max(W, H) * 0.78); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,.28)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); return; }
   ctx.save(); const g = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.max(W, H) * 0.75); g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,.38)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   ctx.globalCompositeOperation = "soft-light"; ctx.fillStyle = "rgba(255,190,130,.10)"; ctx.fillRect(0, 0, W, H); ctx.restore();
 }
+function srEndDove(ctx, W, H, t){
+  const me = soMe(), k = soClamp(t / 0.5, 0, 1), base = Math.min(W, H), m = base * 0.08;
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center";
+  /* logo in alto */
+  const lg = srLogo(); let y = H * (H / W > 1.4 ? 0.1 : 0.07);
+  if (lg) { const lh = H * (H / W > 1.4 ? 0.22 : 0.3), lw = lh * lg.naturalWidth / lg.naturalHeight, sc = 0.92 + 0.08 * (1 - Math.pow(1 - k, 3)); ctx.drawImage(lg, W / 2 - lw * sc / 2, y + lh * (1 - sc) / 2, lw * sc, lh * sc); y += lh + H * 0.04; } else y += H * 0.08;
+  ctx.fillStyle = SR_MAG; ctx.fillRect(m, y, W - 2 * m, base * 0.006); y += H * 0.05;
+  const f = z => srRob(900, z), fit = soFit(ctx, srS().endT || "Prenota una visita", f, W - 2 * m, H * 0.14, base * 0.1, base * 0.055, 1.08);
+  ctx.font = f(fit.size); ctx.fillStyle = SR_MAG; ctx.textBaseline = "alphabetic"; for (const l of fit.lines) { y += fit.size; ctx.fillText(l, W / 2, y); y += fit.size * 0.08; }
+  y += H * 0.04;
+  const lines = [me.nome ? String(me.nome).split(/\s+[—–-]\s+/)[0] : "", me.tel ? "📞 " + me.tel : "", me.mail ? "✉️ " + me.mail : "", me.handle || ""].filter(Boolean);
+  if (lines.length) {
+    const lh = base * 0.075, bh = lines.length * lh + base * 0.07, bw = W - 2 * m;
+    ctx.fillStyle = SR_MAG; soRound(ctx, m, y, bw, bh, base * 0.03); ctx.fill(); ctx.fillStyle = "#fff"; let yy = y + base * 0.035 + lh * 0.72;
+    lines.forEach((l, i) => { ctx.font = srRob(i === 0 ? 700 : 500, i === 0 ? base * 0.055 : base * 0.042); const fz = soFit(ctx, l, z => srRob(i === 0 ? 700 : 500, z), bw - base * 0.06, lh, i === 0 ? base * 0.055 : base * 0.042, base * 0.026, 1); ctx.font = srRob(i === 0 ? 700 : 500, fz.size); ctx.fillText(l, W / 2, yy); yy += lh; });
+  }
+  ctx.restore();
+}
 function srEnd(ctx, W, H, t){
+  if (srDove()) return srEndDove(ctx, W, H, t);
   const me = soMe(), k = soClamp(t / 0.5, 0, 1), base = Math.min(W, H);
   const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#14110f"); g.addColorStop(1, "#2a2118"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#fff";
@@ -10779,6 +10856,7 @@ function srFrame(ctx, W, H, t, TL, use3d){
   });
   srGrade(ctx, W, H);
   for (const s of act) srText(ctx, W, H, s, t);
+  if (srDove() && TL.body > 0) { const k = soClamp(t / TL.body, 0, 1), hh = Math.max(3, Math.min(W, H) * 0.008); ctx.fillStyle = "rgba(255,255,255,.35)"; ctx.fillRect(0, 0, W, hh); ctx.fillStyle = SR_MAG; ctx.fillRect(0, 0, W * k, hh); }
 }
 /* ---------- preparazione: foto in memoria e profondità ---------- */
 async function srPrepare(st){
@@ -10793,7 +10871,7 @@ async function srPrepare(st){
       catch (e) { use3d = false; st(`⚠️ Effetto 3D non disponibile (${esc((e && e.message) || e)}): uso il movimento classico.`, 1); try { srWorker && srWorker.terminate(); } catch {} srWorker = null; break; }
     }
   }
-  await soFonts();
+  await soFonts(); srLogo(); if (srLogoImg && !srLogoImg.complete) await new Promise(r => { srLogoImg.onload = r; srLogoImg.onerror = r; setTimeout(r, 2000); });
   return use3d;
 }
 async function srBuildBed(total, TL){
@@ -10929,7 +11007,7 @@ function srRenderUI(){
   if (document.activeElement !== $("so-r-dv")) $("so-r-dv").value = r.dv || "";
   document.querySelectorAll("#so-render [data-so-rn]").forEach(i => { if (document.activeElement !== i) i.value = r[i.dataset.soRn]; });
   $("so-r-cucina").checked = !!r.cucina; $("so-r-esterni").checked = !!r.esterni; $("so-r-labels").checked = !!r.labels; $("so-r-end").checked = !!r.end;
-  $("so-r-mode").value = r.mode; $("so-r-dur").value = String(r.dur); $("so-r-fmt").value = r.fmt; if (document.activeElement !== $("so-r-title")) $("so-r-title").value = r.title || "";
+  $("so-r-style").value = r.style || "classica"; $("so-r-mode").value = r.mode; $("so-r-dur").value = String(r.dur); $("so-r-fmt").value = r.fmt; if (document.activeElement !== $("so-r-title")) $("so-r-title").value = r.title || "";
   $("so-r-moods").innerHTML = SO_MOODS.filter(m => m[0] !== "mia").map(([k, l]) => `<button type="button" class="x-pill" data-so-rmood="${k}" aria-pressed="${r.mood === k}">${esc(l)}</button>`).join("");
   document.querySelectorAll("#so-render [data-so-me]").forEach(i => { if (document.activeElement !== i) i.value = soMe()[i.dataset.soMe] || ""; });
   if (document.activeElement !== $("so-r-endt")) $("so-r-endt").value = r.endT || "";
@@ -10975,6 +11053,7 @@ $("view-social").addEventListener("change", e => {
   if (el.id === "so-r-cucina" || el.id === "so-r-esterni") { r[el.id === "so-r-cucina" ? "cucina" : "esterni"] = el.checked; soSave(); srAuto(false); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
   if (el.id === "so-r-labels" || el.id === "so-r-end") { r[el.id === "so-r-labels" ? "labels" : "end"] = el.checked; SR.bed = null; soSave(); srPreviewFrame(0); return; }
   if (el.id === "so-r-mode") { r.mode = el.value; soSave(); return; }
+  if (el.id === "so-r-style") { r.style = el.value; if (r.style === "doveit" && r.mood === "lusso") r.mood = "corporate"; SR.bed = null; soSave(); srRenderUI(); srPreviewFrame(0); return; }
   if (el.id === "so-r-dur") { r.dur = el.value; SR.bed = null; soSave(); srPreviewFrame(0); return; }
   if (el.id === "so-r-fmt") { r.fmt = el.value; soSave(); srPreviewFrame(0); return; }
 });
