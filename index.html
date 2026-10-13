@@ -2619,7 +2619,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
             <label class="x-f"><span>Stile del video</span><select class="inp" id="so-v-style"><option value="classica">Classica (come ora)</option><option value="doveit">Dove.it (magenta, logo in chiusura)</option></select></label>
           </div>
           <div class="x-note" id="so-v-style-note"></div>
-          <label class="so-chk"><input type="checkbox" id="so-end"><span>Aggiungi 3 secondi finali con i contatti</span></label>
+          <label class="so-chk"><input type="checkbox" id="so-end"><span id="so-end-l">Aggiungi 3 secondi finali con i contatti</span></label>
           <div class="x-grid">
             <label class="x-f"><span>Frase finale</span><input class="inp" id="so-end-t" maxlength="60"></label>
             <label class="x-f"><span>Nome</span><input class="inp" data-so-me="nome"></label>
@@ -2757,7 +2757,7 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
           </div>
           <label class="x-f"><span>Titolo iniziale</span><input class="inp" id="so-r-title" maxlength="70" placeholder="Es. Trilocale con giardino a Ponteranica"></label>
           <label class="so-chk"><input type="checkbox" id="so-r-labels"><span>Scrivi il nome di ogni stanza</span></label>
-          <label class="so-chk"><input type="checkbox" id="so-r-end"><span>Chiusura con i tuoi contatti</span></label>
+          <label class="so-chk"><input type="checkbox" id="so-r-end"><span id="so-r-end-l">Chiusura con i tuoi contatti</span></label>
           <div class="x-grid">
             <label class="x-f"><span>Frase finale</span><input class="inp" id="so-r-endt" maxlength="50"></label>
             <label class="x-f"><span>Nome</span><input class="inp" data-so-me="nome"></label>
@@ -6502,7 +6502,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610132115";
+const APP_VER = "v1-202610132153";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -9763,7 +9763,8 @@ function soSegs(){
   let o = 0; SV.segs = keep.map(([s, e]) => { const g = { s, e, o }; o += e - s; return g; }); SV.outDur = o;
   SV.bed = null; soBuildCaps();
 }
-const soTotal = () => SV.outDur + (soV().end ? 3 : 0);
+const soEndOn = () => !!soV().end || soV().style === "doveit";
+const soTotal = () => SV.outDur + (soEndOn() ? 3 : 0);
 function soMapT(t){ for (const g of SV.segs) if (t >= g.s - 0.02 && t <= g.e + 0.02) return g.o + soClamp(t, g.s, g.e) - g.s; return null; }
 
 /* ---------- sottotitoli ---------- */
@@ -9901,7 +9902,7 @@ function soSpeechOut(){
   return m;
 }
 async function soBuildBed(){
-  const st = soV(), total = soTotal(), key = JSON.stringify([SV.segs, st.mood, st.vol, st.duck, st.sfxIntro, st.sfxCut, st.sfxEnd, st.end, !!st.hook, SV.musName, !!SV.ab]);
+  const st = soV(), total = soTotal(), key = JSON.stringify([SV.segs, st.mood, st.vol, st.duck, st.sfxIntro, st.sfxCut, st.sfxEnd, soEndOn(), !!st.hook, SV.musName, !!SV.ab]);
   if (SV.bed && SV.bedKey === key) return SV.bed;
   const sr = 44100, ctx = new OfflineAudioContext(2, Math.max(1, Math.ceil(total * sr)), sr);
   const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4; comp.attack.value = 0.005; comp.release.value = 0.15; comp.connect(ctx.destination);
@@ -9921,7 +9922,7 @@ async function soBuildBed(){
   const fx = ctx.createGain(); fx.gain.value = 1; fx.connect(comp);
   if (st.sfxIntro && st.hook) soSfx(ctx, fx, "whoosh", 0.02, 0.35);
   if (st.sfxCut) { let last = -9; for (const g of SV.segs.slice(1)) if (g.o - last > 3) { soSfx(ctx, fx, "whoosh", Math.max(0, g.o - 0.25), 0.12); last = g.o; } }
-  if (st.end && st.sfxEnd) soSfx(ctx, fx, "ding", SV.outDur + 0.05, 0.22);
+  if (soEndOn() && st.sfxEnd) soSfx(ctx, fx, "ding", SV.outDur + 0.05, 0.22);
   SV.bed = await ctx.startRendering(); SV.bedKey = key; return SV.bed;
 }
 
@@ -10003,7 +10004,9 @@ function soDrawFrame(ctx, W, H, t, end){
 function soDrawPreviewAt(t){
   const cv = $("so-cv"); if (!cv) return; const [W, H] = soDims("prev"); if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
   const stage = $("so-stage"); if (stage) stage.style.aspectRatio = W + "/" + H;
-  soDrawFrame(cv.getContext("2d"), W, H, t, t >= SV.outDur && soV().end && SV.outDur > 0);
+  const isEnd = t >= SV.outDur && soEndOn() && SV.outDur > 0;
+  soDrawFrame(cv.getContext("2d"), W, H, t, isEnd);
+  if (isEnd && soDove() && typeof srLogo === "function" && !srLogo() && srLogoImg) srLogoImg.addEventListener("load", () => { if (!SV.playing) soDrawFrame(cv.getContext("2d"), W, H, t, true); }, { once: true });
   const tm = $("so-time"); if (tm) tm.textContent = soFmtT(t) + " / " + soFmtT(soTotal());
 }
 
@@ -10018,6 +10021,7 @@ const soFrame = v => new Promise(r => { if (v && v.requestVideoFrameCallback && 
 async function soRun(record, onProg){
   const v = SV.vid, ac = soAudioCtx(); try { await ac.resume(); } catch {}
   await soFonts();
+  if (soDove() && typeof srLogo === "function") { srLogo(); if (srLogoImg && !srLogoImg.complete) await new Promise(r => { srLogoImg.addEventListener("load", r, { once: true }); srLogoImg.addEventListener("error", r, { once: true }); setTimeout(r, 2500); }); }
   const bed = await soBuildBed();
   const [W, H] = record ? soDims(soV().q || (soTouch() ? "720" : "1080")) : soDims("prev");
   const cv = record ? document.createElement("canvas") : $("so-cv"); cv.width = W; cv.height = H; const ctx = cv.getContext("2d", { alpha: false });
@@ -10048,7 +10052,7 @@ async function soRun(record, onProg){
       }
       v.pause(); stopBed(); if (rec && rec.state === "recording") rec.pause();
     }
-    if (!SV.stop && soV().end) {
+    if (!SV.stop && soEndOn()) {
       if (rec && rec.state === "paused") rec.resume(); playBed(SV.outDur);
       const t0 = performance.now();
       while (!SV.stop) { const t = SV.outDur + (performance.now() - t0) / 1000; if (t >= soTotal()) break; soDrawFrame(ctx, W, H, t, true); if (onProg) onProg(t); await new Promise(r => document.hidden ? setTimeout(r, 33) : requestAnimationFrame(r)); }
@@ -10057,6 +10061,9 @@ async function soRun(record, onProg){
   } finally { try { v.pause(); } catch {} stopBed(); SV.playing = false; SV.recording = false; if (elSrc) { try { elSrc.disconnect(); } catch {} } }
   if (!rec) return null;
   if (rec.state === "paused") rec.resume();
+  /* qualche fotogramma in più sulla chiusura: alcuni telefoni perdono l'ultimo pezzo se si ferma subito */
+  if (!SV.stop && soEndOn()) { const tEnd = soTotal() - 0.01; for (let i = 0; i < 8; i++) { soDrawFrame(ctx, W, H, tEnd, true); await new Promise(r => setTimeout(r, 40)); } }
+  try { rec.requestData(); } catch {}
   const done = new Promise(r => rec.onstop = r); rec.stop(); await done;
   if (SV.stop) return null;
   return new Blob(chunks, { type: mime.split(";")[0] });
@@ -10116,7 +10123,7 @@ function soRenderVideoUI(){
   $("so-mus-lbl").hidden = st.mood !== "mia"; if (st.mood === "mia") $("so-mus-lbl").firstChild.textContent = SV.musName ? "🎵 " + SV.musName : "🎵 Scegli la tua musica";
   $("so-vol").value = st.vol; $("so-vol-v").textContent = st.vol + "%";
   $("so-duck").checked = !!st.duck; $("so-sfx-intro").checked = !!st.sfxIntro; $("so-sfx-cut").checked = !!st.sfxCut; $("so-sfx-end").checked = !!st.sfxEnd;
-  $("so-end").checked = !!st.end; $("so-end-t").value = st.endT || "";
+  $("so-end").checked = soEndOn(); $("so-end").disabled = soDove(); $("so-end-l").textContent = soDove() ? "Chiusura di 3 secondi con logo Dove.it e contatti (sempre inclusa con lo stile Dove.it)" : "Aggiungi 3 secondi finali con i contatti"; $("so-end-t").value = st.endT || "";
   $("so-v-style").value = st.style || "classica"; $("so-v-style-note").textContent = st.style === "doveit" ? "Sottotitoli e titolo in Roboto con evidenziazione magenta, barra di avanzamento magenta e, in fondo al video, schermata bianca con il logo Dove.it in alto, la frase finale e i tuoi contatti nel riquadro magenta." : "Stile classico: sottotitoli e chiusura come li scegli qui sopra.";
   document.querySelectorAll("#view-social [data-so-me]").forEach(i => { if (document.activeElement !== i) i.value = me[i.dataset.soMe] || ""; });
   $("so-fmts").innerHTML = SO_FMTS.map(([k, l]) => `<button type="button" class="x-pill" data-so-fmt="${k}" aria-pressed="${st.fmt === k}">${esc(l)}</button>`).join("");
@@ -10767,12 +10774,14 @@ function srTimeline(){
   });
   let t = 0;
   sh.forEach((s, k) => { const nx = sh[k + 1], tr = nx ? (SR_TRD[nx.trIn] || 0.75) : 0; T.push(Object.assign(s, { t0: t, t1: t + D, k, trOut: nx ? nx.trIn : "", trD: tr })); t += D - tr; });
-  const body = T.length ? T[T.length - 1].t1 : 0; return { T, body, total: body + (r.end ? 3 : 0) };
+  const body = T.length ? T[T.length - 1].t1 : 0; return { T, body, total: body + (srEndOn() ? 3 : 0) };
 }
 function srDims(q){ const f = srS().fmt, h = q === "1080" ? 1920 : q === "prev" ? 640 : 1280, w = Math.round(h * 9 / 16); if (f === "4:5") return [w, Math.round(w * 5 / 4)]; if (f === "16:9") return [h, w]; return [w, h]; }
 /* ---------- stile Dove.it: magenta, carattere Roboto, logo in chiusura ---------- */
 const SR_MAG = "#e31d93";
 const srDove = () => srS().style === "doveit";
+/* con lo stile Dove.it la chiusura con logo e contatti è obbligatoria */
+const srEndOn = () => !!srS().end || srDove();
 let srLogoImg = null;
 function srLogo(){ if (srLogoImg) return srLogoImg.complete && srLogoImg.naturalWidth ? srLogoImg : null; try { srLogoImg = new Image(); srLogoImg.src = typeof VQ_LOGO_DEF !== "undefined" ? VQ_LOGO_DEF : ""; } catch {} return null; }
 const srRob = (w, z) => `${w} ${Math.round(z)}px Roboto, "Helvetica Neue", Arial, sans-serif`;
@@ -10826,7 +10835,11 @@ function srEndDove(ctx, W, H, t, endT){
   ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
   ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center";
   /* logo in alto */
-  const lg = srLogo(); let y = H * (H / W > 1.4 ? 0.1 : 0.07);
+  const lg = srLogo(), tall = H / W > 1.4;
+  /* centro tutto il blocco (logo, frase, contatti) in verticale */
+  const lhL = H * (tall ? 0.22 : 0.3), fitP = soFit(ctx, (endT != null ? endT : srS().endT) || "Prenota una visita", z => srRob(900, z), W - 2 * m, H * 0.14, base * 0.1, base * 0.055, 1.08);
+  const nL = [me.nome, me.tel, me.mail, me.handle].filter(Boolean).length, blockH = (lg ? lhL + H * 0.04 : H * 0.08) + base * 0.006 + H * 0.05 + fitP.lines.length * fitP.size * 1.08 + H * 0.04 + (nL ? nL * base * 0.075 + base * 0.07 : 0);
+  let y = Math.max(H * 0.05, (H - blockH) / 2);
   if (lg) { const lh = H * (H / W > 1.4 ? 0.22 : 0.3), lw = lh * lg.naturalWidth / lg.naturalHeight, sc = 0.92 + 0.08 * (1 - Math.pow(1 - k, 3)); ctx.drawImage(lg, W / 2 - lw * sc / 2, y + lh * (1 - sc) / 2, lw * sc, lh * sc); y += lh + H * 0.04; } else y += H * 0.08;
   ctx.fillStyle = SR_MAG; ctx.fillRect(m, y, W - 2 * m, base * 0.006); y += H * 0.05;
   const f = z => srRob(900, z), fit = soFit(ctx, (endT != null ? endT : srS().endT) || "Prenota una visita", f, W - 2 * m, H * 0.14, base * 0.1, base * 0.055, 1.08);
@@ -10845,7 +10858,8 @@ function srEnd(ctx, W, H, t){
   const me = soMe(), k = soClamp(t / 0.5, 0, 1), base = Math.min(W, H);
   const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#14110f"); g.addColorStop(1, "#2a2118"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   ctx.save(); ctx.globalAlpha = k; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#fff";
-  ctx.font = `italic 700 ${Math.round(base * 0.085)}px "Playfair Display", Georgia, serif`; ctx.fillText(srS().endT || "Prenota una visita", W / 2, H * 0.4);
+  const pf = z => `italic 700 ${Math.round(z)}px "Playfair Display", Georgia, serif`, pfit = soFit(ctx, srS().endT || "Prenota una visita", pf, W * 0.84, H * 0.22, base * 0.085, base * 0.05, 1.15);
+  ctx.font = pf(pfit.size); const plh = pfit.size * 1.15, py = H * 0.4 - (pfit.lines.length - 1) * plh; pfit.lines.forEach((l, i) => ctx.fillText(l, W / 2, py + i * plh));
   ctx.fillStyle = "#e8c77d"; ctx.fillRect(W / 2 - base * 0.07, H * 0.4 + base * 0.07, base * 0.14, base * 0.007);
   ctx.fillStyle = "#fff"; let y = H * 0.4 + base * 0.16;
   if (me.nome) { ctx.font = `700 ${Math.round(base * 0.055)}px Montserrat, sans-serif`; ctx.fillText(String(me.nome).split(/\s+[—–-]\s+/)[0], W / 2, y); y += base * 0.085; }
@@ -10854,7 +10868,7 @@ function srEnd(ctx, W, H, t){
 }
 function srFrame(ctx, W, H, t, TL, use3d){
   ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
-  if (t >= TL.body && srS().end) { srEnd(ctx, W, H, t - TL.body); return; }
+  if (t >= TL.body && srEndOn()) { srEnd(ctx, W, H, t - TL.body); return; }
   const act = TL.T.filter(s => t >= s.t0 && t < s.t1 + 0.0001);
   act.forEach((s, j) => {
     const span = Math.max(0.5, s.t1 - s.t0 - (s.trD || 0)), u = (t - s.t0) / span;
@@ -10888,10 +10902,10 @@ async function srPrepare(st){
   return use3d;
 }
 async function srBuildBed(total, TL){
-  const r = srS(), key = JSON.stringify([total, r.mood, TL.T.length]); if (SR.bed && SR.bedKey === key) return SR.bed;
+  const r = srS(), key = JSON.stringify([total, r.mood, TL.T.length, srEndOn(), TL.body]); if (SR.bed && SR.bedKey === key) return SR.bed;
   const sr = 44100, ctx = new OfflineAudioContext(2, Math.max(1, Math.ceil(total * sr)), sr), comp = ctx.createDynamicsCompressor(); comp.connect(ctx.destination);
   if (SO_MUS[r.mood]) { const g = ctx.createGain(); g.gain.setValueAtTime(0, 0); g.gain.linearRampToValueAtTime(0.9, 0.6); g.gain.setValueAtTime(0.9, Math.max(0.7, total - 1.6)); g.gain.linearRampToValueAtTime(0, total); g.connect(comp); soMusic(ctx, g, r.mood, 0, total); }
-  if (r.end) soSfx(ctx, comp, "ding", TL.body + 0.1, 0.18);
+  if (srEndOn()) soSfx(ctx, comp, "ding", TL.body + 0.1, 0.18);
   SR.bed = await ctx.startRendering(); SR.bedKey = key; return SR.bed;
 }
 async function srRun(record, onProg){
@@ -10928,6 +10942,8 @@ async function srRun(record, onProg){
     }
   } finally { try { src.stop(); } catch {} SR.playing = false; SR.recording = false; }
   if (!rec) { stEl.innerHTML = ""; return null; }
+  if (!SR.stop) { for (let i = 0; i < 8; i++) { srFrame(ctx, W, H, TL.total - 0.01, TL, use3d); await new Promise(r => setTimeout(r, 40)); } }
+  try { rec.requestData(); } catch {}
   const done = new Promise(r => rec.onstop = r); rec.stop(); await done;
   if (SR.stop) { stEl.innerHTML = `<div class="x-note">Creazione annullata.</div>`; return null; }
   stEl.innerHTML = ""; return new Blob(chunks, { type: mime.split(";")[0] });
@@ -10992,10 +11008,13 @@ async function srMake(){
   } catch (e) { $("so-r-st").innerHTML = `<div class="note-box err">Video non creato: ${esc((e && e.message) || String(e))}</div>`; }
   btn.disabled = false;
 }
+/* mostra nell'anteprima la schermata finale (dopo aver cambiato stile, frase o contatti) */
+function srPreviewEnd(){ if (SR.playing) return; const TL = srTimeline(); if (!TL.T.length) return; srPreviewFrame(srEndOn() ? TL.body + 1.4 : 0); }
 function srPreviewFrame(t){
   const cv = $("so-r-cv"); if (!cv) return; const [W, H] = srDims("prev"); cv.width = W; cv.height = H; const stg = $("so-r-stage"); if (stg) stg.style.aspectRatio = W + "/" + H;
   const TL = srTimeline(); $("so-r-empty").hidden = !!TL.T.length; if (!TL.T.length) { cv.getContext("2d").clearRect(0, 0, W, H); return; }
-  soFonts().then(() => { if (!SR.playing) srFrame(cv.getContext("2d"), W, H, t, TL, false); });
+  const lg = srLogo(), draw = () => { if (!SR.playing) srFrame(cv.getContext("2d"), W, H, t, TL, false); };
+  soFonts().then(() => { draw(); if (!lg && srLogoImg && !srLogoImg.complete) srLogoImg.addEventListener("load", draw, { once: true }); });
   $("so-r-time").textContent = "0:00 / " + soFmtT(TL.total);
 }
 
@@ -11019,7 +11038,7 @@ function srRenderUI(){
   const dvs = srDvList(); $("so-r-dvsel").innerHTML = `<option value="">📁 DV con foto su Drive (${dvs.length})</option>` + dvs.map(x => `<option value="${esc(x.dv)}"${x.dv === r.dv ? " selected" : ""}>DV-${esc(x.dv)} · ${x.n || "?"} foto · ${esc(new Date(x.at).toLocaleDateString("it-IT"))}</option>`).join("");
   if (document.activeElement !== $("so-r-dv")) $("so-r-dv").value = r.dv || "";
   document.querySelectorAll("#so-render [data-so-rn]").forEach(i => { if (document.activeElement !== i) i.value = r[i.dataset.soRn]; });
-  $("so-r-cucina").checked = !!r.cucina; $("so-r-esterni").checked = !!r.esterni; $("so-r-labels").checked = !!r.labels; $("so-r-end").checked = !!r.end;
+  $("so-r-cucina").checked = !!r.cucina; $("so-r-esterni").checked = !!r.esterni; $("so-r-labels").checked = !!r.labels; $("so-r-end").checked = srEndOn(); $("so-r-end").disabled = srDove(); $("so-r-end-l").textContent = srDove() ? "Chiusura con logo Dove.it e contatti (sempre inclusa con lo stile Dove.it)" : "Chiusura con i tuoi contatti";
   $("so-r-style").value = r.style || "classica"; $("so-r-mode").value = r.mode; $("so-r-dur").value = String(r.dur); $("so-r-fmt").value = r.fmt; if (document.activeElement !== $("so-r-title")) $("so-r-title").value = r.title || "";
   $("so-r-moods").innerHTML = SO_MOODS.filter(m => m[0] !== "mia").map(([k, l]) => `<button type="button" class="x-pill" data-so-rmood="${k}" aria-pressed="${r.mood === k}">${esc(l)}</button>`).join("");
   document.querySelectorAll("#so-render [data-so-me]").forEach(i => { if (document.activeElement !== i) i.value = soMe()[i.dataset.soMe] || ""; });
@@ -11053,7 +11072,8 @@ $("view-social").addEventListener("click", e => {
 $("view-social").addEventListener("input", e => {
   const el = e.target, r = srS();
   if (el.dataset.soRn) { const lim = { piani: [1, 5], sale: [0, 4], camere: [0, 8], bagni: [0, 6] }[el.dataset.soRn]; if (el.value.trim() === "") return; r[el.dataset.soRn] = srInt(el.value, lim[0], lim[1], r[el.dataset.soRn]); r.userCounts = true; soSave(); if (SR.photos.length && SR.photos.every(p => SR.cls[p.id])) srAutoSmart(); else srAuto(false); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
-  if (el.id === "so-r-endt") { r.endT = el.value; soSave(); return; }
+  if (el.id === "so-r-endt") { r.endT = el.value; soSave(); srPreviewEnd(); return; }
+  if (el.dataset.soMe && el.closest("#so-render")) { srPreviewEnd(); return; }
   if (el.id === "so-r-title") { r.title = el.value; soSave(); srPreviewFrame(0); return; }
   if (el.id === "so-r-dv") { const v = el.value.replace(/\D/g, ""); if (v !== el.value) el.value = v; return; }
 });
@@ -11064,9 +11084,9 @@ $("view-social").addEventListener("change", e => {
   if (el.id === "so-r-dvsel") { if (el.value) { $("so-r-dv").value = el.value; r.dv = el.value; soSave(); srLoadDrive(); } return; }
   if (el.id === "so-r-add" && el.files.length) { const f = [...el.files]; el.value = ""; srAddLocal(f); return; }
   if (el.id === "so-r-cucina" || el.id === "so-r-esterni") { r[el.id === "so-r-cucina" ? "cucina" : "esterni"] = el.checked; soSave(); srAuto(false); srPhotosUI(); srPathUI(); srPreviewFrame(0); return; }
-  if (el.id === "so-r-labels" || el.id === "so-r-end") { r[el.id === "so-r-labels" ? "labels" : "end"] = el.checked; SR.bed = null; soSave(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-labels" || el.id === "so-r-end") { if (el.id === "so-r-end" && srDove()) { el.checked = true; return; } r[el.id === "so-r-labels" ? "labels" : "end"] = el.checked; SR.bed = null; soSave(); srRenderUI(); if (el.id === "so-r-end" && el.checked) srPreviewEnd(); else srPreviewFrame(0); return; }
   if (el.id === "so-r-mode") { r.mode = el.value; soSave(); return; }
-  if (el.id === "so-r-style") { r.style = el.value; if (r.style === "doveit" && r.mood === "lusso") r.mood = "corporate"; SR.bed = null; soSave(); srRenderUI(); srPreviewFrame(0); return; }
+  if (el.id === "so-r-style") { r.style = el.value; if (r.style === "doveit") { r.end = true; if (r.mood === "lusso") r.mood = "corporate"; } SR.bed = null; soSave(); srRenderUI(); srPreviewEnd(); return; }
   if (el.id === "so-r-dur") { r.dur = el.value; SR.bed = null; soSave(); srPreviewFrame(0); return; }
   if (el.id === "so-r-fmt") { r.fmt = el.value; soSave(); srPreviewFrame(0); return; }
 });
@@ -11145,9 +11165,9 @@ $("view-social").addEventListener("input", e => {
   if (id === "so-vol") { st.vol = +el.value; $("so-vol-v").textContent = st.vol + "%"; SV.bed = null; soSave(); return; }
   if (id === "so-pan") { st.pan = +el.value; $("so-pan-v").textContent = st.pan < 40 ? "← sinistra" : st.pan > 60 ? "destra →" : "al centro"; soSave(); if (!SV.playing && SV.dur) soDrawPreviewAt(0); return; }
   if (id === "so-hook") { st.hook = el.value; SV.bed = null; soSave(); if (!SV.playing && SV.dur) soDrawPreviewAt(0.6); return; }
-  if (id === "so-end-t") { st.endT = el.value; soSave(); return; }
+  if (id === "so-end-t") { st.endT = el.value; soSave(); if (!SV.playing && SV.dur && soEndOn()) soDrawPreviewAt(SV.outDur + 1.4); return; }
   if (id === "so-v-cap") { st.cap = el.value; soSave(); return; }
-  if (el.dataset.soMe) { soMe()[el.dataset.soMe] = el.value; soSave(); document.querySelectorAll(`#view-social [data-so-me="${el.dataset.soMe}"]`).forEach(x => { if (x !== el) x.value = el.value; }); if (!$("so-post").hidden) soPostPreview(); return; }
+  if (el.dataset.soMe) { soMe()[el.dataset.soMe] = el.value; soSave(); document.querySelectorAll(`#view-social [data-so-me="${el.dataset.soMe}"]`).forEach(x => { if (x !== el) x.value = el.value; }); if (!$("so-post").hidden) soPostPreview(); if (el.closest("#so-video") && !SV.playing && SV.dur && soEndOn()) soDrawPreviewAt(SV.outDur + 1.4); return; }
   /* post */
   const p = soP();
   if (el.dataset.soMan) { p.man[el.dataset.soMan] = el.value; soSave(); soPostPreview(); clearTimeout(soInT); soInT = setTimeout(() => { const o = soPostProp(), f = $("so-p-found"); if (f) f.innerHTML = soFoundHTML(o); document.querySelectorAll("#so-p-data input[data-so-man]").forEach(i => { const k = i.dataset.soMan, v = o[k]; if (k in o && k !== "giorni") i.placeholder = v ? (k === "prezzo" ? Number(v).toLocaleString("it-IT") : String(v)) : ""; }); soPostTextsUIKeep(); soPostCapUI(!p.capEdited); }, 700); return; }
@@ -11163,11 +11183,11 @@ function soPostTextsUIKeep(){ const a = document.activeElement; if (a && (a.data
 $("view-social").addEventListener("change", e => {
   if (e.target.id !== "so-v-style") return;
   const st = soV(); st.style = e.target.value;
-  if (st.style === "doveit") { st.end = true; if (st.capStyle !== "nessuno") st.capStyle = "doveit"; if (typeof srLogo === "function") srLogo(); }
+  if (st.style === "doveit") { st.end = true; SV.bed = null; if (st.capStyle !== "nessuno") st.capStyle = "doveit"; if (typeof srLogo === "function") srLogo(); }
   else if (st.capStyle === "doveit") st.capStyle = "tiktok";
   SV.bed = null; soSave(); soRenderVideoUI(); soCutInfo();
   /* mostro subito la chiusura nell'anteprima */
-  if (!SV.playing && SV.dur) { const go = () => soDrawPreviewAt(st.end ? SV.outDur + 1.2 : 0.6); go(); setTimeout(go, 400); }
+  if (!SV.playing && SV.dur) { const go = () => soDrawPreviewAt(soEndOn() ? SV.outDur + 1.4 : 0.6); go(); setTimeout(go, 400); }
 });
 $("view-social").addEventListener("change", async e => {
   const el = e.target, id = el.id, st = soV();
@@ -11178,6 +11198,7 @@ $("view-social").addEventListener("change", async e => {
   if (id === "so-cap-n") { st.capN = +el.value; soSave(); soBuildCaps(); soCapsUI(); soV2(); return; }
   if (id === "so-cap-up") { st.upper = el.checked; soSave(); soV2(); return; }
   if (id === "so-asr-m") { st.model = el.value; soSave(); return; }
+  if (id === "so-end" && soDove()) { el.checked = true; return; }
   if (id === "so-duck" || id === "so-sfx-intro" || id === "so-sfx-cut" || id === "so-sfx-end" || id === "so-end") { st[{ "so-duck": "duck", "so-sfx-intro": "sfxIntro", "so-sfx-cut": "sfxCut", "so-sfx-end": "sfxEnd", "so-end": "end" }[id]] = el.checked; SV.bed = null; soSave(); soCutInfo(); if (!SV.playing && SV.dur) soDrawPreviewAt(0); return; }
   if (id === "so-fit") { st.fit = el.value; soSave(); soV2(); return; }
   if (id === "so-q") { st.q = el.value; soSave(); return; }
