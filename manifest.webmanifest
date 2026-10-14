@@ -6,8 +6,8 @@
  "scope": "./",
  "display": "standalone",
  "orientation": "any",
- "background_color": "#12306e",
- "theme_color": "#12306e",
+ "background_color": "#121826",
+ "theme_color": "#121826",
  "icons": [
   {
    "src": "icon-192.png",
@@ -28,16 +28,56 @@
  ],
  "shortcuts": [
   {
-   "name": "Giro della giornata",
-   "url": "./#giro"
+   "name": "Nuova prequalifica",
+   "short_name": "Prequalifica",
+   "description": "Apre un foglio prequalifica vuoto",
+   "url": "./#nuova-prequalifica",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
   },
   {
-   "name": "Registra chiamata",
-   "url": "./#acq"
+   "name": "Chiama le notizie",
+   "short_name": "Notizie",
+   "description": "Sessione chiamate notizie",
+   "url": "./#notizie",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
   },
   {
-   "name": "Foglio prequalifica",
-   "url": "./#preq"
+   "name": "Giro di oggi",
+   "short_name": "Giro",
+   "description": "Appuntamenti e percorso della giornata",
+   "url": "./#giro",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "Prossimo appuntamento",
+   "short_name": "Appuntamento",
+   "description": "La Home con il prossimo appuntamento",
+   "url": "./#home",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
   }
  ]
 }

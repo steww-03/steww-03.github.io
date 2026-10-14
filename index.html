@@ -1591,6 +1591,56 @@ input[type="date"].inp{-webkit-appearance:none;appearance:none}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+/* ===================== NOVITÀ: appuntamento, andamento, imbuto, voce, report ===================== */
+.p6-next{display:flex;flex-direction:column;gap:10px}
+.p6-next .hd{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap}
+.p6-next .tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.p6-next .cd{margin-left:auto;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap}
+.p6-next .cd.soon{color:#c2410c}
+.p6-next .who{font-size:16px;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
+.p6-next .where{font-size:13px;color:var(--ink-2);overflow-wrap:anywhere}
+.p6-next .acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.p6-next .acts a,.p6-next .acts button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:13.5px;font-weight:600;text-decoration:none;cursor:pointer;padding:0 6px;text-align:center}
+.p6-next .acts .pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.p6-next .acts svg{width:18px;height:18px;flex:none}
+.p6-next .acts [aria-disabled="true"]{opacity:.45;pointer-events:none}
+.p6-next.empty{flex-direction:row;align-items:center;gap:10px;font-size:14px;color:var(--ink-2)}
+.p6-next.empty button{margin-left:auto;min-height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font:inherit;font-weight:600;padding:0 12px;cursor:pointer;color:var(--ink)}
+.cz-kpi .p6-sp{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4px 6px;margin-top:6px;width:100%}
+.cz-kpi .p6-sp em{white-space:nowrap}
+@media (max-width:599px){ .cz-kpi .p6-sp em{flex-basis:100%} }
+.cz-kpi .p6-sp svg{width:56px;height:18px;flex:none}
+.cz-kpi .p6-sp em{font-style:normal;font-size:11px;color:#aab3c5;line-height:1.2}
+@media (max-width:340px){ .cz-kpi .p6-sp svg{width:40px} .cz-kpi .p6-sp em{display:none} .p6-next .cd{margin-left:0;font-size:12px} .p6-next .acts a{flex-direction:column;gap:2px;font-size:12px;min-height:54px} }
+/* imbuto */
+.fn-card h3{margin:0 0 4px}
+.fn-per{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+.fn-steps{display:flex;flex-direction:column;gap:8px}
+.fn-step{display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1fr);gap:10px;align-items:center}
+.fn-step .lb{font-size:13px;font-weight:600;line-height:1.2}
+.fn-step .lb small{display:block;font-weight:500;color:var(--ink-3);font-size:11.5px}
+.fn-bar{position:relative;height:34px;border-radius:8px;background:var(--surface-2)}
+.fn-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:var(--accent);min-width:4px}
+.fn-bar b{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:15px;color:#fff;mix-blend-mode:normal}
+.fn-bar b.out{color:var(--ink)}
+.fn-conv{font-size:12px;color:var(--ink-2);padding-left:min(160px,40%);margin:-2px 0 0}
+.fn-conv.weak{color:#b42318;font-weight:700}
+.fn-tip{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--accent-soft);font-size:13.5px;line-height:1.45}
+@media (max-width:420px){ .fn-step{grid-template-columns:1fr} .fn-conv{padding-left:0} }
+/* scheda a voce */
+.p6-voice{display:flex;flex-direction:column;gap:8px;border:1px dashed var(--accent);border-radius:12px;padding:10px 12px;background:var(--surface)}
+.p6-voice .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.p6-voice .rec{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;border:0;background:var(--accent);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.p6-voice .rec.on{background:#d92d20}
+.p6-voice .rec.on::before{content:"";width:10px;height:10px;border-radius:5px;background:#fff;animation:p6blink 1s infinite}
+@keyframes p6blink{50%{opacity:.25}}
+.p6-voice textarea{min-height:70px}
+.p6-voice .hint{font-size:12px;color:var(--ink-3)}
+.p6-voice .apply{min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);font:inherit;font-weight:700;cursor:pointer}
+.p6-voice .apply:disabled{opacity:.5;cursor:default}
+.p6-cmp{margin-top:10px;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.p6-cmp b{color:var(--ink)}
+
 /* ===================== DESIGN CRUSCOTTO ===================== */
 :root{
   --bg:#eef1f6; --surface:#ffffff; --surface-2:#f5f7fb; --line:#d9dfe9; --line-2:#e6eaf1;
@@ -2197,6 +2247,7 @@ body{font-family:var(--body)}
       <div class="ob-days" id="ob-days"></div>
       <div class="x-bar ob-monthbar"><i id="ob-monthbar"></i></div>
     </div>
+    <div id="fn-card"></div>
     <div id="od-card"></div>
     <div id="ob-login"></div>
     <div class="ob-grid" id="ob-grid"></div>
@@ -2286,6 +2337,9 @@ body{font-family:var(--body)}
             <label class="x-f"><span>Nome del proprietario</span><input class="inp" id="vs-rep-own" placeholder="Es. Sig. Rossi"></label>
             <label class="x-f"><span>Telefono del proprietario</span><input class="inp" id="vs-rep-tel" type="tel" inputmode="tel" placeholder="Per inviarlo su WhatsApp"></label>
             <label class="x-f"><span>Indirizzo immobile</span><input class="inp" id="vs-rep-addr" placeholder="Es. Via Roma 5, Stezzano"></label>
+            <label class="x-f"><span>Prezzo richiesto</span><div class="x-unit"><input class="inp" id="vs-rep-prezzo" inputmode="numeric" placeholder="Es. 245.000"><small>€</small></div></label>
+            <label class="x-f"><span>Superficie</span><div class="x-unit"><input class="inp" id="vs-rep-mq" inputmode="numeric" placeholder="Es. 95"><small>m²</small></div></label>
+            <label class="x-f"><span>Richieste ricevute</span><input class="inp" id="vs-rep-ric" inputmode="numeric" placeholder="automatico dalle email"></label>
           </div>
           <div class="vs-stats" id="vs-rep-stats"></div>
         </div>
@@ -6650,7 +6704,7 @@ $("view-acq").addEventListener("keydown", e => { if (e.key === "Enter" && e.targ
 let xInstallEvt = null;
 if ("serviceWorker" in navigator && location.protocol === "https:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 /* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica da sola */
-const APP_VER = "v1-202610141908";
+const APP_VER = "v1-202610142023";
 async function uxCheckUpdate(){
   try {
     const r = await fetch("sw.js?t=" + Date.now(), { cache: "no-store" }); if (!r.ok) return;
@@ -11558,6 +11612,309 @@ czNavIcons();
 try { const nv = $("ux-nav"); if (nv) new MutationObserver(czNavIcons).observe(nv, { childList: true, subtree: true }); } catch {}
 setInterval(() => { const v = $("view-home"); if (v && !v.hidden) czClock(); }, 20000);
 try { document.querySelector('meta[name="theme-color"]').setAttribute("content", "#121826"); } catch {}
+
+
+/* ===================== NOVITÀ (6) ===================== */
+const P6_IC = { nav: "M3 11l18-8-8 18-2-8z", tel: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z", wa: "M4 20l1.3-3.9A8 8 0 1 1 8 19z" };
+const p6Svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${P6_IC[k]}"/></svg>`;
+const p6Day = t => { const d = new Date(t); d.setHours(0, 0, 0, 0); return d.getTime(); };
+
+/* ---------- 1. prossimo appuntamento ---------- */
+const P6_KIND = { visita: "Visita", valutazione: "Valutazione", interesse: "Visita", notizia: "Notizia", altro: "Appuntamento" };
+/* eventi dei prossimi giorni letti direttamente dal calendario (ogni 5 minuti al massimo) */
+let p6Ev = null, p6EvAt = 0, p6EvBusy = false, p6EvErr = false;
+async function p6LoadEv(force){
+  if (p6EvBusy || !xLogged() || (!force && p6Ev && Date.now() - p6EvAt < 5 * 60000)) return;
+  p6EvBusy = true;
+  try { const items = await xCalList(Date.now() - 3 * 3600e3, Date.now() + 8 * 864e5); p6Ev = (items || []).map(parseEvent); p6EvAt = Date.now(); p6EvErr = false; }
+  catch (e) { if (!p6Ev) p6Ev = []; p6EvErr = true; p6EvAt = Date.now() - 4 * 60000; }
+  p6EvBusy = false;
+  const v = $("view-home"); if (v && !v.hidden) p6NextRender();
+}
+function p6NextAppt(){
+  const now = Date.now(), seen = new Set(), all = [];
+  for (const a of [].concat(p6Ev || [], typeof appts !== "undefined" ? appts : [], typeof overview !== "undefined" ? overview : [])) {
+    if (!a || !a.startISO || a.isAllDay || seen.has(a.id)) continue; seen.add(a.id);
+    if (/\[reminder\]/i.test(a.rawSummary || "") || a.source === "email") continue;
+    /* solo valutazioni e appuntamenti (visite): mai le notizie */
+    if (a.kind === "notizia" || /notizi/i.test(a.rawSummary || "") || /\/rumors\//i.test(a.boLink || "")) continue;
+    if (!["valutazione", "visita", "interesse"].includes(a.kind) && !/\[val\]|valutazion|appuntament|\[dv[-\s]?\d/i.test(a.rawSummary || "")) continue;
+    const s = new Date(a.startISO).getTime(); if (isNaN(s)) continue;
+    const e = a.endISO ? new Date(a.endISO).getTime() : s + 60 * 60000;
+    if (e <= now || s > now + 8 * 864e5) continue;
+    if (typeof relevant === "function" && !relevant(a)) continue;
+    all.push(Object.assign({}, a, { s, e }));
+  }
+  all.sort((x, y) => x.s - y.s);
+  return all[0] || null;
+}
+function p6Countdown(s){
+  const m = Math.round((s - Date.now()) / 60000);
+  if (m <= 0) return m > -5 ? "adesso" : `iniziato da ${-m} min`;
+  if (m < 60) return `tra ${m} min`;
+  const d0 = p6Day(Date.now()), d1 = p6Day(s), days = Math.round((d1 - d0) / 864e5), hm = new Date(s).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+  if (days === 0 || m < 360) { const h = Math.floor(m / 60), r = m % 60; return `tra ${h} h${r ? " " + r + " min" : ""}`; }
+  if (days === 1) return `domani ${hm}`;
+  return new Date(s).toLocaleDateString("it-IT", { weekday: "short", day: "numeric" }) + " " + hm;
+}
+function p6NavUrl(loc){ try { if (typeof gsNav === "function") return gsNav(loc); } catch {} return "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(loc); }
+function p6NextHtml(){
+  if (!APPS.includes("messaggi") && !APPS.includes("giro")) return "";
+  const a = p6NextAppt();
+  if (!a) {
+    if (!xLogged()) return `<section class="cz-card p6-next empty" id="p6-next"><span>Accedi con Google per vedere qui il prossimo appuntamento.</span><button type="button" data-rz-login>Accedi</button></section>`;
+    if (p6Ev === null) return `<section class="cz-card p6-next empty" id="p6-next"><span>Leggo il calendario…</span></section>`;
+    if (p6EvErr) return `<section class="cz-card p6-next empty" id="p6-next"><span>Non riesco a leggere il calendario adesso.</span><button type="button" data-p6-retry>Riprova</button></section>`;
+    return `<section class="cz-card p6-next empty" id="p6-next"><span>Nessun appuntamento nei prossimi giorni.</span>${APPS.includes("agenda") ? `<button type="button" data-home-go="agenda">Agenda</button>` : ""}</section>`;
+  }
+  const soon = a.s - Date.now() < 30 * 60000, hm = new Date(a.s).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+  const who = [a.clientName && a.clientName !== "Cliente" ? a.clientName : (a.rawSummary || "Appuntamento").replace(/^\s*[🔴🟢✅]\s*/u, ""), a.dvCode].filter(Boolean).join(" · ");
+  const sig = (typeof crm !== "undefined" && crm.signature) || (typeof DEFAULT_SIG !== "undefined" ? DEFAULT_SIG : "");
+  const arr = `Buongiorno${a.clientName && a.clientName !== "Cliente" ? " " + firstName(a.clientName) : ""}, sono ${sig}: sto arrivando per l'appuntamento delle ${hm}${a.location ? " in " + a.location.split(",")[0] : ""}. A tra poco!`;
+  const nav = a.location ? `<a href="${esc(p6NavUrl(a.location))}" target="_blank" rel="noopener" class="pri">${p6Svg("nav")}Naviga</a>` : `<a aria-disabled="true" class="pri">${p6Svg("nav")}Naviga</a>`;
+  const tel = a.phone ? `<a href="${esc(xTel(a.phone))}">${p6Svg("tel")}Chiama</a>` : `<a aria-disabled="true">${p6Svg("tel")}Chiama</a>`;
+  const wa = a.phone ? `<a href="${esc(xWa(a.phone, arr))}" target="_blank" rel="noopener" data-p6-arr>${p6Svg("wa")}Sto arrivando</a>` : `<a aria-disabled="true">${p6Svg("wa")}Sto arrivando</a>`;
+  return `<section class="cz-card p6-next" id="p6-next" aria-label="Prossimo appuntamento"><div class="hd"><span class="tag">${esc(P6_KIND[a.kind] || "Appuntamento")} · ${hm}</span><span class="cd${soon ? " soon" : ""}" id="p6-cd" data-s="${a.s}">${esc(p6Countdown(a.s))}</span></div>
+    <div class="who">${esc(who)}</div>${a.location ? `<div class="where">${esc(a.location)}</div>` : `<div class="where">Indirizzo non indicato nell'evento</div>`}
+    <div class="acts">${nav}${tel}${wa}</div></section>`;
+}
+function p6NextRender(){
+  const V = $("view-home"); if (!V) return; p6LoadEv(); const main = V.querySelector(".hm-main"); if (!main) return;
+  const old = $("p6-next"), html = p6NextHtml();
+  if (!html) { if (old) old.remove(); return; }
+  if (old) old.outerHTML = html; else { const ban = $("rz-lim-ban"); if (ban) ban.insertAdjacentHTML("afterend", html); else main.insertAdjacentHTML("afterbegin", html); }
+}
+function p6Tick(){ const v = $("view-home"); if (!v || v.hidden) return; const cd = $("p6-cd"); if (cd) { const s = +cd.dataset.s; if (Date.now() > s + 2 * 3600e3) return p6NextRender(); cd.textContent = p6Countdown(s); cd.classList.toggle("soon", s - Date.now() < 30 * 60000); } else p6NextRender(); }
+setInterval(p6Tick, 20000);
+document.addEventListener("click", e => { if (e.target.closest("[data-p6-retry]")) { p6EvAt = 0; p6LoadEv(true); toast("Rileggo il calendario…"); } });
+
+/* ---------- 3. andamento degli ultimi 7 giorni ---------- */
+function p6Days7(times){ const d0 = p6Day(Date.now()), out = new Array(7).fill(0); for (const t of times) { const k = Math.round((d0 - p6Day(t)) / 864e5); if (k >= 0 && k < 7) out[6 - k]++; } return out; }
+function p6Activity(){
+  const msg = [], cli = [], nt = [];
+  try { for (const l of crm.log || []) { const t = new Date(l.at).getTime(); if (!isNaN(t)) msg.push(t); } } catch {}
+  try { for (const c of clients.all()) for (const l of c.log || []) { if (!l || !l.at) continue; if (l.t === "nota" && /^Creato/i.test(l.txt || "")) continue; cli.push(+l.at || new Date(l.at).getTime()); } } catch {}
+  try { for (const r of ntColl.all()) for (const l of r.log || []) if (l && l.at) nt.push(+l.at || new Date(l.at).getTime()); } catch {}
+  return { messaggi: p6Days7(msg), clienti: p6Days7(cli), notizie: p6Days7(nt) };
+}
+const P6_SPW = { messaggi: ["inviati", "inviato"], clienti: ["contatti", "contatto"], notizie: ["chiamate", "chiamata"] };
+function p6Spark(arr){ const mx = Math.max(1, ...arr), W = 56, H = 18, bw = 6, gap = (W - 7 * bw) / 6;
+  return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">${arr.map((v, i) => { const h = v ? Math.max(3, Math.round(v / mx * H)) : 2; return `<rect x="${(i * (bw + gap)).toFixed(1)}" y="${H - h}" width="${bw}" height="${h}" rx="1.5" fill="${i === 6 ? "#7d9bff" : v ? "#5b6b8c" : "#2c3446"}"/>`; }).join("")}</svg>`; }
+function p6Sparks(){
+  const kp = $("cz-kpi"); if (!kp) return; const A = p6Activity();
+  kp.querySelectorAll("button[data-home-go]").forEach(b => {
+    const k = b.dataset.homeGo, arr = A[k]; if (!arr) return; const tot = arr.reduce((s, x) => s + x, 0), w = P6_SPW[k];
+    let sp = b.querySelector(".p6-sp"); if (!sp) { b.insertAdjacentHTML("beforeend", `<span class="p6-sp"></span>`); sp = b.querySelector(".p6-sp"); }
+    sp.innerHTML = p6Spark(arr) + `<em>${tot} ${tot === 1 ? w[1] : w[0]} in 7 gg</em>`;
+    b.setAttribute("aria-label", (b.getAttribute("aria-label") || "") .replace(/ · .*$/, "") + ` · ${tot} ${tot === 1 ? w[1] : w[0]} negli ultimi 7 giorni, oggi ${arr[6]}`);
+  });
+}
+if (typeof czDecorate === "function") { const _p6cz = czDecorate; czDecorate = function(){ _p6cz.apply(this, arguments); try { p6NextRender(); } catch (e) { console.warn("p6 next", e); } try { p6Sparks(); } catch (e) { console.warn("p6 spark", e); } }; }
+
+/* ---------- 4. imbuto delle vendite ---------- */
+let p6FnPer = "mese";
+function p6FnRange(){
+  if (p6FnPer === "mese") return obRange(typeof obOff !== "undefined" ? obOff : 0);
+  const e = Date.now(), s = new Date(); s.setHours(0, 0, 0, 0); s.setMonth(s.getMonth() - (p6FnPer === "3m" ? 3 : 12)); return [s.getTime(), e + 1];
+}
+function p6FnData(){
+  const [s, e] = p6FnRange(), inR = t => t >= s && t < e;
+  const cls = clients.all(), nts = ntColl.all();
+  const stIn = v => new Set(cls.filter(c => (c.log || []).some(l => l.t === "stato" && l.v === v && inR(+l.at))).map(c => c.id));
+  const notizie = nts.filter(r => inR(+r.created || 0)).length;
+  const valCl = stIn("valutazione"), valNt = nts.filter(r => (r.log || []).some(l => /^appuntamento/i.test(l.esito || "") && inR(+l.at))).length;
+  let val = valCl.size + valNt;
+  try { if (p6FnPer === "mese") { const c = obCal[String(s)]; if (c && c.valut != null) val = Math.max(val, c.valut); } } catch {}
+  const inc = stIn("incarico").size, ven = stIn("chiuso").size;
+  return { s, e, steps: [["Notizie", "nuove nel periodo", notizie], ["Valutazioni", "appuntamenti fissati", val], ["Incarichi", "firmati", inc], ["Vendite", "chiuse", ven]] };
+}
+const P6_FN_TIPS = [
+  "Si perdono più contatti tra la notizia e la valutazione: lavora sulla chiamata (cosa dici nei primi 20 secondi) e richiama chi non risponde in orari diversi.",
+  "Si perdono più contatti tra la valutazione e l'incarico: di solito il nodo è il prezzo o la presentazione. Porta l'analisi di mercato con i prezzi di zona e fissa subito il secondo incontro.",
+  "Si perdono più contatti tra l'incarico e la vendita: controlla prezzo, foto e annuncio, e usa il report visite per proporre un adeguamento ai proprietari."
+];
+function p6FnRender(){
+  const box = $("fn-card"); if (!box) return;
+  const D = p6FnData(), max = Math.max(1, ...D.steps.map(x => x[2]));
+  const lbl = p6FnPer === "mese" ? new Date(D.s).toLocaleDateString("it-IT", { month: "long", year: "numeric" }) : p6FnPer === "3m" ? "ultimi 3 mesi" : "ultimi 12 mesi";
+  let weak = -1, worst = 2;
+  for (let i = 1; i < D.steps.length; i++) { const a = D.steps[i - 1][2], b = D.steps[i][2]; if (a >= 3) { const c = b / a; if (c < worst) { worst = c; weak = i; } } }
+  let html = "";
+  D.steps.forEach(([l, sub, n], i) => {
+    if (i) { const a = D.steps[i - 1][2]; html += `<div class="fn-conv${i === weak ? " weak" : ""}">${a ? `↓ ${Math.round(n / a * 100)}% passa al gradino dopo` : "↓ —"}</div>`; }
+    const w = Math.round(n / max * 100);
+    html += `<div class="fn-step"><div class="lb">${esc(l)}<small>${esc(sub)}</small></div><div class="fn-bar" role="img" aria-label="${esc(l)}: ${n}"><i style="width:${w}%"></i><b class="${w < 18 ? "out" : ""}" style="${w < 18 ? `left:calc(${w}% + 8px)` : ""}">${n}</b></div></div>`;
+  });
+  const empty = D.steps.every(x => !x[2]);
+  box.innerHTML = `<section class="x-card fn-card"><h3>🔻 Imbuto delle vendite · ${esc(lbl)}</h3>
+    <div class="fn-per" role="group" aria-label="Periodo dell'imbuto">${[["mese", "Mese mostrato"], ["3m", "3 mesi"], ["12m", "12 mesi"]].map(([v, l]) => `<button type="button" class="x-pill" data-fn-per="${v}" aria-pressed="${p6FnPer === v}">${l}</button>`).join("")}</div>
+    <div class="fn-steps">${html}</div>
+    ${empty ? `<div class="fn-tip">L'imbuto si riempie da solo: le <b>notizie</b> dalla sessione chiamate, le <b>valutazioni</b> dagli appuntamenti fissati e dallo stato dei clienti, <b>incarichi</b> e <b>vendite</b> quando cambi lo stato del cliente.</div>` : weak > 0 ? `<div class="fn-tip">${P6_FN_TIPS[weak - 1]}</div>` : `<div class="fn-tip">Servono almeno 3 contatti a un gradino per capire dove si perdono: continua a segnare gli esiti.</div>`}
+  </section>`;
+}
+if (typeof obRender === "function") { const _p6ob = obRender; obRender = function(){ const r = _p6ob.apply(this, arguments); try { p6FnRender(); } catch (e) { console.warn("imbuto", e); } return r; }; XVIEWS.obiettivi = () => obRender(false); }
+document.addEventListener("click", e => { const b = e.target.closest("[data-fn-per]"); if (!b) return; p6FnPer = b.dataset.fnPer; p6FnRender(); });
+
+/* ---------- 5. scheda visita a voce ---------- */
+const p6N = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[’`]/g, "'");
+const P6_PIACE = [["Posizione", /posizion|zona (bella|comoda|tranquilla|ottima)|vicin[oa] (ai|al|alla) (servizi|centro|scuol)/], ["Luminosità", /lumin|\bluce\b|soleggiat/], ["Spazi", /spazios|ampi[oa]?\b|spazi|grande|metratura/], ["Disposizione", /disposizion|distribuzion|divisione degli spazi/], ["Finiture", /finitur|ristrutturat|pavimenti|nuov[oa]\b|cucina nuova|bagno nuovo/], ["Esterni", /giardin|terrazz|balcon|esterni|cortile/], ["Box / posto auto", /\bbox\b|garage|posto auto/], ["Silenzio", /silenzios|tranquill|silenzio/], ["Prezzo", /prezzo (giusto|buono|onesto|interessante)|conveniente|buon prezzo/]];
+const P6_NON = [["Prezzo alto", /prezzo|car[ao]\b|costa troppo|costosa|fuori budget/], ["Piano", /\bpiano\b|scale/], ["Spazi piccoli", /piccol|strett|poco spazio|spazi|metratura/], ["Da ristrutturare", /ristruttur|da sistemare|vecchi[oa]|lavori|datat/], ["Rumore", /rumor|traffico|silenzio|tranquill/], ["Zona", /\bzona\b|quartiere|posizione/], ["Spese alte", /spese|condomini/], ["Esposizione", /espost|esposizion|buia|lumin|\bluce\b|a nord/], ["Manca il box", /\bbox\b|garage|posto auto/], ["Manca l'ascensore", /ascensore/]];
+const P6_NEG = /\b(non|poco|poca|troppo|troppa|manca|mancano|senza|niente|nessun[oa]?|scars[oa]|brutt[oa]|piccol|rumor|buia|car[oa]\b|costa troppo|vecchi|da ristrutturare|da sistemare|alte?\b|lontan)/;
+function p6Money(t){
+  const n = p6N(t);
+  let m = n.match(/(\d{2,3}(?:[.,]\d{3})+|\d+(?:[.,]\d+)?)\s*(mila|mila euro|k\b|mln|milioni)?/g); if (!m) return "";
+  for (const x of m) { const mm = x.match(/(\d{2,3}(?:[.,]\d{3})+|\d+(?:[.,]\d+)?)\s*(mila|k|mln|milioni)?/); let v = rzNum(mm[1]); if (v == null) continue; if (/mila|k/.test(mm[2] || "")) v *= 1000; if (/mln|milioni/.test(mm[2] || "")) v *= 1e6; if (v >= 20000) return Math.round(v).toLocaleString("it-IT"); }
+  return "";
+}
+function p6ParseVisit(text){
+  const t = p6N(text), out = { esito: "", piace: [], non: [], prezzo: "", offerta: "", passo: "" };
+  if (!t.trim()) return out;
+  /* esito */
+  if (/non (e|sono|era) (per niente |affatto )?interessat|non (gli|le|ci|li)? ?(e|sono) piaciut|non (gli|le)? ?piace|scartat|non fa per (lui|lei|loro)|bocciat|non interessat/.test(t)) out.esito = "no";
+  else if (/molto interessat|piaciut[oa] (tantissimo|molto)|innamorat|bellissim|piace (molto|tanto|tantissimo)|entusiast|la (vuole|prende)|vuole fare (una |un'? ?)?(proposta|offerta)|farebbe (una |un'? ?)?(proposta|offerta)|fara (una |un'? ?)?(proposta|offerta)/.test(t)) out.esito = "molto";
+  else if (/tiepid|ci (deve )?pens|(ci )?vuole pensar|cosi cosi|indecis|non (e|sono) convint|dubbi|vediamo/.test(t)) out.esito = "forse";
+  else if (/interessat|piaciut|\bpiace\b|carina|bella/.test(t)) out.esito = "si";
+  /* cosa è piaciuto / non piaciuto, frase per frase */
+  const clauses = t.split(/[.;!?\n]+|,|\bma\b|\bpero\b|\binvece\b|\banche se\b/).map(x => x.trim()).filter(Boolean);
+  for (const c of clauses) {
+    const neg = P6_NEG.test(c) && !/non (e|era) (troppo )?(car[oa]|rumoros|buia|piccol|vecchi)/.test(c) && !/non manca/.test(c);
+    const list = neg ? P6_NON : P6_PIACE, tgt = neg ? out.non : out.piace;
+    for (const [lab, re] of list) if (re.test(c) && !tgt.includes(lab)) tgt.push(lab);
+  }
+  /* prezzo */
+  if (/offert|proposta/.test(t) && p6Money(t)) { out.prezzo = "offerta"; out.offerta = p6Money(t); }
+  else if (/farebbe (una |un'? ?)?offerta|vuole fare (una |un'? ?)?offerta|fara (una |un'? ?)?offerta/.test(t)) out.prezzo = "offerta";
+  else if (/prezzo (e |era )?(un po'? |leggermente |abbastanza |decisamente |molto )?(troppo )?alt[oa]|un po'? car|troppo car|costa troppo|fuori budget|car[ao] per|prezzo eccessiv|chiede troppo/.test(t)) out.prezzo = "alto";
+  else if (/prezzo (e |era )?(giusto|onesto|in linea|ok|corretto|buono)|il prezzo va bene|prezzo adeguato/.test(t)) out.prezzo = "giusto";
+  if (out.prezzo === "alto" && !out.non.includes("Prezzo alto")) out.non.push("Prezzo alto");
+  if (out.prezzo === "alto") out.piace = out.piace.filter(x => x !== "Prezzo");
+  /* prossimo passo */
+  if (/seconda visita|rivederl|riveder|tornare a veder|vuole tornare|ritornare/.test(t)) out.passo = "Seconda visita";
+  else if (/fara (una |un'? ?)?(proposta|offerta)|vuole fare (una |un'? ?)?(proposta|offerta)|fa (una |un'? ?)?proposta|prepar(a|iamo) la proposta/.test(t)) out.passo = "Farà una proposta";
+  else if (/ci (deve )?pens|(ci )?vuole pensar|ne parl|deve sentire|si sente con/.test(t)) out.passo = "Ci pensa";
+  else if (/cerca altro|vuole vedere altro|non fa per|scartat|guarda altro/.test(t)) out.passo = "Cerca altro";
+  return out;
+}
+window.p6ParseVisit = p6ParseVisit;
+let p6Rec = null, p6RecId = null; const p6Txt = {};
+const p6SR = () => window.SpeechRecognition || window.webkitSpeechRecognition;
+function p6VoiceHtml(id){
+  const sr = !!p6SR();
+  return `<div class="p6-voice" data-p6-voice="${esc(id)}">
+    <div class="row">${sr ? `<button type="button" class="rec${p6RecId === id ? " on" : ""}" data-p6-rec>${p6RecId === id ? "Sto ascoltando… tocca per finire" : "🎙️ Detta la scheda"}</button>` : ""}<span class="hint">${sr ? "Racconta com'è andata: cosa è piaciuto, cosa no, il prezzo e il prossimo passo." : "Tocca il riquadro e usa il microfono della tastiera per dettare, oppure scrivi."}</span></div>
+    <textarea class="inp" data-p6-txt rows="3" placeholder="Es. Molto interessati, piaciuta la luminosità e il giardino, il piano terzo senza ascensore non convince, prezzo un po' alto, vogliono rivederla sabato con i genitori">${esc(p6Txt[id] || "")}</textarea>
+    <div class="row"><button type="button" class="apply" data-p6-apply>✓ Compila la scheda</button><span class="hint" data-p6-st></span></div>
+  </div>`;
+}
+function p6StopRec(){ try { p6Rec && p6Rec.stop(); } catch {} }
+function p6StartRec(box){
+  const SR = p6SR(); if (!SR) return;
+  if (p6Rec) { p6StopRec(); return; }
+  const id = box.dataset.p6Voice, q = sel => { const b = document.querySelector(`[data-p6-voice="${CSS.escape(id)}"]`); return b ? b.querySelector(sel) : null; };
+  const ta = box.querySelector("[data-p6-txt]"), btn = box.querySelector("[data-p6-rec]"), st = box.querySelector("[data-p6-st]");
+  const base = ta.value ? ta.value.replace(/\s*$/, " ") : "";
+  let finalTxt = "";
+  try {
+    const r = new SR(); r.lang = "it-IT"; r.continuous = true; r.interimResults = true;
+    r.onresult = ev => { let interim = ""; for (let i = ev.resultIndex; i < ev.results.length; i++) { const x = ev.results[i]; if (x.isFinal) finalTxt += x[0].transcript + " "; else interim += x[0].transcript; } p6Txt[id] = (base + finalTxt + interim).replace(/\s+/g, " ").trimStart(); const t2 = q("[data-p6-txt]"); if (t2) t2.value = p6Txt[id]; };
+    r.onerror = ev => { const st = q("[data-p6-st]") || { }; st.textContent = ev.error === "not-allowed" || ev.error === "service-not-allowed" ? "Microfono non consentito: attivalo nelle impostazioni del browser, oppure scrivi qui sopra." : ev.error === "no-speech" ? "Non ho sentito nulla: riprova." : "Dettatura interrotta (" + ev.error + "): puoi scrivere qui sopra."; };
+    r.onend = () => { p6Rec = null; p6RecId = null; const b2 = q("[data-p6-rec]"), s2 = q("[data-p6-st]"); if (b2) { b2.classList.remove("on"); b2.textContent = "🎙️ Detta la scheda"; } if ((p6Txt[id] || "").trim() && s2 && !s2.textContent) s2.textContent = "Controlla il testo e premi “Compila la scheda”."; };
+    r.start(); p6Rec = r; p6RecId = box.dataset.p6Voice; btn.classList.add("on"); btn.textContent = "Sto ascoltando… tocca per finire"; st.textContent = "";
+  } catch (err) { st.textContent = "Dettatura non disponibile: scrivi qui sopra."; p6Rec = null; }
+}
+function p6ApplyVoice(box){
+  const id = box.dataset.p6Voice, txt = box.querySelector("[data-p6-txt]").value.trim(), st = box.querySelector("[data-p6-st]");
+  if (!txt) { st.textContent = "Detta o scrivi prima com'è andata."; return; }
+  p6StopRec();
+  const P = p6ParseVisit(txt), sc = vsSc(id);
+  if (P.esito) sc.esito = P.esito;
+  sc.piace = [...new Set([...(sc.piace || []), ...P.piace])]; sc.non = [...new Set([...(sc.non || []), ...P.non])];
+  if (P.prezzo) sc.prezzo = P.prezzo; if (P.offerta) sc.offerta = P.offerta; if (P.passo) sc.passo = P.passo; delete p6Txt[id];
+  const cur = String(sc.note || "").trim(); if (!cur.includes(txt)) sc.note = cur ? cur + "\n" + txt : txt;
+  vsDoc.save(); vsRenderList();
+  const n = (P.esito ? 1 : 0) + P.piace.length + P.non.length + (P.prezzo ? 1 : 0) + (P.passo ? 1 : 0);
+  toast(n ? `Scheda compilata (${n} ${n === 1 ? "voce" : "voci"}): controlla e premi “Fatto”` : "Non ho riconosciuto voci precise: il testo è nelle note");
+  setTimeout(() => { const f = document.querySelector(`.vs-form[data-vs-id="${CSS.escape(id)}"]`); if (f) f.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+}
+if (typeof vsForm === "function") { const _p6vf = vsForm; vsForm = function(it){ const h = _p6vf.apply(this, arguments); return h.replace(/(<div class="vs-form"[^>]*>)/, "$1" + p6VoiceHtml(it.id)); }; }
+document.addEventListener("click", e => {
+  const box = e.target.closest("[data-p6-voice]"); if (!box) return;
+  if (e.target.closest("[data-p6-rec]")) { e.stopPropagation(); p6StartRec(box); return; }
+  if (e.target.closest("[data-p6-apply]")) { e.stopPropagation(); p6ApplyVoice(box); return; }
+}, true);
+document.addEventListener("visibilitychange", () => { if (document.hidden) p6StopRec(); });
+document.addEventListener("input", e => { const ta = e.target.closest && e.target.closest("[data-p6-txt]"); if (!ta) return; const b = ta.closest("[data-p6-voice]"); if (b) p6Txt[b.dataset.p6Voice] = ta.value; });
+
+/* ---------- 6. report mensile al proprietario ---------- */
+function p6RepExtra(D){
+  const I = vsDoc.data.imm[vsRepSel] || {}, since = D.per ? Date.now() - D.per * 864e5 : 0;
+  let auto = 0; try { auto = (typeof leads !== "undefined" ? leads : []).filter(l => l.dvCode && l.dvCode === vsRepSel && (!since || new Date(l.startISO || 0).getTime() >= since)).length; } catch {}
+  const man = String(I.ric || "").trim(), ric = man !== "" && rzNum(man) != null ? rzNum(man) : auto;
+  const prezzo = xMoney(I.prezzo), mq = rzNum(I.mq) || 0, addr = I.addr || (D.its[0] && D.its[0].loc) || "";
+  const comune = addr ? pqFindComune(addr) : "", zona = comune && PQ_PREZZI[comune] ? PQ_PREZZI[comune][1] : 0;
+  const eurmq = prezzo && mq ? Math.round(prezzo / mq) : 0, diff = eurmq && zona ? Math.round((eurmq / zona - 1) * 100) : null;
+  return { ric, ricAuto: man === "", prezzo, mq, comune, zona, eurmq, diff };
+}
+if (typeof vsRepText === "function") {
+  const _p6rt = vsRepText;
+  vsRepText = function(D){
+    const txt = _p6rt.apply(this, arguments), X = p6RepExtra(D), L = txt.split("\n");
+    let i = L.findIndex((l, k) => k > 2 && l === ""); if (i < 0) i = L.length;
+    const add = [];
+    if (X.ric) add.push(`• Richieste di informazioni ricevute: ${X.ric}`);
+    if (X.eurmq && X.zona) add.push(`• Prezzo al m²: ${X.eurmq.toLocaleString("it-IT")} € contro una media di zona a ${X.comune} di ${X.zona.toLocaleString("it-IT")} € (${X.diff > 0 ? "+" : ""}${X.diff}%)`);
+    L.splice(i, 0, ...add);
+    if (X.diff != null) { const j = L.findIndex((l, k) => k > i + add.length && l.trim() && !l.startsWith("•")); const note = X.diff >= 10 ? `Rispetto ai prezzi medi della zona l'immobile è proposto a +${X.diff}%: un dato da valutare insieme ai riscontri delle visite.` : X.diff <= -3 ? "Il prezzo è in linea o sotto la media della zona: un buon argomento con chi è indeciso." : ""; if (note && j > 0) L.splice(j + 1, 0, note); }
+    return L.join("\n");
+  };
+}
+if (typeof vsRepUpdate === "function") {
+  const _p6ru = vsRepUpdate;
+  vsRepUpdate = function(){
+    const r = _p6ru.apply(this, arguments);
+    try { const D = vsRepData(), X = p6RepExtra(D), st = $("vs-rep-stats");
+      if (st) { st.insertAdjacentHTML("beforeend", `<div><b>${X.ric}</b><span>richieste${X.ricAuto ? "" : " (a mano)"}</span></div>` + (X.eurmq ? `<div><b>${X.eurmq.toLocaleString("it-IT")} €</b><span>al m²${X.zona ? ` · zona ${X.zona.toLocaleString("it-IT")} €` : ""}</span></div>` : "")); }
+      const I = vsDoc.data.imm[vsRepSel] || {}; for (const [id, k] of [["vs-rep-prezzo", "prezzo"], ["vs-rep-mq", "mq"], ["vs-rep-ric", "ric"]]) { const el = $(id); if (el && document.activeElement !== el) el.value = I[k] || ""; }
+    } catch (e) { console.warn("report extra", e); }
+    return r;
+  };
+}
+document.addEventListener("input", e => {
+  const k = { "vs-rep-prezzo": "prezzo", "vs-rep-mq": "mq", "vs-rep-ric": "ric" }[e.target.id]; if (!k || !vsRepSel) return;
+  const I = vsDoc.data.imm[vsRepSel] || (vsDoc.data.imm[vsRepSel] = {}); I[k] = e.target.value; clearTimeout(window.__p6rT); window.__p6rT = setTimeout(() => vsDoc.save(), 500); vsRepUpdate(false);
+});
+if (typeof vsRepPdf === "function") {
+  vsRepPdf = async function(){
+    try {
+      const jsPDF = await pdfLoad(), doc = new jsPDF({ unit: "mm", format: "a4" }), M = 16, W = 210, D = vsRepData(), X = p6RepExtra(D), I = vsDoc.data.imm[vsRepSel] || {};
+      const per = D.per ? `ultimi ${D.per} giorni` : "tutte le visite", today = new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" });
+      doc.setFillColor(18, 24, 38); doc.rect(0, 0, W, 30, "F"); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(18); doc.text("Report dell'immobile", M, 13);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(10.5); doc.text(pdfTxt([vsRepSel && vsRepSel !== "Senza codice" ? vsRepSel : "", I.addr || "", per, today].filter(Boolean).join("  ·  ")), M, 21, { maxWidth: W - 2 * M });
+      let y = 40; const boxes = [[D.n, "visite"], [(D.es.molto || 0) + (D.es.si || 0), "interessati"], [X.ric, "richieste"], [D.pr.alto + D.pr.offerta, "prezzo alto"]], bw = (W - 2 * M - 9) / 4;
+      boxes.forEach(([n, l], i) => { const x = M + i * (bw + 3); doc.setFillColor(238, 241, 246); doc.roundedRect(x, y, bw, 22, 2.5, 2.5, "F"); doc.setTextColor(36, 73, 201); doc.setFont("helvetica", "bold"); doc.setFontSize(18); doc.text(String(n), x + bw / 2, y + 11, { align: "center" }); doc.setTextColor(70, 80, 102); doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.text(l, x + bw / 2, y + 18, { align: "center" }); });
+      y += 30;
+      if (X.eurmq && X.zona) {
+        doc.setTextColor(18, 24, 38); doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.text(pdfTxt("Prezzo rispetto alla zona"), M, y); y += 6;
+        const mx = Math.max(X.eurmq, X.zona) * 1.1, full = W - 2 * M - 46;
+        [[pdfTxt("Questo immobile"), X.eurmq, [36, 73, 201]], [pdfTxt("Media di " + X.comune), X.zona, [150, 160, 180]]].forEach(([l, v, c]) => { doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(70, 80, 102); doc.text(l, M, y + 4); doc.setFillColor(...c); doc.roundedRect(M + 36, y, Math.max(2, full * v / mx), 6, 1.5, 1.5, "F"); doc.setTextColor(18, 24, 38); doc.text(v.toLocaleString("it-IT") + " EUR/mq", M + 38 + full * v / mx, y + 4.5); y += 9; });
+        doc.setFontSize(9.5); doc.setTextColor(70, 80, 102); doc.text(pdfTxt(`Differenza: ${X.diff > 0 ? "+" : ""}${X.diff}% (prezzi medi di zona indicativi)`), M, y + 2); y += 10;
+      }
+      doc.setDrawColor(217, 223, 233); doc.line(M, y, W - M, y); y += 8;
+      doc.setTextColor(18, 24, 38); doc.setFont("helvetica", "normal"); doc.setFontSize(11);
+      for (const line of $("vs-rep-text").value.split("\n")) { const bullet = /^•/.test(line); const parts = doc.splitTextToSize(pdfTxt(line.replace(/^•\s*/, "- ")) || " ", W - 2 * M); for (const p of parts) { if (y > 282) { doc.addPage(); y = 20; } doc.setFont("helvetica", bullet ? "bold" : "normal"); doc.text(p, M, y); y += 5.8; } }
+      await xDownload(doc.output("blob"), `Report_${(vsRepSel || "immobile").replace(/[^A-Za-z0-9-]+/g, "_")}_${xISO(Date.now())}.pdf`);
+    } catch (err) { toast("PDF non creato: " + ((err && err.message) || err)); }
+  };
+}
+
+/* ---------- 2. scorciatoie: nuova prequalifica dall'icona ---------- */
+function p6NewPq(fromHash){
+  let tries = 0; const t = setInterval(() => { tries++; const v = $("view-preq");
+    if (fromHash && tries === 2 && v && v.hidden) { try { showView("preq"); } catch {} }
+    const b = $("pq-new"); if (b && v && !v.hidden && typeof pqBuilt !== "undefined" && pqBuilt) { clearInterval(t); b.click(); try { history.replaceState(null, "", "#preq"); } catch {} } else if (tries > 40) clearInterval(t); }, 150);
+}
+if ((location.hash || "") === "#nuova-prequalifica") { try { history.replaceState(null, "", "#preq"); } catch {} p6NewPq(false); }
+window.addEventListener("hashchange", e => { if (/#nuova-prequalifica$/.test(e.newURL || location.href)) p6NewPq(true); });
 
 /* ===================== APP MENU (dropdown) ===================== */
 const APPS = RZ_CLOUD ? ["home", "messaggi", "giro", "agenda", "gestionale", "clienti", "visite", "match", "modelli", "notizie", "acq", "zona", "preq", "prezzi", "desc", "social", "foto", "ribasso", "calc", "mandati", "consegna", "conta", "obiettivi", "utilita", "fotoedit"] : ["zona"];
